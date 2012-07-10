@@ -1,3 +1,6 @@
+/**
+codigo de prueba del accelerometro mma7455l 
+*/
 #include "mma7455.h"
   #include <stdio.h>
   #include <stdlib.h>

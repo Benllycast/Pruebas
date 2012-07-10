@@ -29,7 +29,7 @@ void main(){
    // TODO: USER CODE!!
 
    while(true){
-      printf("%s\n","coloque su codigo aqui" );
+      true;
    }
 }
 

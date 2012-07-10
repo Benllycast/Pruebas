@@ -1,8 +1,8 @@
-CCS PCH C Compiler, Version 4.105, 13255               11-May-12 12:28
+CCS PCH C Compiler, Version 4.105, 13255               10-Jul-12 12:00
 
-               Filename: G:\Project\pic\CCS\MMA7455l\Nucleo.lst
+               Filename: g:\project\pic\ccs\mma7455l\Nucleo.lst
 
-               ROM used: 338 bytes (0%)
+               ROM used: 340 bytes (0%)
                          Largest free fragment is 65528
                RAM used: 29 (1%) at main() level
                          29 (1%) worst case
@@ -2860,9 +2860,14 @@ CCS PCH C Compiler, Version 4.105, 13255               11-May-12 12:28
 ....................  
 ....................    //Setup_Oscillator parameter not selected from Intr Oscillator Config tab 
 ....................    // TODO: USER CODE!! 
+....................  
+....................    while(true){ 
+....................       true; 
+....................    } 
+00154:  BRA    0154
 .................... } 
 ....................  
-00154:  SLEEP 
+00156:  SLEEP 
 
 Configuration Fuses:
    Word  1: F7AE   NODEBUG NOXINST STVREN NOWDT NOPROTECT NOCPUDIV PLL1

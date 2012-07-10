@@ -1,6 +1,6 @@
 
-ROM used: 338 (0%)
-          338 (0%) including unused fragments
+ROM used: 340 (0%)
+          340 (0%) including unused fragments
 
           0 Average locations per line
           1 Average locations per statement
@@ -12,40 +12,40 @@ Stack used: 1 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   32    14   4  Nucleo.c
+   36    17   4  Nucleo.c
   508     0   0  I:\Archivos de programa\PICC\devices\18F67J50.h
    19     0   0  Nucleo.h
- 2172   260  66  I:\Archivos de programa\PICC\drivers\math.h
+ 2172   260  65  I:\Archivos de programa\PICC\drivers\math.h
    37     0   0  I:\Archivos de programa\PICC\drivers\stdio.h
-  409   121  31  I:\Archivos de programa\PICC\drivers\string.h
+  409   121  30  I:\Archivos de programa\PICC\drivers\string.h
    28     0   0  I:\Archivos de programa\PICC\drivers\stddef.h
    28     0   0  I:\Archivos de programa\PICC\drivers\ctype.h
 ----- -----
- 3233   395 Total
+ 3237   398 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
 0      6   1   0     5  1.0  SSP_isr
-0    146  22   0   415  2.4  MAIN
+0    148  22   0   455  2.9  MAIN
 
 Program metrics:
     Functions               2
-    Statements              395
+    Statements              398
     Comments                538
-    Volume (V)              439
-    Difficilty (D)          3.3
-    Effort to implement (E) 1459
-    Time to implement (T)   1 minutes
+    Volume (V)              480
+    Difficilty (D)          3.8
+    Effort to implement (E) 1828
+    Time to implement (T)   2 minutes
     Est Delivered Bugs (B)  0
     Cyclomatic Complexity   1
-    Maintainability (MI)    71
+    Maintainability (MI)    70
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
 00004-00006     0  4  
 00008-000BC   182  0  
-000BE-0FFFE   152  65194  
+000BE-0FFFE   154  65192  
 10000-1FFF6     0  65528  
 
 

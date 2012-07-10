@@ -1,3 +1,4 @@
+/*direcciones del accelerometro mma7455*/
 #ifdef testmma
 	#define xoutl 0x00
 	#define xouth 0x01//registros de medida de x a 10bit
@@ -21,7 +22,8 @@
 	#define yoffh 0x13
 	#define zoffl 0x14
 	#define zoffh 0x15
-	#define mctl 0x16	/*selector gravedad (bit[3,2]) 8g = 00, 2g = 01, 4g = 10; selector mode (bit[1,0]) stanby = 00, measurement= 01, level_detect= 10, pulse_detec= 11
+	#define mctl 0x16	/*selector gravedad (bit[3,2]) 8g = 00, 2g = 01, 4g = 10
+							selector mode (bit[1,0]) stanby = 00, measurement= 01, level_detect= 10, pulse_detec= 11
 	                		SPI mode (bit[4]) 4 wire = 0, 3 wire = 1
 	                		data output pin (bit[5]) enable = 1 , disable = 0
 	                	*/

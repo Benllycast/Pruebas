@@ -5,7 +5,7 @@
 
 #INT_SSP
 void  SSP_isr(VOID) {
-	ena    
+	  
 }            
 
 void main(){
@@ -27,5 +27,9 @@ void main(){
 
    //Setup_Oscillator parameter not selected from Intr Oscillator Config tab
    // TODO: USER CODE!!
+
+   while(true){
+      true
+   }
 }
 

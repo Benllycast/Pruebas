@@ -64,7 +64,7 @@ User Memory space:
 User Memory space: 
 
 Project Directory:
-    G:\Project\pic\CCS\MMA7455l\
+    g:\project\pic\ccs\mma7455l\
 
 Project Files:
     Nucleo.c
@@ -77,7 +77,7 @@ Project Files:
     I:\Archivos de programa\PICC\drivers\ctype.h
 
 Units:
-    G:\Project\pic\CCS\MMA7455l\Nucleo (main)
+    g:\project\pic\ccs\mma7455l\Nucleo (main)
 
 Compiler Settings:
     Processor:      PIC18F67J50
@@ -88,7 +88,7 @@ Compiler Settings:
     Float,Double:   32,32
 
 Output Files:
-    Errors:      Nucleo.err
+    Errors:      nucleo.err
     Ext Symbols: Nucleo.esym
     INHX32:      Nucleo.hex
     Symbols:     Nucleo.sym

@@ -1,8 +1,7 @@
-C L "MAIN" 0 14 2 "FUNCTION"
-D G "__PCH__" 0 33 ""4.105""
-D G "__DEVICE__" 0 33 "6750"
-D G "__DATE__" 0 33 ""11-May-12""
-D G "__TIME__" 0 33 ""12:28:59"" "Standard Header file for the PIC18F67J50 device ////////////////"
+D G "__PCH__" 0 37 ""4.105""
+D G "__DEVICE__" 0 37 "6750"
+D G "__DATE__" 0 37 ""10-Jul-12""
+D G "__TIME__" 0 37 ""12:00:39"" "Standard Header file for the PIC18F67J50 device ////////////////"
 d G "PIN_A0" 1 22 "31744"
 d G "PIN_A1" 1 23 "31745"
 d G "PIN_A2" 1 24 "31746"
@@ -612,6 +611,7 @@ F G "SSP_isr" 0 7 "void()"
 F G "MAIN" 0 11 "void()"
 C L "MAIN" 0 14 1 "FUNCTION"
 C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 2 "FUNCTION"
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 1

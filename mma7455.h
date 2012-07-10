@@ -1,3 +1,5 @@
+
+/*header mma7455*/
 #include <16F877A.h>
 #device adc=10
 #fuses NOWDT, HS, NOPUT, NOPROTECT, NODEBUG, NOBROWNOUT, NOLVP, NOCPD, NOWRT
