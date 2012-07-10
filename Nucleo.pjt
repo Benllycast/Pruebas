@@ -1,0 +1,28 @@
+[PROJECT]
+Target=G:\Project\pic\CCS\MMA7455l\Nucleo.hex
+Development_Mode=
+Processor_Text=PIC18F67J50
+ToolSuite=CCS
+Processor=0xB750
+[G:\Project\pic\CCS\MMA7455l\Nucleo]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[mru-list]
+1=G:\Project\pic\CCS\MMA7455l\Nucleo.c
+[Windows]
+0=0000 %S 0 0 796 451 3 0
+[Opened Files]
+1=Nucleo.c
+2=
+3=
+[Target Data]
+OptionString=-p +FH
+FileList=G:\Project\pic\CCS\MMA7455l\Nucleo.c
+[Units]
+Count=1
+1=Nucleo (main)
+2=address.h

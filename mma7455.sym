@@ -1,0 +1,89 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004     @WRITE_PROGRAM_MEMORY8.P2
+008     PSP_DATA
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B     CCP_2
+01C     CCP_2_HIGH
+020-021 strtok.save
+022-025 _Randseed
+026-045 memory
+046     data
+047     instr
+048     address
+049     eje
+04A     @TRIS_C
+04B-04C leerGravedad.value
+04B     write_data.address
+04C     write_data.@SCRATCH1
+04D     leerGravedad.byte_high
+04D     write_data.@SCRATCH2
+04E     leerGravedad.byte_low
+04F-050 @PRINTF_LU_9600_62_63.P1
+051     @PRINTF_LU_9600_62_63.@SCRATCH1
+052     @PRINTF_LU_9600_62_63.@SCRATCH2
+053     @PRINTF_LU_9600_62_63.@SCRATCH3
+054     @PRINTF_LU_9600_62_63.@SCRATCH4
+055     @PRINTF_LU_9600_62_63.@SCRATCH5
+056     @PRINTF_LU_9600_62_63.@SCRATCH6
+057     @PRINTF_LU_9600_62_63.@SCRATCH7
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+09C.6   C1OUT
+09C.7   C2OUT
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+0004  write_data
+0127  MAIN
+0070  leerGravedad
+0017  @PRINTF_LU_9600_62_63
+0127  @cinit
+0136  StrtoulGO
+0136  StrtolGO
+
+
+User Memory space: 
+
+User Memory space: 
+
+Project Directory:
+    G:\Project\pic\CCS\MMA7455l\
+
+Project Files:
+    mma7455.c
+    mma7455.h
+    I:\Archivos de programa\PICC\devices\16F877A.h
+    I:\Archivos de programa\PICC\drivers\stdio.h
+    I:\Archivos de programa\PICC\drivers\string.h
+    I:\Archivos de programa\PICC\drivers\stddef.h
+    I:\Archivos de programa\PICC\drivers\ctype.h
+    I:\Archivos de programa\PICC\drivers\stdlib.h
+
+Units:
+    G:\Project\pic\CCS\MMA7455l\mma7455 (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      mma7455.err
+    Ext Symbols: mma7455.esym
+    INHX8:       mma7455.hex
+    Symbols:     mma7455.sym
+    List:        mma7455.lst
+    Debug/COFF:  mma7455.cof
+    Project:     mma7455.PJT
+    Call Tree:   mma7455.tre
+    Statistics:  mma7455.sta
