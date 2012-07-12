@@ -3,60 +3,31 @@
 001     _RETURN_
 002     @SCRATCH
 003     @SCRATCH
-004     @INTERRUPT_AREA
-005     @INTERRUPT_AREA
-006     @INTERRUPT_AREA
-007     @INTERRUPT_AREA
-008     @INTERRUPT_AREA
-009     @INTERRUPT_AREA
-00A     @INTERRUPT_AREA
-00B     @INTERRUPT_AREA
-00C     @INTERRUPT_AREA
-00D     @INTERRUPT_AREA
-00E     @INTERRUPT_AREA
-00F     @INTERRUPT_AREA
-010     @INTERRUPT_AREA
-011     @INTERRUPT_AREA
-012     @INTERRUPT_AREA
-013     @INTERRUPT_AREA
-014     @INTERRUPT_AREA
-015     @INTERRUPT_AREA
-016     @INTERRUPT_AREA
-017     @INTERRUPT_AREA
-018     @INTERRUPT_AREA
-019     @INTERRUPT_AREA
-01A     @INTERRUPT_AREA
-01B-01C strtok.save
-F71     CCP_5_LOW
-F71     CCP_5
-F72     CCP_5_HIGH
-F74     CCP_4_LOW
-F74     CCP_4
-F75     CCP_4_HIGH
-FA6.0   C1OUT
-FA6.1   C2OUT
-FB2     CCP_3
-FB2     CCP_3_LOW
-FB3     CCP_3_HIGH
-FB7     CCP_2_LOW
-FB7     CCP_2
-FB8     CCP_2_HIGH
-FBC     CCP_1
-FBC     CCP_1_LOW
-FBD     CCP_1_HIGH
-FE1-FE2 @READ_PACKED_MEMORY.P1
-FE1-FE2 @WRITE_PACKED_MEMORY.P2
-FE9-FEA @WRITE_PROGRAM_MEMORY.P1
-FE9-FEA @WRITE_PACKED_MEMORY.P2
-FE9-FEA @READ_PACKED_MEMORY.P3
-FE9-FEA @READ_PROGRAM_MEMORY.P4
+004-005 strtok.save
+006-009 _Randseed
+F83     PSP_DATA
+FB4.6   C1OUT
+FB4.7   C2OUT
+FBB     CCP_2
+FBB     CCP_2_LOW
+FBC     CCP_2_HIGH
+FBE     CCP_1
+FBE     CCP_1_LOW
+FBF     CCP_1_HIGH
+FE1-FE2 @WRITE_PACKED_MEMORY.P1
+FE1-FE2 @READ_PACKED_MEMORY.P2
+FE9-FEA @READ_PROGRAM_MEMORY.P1
+FE9-FEA @READ_PACKED_MEMORY.P2
+FE9-FEA @WRITE_PROGRAM_MEMORY.P3
+FE9-FEA @WRITE_PACKED_MEMORY.P4
 FF6-FF8 @WRITE_PROGRAM_MEMORY.P1
 FF6-FF8 @READ_PROGRAM_MEMORY.P2
 
 ROM Allocation:
-0000BE  SSP_isr
-0000C4  MAIN
-0000C4  @cinit
+0004  MAIN
+0004  @cinit
+0136  StrtoulGO
+0136  StrtolGO
 
 
 User Memory space: 
@@ -64,23 +35,23 @@ User Memory space:
 User Memory space: 
 
 Project Directory:
-    g:\project\pic\ccs\mma7455l\
+    G:\Project\pic\CCS\MMA7455l\
 
 Project Files:
     Nucleo.c
-    I:\Archivos de programa\PICC\devices\18F67J50.h
     Nucleo.h
-    I:\Archivos de programa\PICC\drivers\math.h
+    I:\Archivos de programa\PICC\devices\18F4620.h
     I:\Archivos de programa\PICC\drivers\stdio.h
     I:\Archivos de programa\PICC\drivers\string.h
     I:\Archivos de programa\PICC\drivers\stddef.h
     I:\Archivos de programa\PICC\drivers\ctype.h
+    I:\Archivos de programa\PICC\drivers\stdlib.h
 
 Units:
-    g:\project\pic\ccs\mma7455l\Nucleo (main)
+    G:\Project\pic\CCS\MMA7455l\Nucleo (main)
 
 Compiler Settings:
-    Processor:      PIC18F67J50
+    Processor:      PIC18F4620
     Pointer Size:   16
     ADC Range:      0-255
     Opt Level:      9
@@ -88,7 +59,7 @@ Compiler Settings:
     Float,Double:   32,32
 
 Output Files:
-    Errors:      nucleo.err
+    Errors:      Nucleo.err
     Ext Symbols: Nucleo.esym
     INHX32:      Nucleo.hex
     Symbols:     Nucleo.sym
