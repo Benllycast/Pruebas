@@ -1,3 +1,6 @@
+/**
+codigo de prueba del accelerometro mma7455l 
+*/
 #include "mma7455.h"
   #include <stdio.h>
   #include <stdlib.h>
@@ -47,6 +50,7 @@ RETURNS: None
 */
 void write_data(int8 address){
    while(!spi_data_is_in());
+   
    data = spi_read();
    if(instr >= 0x00 && instr <0x20){
       memory[address] = data;
@@ -73,7 +77,7 @@ void main()
       if(spi_data_is_in()){
          while(!spi_data_is_in()){;};
          instr = spi_read();
-         if( bit_test(instr, 7)){
+         /*if( bit_test(instr, 7)){
             //lectura desde el maestro
             bit_clear(instr, 7);
             if(instr >= 0x00 && instr <0x20){
@@ -86,7 +90,8 @@ void main()
             //escritura desde el maestro
             bit_clear(instr, 7);
             write_data(instr);
-         }                  
+         }*/
+         printf("instruccion resivida del maestro: %d\n\r", instr);
       }else{
          leerGravedad();
       }

@@ -1,11 +1,11 @@
 004-005 @READ_PROGRAM_MEMORY8.P1
 004     @WRITE_PROGRAM_MEMORY8.P2
 008     PSP_DATA
-015     CCP_1_LOW
 015     CCP_1
+015     CCP_1_LOW
 016     CCP_1_HIGH
-01B     CCP_2_LOW
 01B     CCP_2
+01B     CCP_2_LOW
 01C     CCP_2_HIGH
 020-021 strtok.save
 022-025 _Randseed
@@ -15,20 +15,22 @@
 048     address
 049     eje
 04A     @TRIS_C
-04B-04C leerGravedad.value
-04B     write_data.address
-04C     write_data.@SCRATCH1
-04D     leerGravedad.byte_high
-04D     write_data.@SCRATCH2
-04E     leerGravedad.byte_low
-04F-050 @PRINTF_LU_9600_62_63.P1
-051     @PRINTF_LU_9600_62_63.@SCRATCH1
-052     @PRINTF_LU_9600_62_63.@SCRATCH2
-053     @PRINTF_LU_9600_62_63.@SCRATCH3
-054     @PRINTF_LU_9600_62_63.@SCRATCH4
-055     @PRINTF_LU_9600_62_63.@SCRATCH5
-056     @PRINTF_LU_9600_62_63.@SCRATCH6
-057     @PRINTF_LU_9600_62_63.@SCRATCH7
+04B     @PRINTF_D_9600_62_63.P1
+04B     @PSTRINGCN7_9600_62_63.P2
+04B     @PSTRINGC7_9600_62_63.@SCRATCH1
+04C     @PRINTF_D_9600_62_63.P1
+04C     @PSTRINGCN7_9600_62_63.@SCRATCH1
+04C     @PSTRINGC7_9600_62_63.@SCRATCH2
+04D     @PSTRINGCN7_9600_62_63.@SCRATCH2
+04D     @PRINTF_D_9600_62_63.@SCRATCH1
+04D     @PSTRINGC7_9600_62_63.@SCRATCH3
+04E     @PSTRINGCN7_9600_62_63.@SCRATCH3
+04E     @PRINTF_D_9600_62_63.@SCRATCH2
+04F     @PRINTF_D_9600_62_63.@SCRATCH3
+050     @PRINTF_D_9600_62_63.@SCRATCH4
+051     @DIV88.P1
+052     @DIV88.P1
+053     @DIV88.@SCRATCH1
 077     @SCRATCH
 078     @SCRATCH
 078     _RETURN_
@@ -40,11 +42,14 @@
 10D-10E @WRITE_PROGRAM_MEMORY8.P2
 
 ROM Allocation:
-0004  write_data
-0127  MAIN
-0070  leerGravedad
-0017  @PRINTF_LU_9600_62_63
-0127  @cinit
+0129  MAIN
+0004  @const384
+000C  @PSTRINGCN7_9600_62_63
+005F  @DIV88
+0074  @PRINTF_D_9600_62_63
+0009  @const393
+00DF  @PSTRINGC7_9600_62_63
+0129  @cinit
 0136  StrtoulGO
 0136  StrtolGO
 
@@ -54,7 +59,7 @@ User Memory space:
 User Memory space: 
 
 Project Directory:
-    G:\Project\pic\CCS\MMA7455l\
+    g:\project\pic\ccs\mma7455l\
 
 Project Files:
     mma7455.c
@@ -67,7 +72,7 @@ Project Files:
     I:\Archivos de programa\PICC\drivers\stdlib.h
 
 Units:
-    G:\Project\pic\CCS\MMA7455l\mma7455 (main)
+    g:\project\pic\ccs\mma7455l\mma7455 (main)
 
 Compiler Settings:
     Processor:      PIC16F877A

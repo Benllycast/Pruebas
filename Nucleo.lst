@@ -1,22 +1,22 @@
-CCS PCH C Compiler, Version 4.105, 13255               12-Jul-12 11:02
+CCS PCH C Compiler, Version 4.105, 13255               12-Jul-12 15:10
 
                Filename: G:\Project\pic\CCS\MMA7455l\Nucleo.lst
 
-               ROM used: 118 bytes (0%)
-                         Largest free fragment is 65418
-               RAM used: 10 (0%) at main() level
-                         10 (0%) worst case
-               Stack:    0 locations
+               ROM used: 324 bytes (0%)
+                         Largest free fragment is 65212
+               RAM used: 15 (0%) at main() level
+                         17 (0%) worst case
+               Stack:    1 locations
 
 *
-00000:  GOTO   0004
+00000:  GOTO   0066
 .................... #include "Nucleo.h" 
 .................... #include <18F4620.h> 
 .................... //////// Standard Header file for the PIC18F4620 device //////////////// 
 .................... #device PIC18F4620 
 .................... #list 
 ....................  
-.................... #device adc=8 
+.................... #device adc=10 
 ....................  
 .................... #FUSES NOWDT                 	//No Watch Dog Timer 
 .................... #FUSES WDT128                	//Watch Dog Timer uses 1:128 Postscale 
@@ -44,7 +44,30 @@ CCS PCH C Compiler, Version 4.105, 13255               12-Jul-12 11:02
 .................... #FUSES MCLR                  	//Master Clear pin enabled 
 ....................  
 .................... #use delay(clock=10000000,RESTART_WDT) 
-....................  
+00036:  CLRF   FEA
+00038:  MOVLW  0F
+0003A:  MOVWF  FE9
+0003C:  MOVF   FEF,W
+0003E:  BZ    0062
+00040:  MOVLW  03
+00042:  MOVWF  01
+00044:  MOVLW  BF
+00046:  MOVWF  00
+00048:  CLRWDT
+0004A:  DECFSZ 00,F
+0004C:  BRA    0048
+0004E:  DECFSZ 01,F
+00050:  BRA    0044
+00052:  MOVLW  3C
+00054:  MOVWF  00
+00056:  DECFSZ 00,F
+00058:  BRA    0056
+0005A:  NOP   
+0005C:  CLRWDT
+0005E:  DECFSZ FEF,F
+00060:  BRA    0040
+00062:  GOTO   013C (RETURN)
+.................... #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8) 
 ....................  
 .................... #include <stdio.h> 
 .................... /////////////////////////////////////////////////////////////////////////// 
@@ -2288,84 +2311,219 @@ CCS PCH C Compiler, Version 4.105, 13255               12-Jul-12 11:02
 ....................  
 .................... #endif 
 ....................  
+.................... #include "address.h" 
+.................... /*direcciones del accelerometro mma7455*/ 
+.................... #ifdef testmma 
+.................... 	#define xoutl 0x00 
+.................... 	#define xouth 0x01//registros de medida de x a 10bit 
+.................... 	#define youtl 0x02 
+.................... 	#define youth 0x03//registros de medida de y a 10bit 
+.................... 	#define zoutl 0x04 
+.................... 	#define zouth 0x05//registros de medida de z a 10bit 
+.................... 	#define xout8 0x06 
+.................... 	#define yout8 0x07 
+.................... 	#define zout8 0x08//registros de medida a 8bit 
+.................... 	#define status 0x09 
+.................... 	#define detsrc 0x0A 
+.................... 	#define tout 0x0B 
+.................... 	#define reserved 0x0C 
+.................... 	#define i2cad 0x0D 
+.................... 	#define usrinf 0x0E 
+.................... 	#define whoami 0x0F 
+.................... 	#define xoffl 0x10 
+.................... 	#define xoffh 0x11 
+.................... 	#define yoffl 0x12 
+.................... 	#define yoffh 0x13 
+.................... 	#define zoffl 0x14 
+.................... 	#define zoffh 0x15 
+.................... 	#define mctl 0x16	/*selector gravedad (bit[3,2]) 8g = 00, 2g = 01, 4g = 10 
+.................... 							selector mode (bit[1,0]) stanby = 00, measurement= 01, level_detect= 10, pulse_detec= 11 
+.................... 	                		SPI mode (bit[4]) 4 wire = 0, 3 wire = 1 
+.................... 	                		data output pin (bit[5]) enable = 1 , disable = 0 
+.................... 	                	*/ 
+.................... 	#define intrst 0x17 
+.................... 	#define ctl1 0x18 
+.................... 	#define ctl2 0x19 
+.................... 	#define ldth 0x1A 
+.................... 	#define pdth 0x1B 
+.................... 	#define pw 0x1C  
+.................... 	#define lt 0x1D 
+.................... 	#define tw 0x1E 
+.................... 	#define reserved2 0x1F 
+.................... #endif 
 ....................  
-....................  
+.................... /** 
+.................... enum registros{ 
+....................    xoutl = 0x00, xouth = 0x01,//registros de medida de x a 10bit 
+....................    youtl = 0x02, youth = 0x03,//registros de medida de y a 10bit 
+....................    zoutl = 0x04, zouth = 0x05,//registros de medida de z a 10bit 
+....................    xout8 = 0x06, yout8 = 0x07, zout8 = 0x08,//registros de medida a 8bit 
+....................    status= 0x09, 
+....................    detsrc= 0x0A, 
+....................    tout  = 0x0B, 
+....................    reserved= 0x0C, 
+....................    i2cad = 0x0D, 
+....................    usrinf= 0x0E, whoami= 0x0F, 
+....................    xoffl = 0x10, xoffh = 0x11, 
+....................    yoffl = 0x12, yoffh = 0x13, 
+....................    zoffl = 0x14, zoffh = 0x15, 
+....................    mctl  = 0x16, 
+....................    intrst = 0x17, 
+....................    ctl1  = 0x18, ctl2 = 0x19, 
+....................    ldth  = 0x1A, pdth = 0x1B, 
+....................    pw    = 0x1C, lt = 0x1D, tw = 0x1E, 
+....................    reserved2 = 0x1F 
+.................... }; 
+.................... */ 
 .................... void main() 
 .................... { 
-00004:  CLRF   FF8
-00006:  BCF    FD0.7
-00008:  CLRF   FEA
-0000A:  CLRF   FE9
-0000C:  MOVF   FC1,W
-0000E:  ANDLW  C0
-00010:  IORLW  0F
-00012:  MOVWF  FC1
-00014:  MOVLW  07
-00016:  MOVWF  FB4
-00018:  CLRF   04
-0001A:  CLRF   05
+00066:  CLRF   FF8
+00068:  BCF    FD0.7
+0006A:  CLRF   FEA
+0006C:  CLRF   FE9
+0006E:  BCF    FB8.3
+00070:  MOVLW  40
+00072:  MOVWF  FAF
+00074:  MOVLW  A6
+00076:  MOVWF  FAC
+00078:  MOVLW  90
+0007A:  MOVWF  FAB
+0007C:  MOVF   FC1,W
+0007E:  ANDLW  C0
+00080:  IORLW  0F
+00082:  MOVWF  FC1
+00084:  MOVLW  07
+00086:  MOVWF  FB4
+00088:  CLRF   04
+0008A:  CLRF   05
+0008C:  CLRF   0A
+0008E:  MOVLW  1F
+00090:  MOVWF  0B
+00092:  CLRF   0C
+00094:  CLRF   0D
+....................    int i = 0; 
+....................    char count = 0x1F; 
+....................    char direcciones = 0x00; 
+....................    char respuesta = 0x00; 
 ....................  
 ....................    setup_adc_ports(NO_ANALOGS|VSS_VDD); 
-0001C:  MOVF   FC1,W
-0001E:  ANDLW  C0
-00020:  IORLW  0F
-00022:  MOVWF  FC1
+00096:  MOVF   FC1,W
+00098:  ANDLW  C0
+0009A:  IORLW  0F
+0009C:  MOVWF  FC1
 ....................    setup_adc(ADC_CLOCK_DIV_2|ADC_TAD_MUL_0); 
-00024:  MOVF   FC0,W
-00026:  ANDLW  C0
-00028:  MOVWF  FC0
-0002A:  BCF    FC0.7
-0002C:  BSF    FC2.0
+0009E:  MOVF   FC0,W
+000A0:  ANDLW  C0
+000A2:  MOVWF  FC0
+000A4:  BSF    FC0.7
+000A6:  BSF    FC2.0
 ....................    setup_psp(PSP_DISABLED); 
-0002E:  BCF    F96.4
-....................   setup_spi(SPI_MASTER|SPI_L_TO_H|SPI_CLK_DIV_4); 
-00030:  BCF    FC6.5
-00032:  BCF    F94.5
-00034:  BSF    F94.4
-00036:  BCF    F94.3
-00038:  MOVLW  20
-0003A:  MOVWF  FC6
-0003C:  MOVLW  00
-0003E:  MOVWF  FC7
+000A8:  BCF    F96.4
+....................    setup_spi(SPI_MASTER|SPI_L_TO_H|SPI_CLK_DIV_16); 
+000AA:  BCF    FC6.5
+000AC:  BCF    F94.5
+000AE:  BSF    F94.4
+000B0:  BCF    F94.3
+000B2:  MOVLW  21
+000B4:  MOVWF  FC6
+000B6:  MOVLW  00
+000B8:  MOVWF  FC7
 ....................    setup_wdt(WDT_OFF); 
-00040:  BCF    FD1.0
+000BA:  BCF    FD1.0
 ....................    setup_timer_0(RTCC_INTERNAL); 
-00042:  MOVLW  80
-00044:  MOVWF  FD5
+000BC:  MOVLW  80
+000BE:  MOVWF  FD5
 ....................    setup_timer_1(T1_DISABLED); 
-00046:  CLRF   FCD
+000C0:  CLRF   FCD
 ....................    setup_timer_2(T2_DISABLED,0,1); 
-00048:  MOVLW  00
-0004A:  MOVWF  FCA
-0004C:  MOVLW  00
-0004E:  MOVWF  FCB
+000C2:  MOVLW  00
+000C4:  MOVWF  FCA
+000C6:  MOVLW  00
+000C8:  MOVWF  FCB
 ....................    setup_timer_3(T3_DISABLED|T3_DIV_BY_1); 
-00050:  CLRF   FB1
+000CA:  CLRF   FB1
 ....................    setup_ccp1(CCP_OFF); 
-00052:  BSF    F94.2
-00054:  CLRF   FBD
-00056:  CLRF   FB7
-00058:  CLRF   FB6
+000CC:  BSF    F94.2
+000CE:  CLRF   FBD
+000D0:  CLRF   FB7
+000D2:  CLRF   FB6
 ....................    setup_comparator(NC_NC_NC_NC); 
-0005A:  MOVLW  07
-0005C:  MOVWF  FB4
-0005E:  MOVF   F92,W
-00060:  MOVWF  F92
-00062:  CLRWDT
-00064:  MOVLW  07
-00066:  MOVWF  00
-00068:  DECFSZ 00,F
-0006A:  BRA    0068
-0006C:  BRA    006E
-0006E:  MOVF   FB4,W
-00070:  BCF    FA1.6
+000D4:  MOVLW  07
+000D6:  MOVWF  FB4
+000D8:  MOVF   F92,W
+000DA:  MOVWF  F92
+000DC:  CLRWDT
+000DE:  MOVLW  07
+000E0:  MOVWF  00
+000E2:  DECFSZ 00,F
+000E4:  BRA    00E2
+000E6:  BRA    00E8
+000E8:  MOVF   FB4,W
+000EA:  BCF    FA1.6
 ....................    setup_vref(FALSE); 
-00072:  CLRF   FB5
+000EC:  CLRF   FB5
 .................... //Setup_Oscillator parameter not selected from Intr Oscillator Config tab 
 ....................  
 ....................    // TODO: USER CODE!! 
+....................    set_tris_A(0b00001111); 
+000EE:  MOVLW  0F
+000F0:  MOVWF  F92
+....................    output_a(0xf0); 
+000F2:  CLRF   F92
+000F4:  MOVLW  F0
+000F6:  MOVWF  F89
+....................    while(true){ 
+....................       for (direcciones = 0x00; direcciones < count; direcciones++){ 
+000F8:  CLRF   0C
+000FA:  MOVF   0B,W
+000FC:  SUBWF  0C,W
+000FE:  BC    0130
+....................          /* code */ 
+....................          spi_write(direcciones); 
+00100:  MOVF   FC9,W
+00102:  MOVFF  0C,FC9
+00106:  RRCF   FC7,W
+00108:  BNC   0106
+....................          //delay_ms(30); 
+....................          respuesta = spi_read(); 
+0010A:  MOVFF  FC9,0D
+....................          printf("respuesta: %c\n",respuesta ); 
+0010E:  MOVLW  04
+00110:  MOVWF  FF6
+00112:  MOVLW  00
+00114:  MOVWF  FF7
+00116:  MOVLW  0B
+00118:  MOVWF  0E
+0011A:  BRA    0014
+0011C:  MOVF   0D,W
+0011E:  BTFSS  F9E.4
+00120:  BRA    011E
+00122:  MOVWF  FAD
+00124:  MOVLW  0A
+00126:  BTFSS  F9E.4
+00128:  BRA    0126
+0012A:  MOVWF  FAD
+....................       } 
+0012C:  INCF   0C,F
+0012E:  BRA    00FA
+....................       direcciones = 0x00; 
+00130:  CLRF   0C
+....................       /*aqui va el codigo*/ 
+....................       /*for (i = 0; i < count; ++i){ 
+....................          printf("%d \n\r",i ); 
+....................       }*/ 
+....................       delay_ms(500); 
+00132:  MOVLW  02
+00134:  MOVWF  0E
+00136:  MOVLW  FA
+00138:  MOVWF  0F
+0013A:  BRA    0036
+0013C:  DECFSZ 0E,F
+0013E:  BRA    0136
+....................    } 
+00140:  BRA    00F8
 .................... } 
-00074:  SLEEP 
+00142:  SLEEP 
 
 Configuration Fuses:
    Word  1: C200   HS IESO FCMEN

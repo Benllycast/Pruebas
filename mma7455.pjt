@@ -18,11 +18,11 @@ AdditionalOptionString=
 [Opened Files]
 1=mma7455.c
 2=mma7455.h
-3=I:\Archivos de programa\PICC\devices\16F877A.h
+3=
 4=
 [Target Data]
 OptionString=-p +FM
-FileList=G:\Project\pic\CCS\MMA7455l\mma7455.c
+FileList=g:\project\pic\ccs\mma7455l\mma7455.c
 [Units]
 Count=1
 1=mma7455 (main)

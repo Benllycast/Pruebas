@@ -64,7 +64,7 @@ void main()
    setup_adc_ports(AN0_AN1_AN3);
    setup_adc(ADC_CLOCK_DIV_32);
    setup_psp(PSP_DISABLED);
-   setup_spi(SPI_SLAVE);
+   setup_spi(SPI_SLAVE|SPI_L_TO_H|SPI_CLK_DIV_16);
    setup_timer_0(RTCC_INTERNAL|RTCC_DIV_1);
    setup_timer_1(T1_DISABLED);
    setup_timer_2(T2_DISABLED,0,1);
@@ -75,9 +75,9 @@ void main()
    while(true)
    {  
       if(spi_data_is_in()){
-         while(!spi_data_is_in()){;};
-         instr = spi_read();
-         if( bit_test(instr, 7)){
+         //while(!spi_data_is_in()){;};
+         instr = spi_read(instr);
+         /*if( bit_test(instr, 7)){
             //lectura desde el maestro
             bit_clear(instr, 7);
             if(instr >= 0x00 && instr <0x20){
@@ -90,9 +90,11 @@ void main()
             //escritura desde el maestro
             bit_clear(instr, 7);
             write_data(instr);
-         }                  
+         }*/
+         printf("ACK: %d\n\r", instr);
       }else{
-         leerGravedad();
+         //leerGravedad();
+         printf("NACK\n");
       }
    }
 }

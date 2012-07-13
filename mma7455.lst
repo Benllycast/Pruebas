@@ -1,19 +1,24 @@
-CCS PCM C Compiler, Version 4.105, 13255               10-Jul-12 12:01
+CCS PCM C Compiler, Version 4.105, 13255               12-Jul-12 15:10
 
-               Filename: G:\Project\pic\CCS\MMA7455l\mma7455.lst
+               Filename: g:\project\pic\ccs\mma7455l\mma7455.lst
 
-               ROM used: 431 words (5%)
+               ROM used: 433 words (5%)
                          Largest free fragment is 2048
                RAM used: 48 (13%) at main() level
-                         61 (17%) worst case
+                         57 (15%) worst case
                Stack:    2 locations
 
 *
 0000:  MOVLW  01
 0001:  MOVWF  0A
-0002:  GOTO   127
+0002:  GOTO   129
 0003:  NOP
+.................... /** 
+.................... codigo de prueba del accelerometro mma7455l  
+.................... */ 
 .................... #include "mma7455.h" 
+....................  
+.................... /*header mma7455*/ 
 .................... #include <16F877A.h> 
 .................... //////// Standard Header file for the PIC16F877A device //////////////// 
 .................... #device PIC16F877A 
@@ -21,7 +26,7 @@ CCS PCM C Compiler, Version 4.105, 13255               10-Jul-12 12:01
 ....................  
 .................... #device adc=10 
 .................... #fuses NOWDT, HS, NOPUT, NOPROTECT, NODEBUG, NOBROWNOUT, NOLVP, NOCPD, NOWRT 
-.................... #use delay(clock=20000000,RESTART_WDT) 
+.................... #use delay(clock=10000000,RESTART_WDT) 
 .................... #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8) 
 ....................  
 ....................  
@@ -419,9 +424,9 @@ CCS PCM C Compiler, Version 4.105, 13255               10-Jul-12 12:01
 ....................    char *beg, *end; 
 ....................    static char *save; 
 *
-013A:  BCF    03.5
-013B:  CLRF   20
-013C:  CLRF   21
+013C:  BCF    03.5
+013D:  CLRF   20
+013E:  CLRF   21
 ....................  
 ....................    beg = (s1)? s1: save; 
 ....................    beg += strspn(beg, s2); 
@@ -2317,435 +2322,231 @@ CCS PCM C Compiler, Version 4.105, 13255               10-Jul-12 12:01
 .................... */ 
 .................... void write_data(int8 address){ 
 ....................    while(!spi_data_is_in()); 
-*
-0004:  BSF    03.5
-0005:  BTFSS  14.0
-0006:  GOTO   005
 ....................     
 ....................    data = spi_read(); 
-0007:  BCF    03.5
-0008:  MOVF   13,W
-0009:  MOVWF  46
 ....................    if(instr >= 0x00 && instr <0x20){ 
-000A:  MOVF   47,W
-000B:  SUBLW  1F
-000C:  BTFSS  03.0
-000D:  GOTO   014
 ....................       memory[address] = data; 
-000E:  MOVLW  26
-000F:  ADDWF  4B,W
-0010:  MOVWF  04
-0011:  BCF    03.7
-0012:  MOVF   46,W
-0013:  MOVWF  00
 ....................    } 
 .................... } 
-0014:  BCF    0A.3
-0015:  BCF    0A.4
-0016:  GOTO   1A8 (RETURN)
 ....................  
 ....................  
 ....................  
 .................... void main() 
 .................... { 
 *
-0127:  CLRF   04
-0128:  BCF    03.7
-0129:  MOVLW  1F
-012A:  ANDWF  03,F
-012B:  MOVLW  81
-012C:  BSF    03.5
-012D:  MOVWF  19
-012E:  MOVLW  A6
-012F:  MOVWF  18
-0130:  MOVLW  90
-0131:  BCF    03.5
-0132:  MOVWF  18
-0133:  BSF    03.5
-0134:  BSF    1F.0
-0135:  BSF    1F.1
-0136:  BSF    1F.2
-0137:  BCF    1F.3
-0138:  MOVLW  07
-0139:  MOVWF  1C
+0129:  CLRF   04
+012A:  BCF    03.7
+012B:  MOVLW  1F
+012C:  ANDWF  03,F
+012D:  MOVLW  40
+012E:  BSF    03.5
+012F:  MOVWF  19
+0130:  MOVLW  A6
+0131:  MOVWF  18
+0132:  MOVLW  90
+0133:  BCF    03.5
+0134:  MOVWF  18
+0135:  BSF    03.5
+0136:  BSF    1F.0
+0137:  BSF    1F.1
+0138:  BSF    1F.2
+0139:  BCF    1F.3
+013A:  MOVLW  07
+013B:  MOVWF  1C
 ....................    setup_adc_ports(AN0_AN1_AN3); 
 *
-013F:  BSF    03.5
-0140:  BCF    1F.0
-0141:  BCF    1F.1
-0142:  BSF    1F.2
-0143:  BCF    1F.3
+0141:  BSF    03.5
+0142:  BCF    1F.0
+0143:  BCF    1F.1
+0144:  BSF    1F.2
+0145:  BCF    1F.3
 ....................    setup_adc(ADC_CLOCK_DIV_32); 
-0144:  BCF    1F.6
-0145:  BCF    03.5
 0146:  BCF    1F.6
-0147:  BSF    1F.7
-0148:  BSF    03.5
+0147:  BCF    03.5
+0148:  BCF    1F.6
 0149:  BSF    1F.7
-014A:  BCF    03.5
-014B:  BSF    1F.0
+014A:  BSF    03.5
+014B:  BSF    1F.7
+014C:  BCF    03.5
+014D:  BSF    1F.0
 ....................    setup_psp(PSP_DISABLED); 
-014C:  BSF    03.5
-014D:  BCF    09.4
-....................    setup_spi(SPI_SLAVE); 
-014E:  BCF    03.5
-014F:  BCF    14.5
-0150:  BCF    4A.5
-0151:  MOVF   4A,W
-0152:  BSF    03.5
-0153:  MOVWF  07
-0154:  BCF    03.5
-0155:  BSF    4A.4
-0156:  MOVF   4A,W
-0157:  BSF    03.5
-0158:  MOVWF  07
-0159:  BSF    05.5
-015A:  BCF    03.5
-015B:  BSF    4A.3
-015C:  MOVF   4A,W
-015D:  BSF    03.5
-015E:  MOVWF  07
-015F:  MOVLW  24
-0160:  BCF    03.5
-0161:  MOVWF  14
-0162:  MOVLW  00
-0163:  BSF    03.5
-0164:  MOVWF  14
+014E:  BSF    03.5
+014F:  BCF    09.4
+....................    setup_spi(SPI_SLAVE|SPI_L_TO_H|SPI_CLK_DIV_16); 
+0150:  BCF    03.5
+0151:  BCF    14.5
+0152:  BCF    4A.5
+0153:  MOVF   4A,W
+0154:  BSF    03.5
+0155:  MOVWF  07
+0156:  BCF    03.5
+0157:  BSF    4A.4
+0158:  MOVF   4A,W
+0159:  BSF    03.5
+015A:  MOVWF  07
+015B:  BCF    03.5
+015C:  BSF    4A.3
+015D:  MOVF   4A,W
+015E:  BSF    03.5
+015F:  MOVWF  07
+0160:  MOVLW  25
+0161:  BCF    03.5
+0162:  MOVWF  14
+0163:  MOVLW  00
+0164:  BSF    03.5
+0165:  MOVWF  14
 ....................    setup_timer_0(RTCC_INTERNAL|RTCC_DIV_1); 
-0165:  MOVF   01,W
-0166:  ANDLW  C7
-0167:  IORLW  08
-0168:  MOVWF  01
+0166:  MOVF   01,W
+0167:  ANDLW  C7
+0168:  IORLW  08
+0169:  MOVWF  01
 ....................    setup_timer_1(T1_DISABLED); 
-0169:  BCF    03.5
-016A:  CLRF   10
+016A:  BCF    03.5
+016B:  CLRF   10
 ....................    setup_timer_2(T2_DISABLED,0,1); 
-016B:  MOVLW  00
-016C:  MOVWF  78
-016D:  MOVWF  12
-016E:  MOVLW  00
-016F:  BSF    03.5
-0170:  MOVWF  12
+016C:  MOVLW  00
+016D:  MOVWF  78
+016E:  MOVWF  12
+016F:  MOVLW  00
+0170:  BSF    03.5
+0171:  MOVWF  12
 ....................    setup_comparator(NC_NC_NC_NC); 
-0171:  MOVLW  07
-0172:  MOVWF  1C
-0173:  MOVF   05,W
-0174:  MOVWF  05
-0175:  CLRWDT
-0176:  MOVLW  10
-0177:  MOVWF  77
-0178:  DECFSZ 77,F
-0179:  GOTO   178
-017A:  MOVF   1C,W
-017B:  BCF    03.5
-017C:  BCF    0D.6
+0172:  MOVLW  07
+0173:  MOVWF  1C
+0174:  MOVF   05,W
+0175:  MOVWF  05
+0176:  CLRWDT
+0177:  MOVLW  07
+0178:  MOVWF  77
+0179:  DECFSZ 77,F
+017A:  GOTO   179
+017B:  GOTO   17C
+017C:  MOVF   1C,W
+017D:  BCF    03.5
+017E:  BCF    0D.6
 ....................    setup_vref(FALSE); 
-017D:  BSF    03.5
-017E:  CLRF   1D
+017F:  BSF    03.5
+0180:  CLRF   1D
 ....................    // TODO: USER CODE!! 
 ....................     
 ....................    while(true) 
 ....................    {   
 ....................       if(spi_data_is_in()){ 
-017F:  BTFSS  14.0
-0180:  GOTO   1AA
-....................          while(!spi_data_is_in()){;}; 
 0181:  BTFSS  14.0
-0182:  GOTO   181
-....................          instr = spi_read(); 
+0182:  GOTO   1A6
+....................          //while(!spi_data_is_in()){;}; 
+....................          instr = spi_read(instr); 
 0183:  BCF    03.5
-0184:  MOVF   13,W
-0185:  MOVWF  47
-....................          if( bit_test(instr, 7)){ 
-0186:  BTFSS  47.7
-0187:  GOTO   1A4
+0184:  MOVF   47,W
+0185:  MOVWF  13
+0186:  BSF    03.5
+0187:  RRF    14,W
+0188:  BTFSS  03.0
+0189:  GOTO   187
+018A:  BCF    03.5
+018B:  MOVF   13,W
+018C:  MOVWF  47
+....................          /*if( bit_test(instr, 7)){ 
 ....................             //lectura desde el maestro 
 ....................             bit_clear(instr, 7); 
-0188:  BCF    47.7
 ....................             if(instr >= 0x00 && instr <0x20){ 
-0189:  MOVF   47,W
-018A:  SUBLW  1F
-018B:  BTFSS  03.0
-018C:  GOTO   19B
 ....................                data = memory[ instr ]; 
-018D:  MOVLW  26
-018E:  ADDWF  47,W
-018F:  MOVWF  04
-0190:  BCF    03.7
-0191:  MOVF   00,W
-0192:  MOVWF  46
 ....................                spi_write(data); 
-0193:  MOVF   46,W
-0194:  MOVWF  13
-0195:  BSF    03.5
-0196:  RRF    14,W
-0197:  BTFSS  03.0
-0198:  GOTO   196
 ....................             }else{ 
-0199:  GOTO   1A2
-019A:  BCF    03.5
 ....................                spi_write(-1); 
-019B:  MOVF   13,W
-019C:  MOVLW  FF
-019D:  MOVWF  13
-019E:  BSF    03.5
-019F:  RRF    14,W
-01A0:  BTFSS  03.0
-01A1:  GOTO   19F
 ....................             } 
 ....................          }else{ 
-01A2:  GOTO   1A9
-01A3:  BCF    03.5
 ....................             //escritura desde el maestro 
 ....................             bit_clear(instr, 7); 
-01A4:  BCF    47.7
 ....................             write_data(instr); 
-01A5:  MOVF   47,W
-01A6:  MOVWF  4B
-01A7:  GOTO   004
-01A8:  BSF    03.5
-....................          }                   
+....................          }*/ 
+....................          printf("ACK: %d\n\r", instr); 
+018D:  MOVLW  04
+018E:  BSF    03.6
+018F:  MOVWF  0D
+0190:  MOVLW  00
+0191:  MOVWF  0F
+0192:  BCF    03.0
+0193:  MOVLW  05
+0194:  BCF    03.6
+0195:  MOVWF  4B
+0196:  GOTO   00C
+0197:  MOVF   47,W
+0198:  MOVWF  4B
+0199:  MOVLW  1F
+019A:  MOVWF  4C
+019B:  GOTO   074
+019C:  MOVLW  0A
+019D:  BTFSS  0C.4
+019E:  GOTO   19D
+019F:  MOVWF  19
+01A0:  MOVLW  0D
+01A1:  BTFSS  0C.4
+01A2:  GOTO   1A1
+01A3:  MOVWF  19
 ....................       }else{ 
-01A9:  GOTO   1AD
-....................          leerGravedad(); 
-01AA:  BCF    03.5
-01AB:  GOTO   070
-01AC:  BSF    03.5
+01A4:  GOTO   1AE
+01A5:  BSF    03.5
+....................          //leerGravedad(); 
+....................          printf("NACK\n"); 
+01A6:  MOVLW  09
+01A7:  BCF    03.5
+01A8:  BSF    03.6
+01A9:  MOVWF  0D
+01AA:  MOVLW  00
+01AB:  MOVWF  0F
+01AC:  BCF    03.6
+01AD:  GOTO   0DF
 ....................       } 
 ....................    } 
-01AD:  GOTO   17F
+01AE:  BSF    03.5
+01AF:  GOTO   181
 .................... } 
 .................... void leerGravedad(){ 
-*
-0070:  CLRF   4C
-0071:  CLRF   4B
 ....................    int16 value = 0; 
-*
-01AE:  SLEEP
+01B0:  SLEEP
 ....................    int8 byte_high, byte_low; 
 ....................     
 ....................    //leer canal 0 
 ....................    set_adc_channel(0); 
-*
-0072:  MOVLW  00
-0073:  MOVWF  78
-0074:  MOVF   1F,W
-0075:  ANDLW  C7
-0076:  IORWF  78,W
-0077:  MOVWF  1F
 ....................    delay_us(30); 
-0078:  CLRWDT
-0079:  MOVLW  31
-007A:  MOVWF  77
-007B:  DECFSZ 77,F
-007C:  GOTO   07B
-007D:  NOP
 ....................    read_adc( ADC_START_ONLY); 
-007E:  BSF    1F.2
 ....................    delay_us(20); 
-007F:  CLRWDT
-0080:  MOVLW  20
-0081:  MOVWF  77
-0082:  DECFSZ 77,F
-0083:  GOTO   082
-0084:  GOTO   085
 ....................    value = read_adc( ADC_READ_ONLY); 
-0085:  BTFSC  1F.2
-0086:  GOTO   085
-0087:  BSF    03.5
-0088:  MOVF   1E,W
-0089:  BCF    03.5
-008A:  MOVWF  4B
-008B:  MOVF   1E,W
-008C:  MOVWF  4C
 ....................    byte_high = make8(value, 1); 
-008D:  MOVF   4C,W
-008E:  MOVWF  4D
 ....................    byte_low = make8(value, 0); 
-008F:  MOVF   4B,W
-0090:  MOVWF  4E
 ....................    //coloca en el registro x 
 ....................    memory[xoutl] = byte_low; 
-0091:  MOVF   4E,W
-0092:  MOVWF  26
 ....................    memory[xouth] = byte_high; 
-0093:  MOVF   4D,W
-0094:  MOVWF  27
 ....................    printf("X: %Lu ", value); 
-0095:  MOVLW  58
-0096:  BTFSS  0C.4
-0097:  GOTO   096
-0098:  MOVWF  19
-0099:  MOVLW  3A
-009A:  BTFSS  0C.4
-009B:  GOTO   09A
-009C:  MOVWF  19
-009D:  MOVLW  20
-009E:  BTFSS  0C.4
-009F:  GOTO   09E
-00A0:  MOVWF  19
-00A1:  MOVLW  10
-00A2:  MOVWF  04
-00A3:  MOVF   4C,W
-00A4:  MOVWF  50
-00A5:  MOVF   4B,W
-00A6:  MOVWF  4F
-00A7:  CALL   017
-00A8:  MOVLW  20
-00A9:  BTFSS  0C.4
-00AA:  GOTO   0A9
-00AB:  MOVWF  19
 ....................     
 ....................    //leer canal 1 
 ....................    set_adc_channel(1); 
-00AC:  MOVLW  08
-00AD:  MOVWF  78
-00AE:  MOVF   1F,W
-00AF:  ANDLW  C7
-00B0:  IORWF  78,W
-00B1:  MOVWF  1F
 ....................    delay_us(30); 
-00B2:  CLRWDT
-00B3:  MOVLW  31
-00B4:  MOVWF  77
-00B5:  DECFSZ 77,F
-00B6:  GOTO   0B5
-00B7:  NOP
 ....................    read_adc( ADC_START_ONLY); 
-00B8:  BSF    1F.2
 ....................    delay_us(20); 
-00B9:  CLRWDT
-00BA:  MOVLW  20
-00BB:  MOVWF  77
-00BC:  DECFSZ 77,F
-00BD:  GOTO   0BC
-00BE:  GOTO   0BF
 ....................    value = read_adc( ADC_READ_ONLY); 
-00BF:  BTFSC  1F.2
-00C0:  GOTO   0BF
-00C1:  BSF    03.5
-00C2:  MOVF   1E,W
-00C3:  BCF    03.5
-00C4:  MOVWF  4B
-00C5:  MOVF   1E,W
-00C6:  MOVWF  4C
 ....................    byte_high = make8(value, 1); 
-00C7:  MOVF   4C,W
-00C8:  MOVWF  4D
 ....................    byte_low = make8(value, 0); 
-00C9:  MOVF   4B,W
-00CA:  MOVWF  4E
 ....................    //coloca en el registro y 
 ....................    memory[ youtl ] = byte_low; 
-00CB:  MOVF   4E,W
-00CC:  MOVWF  28
 ....................    memory[ youth ] = byte_high; 
-00CD:  MOVF   4D,W
-00CE:  MOVWF  29
 ....................    printf("Y: %Lu ", value); 
-00CF:  MOVLW  59
-00D0:  BTFSS  0C.4
-00D1:  GOTO   0D0
-00D2:  MOVWF  19
-00D3:  MOVLW  3A
-00D4:  BTFSS  0C.4
-00D5:  GOTO   0D4
-00D6:  MOVWF  19
-00D7:  MOVLW  20
-00D8:  BTFSS  0C.4
-00D9:  GOTO   0D8
-00DA:  MOVWF  19
-00DB:  MOVLW  10
-00DC:  MOVWF  04
-00DD:  MOVF   4C,W
-00DE:  MOVWF  50
-00DF:  MOVF   4B,W
-00E0:  MOVWF  4F
-00E1:  CALL   017
-00E2:  MOVLW  20
-00E3:  BTFSS  0C.4
-00E4:  GOTO   0E3
-00E5:  MOVWF  19
 ....................     
 ....................    //leer canal 3 
 ....................    set_adc_channel(3); 
-00E6:  MOVLW  18
-00E7:  MOVWF  78
-00E8:  MOVF   1F,W
-00E9:  ANDLW  C7
-00EA:  IORWF  78,W
-00EB:  MOVWF  1F
 ....................    delay_us(30); 
-00EC:  CLRWDT
-00ED:  MOVLW  31
-00EE:  MOVWF  77
-00EF:  DECFSZ 77,F
-00F0:  GOTO   0EF
-00F1:  NOP
 ....................    read_adc( ADC_START_ONLY); 
-00F2:  BSF    1F.2
 ....................    delay_us(20); 
-00F3:  CLRWDT
-00F4:  MOVLW  20
-00F5:  MOVWF  77
-00F6:  DECFSZ 77,F
-00F7:  GOTO   0F6
-00F8:  GOTO   0F9
 ....................    value = read_adc( ADC_READ_ONLY); 
-00F9:  BTFSC  1F.2
-00FA:  GOTO   0F9
-00FB:  BSF    03.5
-00FC:  MOVF   1E,W
-00FD:  BCF    03.5
-00FE:  MOVWF  4B
-00FF:  MOVF   1E,W
-0100:  MOVWF  4C
 ....................    byte_high = make8(value, 1); 
-0101:  MOVF   4C,W
-0102:  MOVWF  4D
 ....................    byte_low = make8(value, 0); 
-0103:  MOVF   4B,W
-0104:  MOVWF  4E
 ....................    //coloca en el registro z 
 ....................    memory[ zoutl ] = byte_low; 
-0105:  MOVF   4E,W
-0106:  MOVWF  2A
 ....................    memory[ zouth ] = byte_high; 
-0107:  MOVF   4D,W
-0108:  MOVWF  2B
 ....................    printf("Z: %Lu\n\r", value); 
-0109:  MOVLW  5A
-010A:  BTFSS  0C.4
-010B:  GOTO   10A
-010C:  MOVWF  19
-010D:  MOVLW  3A
-010E:  BTFSS  0C.4
-010F:  GOTO   10E
-0110:  MOVWF  19
-0111:  MOVLW  20
-0112:  BTFSS  0C.4
-0113:  GOTO   112
-0114:  MOVWF  19
-0115:  MOVLW  10
-0116:  MOVWF  04
-0117:  MOVF   4C,W
-0118:  MOVWF  50
-0119:  MOVF   4B,W
-011A:  MOVWF  4F
-011B:  CALL   017
-011C:  MOVLW  0A
-011D:  BTFSS  0C.4
-011E:  GOTO   11D
-011F:  MOVWF  19
-0120:  MOVLW  0D
-0121:  BTFSS  0C.4
-0122:  GOTO   121
-0123:  MOVWF  19
 ....................    //printf("\n\rxoutl: %u xouth: %u\n\ryoutl: %u youth: %u\n\rzoutl: %u zouth: %u",memory[xoutl],memory[xouth],memory[youtl],memory[youth],memory[zoutl],memory[zouth]); 
 .................... } 
-0124:  BCF    0A.3
-0125:  BCF    0A.4
-0126:  GOTO   1AC (RETURN)
 .................... /* 
 .................... void leer(Ejes eje){ 
 ....................    switch (eje){ 

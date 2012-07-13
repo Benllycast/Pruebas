@@ -1,8 +1,8 @@
 ÀÄmma7455
    ÀÄMAIN  0/136  Ram=0
       ÃÄ??0??
-      ÃÄwrite_data  0/19  Ram=3
-      ÀÄleerGravedad  0/183  Ram=4
-         ÃÄ@PRINTF_LU_9600_62_63  0/89  Ram=9
-         ÃÄ@PRINTF_LU_9600_62_63  0/89  Ram=9
-         ÀÄ@PRINTF_LU_9600_62_63  0/89  Ram=9
+      ÃÄ@PSTRINGCN7_9600_62_63  0/83  Ram=4
+      ÃÄ@PRINTF_D_9600_62_63  0/107  Ram=6
+      ³  ÃÄ@DIV88  0/21  Ram=3
+      ³  ÀÄ@DIV88  0/21  Ram=3
+      ÀÄ@PSTRINGC7_9600_62_63  0/74  Ram=3

@@ -1,48 +1,52 @@
 
-ROM used: 118 (0%)
-          118 (0%) including unused fragments
+ROM used: 324 (0%)
+          324 (0%) including unused fragments
 
           0 Average locations per line
-          0 Average locations per statement
+          1 Average locations per statement
 
-RAM used: 10 (0%) at main() level
-          10 (0%) worst case
+RAM used: 15 (0%) at main() level
+          17 (0%) worst case
 
-Stack used: 0 worst case (out of 31 total available)
+Stack used: 1 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   25    12   3  Nucleo.c
+   68    23   6  Nucleo.c
    31     0   0  Nucleo.h
   463     0   0  I:\Archivos de programa\PICC\devices\18F4620.h
    37     0   0  I:\Archivos de programa\PICC\drivers\stdio.h
   409     0   0  I:\Archivos de programa\PICC\drivers\string.h
    28     0   0  I:\Archivos de programa\PICC\drivers\stddef.h
    28     0   0  I:\Archivos de programa\PICC\drivers\ctype.h
- 1273   359  97  I:\Archivos de programa\PICC\drivers\stdlib.h
+ 1273   359  94  I:\Archivos de programa\PICC\drivers\stdlib.h
+   40     0   0  address.h
 ----- -----
- 2294   371 Total
+ 2377   382 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
-0    114  48   0   336  2.3  MAIN
+0     48   7   1             @delay_ms1
+0    222  34   5   822  4.9  MAIN
+0     16   2   0             @const343
+0     34   5   3             @PSTRINGCN_9600_31766_31767
 
 Program metrics:
     Functions               1
-    Statements              371
-    Comments                648
-    Volume (V)              336
-    Difficilty (D)          2.3
-    Effort to implement (E) 789
-    Time to implement (T)   1 minutes
+    Statements              382
+    Comments                678
+    Volume (V)              830
+    Difficilty (D)          4.7
+    Effort to implement (E) 3904
+    Time to implement (T)   4 minutes
     Est Delivered Bugs (B)  0
     Cyclomatic Complexity   1
-    Maintainability (MI)    94
+    Maintainability (MI)    64
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
-00004-0FFFE   114  65418  
+00004-0FFFE   320  65212  
 
 
 

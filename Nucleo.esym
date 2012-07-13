@@ -1,7 +1,7 @@
-D G "__PCH__" 0 29 ""4.105""
-D G "__DEVICE__" 0 29 "4620"
-D G "__DATE__" 0 29 ""12-Jul-12""
-D G "__TIME__" 0 29 ""11:02:33"" "Standard Header file for the PIC18F4620 device ////////////////"
+D G "__PCH__" 0 69 ""4.105""
+D G "__DEVICE__" 0 69 "4620"
+D G "__DATE__" 0 69 ""12-Jul-12""
+D G "__TIME__" 0 69 ""15:10:49"" "Standard Header file for the PIC18F4620 device ////////////////"
 d G "PIN_A0" 2 25 "31744"
 d G "PIN_A1" 2 26 "31745"
 d G "PIN_A2" 2 27 "31746"
@@ -699,7 +699,17 @@ V L "n" 7 1244 "int8"
 V L "pivot" 7 1245 "int8"
 V L "val" 7 1246 "sint8"
 C L "bsearch" 7 397 1 "FUNCTION"
-F G "MAIN" 0 6 "void()"
+C L "MAIN" 8 1 1 "FUNCTION"
+C L "MAIN" 0 5 21 "FUNCTION"
+F G "MAIN" 0 28 "void()"
+V L "i" 0 30 "int8"
+V L "count" 0 31 "int8"
+V L "direcciones" 0 32 "int8"
+V L "respuesta" 0 33 "int8"
+C L "MAIN" 0 5 2 "FUNCTION"
+C L "MAIN" 0 5 1 "FUNCTION"
+C L "MAIN" 0 5 1 "FUNCTION"
+C L "MAIN" 0 5 4 "FUNCTION"
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 1
@@ -832,3 +842,10 @@ F B "spi_data_is_in2" 0 0
 F B "brownout_enable" 1 0
 F B "delay_ms" 1 0
 F B "delay_us" 1 0
+F B "putchar" 1 2
+F B "puts" 1 2
+F B "getch" 0 1
+F B "gets" 1 3
+F B "kbhit" 0 1
+F B "set_uart_speed" 1 3
+F B "setup_uart" 1 3
