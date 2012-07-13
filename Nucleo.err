@@ -1,3 +1,2 @@
->>> Warning 202 "Nucleo.c" Line 30(10,11): Variable never used:   i
-      Memory usage:   ROM=0%      RAM=0% - 0%
-      0 Errors,  1 Warnings.
+      Memory usage:   ROM=1%      RAM=0% - 0%
+      0 Errors,  0 Warnings.

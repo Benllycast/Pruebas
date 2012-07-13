@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "address.h"
+#byte lectura = 0b0000000
+#byte escritura = 0b1000000
+
+int8 respuesta = 0xFF;
 /**
 enum registros{
    xoutl = 0x00, xouth = 0x01,//registros de medida de x a 10bit
@@ -25,11 +29,33 @@ enum registros{
    reserved2 = 0x1F
 };
 */
+
+void write_mma(int8 address){
+   while(!spi_data_is_in());
+   
+
+}
+
+int8 read_mma(int8 address){
+   printf("ms rq: %X\n\r",address);
+
+   address<<=1;
+   address|=lectura;
+   spi_write(address);
+   while(!spi_data_is_in()); //comprobar con un tiempo espesifico
+   if(spi_data_is_in()){
+      respuesta = spi_read();
+      return respuesta;
+   }      
+   return 0xFF;
+}
+
+
 void main()
 {
-   char count = 0x1F;
-   char direcciones = 0x00;
-   char respuesta = 0x00;
+   unsigned int8 count = 0x1F;
+   unsigned int8 direcciones = 0x00;
+   
 
    setup_adc_ports(NO_ANALOGS|VSS_VDD);
    setup_adc(ADC_CLOCK_DIV_2|ADC_TAD_MUL_0);
@@ -51,16 +77,17 @@ void main()
    while(true){
       for (direcciones = 0x00; direcciones < count; direcciones++){
          /* code */
-         spi_write(direcciones);
-         //delay_ms(30);
-         respuesta = spi_read();
-         printf("respuesta: %c\n",respuesta );
+         if (read_mma(direcciones) != 0xFF)
+         {
+            printf("respuesta: %X \n\r",respuesta);
+         }
+         delay_ms(500);         
       }
       direcciones = 0x00;
       /*aqui va el codigo*/
       /*for (i = 0; i < count; ++i){
          printf("%d \n\r",i );
       }*/
-      delay_ms(500);
+      
    }
 }

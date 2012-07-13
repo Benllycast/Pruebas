@@ -5,7 +5,7 @@ codigo de prueba del accelerometro mma7455l
   #include <stdio.h>
   #include <stdlib.h>
 #define _num_reg 0x20
-int8 memory[_num_reg], data, instr, address;
+unsigned int8 memory[_num_reg], data,  address;
 
 enum registros{
    xoutl = 0x00, xouth = 0x01,//registros de medida de x a 10bit
@@ -52,15 +52,30 @@ void write_data(int8 address){
    while(!spi_data_is_in());
    
    data = spi_read();
-   if(instr >= 0x00 && instr <0x20){
+   if(address >= 0x00 && address <0x20){
       memory[address] = data;
    }
 }
 
+void read_data(int8 address){
+   if(address >= 0x00 && address <0x20){
+      data = memory[ address ];
+      spi_write(data);
+   }else{
+      spi_write(-1);
+   }
+}
 
+void filterIN(int8* address){
+   bit_clear(address, 7);
+   bit_clear(address, 0);
+   address>>=1;
+   printf("%s %X \n\r","sl rp:",address);
+}
 
 void main()
 {
+   int8 instr = 0;
    setup_adc_ports(AN0_AN1_AN3);
    setup_adc(ADC_CLOCK_DIV_32);
    setup_psp(PSP_DISABLED);
@@ -73,29 +88,34 @@ void main()
    // TODO: USER CODE!!
    
    while(true)
-   {  
+   {
+      while(!spi_data_is_in()){;}
+      /*if(spi_data_is_in()){
+         instr = spi_read(0xFF);
+         printf("ACK: %d\n\r", instr);
+      }*/  
       if(spi_data_is_in()){
-         //while(!spi_data_is_in()){;};
-         instr = spi_read(instr);
-         /*if( bit_test(instr, 7)){
+         instr = spi_read();         
+         
+         if(!bit_test(instr, 7)){
             //lectura desde el maestro
-            bit_clear(instr, 7);
-            if(instr >= 0x00 && instr <0x20){
-               data = memory[ instr ];
-               spi_write(data);
-            }else{
-               spi_write(-1);
-            }
+            printf("%s: %X \n\r", "Rd", instr);
+            filterIN(&instr);
+            spi_write(instr);
+            //read_data(instr);
          }else{
             //escritura desde el maestro
-            bit_clear(instr, 7);
-            write_data(instr);
-         }*/
-         printf("ACK: %d\n\r", instr);
-      }else{
-         //leerGravedad();
-         printf("NACK\n");
+            //filterIN(&instr);
+            printf("%s: %X \n\r", "Wd", instr);
+            spi_write(instr);
+            //write_data(instr);
+         }
+         //printf("ACK: %d\n\r", instr);
       }
+      // else{
+      //    //leerGravedad();
+      //    printf("NACK\n\r");
+      // }
    }
 }
 void leerGravedad(){
