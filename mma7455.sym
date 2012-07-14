@@ -1,8 +1,8 @@
 004-005 @READ_PROGRAM_MEMORY8.P1
 004     @WRITE_PROGRAM_MEMORY8.P2
 008     PSP_DATA
-015     CCP_1_LOW
 015     CCP_1
+015     CCP_1_LOW
 016     CCP_1_HIGH
 01B     CCP_2_LOW
 01B     CCP_2
@@ -11,16 +11,14 @@
 022-025 _Randseed
 026-045 memory
 046     data
-047     address
-048     eje
-049     @TRIS_C
-04A     MAIN.instr
-04B-04C filterIN.address
-04D     @PRINTF_X_9600_62_63.P1
-04D     @PSTRINGC7_9600_62_63.@SCRATCH1
-04E     @PRINTF_X_9600_62_63.P1
-04E     @PSTRINGC7_9600_62_63.@SCRATCH2
-04F     @PSTRINGC7_9600_62_63.@SCRATCH3
+047     eje
+048     @TRIS_C
+049     MAIN.instr
+04B     @PRINTF_X_9600_62_63.P1
+04B     @PSTRINGC7_9600_62_63.@SCRATCH1
+04C     @PRINTF_X_9600_62_63.P1
+04C     @PSTRINGC7_9600_62_63.@SCRATCH2
+04D     @PSTRINGC7_9600_62_63.@SCRATCH3
 077     @SCRATCH
 078     @SCRATCH
 078     _RETURN_
@@ -28,18 +26,18 @@
 07A     @SCRATCH
 09C.6   C1OUT
 09C.7   C2OUT
-10D-10E @READ_PROGRAM_MEMORY8.P1
-10D-10E @WRITE_PROGRAM_MEMORY8.P2
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
 
 ROM Allocation:
-0077  filterIN
-0004  @const385
+013A  filterIN
+0004  @const351
 000C  @PSTRINGC7_9600_62_63
 0054  @PRINTF_X_9600_62_63
-009B  MAIN
-0008  @const395
-000A  @const397
-009B  @cinit
+0077  MAIN
+0008  @const361
+000A  @const363
+0077  @cinit
 0136  StrtoulGO
 0136  StrtolGO
 
@@ -60,6 +58,7 @@ Project Files:
     I:\Archivos de programa\PICC\drivers\stddef.h
     I:\Archivos de programa\PICC\drivers\ctype.h
     I:\Archivos de programa\PICC\drivers\stdlib.h
+    address.h
 
 Units:
     g:\project\pic\ccs\mma7455l\mma7455 (main)

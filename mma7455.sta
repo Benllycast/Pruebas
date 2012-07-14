@@ -1,54 +1,55 @@
 
-ROM used: 337 (4%)
-          337 (4%) including unused fragments
+ROM used: 394 (5%)
+          394 (5%) including unused fragments
 
           0 Average locations per line
           1 Average locations per statement
 
-RAM used: 48 (13%) at main() level
-          53 (14%) worst case
+RAM used: 47 (13%) at main() level
+          51 (14%) worst case
 
-Stack used: 2 worst case (out of 8 total available)
+Stack used: 1 worst case (out of 8 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-  179    71  17  mma7455.c
+  210   103  22  mma7455.c
     9     0   0  mma7455.h
   326     0   0  I:\Archivos de programa\PICC\devices\16F877A.h
    37     0   0  I:\Archivos de programa\PICC\drivers\stdio.h
   409     0   0  I:\Archivos de programa\PICC\drivers\string.h
    28     0   0  I:\Archivos de programa\PICC\drivers\stddef.h
    28     0   0  I:\Archivos de programa\PICC\drivers\ctype.h
- 1273   359  83  I:\Archivos de programa\PICC\drivers\stdlib.h
+ 1273   359  78  I:\Archivos de programa\PICC\drivers\stdlib.h
+   40     0   0  address.h
 ----- -----
- 2289   430 Total
+ 2360   462 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
-0     36  11   2   131  2.5  filterIN
-0      4   1   0             @const385
-0     72  21   3             @PSTRINGC7_9600_62_63
-0     35  10   2   641  4.7  @PRINTF_X_9600_62_63
-0    182  54   1   679  5.2  MAIN
-0      2   1   0             @const395
-0      2   1   0             @const397
+ Inline        1   138  2.5  filterIN
+0      4   1   0             @const351
+0     72  18   3             @PSTRINGC7_9600_62_63
+0     35   9   2             @PRINTF_X_9600_62_63
+0    275  70   1  2238  5.4  MAIN
+0      2   1   0             @const361
+0      2   1   0             @const363
 
 Program metrics:
-    Functions               3
-    Statements              430
-    Comments                698
-    Volume (V)              1817
-    Difficilty (D)          12.0
-    Effort to implement (E) 21891
-    Time to implement (T)   20 minutes
+    Functions               2
+    Statements              462
+    Comments                720
+    Volume (V)              2538
+    Difficilty (D)          8.0
+    Effort to implement (E) 20188
+    Time to implement (T)   19 minutes
     Est Delivered Bugs (B)  0
-    Cyclomatic Complexity   4
-    Maintainability (MI)    7
+    Cyclomatic Complexity   2
+    Maintainability (MI)    0
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00003     4  0  
-00004-007FF   333  1711  
+00004-007FF   390  1654  
 00800-00FFF     0  2048  
 01000-017FF     0  2048  
 01800-01FFF     0  2048  

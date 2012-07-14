@@ -36,7 +36,7 @@ void write_mma(int8 address){
 
 }
 
-int8 read_mma(int8 address){
+int8 read_mma(unsigned int8 address){
    printf("ms rq: %X\n\r",address);
 
    address<<=1;

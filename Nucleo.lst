@@ -1,4 +1,4 @@
-CCS PCH C Compiler, Version 4.105, 13255               13-Jul-12 12:03
+CCS PCH C Compiler, Version 4.105, 13255               14-Jul-12 11:33
 
                Filename: G:\Project\pic\CCS\MMA7455l\Nucleo.lst
 
@@ -2387,7 +2387,7 @@ CCS PCH C Compiler, Version 4.105, 13255               13-Jul-12 12:03
 ....................  
 .................... } 
 ....................  
-.................... int8 read_mma(int8 address){ 
+.................... int8 read_mma(unsigned int8 address){ 
 ....................    printf("ms rq: %X\n\r",address); 
 *
 00084:  MOVLW  04

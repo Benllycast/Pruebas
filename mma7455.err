@@ -1,3 +1,3 @@
->>> Warning 202 "mma7455.c" Line 39(3,6): Variable never used:   eje
-      Memory usage:   ROM=4%      RAM=13% - 14%
+>>> Warning 202 "mma7455.c" Line 43(3,6): Variable never used:   eje
+      Memory usage:   ROM=5%      RAM=13% - 14%
       0 Errors,  1 Warnings.

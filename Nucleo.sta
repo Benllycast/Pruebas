@@ -27,7 +27,7 @@ Lines Stmts  %   Files
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
 0     48   5   1             @delay_ms1
-0     84   8   1   218  4.7  read_mma
+0     84   8   1   225  4.7  read_mma
 0     12   1   0             @const344
 0     32   3   3             @PSTRINGCN_9600_31766_31767
 0     66   7   2             @PRINTF_X_9600_31766_31767
@@ -38,9 +38,9 @@ Program metrics:
     Functions               2
     Statements              395
     Comments                678
-    Volume (V)              1128
+    Volume (V)              1137
     Difficilty (D)          10.3
-    Effort to implement (E) 11599
+    Effort to implement (E) 11708
     Time to implement (T)   11 minutes
     Est Delivered Bugs (B)  0
     Cyclomatic Complexity   3

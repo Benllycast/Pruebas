@@ -2,11 +2,13 @@
 codigo de prueba del accelerometro mma7455l 
 */
 #include "mma7455.h"
-  #include <stdio.h>
-  #include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#define testmma  
+#include "address.h" /*definicion de registros de mma7455*/
 #define _num_reg 0x20
-unsigned int8 memory[_num_reg], data,  address;
-
+unsigned int8 memory[_num_reg], data;
+/*
 enum registros{
    xoutl = 0x00, xouth = 0x01,//registros de medida de x a 10bit
    youtl= 0x02, youth= 0x03,//registros de medida de y a 10bit
@@ -24,13 +26,15 @@ enum registros{
    mctl= 0x16,/*selector gravedad (bit[3,2]) 8g = 00, 2g = 01, 4g = 10
                 selector mode (bit[1,0]) stanby = 00, measurement= 01, level_detect= 10, pulse_detec= 11
                 SPI mode (bit[4]) 4 wire = 0, 3 wire = 1
-                data output pin (bit[5]) enable = 1 , disable = 0*/
+                data output pin (bit[5]) enable = 1 , disable = 0-----
    intrst= 0x17,
    ctl1= 0x18,ctl2= 0x19,
    ldth= 0x1A, pdth= 0x1B,
    pw= 0x1C, lt= 0x1D, tw= 0x1E,
    reserved2= 0x1F
 };
+*/
+
 /*configuracion de los ejes de lectura*/
 union Ejes{
    char x;
@@ -66,16 +70,16 @@ void read_data(int8 address){
    }
 }
 
-void filterIN(int8* address){
-   bit_clear(address, 7);
-   bit_clear(address, 0);
-   address>>=1;
-   printf("%s %X \n\r","sl rp:",address);
+void filterIN(unsigned int8 &instr){
+   bit_clear(instr, 7);
+   bit_clear(instr, 0);
+   instr>>=1;
+   printf("%s %X \n\r","sl rp:",instr);
 }
 
 void main()
 {
-   int8 instr = 0;
+   unsigned int8 instr = 0;
    setup_adc_ports(AN0_AN1_AN3);
    setup_adc(ADC_CLOCK_DIV_32);
    setup_psp(PSP_DISABLED);
@@ -86,6 +90,33 @@ void main()
    setup_comparator(NC_NC_NC_NC);
    setup_vref(FALSE);
    // TODO: USER CODE!!
+   
+   memory[0x00] = xouth;   memory[0x01] = xoutl;
+   memory[0x02] = youth;   memory[0x03] = youtl;
+   memory[0x04] = zouth;   memory[0x05] = zoutl;
+   
+   memory[0x06] = xout8;
+   memory[0x07] = yout8;
+   memory[0x08] = zout8;
+
+   memory[0x09] = status;
+   memory[0x0A] = detsrc;
+   memory[0x0B] = tout;
+   memory[0x0C] = reserved;
+   memory[0x0D] = i2cad;
+   memory[0x0E] = usrinf;
+   memory[0x0F] = whoami;
+
+   memory[0x10] = xoffl;   memory[0x11] = xoffh;
+   memory[0x12] = yoffl;   memory[0x13] = yoffh;
+   memory[0x14] = zoffl;   memory[0x15] = zoffh;
+   
+   memory[0x16] = mctl;
+   memory[0x17] = intrst;
+   memory[0x18] = ctl1;   memory[0x19] = ctl2;
+   memory[0x1A] = ldth;   memory[0x1B] = pdth;
+   memory[0x1C] = pw;   memory[0x1D] = lt;   memory[0x1E] = tw;
+   memory[0X1F] = reserved2;
    
    while(true)
    {
@@ -100,7 +131,7 @@ void main()
          if(!bit_test(instr, 7)){
             //lectura desde el maestro
             printf("%s: %X \n\r", "Rd", instr);
-            filterIN(&instr);
+            filterIN(instr);
             spi_write(instr);
             //read_data(instr);
          }else{
