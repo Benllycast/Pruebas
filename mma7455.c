@@ -7,7 +7,7 @@ codigo de prueba del accelerometro mma7455l
 #define testmma  
 #include "address.h" /*definicion de registros de mma7455*/
 #define _num_reg 0x20
-unsigned int8 memory[_num_reg], data;
+unsigned int8 memory[_num_reg];
 /*
 enum registros{
    xoutl = 0x00, xouth = 0x01,//registros de medida de x a 10bit
@@ -52,34 +52,34 @@ PURPOSE: Reads data from SPI and writes it to memory
 PARAMS: none
 RETURNS: None
 */
-void write_data(int8 address){
-   while(!spi_data_is_in());
-   
-   data = spi_read();
+void write_data(unsigned int8 address){
+   int8 data = 0;
+   while(!spi_data_is_in());   
+   if(spi_data_is_in())
+      data = spi_read();   
    if(address >= 0x00 && address <0x20){
       memory[address] = data;
    }
 }
 
-void read_data(int8 address){
+void read_data(unsigned int8 &address){
    if(address >= 0x00 && address <0x20){
-      data = memory[ address ];
-      spi_write(data);
+      printf("sl rp: %X \n\r",memory[ address ]);
+      spi_write(memory[ address ]);
    }else{
       spi_write(-1);
    }
+   return;
 }
 
 void filterIN(unsigned int8 &instr){
    bit_clear(instr, 7);
-   bit_clear(instr, 0);
    instr>>=1;
-   printf("%s %X \n\r","sl rp:",instr);
 }
 
 void main()
 {
-   unsigned int8 instr = 0;
+   unsigned int8 address = 0x00;
    setup_adc_ports(AN0_AN1_AN3);
    setup_adc(ADC_CLOCK_DIV_32);
    setup_psp(PSP_DISABLED);
@@ -120,28 +120,20 @@ void main()
    
    while(true)
    {
-      while(!spi_data_is_in()){;}
-      /*if(spi_data_is_in()){
-         instr = spi_read(0xFF);
-         printf("ACK: %d\n\r", instr);
-      }*/  
+      while(!spi_data_is_in()){;}  
       if(spi_data_is_in()){
-         instr = spi_read();         
-         
-         if(!bit_test(instr, 7)){
+         address = spi_read();
+         if(!bit_test(address, 7)){
             //lectura desde el maestro
-            printf("%s: %X \n\r", "Rd", instr);
-            filterIN(instr);
-            spi_write(instr);
-            //read_data(instr);
+            //filterIN(address);
+            printf("%s: %X ,", "Rd", address);
+            read_data(address);
          }else{
             //escritura desde el maestro
-            //filterIN(&instr);
-            printf("%s: %X \n\r", "Wd", instr);
-            spi_write(instr);
-            //write_data(instr);
+            printf("%s: %X \n\r", "Wd", address);
+            spi_write(address);
          }
-         //printf("ACK: %d\n\r", instr);
+         //printf("ACK: %d\n\r", address);
       }
       // else{
       //    //leerGravedad();

@@ -1,9 +1,10 @@
 ÀÄNucleo
-   ÀÄMAIN  0/238  Ram=3
+   ÀÄMAIN  0/284  Ram=3
       ÃÄ??0??
-      ÃÄread_mma  0/84  Ram=1
-      ³  ÃÄ@PSTRINGCN_9600_31766_31767  0/32  Ram=3
-      ³  ÀÄ@PRINTF_X_9600_31766_31767  0/66  Ram=2
+      ÃÄ@delay_ms1  0/46  Ram=1
       ÃÄ@PSTRINGCN_9600_31766_31767  0/32  Ram=3
       ÃÄ@PRINTF_X_9600_31766_31767  0/66  Ram=2
-      ÀÄ@delay_ms1  0/48  Ram=1
+      ÃÄread_mma  0/52  Ram=2
+      ³  ÀÄ@delay_ms1  0/46  Ram=1
+      ÃÄ@PSTRINGCN_9600_31766_31767  0/32  Ram=3
+      ÀÄ@PRINTF_X_9600_31766_31767  0/66  Ram=2

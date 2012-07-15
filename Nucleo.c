@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "address.h"
-#byte lectura = 0b0000000
-#byte escritura = 0b1000000
+#byte READ = 0b00000000
+#byte WRITE = 0b10000000
 
-int8 respuesta = 0xFF;
+unsigned int8 respuesta = 0x00;
 /**
 enum registros{
    xoutl = 0x00, xouth = 0x01,//registros de medida de x a 10bit
@@ -36,18 +36,18 @@ void write_mma(int8 address){
 
 }
 
-int8 read_mma(unsigned int8 address){
-   printf("ms rq: %X\n\r",address);
-
-   address<<=1;
-   address|=lectura;
+unsigned int8 read_mma(unsigned int8 address){
+   //address<<=1;
+   //address|=READ;
+   //swap(address);
    spi_write(address);
-   while(!spi_data_is_in()); //comprobar con un tiempo espesifico
+   delay_ms(1000);
+   while(!spi_data_is_in()){;} //comprobar con un tiempo espesifico
    if(spi_data_is_in()){
       respuesta = spi_read();
       return respuesta;
    }      
-   return 0xFF;
+   return -1;
 }
 
 
@@ -74,14 +74,15 @@ void main()
    // TODO: USER CODE!!
    set_tris_A(0b00001111);
    output_a(0xf0);
+   delay_ms(1000);
    while(true){
       for (direcciones = 0x00; direcciones < count; direcciones++){
          /* code */
-         if (read_mma(direcciones) != 0xFF)
+         printf("ms rq: %X , ",direcciones);
+         if (read_mma(direcciones) != -1)
          {
-            printf("respuesta: %X \n\r",respuesta);
-         }
-         delay_ms(500);         
+            printf("rp: %X \n\r",respuesta);
+         }         
       }
       direcciones = 0x00;
       /*aqui va el codigo*/

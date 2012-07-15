@@ -1,11 +1,11 @@
 /*direcciones del accelerometro mma7455*/
 #ifdef testmma
-	#define xoutl 0x00
-	#define xouth 0x01//registros de medida de x a 10bit
-	#define youtl 0x02
-	#define youth 0x03//registros de medida de y a 10bit
-	#define zoutl 0x04
-	#define zouth 0x05//registros de medida de z a 10bit
+	#define xouth 0x00
+	#define xoutl 0x01//registros de medida de x a 10bit
+	#define youth 0x02
+	#define youtl 0x03//registros de medida de y a 10bit
+	#define zouth 0x04
+	#define zoutl 0x05//registros de medida de z a 10bit
 	#define xout8 0x06
 	#define yout8 0x07
 	#define zout8 0x08//registros de medida a 8bit

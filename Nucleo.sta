@@ -1,18 +1,18 @@
 
-ROM used: 502 (1%)
-          502 (1%) including unused fragments
+ROM used: 508 (1%)
+          508 (1%) including unused fragments
 
           0 Average locations per line
           1 Average locations per statement
 
 RAM used: 14 (0%) at main() level
-          17 (0%) worst case
+          16 (0%) worst case
 
 Stack used: 2 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   94    36   9  Nucleo.c
+   95    36   9  Nucleo.c
    31     0   0  Nucleo.h
   463     0   0  I:\Archivos de programa\PICC\devices\18F4620.h
    37     0   0  I:\Archivos de programa\PICC\drivers\stdio.h
@@ -22,34 +22,34 @@ Lines Stmts  %   Files
  1273   359  91  I:\Archivos de programa\PICC\drivers\stdlib.h
    40     0   0  address.h
 ----- -----
- 2403   395 Total
+ 2404   395 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
-0     48   5   1             @delay_ms1
-0     84   8   1   225  4.7  read_mma
-0     12   1   0             @const344
+0     46   5   1             @delay_ms1
+0     52   5   2   170  3.9  read_mma
+0    284  28   3   812  6.4  MAIN
+0     14   1   0             @const348
 0     32   3   3             @PSTRINGCN_9600_31766_31767
-0     66   7   2             @PRINTF_X_9600_31766_31767
-0    238  24   3   759  5.9  MAIN
-0     18   2   0             @const354
+0     66   6   2             @PRINTF_X_9600_31766_31767
+0     10   1   0             @const354
 
 Program metrics:
     Functions               2
     Statements              395
-    Comments                678
-    Volume (V)              1137
-    Difficilty (D)          10.3
-    Effort to implement (E) 11708
-    Time to implement (T)   11 minutes
+    Comments                681
+    Volume (V)              1121
+    Difficilty (D)          9.9
+    Effort to implement (E) 11145
+    Time to implement (T)   10 minutes
     Est Delivered Bugs (B)  0
     Cyclomatic Complexity   3
-    Maintainability (MI)    40
+    Maintainability (MI)    37
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
-00004-0FFFE   498  65034  
+00004-0FFFE   504  65028  
 
 
 

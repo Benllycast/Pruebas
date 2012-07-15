@@ -18,7 +18,7 @@ AdditionalOptionString=
 [Opened Files]
 1=mma7455.c
 2=mma7455.h
-3=
+3=Nucleo.c
 4=
 [Target Data]
 OptionString=-p +FM
