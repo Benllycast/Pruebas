@@ -1,15 +1,15 @@
-CCS PCH C Compiler, Version 4.105, 13255               15-Jul-12 16:48
+CCS PCH C Compiler, Version 4.105, 13255               16-Jul-12 11:41
 
                Filename: G:\Project\pic\CCS\MMA7455l\Nucleo.lst
 
-               ROM used: 508 bytes (1%)
-                         Largest free fragment is 65028
-               RAM used: 14 (0%) at main() level
-                         16 (0%) worst case
-               Stack:    2 locations
+               ROM used: 506 bytes (1%)
+                         Largest free fragment is 65030
+               RAM used: 18 (0%) at main() level
+                         20 (1%) worst case
+               Stack:    1 locations
 
 *
-00000:  GOTO   00E0
+00000:  GOTO   00CE
 .................... #include "Nucleo.h" 
 .................... #include <18F4620.h> 
 .................... //////// Standard Header file for the PIC18F4620 device //////////////// 
@@ -46,7 +46,7 @@ CCS PCH C Compiler, Version 4.105, 13255               15-Jul-12 16:48
 .................... #use delay(clock=10000000,RESTART_WDT) 
 *
 0001C:  CLRF   FEA
-0001E:  MOVLW  0F
+0001E:  MOVLW  12
 00020:  MOVWF  FE9
 00022:  MOVF   FEF,W
 00024:  BZ    0048
@@ -67,7 +67,7 @@ CCS PCH C Compiler, Version 4.105, 13255               15-Jul-12 16:48
 00042:  CLRWDT
 00044:  DECFSZ FEF,F
 00046:  BRA    0026
-00048:  RETLW  00
+00048:  GOTO   0178 (RETURN)
 .................... #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8) 
 ....................  
 .................... #include <stdio.h> 
@@ -2353,34 +2353,12 @@ CCS PCH C Compiler, Version 4.105, 13255               15-Jul-12 16:48
 .................... 	#define reserved2 0x1F 
 .................... #endif 
 ....................  
-.................... #byte READ = 0b00000000 
-.................... #byte WRITE = 0b10000000 
+.................... #define READ  0b00000000 
+.................... #define WRITE 0b10000000 
 ....................  
 .................... unsigned int8 respuesta = 0x00; 
-.................... /** 
-.................... enum registros{ 
-....................    xoutl = 0x00, xouth = 0x01,//registros de medida de x a 10bit 
-....................    youtl = 0x02, youth = 0x03,//registros de medida de y a 10bit 
-....................    zoutl = 0x04, zouth = 0x05,//registros de medida de z a 10bit 
-....................    xout8 = 0x06, yout8 = 0x07, zout8 = 0x08,//registros de medida a 8bit 
-....................    status= 0x09, 
-....................    detsrc= 0x0A, 
-....................    tout  = 0x0B, 
-....................    reserved= 0x0C, 
-....................    i2cad = 0x0D, 
-....................    usrinf= 0x0E, whoami= 0x0F, 
-....................    xoffl = 0x10, xoffh = 0x11, 
-....................    yoffl = 0x12, yoffh = 0x13, 
-....................    zoffl = 0x14, zoffh = 0x15, 
-....................    mctl  = 0x16, 
-....................    intrst = 0x17, 
-....................    ctl1  = 0x18, ctl2 = 0x19, 
-....................    ldth  = 0x1A, pdth = 0x1B, 
-....................    pw    = 0x1C, lt = 0x1D, tw = 0x1E, 
-....................    reserved2 = 0x1F 
-.................... }; 
-.................... */ 
-....................  
+.................... char* SSPSTAT = 0x0FC7; 
+.................... char* SSPBUF = 0x0FC9; 
 .................... void write_mma(int8 address){ 
 ....................    while(!spi_data_is_in()); 
 ....................     
@@ -2393,218 +2371,214 @@ CCS PCH C Compiler, Version 4.105, 13255               15-Jul-12 16:48
 ....................    //swap(address); 
 ....................    spi_write(address); 
 *
-000AC:  MOVF   FC9,W
-000AE:  MOVFF  0D,FC9
-000B2:  RRCF   FC7,W
-000B4:  BNC   00B2
-....................    delay_ms(1000); 
-000B6:  MOVLW  04
-000B8:  MOVWF  0E
-000BA:  MOVLW  FA
-000BC:  MOVWF  0F
-000BE:  RCALL  001C
-000C0:  DECFSZ 0E,F
-000C2:  BRA    00BA
-....................    while(!spi_data_is_in()){;} //comprobar con un tiempo espesifico 
-000C4:  BTFSC  FC7.0
-000C6:  BRA    00CA
-000C8:  BRA    00C4
+000AE:  MOVF   FC9,W
+000B0:  MOVFF  11,FC9
+000B4:  RRCF   FC7,W
+000B6:  BNC   00B4
+....................    //while(!spi_data_is_in()){;} //comprobar con un tiempo espesifico 
 ....................    if(spi_data_is_in()){ 
-000CA:  BTFSS  FC7.0
-000CC:  BRA    00D8
+000B8:  BTFSS  FC7.0
+000BA:  BRA    00C6
 ....................       respuesta = spi_read(); 
-000CE:  MOVFF  FC9,0A
+000BC:  MOVFF  FC9,0A
 ....................       return respuesta; 
-000D2:  MOVFF  0A,01
-000D6:  BRA    00DC
+000C0:  MOVFF  0A,01
+000C4:  BRA    00CA
 ....................    }       
 ....................    return -1; 
-000D8:  MOVLW  FF
-000DA:  MOVWF  01
+000C6:  MOVLW  FF
+000C8:  MOVWF  01
 .................... } 
-000DC:  GOTO   01BC (RETURN)
+000CA:  GOTO   01BA (RETURN)
 ....................  
 ....................  
 .................... void main() 
 .................... { 
-000E0:  CLRF   FF8
-000E2:  BCF    FD0.7
-000E4:  CLRF   FEA
-000E6:  CLRF   FE9
-000E8:  BCF    FB8.3
-000EA:  MOVLW  40
-000EC:  MOVWF  FAF
-000EE:  MOVLW  A6
-000F0:  MOVWF  FAC
-000F2:  MOVLW  90
-000F4:  MOVWF  FAB
-000F6:  CLRF   0A
-000F8:  MOVF   FC1,W
-000FA:  ANDLW  C0
-000FC:  IORLW  0F
-000FE:  MOVWF  FC1
-00100:  MOVLW  07
-00102:  MOVWF  FB4
-00104:  CLRF   04
-00106:  CLRF   05
-00108:  MOVLW  1F
-0010A:  MOVWF  0B
-0010C:  CLRF   0C
+000CE:  CLRF   FF8
+000D0:  BCF    FD0.7
+000D2:  CLRF   FEA
+000D4:  CLRF   FE9
+000D6:  BCF    FB8.3
+000D8:  MOVLW  40
+000DA:  MOVWF  FAF
+000DC:  MOVLW  A6
+000DE:  MOVWF  FAC
+000E0:  MOVLW  90
+000E2:  MOVWF  FAB
+000E4:  CLRF   0A
+000E6:  MOVLW  0F
+000E8:  MOVWF  0C
+000EA:  MOVLW  C7
+000EC:  MOVWF  0B
+000EE:  MOVLW  0F
+000F0:  MOVWF  0E
+000F2:  MOVLW  C9
+000F4:  MOVWF  0D
+000F6:  MOVF   FC1,W
+000F8:  ANDLW  C0
+000FA:  IORLW  0F
+000FC:  MOVWF  FC1
+000FE:  MOVLW  07
+00100:  MOVWF  FB4
+00102:  CLRF   04
+00104:  CLRF   05
+00106:  MOVLW  1F
+00108:  MOVWF  0F
+0010A:  CLRF   10
 ....................    unsigned int8 count = 0x1F; 
 ....................    unsigned int8 direcciones = 0x00; 
 ....................     
 ....................  
 ....................    setup_adc_ports(NO_ANALOGS|VSS_VDD); 
-0010E:  MOVF   FC1,W
-00110:  ANDLW  C0
-00112:  IORLW  0F
-00114:  MOVWF  FC1
+0010C:  MOVF   FC1,W
+0010E:  ANDLW  C0
+00110:  IORLW  0F
+00112:  MOVWF  FC1
 ....................    setup_adc(ADC_CLOCK_DIV_2|ADC_TAD_MUL_0); 
-00116:  MOVF   FC0,W
-00118:  ANDLW  C0
-0011A:  MOVWF  FC0
-0011C:  BSF    FC0.7
-0011E:  BSF    FC2.0
+00114:  MOVF   FC0,W
+00116:  ANDLW  C0
+00118:  MOVWF  FC0
+0011A:  BSF    FC0.7
+0011C:  BSF    FC2.0
 ....................    setup_psp(PSP_DISABLED); 
-00120:  BCF    F96.4
+0011E:  BCF    F96.4
 ....................    setup_spi(SPI_MASTER|SPI_L_TO_H|SPI_CLK_DIV_16); 
-00122:  BCF    FC6.5
-00124:  BCF    F94.5
-00126:  BSF    F94.4
-00128:  BCF    F94.3
-0012A:  MOVLW  21
-0012C:  MOVWF  FC6
-0012E:  MOVLW  00
-00130:  MOVWF  FC7
+00120:  BCF    FC6.5
+00122:  BCF    F94.5
+00124:  BSF    F94.4
+00126:  BCF    F94.3
+00128:  MOVLW  21
+0012A:  MOVWF  FC6
+0012C:  MOVLW  00
+0012E:  MOVWF  FC7
 ....................    setup_wdt(WDT_OFF); 
-00132:  BCF    FD1.0
+00130:  BCF    FD1.0
 ....................    setup_timer_0(RTCC_INTERNAL); 
-00134:  MOVLW  80
-00136:  MOVWF  FD5
+00132:  MOVLW  80
+00134:  MOVWF  FD5
 ....................    setup_timer_1(T1_DISABLED); 
-00138:  CLRF   FCD
+00136:  CLRF   FCD
 ....................    setup_timer_2(T2_DISABLED,0,1); 
-0013A:  MOVLW  00
-0013C:  MOVWF  FCA
-0013E:  MOVLW  00
-00140:  MOVWF  FCB
+00138:  MOVLW  00
+0013A:  MOVWF  FCA
+0013C:  MOVLW  00
+0013E:  MOVWF  FCB
 ....................    setup_timer_3(T3_DISABLED|T3_DIV_BY_1); 
-00142:  CLRF   FB1
+00140:  CLRF   FB1
 ....................    setup_ccp1(CCP_OFF); 
-00144:  BSF    F94.2
-00146:  CLRF   FBD
-00148:  CLRF   FB7
-0014A:  CLRF   FB6
+00142:  BSF    F94.2
+00144:  CLRF   FBD
+00146:  CLRF   FB7
+00148:  CLRF   FB6
 ....................    setup_comparator(NC_NC_NC_NC); 
-0014C:  MOVLW  07
-0014E:  MOVWF  FB4
-00150:  MOVF   F92,W
-00152:  MOVWF  F92
-00154:  CLRWDT
-00156:  MOVLW  07
-00158:  MOVWF  00
-0015A:  DECFSZ 00,F
-0015C:  BRA    015A
-0015E:  BRA    0160
-00160:  MOVF   FB4,W
-00162:  BCF    FA1.6
+0014A:  MOVLW  07
+0014C:  MOVWF  FB4
+0014E:  MOVF   F92,W
+00150:  MOVWF  F92
+00152:  CLRWDT
+00154:  MOVLW  07
+00156:  MOVWF  00
+00158:  DECFSZ 00,F
+0015A:  BRA    0158
+0015C:  BRA    015E
+0015E:  MOVF   FB4,W
+00160:  BCF    FA1.6
 ....................    setup_vref(FALSE); 
-00164:  CLRF   FB5
+00162:  CLRF   FB5
 .................... //Setup_Oscillator parameter not selected from Intr Oscillator Config tab 
-....................  
 ....................    // TODO: USER CODE!! 
 ....................    set_tris_A(0b00001111); 
-00166:  MOVLW  0F
-00168:  MOVWF  F92
+00164:  MOVLW  0F
+00166:  MOVWF  F92
 ....................    output_a(0xf0); 
-0016A:  CLRF   F92
-0016C:  MOVLW  F0
-0016E:  MOVWF  F89
+00168:  CLRF   F92
+0016A:  MOVLW  F0
+0016C:  MOVWF  F89
 ....................    delay_ms(1000); 
-00170:  MOVLW  04
-00172:  MOVWF  0D
-00174:  MOVLW  FA
-00176:  MOVWF  0F
-00178:  RCALL  001C
-0017A:  DECFSZ 0D,F
-0017C:  BRA    0174
+0016E:  MOVLW  04
+00170:  MOVWF  11
+00172:  MOVLW  FA
+00174:  MOVWF  12
+00176:  BRA    001C
+00178:  DECFSZ 11,F
+0017A:  BRA    0172
 ....................    while(true){ 
 ....................       for (direcciones = 0x00; direcciones < count; direcciones++){ 
-0017E:  CLRF   0C
-00180:  MOVF   0B,W
-00182:  SUBWF  0C,W
-00184:  BC    01F6
+0017C:  CLRF   10
+0017E:  MOVF   0F,W
+00180:  SUBWF  10,W
+00182:  BC    01F4
 ....................          /* code */ 
 ....................          printf("ms rq: %X , ",direcciones); 
-00186:  MOVLW  04
-00188:  MOVWF  FF6
-0018A:  MOVLW  00
-0018C:  MOVWF  FF7
-0018E:  MOVLW  07
-00190:  MOVWF  0D
-00192:  RCALL  004A
-00194:  MOVFF  0C,0D
-00198:  MOVLW  37
-0019A:  MOVWF  0E
-0019C:  RCALL  006A
-0019E:  MOVLW  20
-001A0:  BTFSS  F9E.4
-001A2:  BRA    01A0
-001A4:  MOVWF  FAD
-001A6:  MOVLW  2C
-001A8:  BTFSS  F9E.4
-001AA:  BRA    01A8
-001AC:  MOVWF  FAD
-001AE:  MOVLW  20
-001B0:  BTFSS  F9E.4
-001B2:  BRA    01B0
-001B4:  MOVWF  FAD
+00184:  MOVLW  04
+00186:  MOVWF  FF6
+00188:  MOVLW  00
+0018A:  MOVWF  FF7
+0018C:  MOVLW  07
+0018E:  MOVWF  11
+00190:  RCALL  004C
+00192:  MOVFF  10,11
+00196:  MOVLW  37
+00198:  MOVWF  12
+0019A:  RCALL  006C
+0019C:  MOVLW  20
+0019E:  BTFSS  F9E.4
+001A0:  BRA    019E
+001A2:  MOVWF  FAD
+001A4:  MOVLW  2C
+001A6:  BTFSS  F9E.4
+001A8:  BRA    01A6
+001AA:  MOVWF  FAD
+001AC:  MOVLW  20
+001AE:  BTFSS  F9E.4
+001B0:  BRA    01AE
+001B2:  MOVWF  FAD
 ....................          if (read_mma(direcciones) != -1) 
-001B6:  MOVFF  0C,0D
-001BA:  BRA    00AC
-001BC:  MOVF   01,W
-001BE:  SUBLW  FF
-001C0:  BZ    01F2
-....................          { 
+001B4:  MOVFF  10,11
+001B8:  BRA    00AE
+001BA:  MOVF   01,W
+001BC:  SUBLW  FF
+001BE:  BZ    01F0
+....................          {             
 ....................             printf("rp: %X \n\r",respuesta); 
-001C2:  MOVLW  12
-001C4:  MOVWF  FF6
-001C6:  MOVLW  00
-001C8:  MOVWF  FF7
-001CA:  MOVLW  04
-001CC:  MOVWF  0D
-001CE:  RCALL  004A
-001D0:  MOVFF  0A,0D
-001D4:  MOVLW  37
-001D6:  MOVWF  0E
-001D8:  RCALL  006A
-001DA:  MOVLW  20
-001DC:  BTFSS  F9E.4
-001DE:  BRA    01DC
-001E0:  MOVWF  FAD
-001E2:  MOVLW  0A
-001E4:  BTFSS  F9E.4
-001E6:  BRA    01E4
-001E8:  MOVWF  FAD
-001EA:  MOVLW  0D
-001EC:  BTFSS  F9E.4
-001EE:  BRA    01EC
-001F0:  MOVWF  FAD
+001C0:  MOVLW  12
+001C2:  MOVWF  FF6
+001C4:  MOVLW  00
+001C6:  MOVWF  FF7
+001C8:  MOVLW  04
+001CA:  MOVWF  11
+001CC:  RCALL  004C
+001CE:  MOVFF  0A,11
+001D2:  MOVLW  37
+001D4:  MOVWF  12
+001D6:  RCALL  006C
+001D8:  MOVLW  20
+001DA:  BTFSS  F9E.4
+001DC:  BRA    01DA
+001DE:  MOVWF  FAD
+001E0:  MOVLW  0A
+001E2:  BTFSS  F9E.4
+001E4:  BRA    01E2
+001E6:  MOVWF  FAD
+001E8:  MOVLW  0D
+001EA:  BTFSS  F9E.4
+001EC:  BRA    01EA
+001EE:  MOVWF  FAD
 ....................          }          
 ....................       } 
-001F2:  INCF   0C,F
-001F4:  BRA    0180
+001F0:  INCF   10,F
+001F2:  BRA    017E
 ....................       direcciones = 0x00; 
-001F6:  CLRF   0C
+001F4:  CLRF   10
 ....................       /*aqui va el codigo*/ 
 ....................       /*for (i = 0; i < count; ++i){ 
 ....................          printf("%d \n\r",i ); 
 ....................       }*/ 
 ....................        
 ....................    } 
-001F8:  BRA    017E
+001F6:  BRA    017C
 .................... } 
-001FA:  SLEEP 
+001F8:  SLEEP 
 
 Configuration Fuses:
    Word  1: C200   HS IESO FCMEN

@@ -2,6 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "address.h"
+#byte READ = 0b00000000
+#byte WRITE = 0b10000000
+#byte SSPSTAT = getenv("SFR:SSPSTAT")
+#byte SSPBUF = getenv("SFR:SSPBUF")
+
+unsigned int8 respuesta = 0x00;
 /**
 enum registros{
    xoutl = 0x00, xouth = 0x01,//registros de medida de x a 10bit
@@ -25,12 +31,32 @@ enum registros{
    reserved2 = 0x1F
 };
 */
+
+void write_mma(int8 address){
+   while(!spi_data_is_in());
+   
+
+}
+
+unsigned int8 read_mma(unsigned int8 address){
+   //address<<=1;
+   //address|=READ;
+   //swap(address);
+   spi_write(address);
+   //while(!spi_data_is_in()){;} //comprobar con un tiempo espesifico
+   if(spi_data_is_in()){
+      respuesta = spi_read();
+      return respuesta;
+   }      
+   return -1;
+}
+
+
 void main()
 {
-   int i = 0;
-   char count = 0x1F;
-   char direcciones = 0x00;
-   char respuesta = 0x00;
+   unsigned int8 count = 0x1F;
+   unsigned int8 direcciones = 0x00;
+   
 
    setup_adc_ports(NO_ANALOGS|VSS_VDD);
    setup_adc(ADC_CLOCK_DIV_2|ADC_TAD_MUL_0);
@@ -45,23 +71,26 @@ void main()
    setup_comparator(NC_NC_NC_NC);
    setup_vref(FALSE);
 //Setup_Oscillator parameter not selected from Intr Oscillator Config tab
-
+	bit_clear(SSPSTAT,0);
+	SSPBUF = 0x00;
    // TODO: USER CODE!!
    set_tris_A(0b00001111);
    output_a(0xf0);
+   delay_ms(1000);
    while(true){
       for (direcciones = 0x00; direcciones < count; direcciones++){
          /* code */
-         spi_write(direcciones);
-         //delay_ms(30);
-         respuesta = spi_read();
-         printf("respuesta: %c\n",respuesta );
+         printf("ms rq: %X , ",direcciones);
+         if (read_mma(direcciones) != -1)
+         {            
+            printf("rp: %X \n\r",respuesta);
+         }         
       }
       direcciones = 0x00;
       /*aqui va el codigo*/
       /*for (i = 0; i < count; ++i){
          printf("%d \n\r",i );
       }*/
-      delay_ms(500);
+      
    }
 }

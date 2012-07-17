@@ -64,7 +64,7 @@ void write_data(unsigned int8 address){
 
 void read_data(unsigned int8 &address){
    if(address >= 0x00 && address <0x20){
-      printf("sl rp: %X \n\r",memory[ address ]);
+      //printf("sl rp: %X \n\r",memory[ address ]);
       spi_write(memory[ address ]);
    }else{
       spi_write(-1);
@@ -126,11 +126,11 @@ void main()
          if(!bit_test(address, 7)){
             //lectura desde el maestro
             //filterIN(address);
-            printf("%s: %X ,", "Rd", address);
+            //printf("%s: %X ,", "Rd", address);
             read_data(address);
          }else{
             //escritura desde el maestro
-            printf("%s: %X \n\r", "Wd", address);
+            //printf("%s: %X \n\r", "Wd", address);
             spi_write(address);
          }
          //printf("ACK: %d\n\r", address);
@@ -156,7 +156,7 @@ void leerGravedad(){
    //coloca en el registro x
    memory[xoutl] = byte_low;
    memory[xouth] = byte_high;
-   printf("X: %Lu ", value);
+   //printf("X: %Lu ", value);
    
    //leer canal 1
    set_adc_channel(1);
@@ -169,7 +169,7 @@ void leerGravedad(){
    //coloca en el registro y
    memory[ youtl ] = byte_low;
    memory[ youth ] = byte_high;
-   printf("Y: %Lu ", value);
+   //printf("Y: %Lu ", value);
    
    //leer canal 3
    set_adc_channel(3);
@@ -182,7 +182,7 @@ void leerGravedad(){
    //coloca en el registro z
    memory[ zoutl ] = byte_low;
    memory[ zouth ] = byte_high;
-   printf("Z: %Lu\n\r", value);
+   //printf("Z: %Lu\n\r", value);
    //printf("\n\rxoutl: %u xouth: %u\n\ryoutl: %u youth: %u\n\rzoutl: %u zouth: %u",memory[xoutl],memory[xouth],memory[youtl],memory[youth],memory[zoutl],memory[zouth]);
 }
 /*

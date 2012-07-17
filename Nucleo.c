@@ -2,34 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "address.h"
-#byte READ = 0b00000000
-#byte WRITE = 0b10000000
+#define READ  0b00000000
+#define WRITE 0b10000000
 
 unsigned int8 respuesta = 0x00;
-/**
-enum registros{
-   xoutl = 0x00, xouth = 0x01,//registros de medida de x a 10bit
-   youtl = 0x02, youth = 0x03,//registros de medida de y a 10bit
-   zoutl = 0x04, zouth = 0x05,//registros de medida de z a 10bit
-   xout8 = 0x06, yout8 = 0x07, zout8 = 0x08,//registros de medida a 8bit
-   status= 0x09,
-   detsrc= 0x0A,
-   tout  = 0x0B,
-   reserved= 0x0C,
-   i2cad = 0x0D,
-   usrinf= 0x0E, whoami= 0x0F,
-   xoffl = 0x10, xoffh = 0x11,
-   yoffl = 0x12, yoffh = 0x13,
-   zoffl = 0x14, zoffh = 0x15,
-   mctl  = 0x16,
-   intrst = 0x17,
-   ctl1  = 0x18, ctl2 = 0x19,
-   ldth  = 0x1A, pdth = 0x1B,
-   pw    = 0x1C, lt = 0x1D, tw = 0x1E,
-   reserved2 = 0x1F
-};
-*/
-
+char* SSPSTAT = 0x0FC7;
+char* SSPBUF = 0x0FC9;
 void write_mma(int8 address){
    while(!spi_data_is_in());
    
@@ -41,8 +19,7 @@ unsigned int8 read_mma(unsigned int8 address){
    //address|=READ;
    //swap(address);
    spi_write(address);
-   delay_ms(1000);
-   while(!spi_data_is_in()){;} //comprobar con un tiempo espesifico
+   //while(!spi_data_is_in()){;} //comprobar con un tiempo espesifico
    if(spi_data_is_in()){
       respuesta = spi_read();
       return respuesta;
@@ -70,7 +47,6 @@ void main()
    setup_comparator(NC_NC_NC_NC);
    setup_vref(FALSE);
 //Setup_Oscillator parameter not selected from Intr Oscillator Config tab
-
    // TODO: USER CODE!!
    set_tris_A(0b00001111);
    output_a(0xf0);
@@ -80,7 +56,7 @@ void main()
          /* code */
          printf("ms rq: %X , ",direcciones);
          if (read_mma(direcciones) != -1)
-         {
+         {            
             printf("rp: %X \n\r",respuesta);
          }         
       }

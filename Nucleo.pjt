@@ -18,7 +18,7 @@ AdditionalOptionString=
 [Opened Files]
 1=Nucleo.c
 2=Nucleo.h
-3=
+3=I:\Archivos de programa\PICC\devices\18F4620.h
 4=
 [Target Data]
 OptionString=-p +FH

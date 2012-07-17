@@ -1,2 +1,4 @@
-      Memory usage:   ROM=1%      RAM=0% - 0%
-      0 Errors,  0 Warnings.
+>>> Warning 202 "Nucleo.c" Line 9(15,22): Variable never used:   SSPSTAT
+>>> Warning 202 "Nucleo.c" Line 10(14,20): Variable never used:   SSPBUF
+      Memory usage:   ROM=1%      RAM=0% - 1%
+      0 Errors,  2 Warnings.
