@@ -4,6 +4,6 @@
       쳐@delay_ms1  0/48  Ram=1
       쳐@PSTRINGCN_9600_31766_31767  0/32  Ram=3
       쳐@PRINTF_X_9600_31766_31767  0/66  Ram=2
-      쳐read_mma  0/32  Ram=1
+      쳐read_mma  0/36  Ram=1
       쳐@PSTRINGCN_9600_31766_31767  0/32  Ram=3
       읕@PRINTF_X_9600_31766_31767  0/66  Ram=2

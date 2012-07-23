@@ -10,13 +10,11 @@ char* SSPSTAT = 0x0FC7;
 char* SSPBUF = 0x0FC9;
 void write_mma(int8 address){
    while(!spi_data_is_in());
-   
-
 }
 
 unsigned int8 read_mma(unsigned int8 address){
-   //address<<=1;
-   //address|=READ;
+   address<<=1;
+   address|=READ;
    //swap(address);
    spi_write(address);
    //while(!spi_data_is_in()){;} //comprobar con un tiempo espesifico

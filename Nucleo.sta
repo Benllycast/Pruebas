@@ -1,6 +1,6 @@
 
-ROM used: 506 (1%)
-          506 (1%) including unused fragments
+ROM used: 510 (1%)
+          510 (1%) including unused fragments
 
           0 Average locations per line
           1 Average locations per statement
@@ -12,44 +12,44 @@ Stack used: 1 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   71    32   8  Nucleo.c
+   71    34   9  Nucleo.c
    31     0   0  Nucleo.h
   463     0   0  I:\Archivos de programa\PICC\devices\18F4620.h
    37     0   0  I:\Archivos de programa\PICC\drivers\stdio.h
   409     0   0  I:\Archivos de programa\PICC\drivers\string.h
    28     0   0  I:\Archivos de programa\PICC\drivers\stddef.h
    28     0   0  I:\Archivos de programa\PICC\drivers\ctype.h
- 1273   359  92  I:\Archivos de programa\PICC\drivers\stdlib.h
+ 1273   359  91  I:\Archivos de programa\PICC\drivers\stdlib.h
    40     0   0  address.h
 ----- -----
- 2380   391 Total
+ 2380   393 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
 0     48   5   1             @delay_ms1
-0     32   3   1   110  2.9  read_mma
-0    300  30   3   812  6.4  MAIN
+0     36   4   1   158  3.9  read_mma
+0    300  29   3   812  6.4  MAIN
 0     14   1   0             @const348
 0     32   3   3             @PSTRINGCN_9600_31766_31767
-0     66   7   2             @PRINTF_X_9600_31766_31767
+0     66   6   2             @PRINTF_X_9600_31766_31767
 0     10   1   0             @const354
 
 Program metrics:
     Functions               2
-    Statements              391
-    Comments                658
-    Volume (V)              1036
-    Difficilty (D)          9.0
-    Effort to implement (E) 9328
-    Time to implement (T)   9 minutes
+    Statements              393
+    Comments                656
+    Volume (V)              1103
+    Difficilty (D)          10.0
+    Effort to implement (E) 10981
+    Time to implement (T)   10 minutes
     Est Delivered Bugs (B)  0
     Cyclomatic Complexity   3
-    Maintainability (MI)    61
+    Maintainability (MI)    63
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
-00004-0FFFE   502  65030  
+00004-0FFFE   506  65026  
 
 
 

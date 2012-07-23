@@ -54,6 +54,8 @@ RETURNS: None
 */
 void write_data(unsigned int8 address){
    int8 data = 0;
+   bit_clear(address, 7);
+   address>>=1;
    while(!spi_data_is_in());   
    if(spi_data_is_in())
       data = spi_read();   
@@ -63,18 +65,15 @@ void write_data(unsigned int8 address){
 }
 
 void read_data(unsigned int8 &address){
+   bit_clear(address, 7);
+   address>>=1;
    if(address >= 0x00 && address <0x20){
-      //printf("sl rp: %X \n\r",memory[ address ]);
+      printf("sl rp: %X \n\r",memory[ address ]);
       spi_write(memory[ address ]);
    }else{
       spi_write(-1);
    }
    return;
-}
-
-void filterIN(unsigned int8 &instr){
-   bit_clear(instr, 7);
-   instr>>=1;
 }
 
 void main()
@@ -90,33 +89,34 @@ void main()
    setup_comparator(NC_NC_NC_NC);
    setup_vref(FALSE);
    // TODO: USER CODE!!
-   
-   memory[0x00] = xouth;   memory[0x01] = xoutl;
-   memory[0x02] = youth;   memory[0x03] = youtl;
-   memory[0x04] = zouth;   memory[0x05] = zoutl;
-   
-   memory[0x06] = xout8;
-   memory[0x07] = yout8;
-   memory[0x08] = zout8;
+   #ifdef testmma
+      memory[0x00] = xouth;   memory[0x01] = xoutl;
+      memory[0x02] = youth;   memory[0x03] = youtl;
+      memory[0x04] = zouth;   memory[0x05] = zoutl;
+      
+      memory[0x06] = xout8;
+      memory[0x07] = yout8;
+      memory[0x08] = zout8;
 
-   memory[0x09] = status;
-   memory[0x0A] = detsrc;
-   memory[0x0B] = tout;
-   memory[0x0C] = reserved;
-   memory[0x0D] = i2cad;
-   memory[0x0E] = usrinf;
-   memory[0x0F] = whoami;
+      memory[0x09] = status;
+      memory[0x0A] = detsrc;
+      memory[0x0B] = tout;
+      memory[0x0C] = reserved;
+      memory[0x0D] = i2cad;
+      memory[0x0E] = usrinf;
+      memory[0x0F] = whoami;
 
-   memory[0x10] = xoffl;   memory[0x11] = xoffh;
-   memory[0x12] = yoffl;   memory[0x13] = yoffh;
-   memory[0x14] = zoffl;   memory[0x15] = zoffh;
-   
-   memory[0x16] = mctl;
-   memory[0x17] = intrst;
-   memory[0x18] = ctl1;   memory[0x19] = ctl2;
-   memory[0x1A] = ldth;   memory[0x1B] = pdth;
-   memory[0x1C] = pw;   memory[0x1D] = lt;   memory[0x1E] = tw;
-   memory[0X1F] = reserved2;
+      memory[0x10] = xoffl;   memory[0x11] = xoffh;
+      memory[0x12] = yoffl;   memory[0x13] = yoffh;
+      memory[0x14] = zoffl;   memory[0x15] = zoffh;
+      
+      memory[0x16] = mctl;
+      memory[0x17] = intrst;
+      memory[0x18] = ctl1;   memory[0x19] = ctl2;
+      memory[0x1A] = ldth;   memory[0x1B] = pdth;
+      memory[0x1C] = pw;   memory[0x1D] = lt;   memory[0x1E] = tw;
+      memory[0X1F] = reserved2;
+  #endif
    
    while(true)
    {
@@ -126,7 +126,7 @@ void main()
          if(!bit_test(address, 7)){
             //lectura desde el maestro
             //filterIN(address);
-            //printf("%s: %X ,", "Rd", address);
+            printf("%s: %X ,", "Rd", address);
             read_data(address);
          }else{
             //escritura desde el maestro
