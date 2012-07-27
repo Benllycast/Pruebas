@@ -1,5 +1,5 @@
 [PROJECT]
-Target=G:\Project\pic\CCS\MMA7455l\Nucleo.hex
+Target=Nucleo.hex
 Development_Mode=
 Processor_Text=PIC18F4620
 ToolSuite=CCS
@@ -12,19 +12,52 @@ BuildTool=
 OptionString=
 AdditionalOptionString=
 [mru-list]
-1=G:\Project\pic\CCS\MMA7455l\Nucleo.c
+1=Nucleo.c
 [Windows]
 0=0000 %S 0 0 796 451 3 0
 [Opened Files]
 1=Nucleo.c
 2=Nucleo.h
 3=I:\Archivos de programa\PICC\devices\18F4620.h
-4=
+4=accelerometro.c
+5=accelerometro.h
+6=
 [Target Data]
-OptionString=-p +FH
-FileList=G:\Project\pic\CCS\MMA7455l\Nucleo.c
+OptionString=+FH
+FileList=accelerometro.c
+BuildTool=C-COMPILER
+AdditionalOptionString=
+BuildRequired=1
 [Units]
-Count=3
-1=Nucleo (main)
+Count=2
+1=Nucleo.c
+Link=1
 2=accelerometro.c
-3=accelerometro.h
+[Directories]
+Include=I:\Archivos de programa\PICC\devices\;I:\Archivos de programa\PICC\drivers\;
+Library=
+LinkerScript=
+[defines]
+enabled=0
+D1=
+V1=
+[fileformats]
+forcecoff=0
+debug=4
+error=2
+object=0
+list=0
+scratch=0
+sta=1
+tre=1
+allerrors=1
+allwarnings=1
+stayupne=3
+stayupoe=0
+[Nucleo.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=

@@ -1,0 +1,38 @@
+_RETURN_
+CCP_1
+CCP_1_LOW
+CCP_1_HIGH
+CCP_2
+CCP_2_LOW
+CCP_2_HIGH
+PSP_DATA
+C1OUT
+C2OUT
+config_acelerometro
+
+Project Directory:
+    G:\Project\pic\CCS\MMA7455l\
+
+Project Files:
+    accelerometro.c
+    accelerometro.h
+    Nucleo.h
+    I:\Archivos de programa\PICC\devices\18F4620.h
+
+Units:
+    G:\Project\pic\CCS\MMA7455l\accelerometro (main)
+
+Compiler Settings:
+    Processor:      PIC18F4620
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+    Output file:    Relocatable
+
+Output Files:
+    Errors:      accelerometro.err
+    Ext Symbols: accelerometro.esym
+    Object:      accelerometro.o
+    Symbols:     accelerometro.osym

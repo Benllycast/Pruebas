@@ -12,7 +12,7 @@ Stack used: 1 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   71    34   9  Nucleo.c
+   69    34   9  Nucleo.c
    31     0   0  Nucleo.h
   463     0   0  I:\Archivos de programa\PICC\devices\18F4620.h
    37     0   0  I:\Archivos de programa\PICC\drivers\stdio.h
@@ -22,7 +22,7 @@ Lines Stmts  %   Files
  1273   359  91  I:\Archivos de programa\PICC\drivers\stdlib.h
    40     0   0  address.h
 ----- -----
- 2380   393 Total
+ 2378   393 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------

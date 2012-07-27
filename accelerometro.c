@@ -1,41 +1,73 @@
-struct CONFIG_ACCELEROMETRO
-{
-	/* data */
-	struct {
-		unsigned reserved : 1;
-		unsigned DRPD : 1;
-		unsigned SPI3W : 1;
-		unsigned STON : 1;
-		unsigned GLVL : 2; 	/* 00 = 8g, 01 = 4g, 01 = 2g*/
-		unsigned MODE : 2;	/* 00 = stanby_mode, 01 = measure mode, 10 = level detection, 11 = pulse detection*/
-	} _MODE_CONTROL_REGISTER;
-	
-	struct {
-		unsigned reserved : 6;
-		unsigned CLRINT2 : 1;
-		unsigned CLRINT1 : 1;
-	} _INTERRUP_LACHT_RESET;
-	
-	struct {
-		unsigned DFBW: 1;
-		unsigned THOPT: 1;
-		unsigned ZDA: 1;
-		unsigned YDA: 1;
-		unsigned XDA: 1;
-		unsigned INTRG: 2;
-		unsigned INTPIN: 1;  
-	} _CONTROL_1;
+#include "accelerometro.h"
 
-	struct {
-		unsigned reserved: 4;
-		unsigned DRVO: 1;
-		unsigned PDPL: 1;
-		unsigned LDOL: 1;
-	} _CONTROL_2;
+void config_MMA(){
+   return;
+} //setear la cofiguracion incial
 
-	char _LEVEL_DETECTION_THREHOLDS;
-	char _PULSE_DETECTION_THREHOLDS;
-	char _PULSE_DUATION;
-	char _LANTENCY_TIME;
-	char _TIME_WINDOWS;
-};
+void set_config(*CONFIG_MMA7455){
+   return;
+}// cambiar la configuracion incicial (del SPI y/o MMA)
+
+int read_MMA(unsigned int8 start, int8 *buffer,int size){
+   //condicion de inicio del MMA
+   int error = -1, i = 0;
+   int1 ack = 1;
+   
+   error = begin_transmicion(MMA7455_I2C_ADDRESS);//inicia la transmicion al MMA7455    
+      error = i2c_write(start);//registro de inicio de lectura del MMA
+      if(error!=0)
+      return error;
+
+   error = requesFROM(MMA7455_I2C_ADDRESS);
+      if(error!=0)
+      return error;
+    
+    i = 0;
+    ack = 1;
+    while(i2c_poll() && i<size){
+       if((i+1) >= size)
+          ack = 0;
+       
+       buffer[i++]=i2c_read(ack);
+    }
+    i2c_stop();
+
+  if ( i != size)
+    return (-11);
+
+  return (0);
+} //leer datos desde el mma
+
+void write_MMA(){
+      return;
+} //escribir datos desde el mma
+
+int8 begin_transmicion(unsigned int8 address){
+   unsigned int8 out = 0;
+   int8 error = -1;
+   out = (address << 1);
+   bit_clear(out, 0);
+   i2c_start();
+      error = i2c_write(out);
+   return error;
+} //seleccion del dispositivo en el bus spi
+
+int1 end_transmicion(){
+   return;
+
+} // deseleccion del dispositivo en el bus spi
+
+int8 requesFROM(unsigned int8 address){
+   unsigned int8 out = 0;
+      int8 error = -1;
+   out = (address << 1);
+   bit_set(out, 0);
+   i2c_start();
+      error = i2c_write(out);
+   return error;
+}
+
+int8 bit(int8 pos){
+   int8 bits = 1;
+   return (bits<<pos);
+}

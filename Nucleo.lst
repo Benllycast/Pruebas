@@ -1,4 +1,4 @@
-CCS PCH C Compiler, Version 4.105, 13255               17-Jul-12 09:08
+CCS PCH C Compiler, Version 4.105, 13255               25-Jul-12 10:25
 
                Filename: G:\Project\pic\CCS\MMA7455l\Nucleo.lst
 
@@ -2361,8 +2361,6 @@ CCS PCH C Compiler, Version 4.105, 13255               17-Jul-12 09:08
 .................... char* SSPBUF = 0x0FC9; 
 .................... void write_mma(int8 address){ 
 ....................    while(!spi_data_is_in()); 
-....................     
-....................  
 .................... } 
 ....................  
 .................... unsigned int8 read_mma(unsigned int8 address){ 
