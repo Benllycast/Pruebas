@@ -15,9 +15,9 @@ Project Directory:
 
 Project Files:
     accelerometro.c
-    accelerometro.h
     Nucleo.h
     I:\Archivos de programa\PICC\devices\18F4620.h
+    accelerometro.h
 
 Units:
     G:\Project\pic\CCS\MMA7455l\accelerometro (main)
@@ -25,14 +25,14 @@ Units:
 Compiler Settings:
     Processor:      PIC18F4620
     Pointer Size:   16
-    ADC Range:      0-1023
+    ADC Range:      0-255
     Opt Level:      9
     Short,Int,Long: UNSIGNED: 1,8,16
     Float,Double:   32,32
     Output file:    Relocatable
 
 Output Files:
-    Errors:      accelerometro.err
+    Errors:      Nucleo.err
     Ext Symbols: accelerometro.esym
     Object:      accelerometro.o
     Symbols:     accelerometro.osym

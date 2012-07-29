@@ -1,5 +1,5 @@
 #include <18F4620.h>
-#device adc=10
+//#device adc=10
 
 #FUSES NOWDT                 	//No Watch Dog Timer
 #FUSES WDT128                	//Watch Dog Timer uses 1:128 Postscale

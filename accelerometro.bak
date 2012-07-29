@@ -101,6 +101,8 @@
 
 // Default I2C address for the MMA7455
 #define MMA7455_I2C_ADDRESS 0x1D
+#define MMA7455_I2C_ADDRESS_READ 0X3B
+#define MMA7455_I2C_ADDRESS_WRITE 0X3A
 
 
 // When using an union for the registers and
@@ -190,25 +192,26 @@ volatile struct CONFIG_MMA7455
    0x00,
    0x00*/
 };//variable para la configuracion del accelerometro
-/*
-config_acelerometro._MODE_CONTROL_REGISTER = 0b01001001;
-config_acelerometro._CONTROL_1 = 0b00000000;
-config_acelerometro._CONTROL_2 = 0b00000000;
-config_acelerometro._LEVEL_DETECTION_THREHOLDS = 0x01;
-config_acelerometro._PULSE_DETECTION_THREHOLDS = 0x01;
-config_acelerometro._PULSE_DURATION = 0x00;
-config_acelerometro._LANTENCY_TIME = 0x00;
-config_acelerometro._TIME_WINDOWS = 0x00;
-*/
-#use i2c(master, sda=PIN_C4, scl=PIN_C3, FORCE_HW)
 
-void config_MMA();                //setear la cofiguracion incial
+#use i2c(master, sda=PIN_C4, scl=PIN_C3, FORCE_HW, RESTART_WDT)                    //directiva de compilador par ale uso del bus I2C del microcontrolador
+//configuracion incial del MMA7455
+int config_MMA();
+
+//cambio de configuracion del MMA7455
 void set_config(*CONFIG_MMA7455);
-int read_MMA(unsigned int8 start, int8 *buffer,int size);                  //leer datos desde el mma
-void write_MMA();                 //escribir datos desde el mma
-int1 begin_transmicion(unsigned int8 address);         //seleccion del dispositivo en el bus spi
-int1 end_transmicion(bool);
-int8 requesFROM(unsigned int8 address);         //deseleccion del dispositivo en el bus spi
+
+//Lectura de datosd desde el MMA7455
+int read_MMA(unsigned char address, int8 *value);
+int read_MMA(unsigned char start_address, int8 *buffer,int size);
+
+//Escritura de datos en el MMA7455
+int write_MMA(unsigned char address, unsigned int8 *value);
+int write_MMA(unsigned char start_address, unsigned int8 *pData, int size);
+/*
+int1 begin_transmision(unsigned int8 address);
+int1 end_transmision(bool);
+int8 requesFROM(unsigned int8 address);
+*/
 #endif
 
 /*

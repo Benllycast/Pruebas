@@ -1,3 +1,0 @@
->>> Warning 208 "accelerometro.c" Line 55(6,21): Function not void and does not return a value  end_transmicion
->>> Warning 202 "G:\Project\pic\CCS\MMA7455l\accelerometro.h" Line 178(23,42): Variable never used:   config_acelerometro
-G:\Project\pic\CCS\MMA7455l\accelerometro.o ===>  0 Errors,  2 Warnings.

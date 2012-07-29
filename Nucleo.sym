@@ -5,27 +5,24 @@
 003     @SCRATCH
 004-005 strtok.save
 006-009 _Randseed
-00A     respuesta
-00B-00C SSPSTAT
-00D-00E SSPBUF
-00F     MAIN.count
-010     MAIN.direcciones
-011     @PRINTF_X_9600_31766_31767.P1
-011     @PSTRINGCN_9600_31766_31767.P2
-011     read_mma.address
-011     MAIN.@SCRATCH1
-012     @PRINTF_X_9600_31766_31767.P1
-012     @delay_ms1.P2
-012     @PSTRINGCN_9600_31766_31767.@SCRATCH1
-013     @PSTRINGCN_9600_31766_31767.@SCRATCH2
+00A-012 config_acelerometro
+013     respuesta
+014-015 SSPSTAT
+016-017 SSPBUF
+018     MAIN.count
+019     MAIN.direcciones
 F83     PSP_DATA
 FB4.6   C1OUT
 FB4.7   C2OUT
 FBB     CCP_2
 FBB     CCP_2_LOW
+FBB     CCP_2
+FBB     CCP_2_LOW
 FBC     CCP_2_HIGH
+FBE     CCP_1_LOW
 FBE     CCP_1
 FBE     CCP_1_LOW
+FBE     CCP_1
 FBF     CCP_1_HIGH
 FE1-FE2 @WRITE_PACKED_MEMORY.P1
 FE1-FE2 @READ_PACKED_MEMORY.P2
@@ -37,17 +34,15 @@ FF6-FF8 @READ_PROGRAM_MEMORY.P1
 FF6-FF8 @WRITE_PROGRAM_MEMORY.P2
 
 ROM Allocation:
-001C  @delay_ms1
-00AE  read_mma
-00D2  MAIN
-0004  @const348
-004C  @PSTRINGCN_9600_31766_31767
-006C  @PRINTF_X_9600_31766_31767
-0012  @const354
-00D2  @cinit
+0004  MAIN
+0004  @cinit
 0136  StrtoulGO
 0136  StrtolGO
 
+
+User Memory space: 
+
+User Memory space: 
 
 User Memory space: 
 
@@ -58,22 +53,24 @@ Project Directory:
 
 Project Files:
     Nucleo.c
-    Nucleo.h
-    I:\Archivos de programa\PICC\devices\18F4620.h
-    I:\Archivos de programa\PICC\drivers\stdio.h
-    I:\Archivos de programa\PICC\drivers\string.h
-    I:\Archivos de programa\PICC\drivers\stddef.h
-    I:\Archivos de programa\PICC\drivers\ctype.h
-    I:\Archivos de programa\PICC\drivers\stdlib.h
-    address.h
+    Nucleo.h (link)
+    I:\Archivos de programa\PICC\devices\18F4620.h (link)
+    I:\Archivos de programa\PICC\drivers\stdio.h (link)
+    I:\Archivos de programa\PICC\drivers\string.h (link)
+    I:\Archivos de programa\PICC\drivers\stddef.h (link)
+    I:\Archivos de programa\PICC\drivers\ctype.h (link)
+    I:\Archivos de programa\PICC\drivers\stdlib.h (link)
+    accelerometro.c (link)
+    accelerometro.h (link)
 
 Units:
-    G:\Project\pic\CCS\MMA7455l\Nucleo (main)
+    G:\Project\pic\CCS\MMA7455l\Nucleo.o
+    G:\Project\pic\CCS\MMA7455l\accelerometro.o
 
 Compiler Settings:
     Processor:      PIC18F4620
     Pointer Size:   16
-    ADC Range:      0-1023
+    ADC Range:      0-255
     Opt Level:      9
     Short,Int,Long: UNSIGNED: 1,8,16
     Float,Double:   32,32

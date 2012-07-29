@@ -1,0 +1,60 @@
+_RETURN_
+CCP_1
+CCP_1_LOW
+CCP_1_HIGH
+CCP_2
+CCP_2_LOW
+CCP_2_HIGH
+PSP_DATA
+C1OUT
+C2OUT
+_Randseed
+_RETURN_
+CCP_1
+CCP_1_LOW
+CCP_1_HIGH
+CCP_2
+CCP_2_LOW
+CCP_2_HIGH
+PSP_DATA
+C1OUT
+C2OUT
+config_acelerometro
+respuesta
+SSPSTAT
+SSPBUF
+
+Project Directory:
+    G:\Project\pic\CCS\MMA7455l\
+
+Project Files:
+    Nucleo.c
+    Nucleo.h
+    I:\Archivos de programa\PICC\devices\18F4620.h
+    I:\Archivos de programa\PICC\drivers\stdio.h
+    I:\Archivos de programa\PICC\drivers\string.h
+    I:\Archivos de programa\PICC\drivers\stddef.h
+    I:\Archivos de programa\PICC\drivers\ctype.h
+    I:\Archivos de programa\PICC\drivers\stdlib.h
+    accelerometro.c (link)
+    Nucleo.h (link)
+    accelerometro.h (link)
+
+Units:
+    G:\Project\pic\CCS\MMA7455l\Nucleo (main)
+    G:\Project\pic\CCS\MMA7455l\accelerometro.o
+
+Compiler Settings:
+    Processor:      PIC18F4620
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+    Output file:    Relocatable
+
+Output Files:
+    Errors:      Nucleo.err
+    Ext Symbols: Nucleo.esym
+    Object:      Nucleo.o
+    Symbols:     Nucleo.osym

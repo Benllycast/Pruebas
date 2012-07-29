@@ -1,7 +1,7 @@
 #include "Nucleo.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "address.h"
+#import(FILE=accelerometro.o)
 #define READ  0b00000000
 #define WRITE 0b10000000
 
@@ -63,6 +63,6 @@ void main()
       /*for (i = 0; i < count; ++i){
          printf("%d \n\r",i );
       }*/
-      
+
    }
 }

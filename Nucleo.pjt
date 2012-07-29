@@ -18,21 +18,16 @@ AdditionalOptionString=
 [Opened Files]
 1=Nucleo.c
 2=Nucleo.h
-3=I:\Archivos de programa\PICC\devices\18F4620.h
-4=accelerometro.c
-5=accelerometro.h
+3=accelerometro.c
+4=accelerometro.h
+5=
 6=
 [Target Data]
 OptionString=+FH
-FileList=accelerometro.c
+FileList=G:\Project\pic\CCS\MMA7455l\Nucleo.c
 BuildTool=C-COMPILER
 AdditionalOptionString=
 BuildRequired=1
-[Units]
-Count=2
-1=Nucleo.c
-Link=1
-2=accelerometro.c
 [Directories]
 Include=I:\Archivos de programa\PICC\devices\;I:\Archivos de programa\PICC\drivers\;
 Library=
@@ -61,3 +56,8 @@ FileList=
 BuildTool=
 OptionString=
 AdditionalOptionString=
+[Units]
+Count=2
+1=Nucleo.o
+2=accelerometro.o
+Link=1

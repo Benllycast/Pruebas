@@ -1,22 +1,23 @@
-CCS PCH C Compiler, Version 4.105, 13255               25-Jul-12 10:25
+CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
 
                Filename: G:\Project\pic\CCS\MMA7455l\Nucleo.lst
 
-               ROM used: 510 bytes (1%)
-                         Largest free fragment is 65026
-               RAM used: 18 (0%) at main() level
-                         20 (1%) worst case
-               Stack:    1 locations
+               ROM used: 204 bytes (0%)
+                         Largest free fragment is 65332
+               RAM used: 26 (1%) at main() level
+                         26 (1%) worst case
+               Stack:    0 locations
 
 *
-00000:  GOTO   00D2
+00000:  GOTO   0004
+....................  
 .................... #include "Nucleo.h" 
 .................... #include <18F4620.h> 
 .................... //////// Standard Header file for the PIC18F4620 device //////////////// 
 .................... #device PIC18F4620 
 .................... #list 
 ....................  
-.................... #device adc=10 
+.................... //#device adc=10 
 ....................  
 .................... #FUSES NOWDT                 	//No Watch Dog Timer 
 .................... #FUSES WDT128                	//Watch Dog Timer uses 1:128 Postscale 
@@ -44,30 +45,6 @@ CCS PCH C Compiler, Version 4.105, 13255               25-Jul-12 10:25
 .................... #FUSES MCLR                  	//Master Clear pin enabled 
 ....................  
 .................... #use delay(clock=10000000,RESTART_WDT) 
-*
-0001C:  CLRF   FEA
-0001E:  MOVLW  12
-00020:  MOVWF  FE9
-00022:  MOVF   FEF,W
-00024:  BZ    0048
-00026:  MOVLW  03
-00028:  MOVWF  01
-0002A:  MOVLW  BF
-0002C:  MOVWF  00
-0002E:  CLRWDT
-00030:  DECFSZ 00,F
-00032:  BRA    002E
-00034:  DECFSZ 01,F
-00036:  BRA    002A
-00038:  MOVLW  3C
-0003A:  MOVWF  00
-0003C:  DECFSZ 00,F
-0003E:  BRA    003C
-00040:  NOP   
-00042:  CLRWDT
-00044:  DECFSZ FEF,F
-00046:  BRA    0026
-00048:  GOTO   017C (RETURN)
 .................... #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8) 
 ....................  
 .................... #include <stdio.h> 
@@ -2312,46 +2289,420 @@ CCS PCH C Compiler, Version 4.105, 13255               25-Jul-12 10:25
 ....................  
 .................... #endif 
 ....................  
-.................... #include "address.h" 
-.................... /*direcciones del accelerometro mma7455*/ 
-.................... #ifdef testmma 
-.................... 	#define xouth 0x00 
-.................... 	#define xoutl 0x01//registros de medida de x a 10bit 
-.................... 	#define youth 0x02 
-.................... 	#define youtl 0x03//registros de medida de y a 10bit 
-.................... 	#define zouth 0x04 
-.................... 	#define zoutl 0x05//registros de medida de z a 10bit 
-.................... 	#define xout8 0x06 
-.................... 	#define yout8 0x07 
-.................... 	#define zout8 0x08//registros de medida a 8bit 
-.................... 	#define status 0x09 
-.................... 	#define detsrc 0x0A 
-.................... 	#define tout 0x0B 
-.................... 	#define reserved 0x0C 
-.................... 	#define i2cad 0x0D 
-.................... 	#define usrinf 0x0E 
-.................... 	#define whoami 0x0F 
-.................... 	#define xoffl 0x10 
-.................... 	#define xoffh 0x11 
-.................... 	#define yoffl 0x12 
-.................... 	#define yoffh 0x13 
-.................... 	#define zoffl 0x14 
-.................... 	#define zoffh 0x15 
-.................... 	#define mctl 0x16	/*selector gravedad (bit[3,2]) 8g = 00, 2g = 01, 4g = 10 
-.................... 							selector mode (bit[1,0]) stanby = 00, measurement= 01, level_detect= 10, pulse_detec= 11 
-.................... 	                		SPI mode (bit[4]) 4 wire = 0, 3 wire = 1 
-.................... 	                		data output pin (bit[5]) enable = 1 , disable = 0 
-.................... 	                	*/ 
-.................... 	#define intrst 0x17 
-.................... 	#define ctl1 0x18 
-.................... 	#define ctl2 0x19 
-.................... 	#define ldth 0x1A 
-.................... 	#define pdth 0x1B 
-.................... 	#define pw 0x1C  
-.................... 	#define lt 0x1D 
-.................... 	#define tw 0x1E 
-.................... 	#define reserved2 0x1F 
+.................... #import(FILE=accelerometro.o) 
+.................... #include "Nucleo.h" 
+.................... #include <18F4620.h> 
+.................... //////// Standard Header file for the PIC18F4620 device //////////////// 
+.................... #device PIC18F4620 
+.................... #list 
+....................  
+.................... //#device adc=10 
+....................  
+.................... #FUSES NOWDT                 	//No Watch Dog Timer 
+.................... #FUSES WDT128                	//Watch Dog Timer uses 1:128 Postscale 
+.................... #FUSES HS                    	//High speed Osc (> 4mhz for PCM/PCH) (>10mhz for PCD) 
+.................... #FUSES NOPROTECT             	//Code not protected from reading 
+.................... #FUSES IESO                  	//Internal External Switch Over mode enabled 
+.................... #FUSES NOBROWNOUT            	//No brownout reset 
+.................... #FUSES BORV21                	//Brownout reset at 2.1V 
+.................... #FUSES NOPUT                 	//No Power Up Timer 
+.................... #FUSES NOCPD                 	//No EE protection 
+.................... #FUSES STVREN                	//Stack full/underflow will cause reset 
+.................... #FUSES NODEBUG               	//No Debug mode for ICD 
+.................... #FUSES NOLVP                 	//No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES NOWRT                 	//Program memory not write protected 
+.................... #FUSES NOWRTD                	//Data EEPROM not write protected 
+.................... #FUSES NOEBTR                	//Memory not protected from table reads 
+.................... #FUSES NOCPB                 	//No Boot Block code protection 
+.................... #FUSES NOEBTRB               	//Boot block not protected from table reads 
+.................... #FUSES NOWRTC                	//configuration not registers write protected 
+.................... #FUSES NOWRTB                	//Boot block not write protected 
+.................... #FUSES FCMEN                 	//Fail-safe clock monitor enabled 
+.................... #FUSES NOXINST               	//Extended set extension and Indexed Addressing mode disabled (Legacy mode) 
+.................... #FUSES PBADEN                	//PORTB pins are configured as analog input channels on RESET 
+.................... #FUSES LPT1OSC               	//Timer1 configured for low-power operation 
+.................... #FUSES MCLR                  	//Master Clear pin enabled 
+....................  
+.................... #use delay(clock=10000000,RESTART_WDT) 
+.................... #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8) 
+....................  
+.................... #include "accelerometro.h" 
+....................  
+.................... #ifndef ACCELEROMETRO_H 
+....................  
+.................... #define ACCELEROMETRO_H 
+....................  
+.................... #define MMA7455_XOUTL 0x00      // Read only, Output Value X LSB 
+.................... #define MMA7455_XOUTH 0x01      // Read only, Output Value X MSB 
+.................... #define MMA7455_YOUTL 0x02      // Read only, Output Value Y LSB 
+.................... #define MMA7455_YOUTH 0x03      // Read only, Output Value Y MSB 
+.................... #define MMA7455_ZOUTL 0x04      // Read only, Output Value Z LSB 
+.................... #define MMA7455_ZOUTH 0x05      // Read only, Output Value Z MSB 
+.................... #define MMA7455_XOUT8 0x06      // Read only, Output Value X 8 bits 
+.................... #define MMA7455_YOUT8 0x07      // Read only, Output Value Y 8 bits 
+.................... #define MMA7455_ZOUT8 0x08      // Read only, Output Value Z 8 bits 
+.................... #define MMA7455_STATUS 0x09     // Read only, Status Register 
+.................... #define MMA7455_DETSRC 0x0A     // Read only, Detection Source Register 
+.................... #define MMA7455_TOUT 0x0B       // Temperature Output Value (Optional) 
+.................... #define MMA7455_RESERVED1 0x0C  // Reserved 
+.................... #define MMA7455_I2CAD 0x0D      // Read/Write, I2C Device Address 
+.................... #define MMA7455_USRINF 0x0E     // Read only, User Information (Optional) 
+.................... #define MMA7455_WHOAMI 0x0F     // Read only, "Who am I" value (Optional) 
+.................... #define MMA7455_XOFFL 0x10      // Read/Write, Offset Drift X LSB 
+.................... #define MMA7455_XOFFH 0x11      // Read/Write, Offset Drift X MSB 
+.................... #define MMA7455_YOFFL 0x12      // Read/Write, Offset Drift Y LSB 
+.................... #define MMA7455_YOFFH 0x13      // Read/Write, Offset Drift Y MSB 
+.................... #define MMA7455_ZOFFL 0x14      // Read/Write, Offset Drift Z LSB 
+.................... #define MMA7455_ZOFFH 0x15      // Read/Write, Offset Drift Z MSB 
+.................... #define MMA7455_MCTL 0x16       // Read/Write, Mode Control Register 
+.................... #define MMA7455_INTRST 0x17     // Read/Write, Interrupt Latch Reset 
+.................... #define MMA7455_CTL1 0x18       // Read/Write, Control 1 Register 
+.................... #define MMA7455_CTL2 0x19       // Read/Write, Control 2 Register 
+.................... #define MMA7455_LDTH 0x1A       // Read/Write, Level Detection Threshold Limit Value 
+.................... #define MMA7455_PDTH 0x1B       // Read/Write, Pulse Detection Threshold Limit Value 
+.................... #define MMA7455_PD 0x1C         // Read/Write, Pulse Duration Value 
+.................... #define MMA7455_LT 0x1D         // Read/Write, Latency Time Value (between pulses) 
+.................... #define MMA7455_TW 0x1E         // Read/Write, Time Window for Second Pulse Value 
+.................... #define MMA7455_RESERVED2 0x1F  // Reserved 
+....................  
+.................... // Defines for the bits, to be able to change  
+.................... // between bit number and binary definition. 
+.................... // By using the bit number, programming the MMA7455  
+.................... // is like programming an AVR microcontroller. 
+.................... // But instead of using "(1<<X)", or "_BV(X)",  
+.................... // the Arduino "bit(X)" is used. 
+.................... #define MMA7455_D0 0 
+.................... #define MMA7455_D1 1 
+.................... #define MMA7455_D2 2 
+.................... #define MMA7455_D3 3 
+.................... #define MMA7455_D4 4 
+.................... #define MMA7455_D5 5 
+.................... #define MMA7455_D6 6 
+.................... #define MMA7455_D7 7 
+....................  
+.................... // Status Register 
+.................... #define MMA7455_DRDY MMA7455_D0 
+.................... #define MMA7455_DOVR MMA7455_D1 
+.................... #define MMA7455_PERR MMA7455_D2 
+....................  
+.................... // Mode Control Register 
+.................... #define MMA7455_MODE0 MMA7455_D0 
+.................... #define MMA7455_MODE1 MMA7455_D1 
+.................... #define MMA7455_GLVL0 MMA7455_D2 
+.................... #define MMA7455_GLVL1 MMA7455_D3 
+.................... #define MMA7455_STON MMA7455_D4 
+.................... #define MMA7455_SPI3W MMA7455_D5 
+.................... #define MMA7455_DRPD MMA7455_D6 
+....................  
+.................... // Control 1 Register 
+.................... #define MMA7455_INTPIN MMA7455_D0 
+.................... #define MMA7455_INTREG0 MMA7455_D1 
+.................... #define MMA7455_INTREG1 MMA7455_D2 
+.................... #define MMA7455_XDA MMA7455_D3 
+.................... #define MMA7455_YDA MMA7455_D4 
+.................... #define MMA7455_ZDA MMA7455_D5 
+.................... #define MMA7455_THOPT MMA7455_D6 
+.................... #define MMA7455_DFBW MMA7455_D7 
+....................  
+.................... // Control 2 Register 
+.................... #define MMA7455_LDPL MMA7455_D0 
+.................... #define MMA7455_PDPL MMA7455_D1 
+.................... #define MMA7455_DRVO MMA7455_D2 
+....................  
+.................... // Interrupt Latch Reset Register 
+.................... #define MMA7455_CLR_INT1 MMA7455_D0 
+.................... #define MMA7455_CLR_INT2 MMA7455_D1 
+....................  
+.................... // Detection Source Register 
+.................... #define MMA7455_INT1 MMA7455_D0 
+.................... #define MMA7455_INT2 MMA7455_D1 
+.................... #define MMA7455_PDZ MMA7455_D2 
+.................... #define MMA7455_PDY MMA7455_D3 
+.................... #define MMA7455_PDX MMA7455_D4 
+.................... #define MMA7455_LDZ MMA7455_D5 
+.................... #define MMA7455_LDY MMA7455_D6 
+.................... #define MMA7455_LDX MMA7455_D7 
+....................  
+.................... // I2C Device Address Register 
+.................... #define MMA7455_I2CDIS MMA7455_D7 
+....................  
+....................  
+....................  
+.................... // Default I2C address for the MMA7455 
+.................... #define MMA7455_I2C_ADDRESS 0x1D 
+.................... #define MMA7455_I2C_ADDRESS_READ 0X3B 
+.................... #define MMA7455_I2C_ADDRESS_WRITE 0X3A 
+....................  
+....................  
+.................... // When using an union for the registers and 
+.................... // the axis values, the byte order of the accelerometer 
+.................... // should match the byte order of the compiler and AVR chip. 
+.................... // Both have the lower byte at the lower address, 
+.................... // so they match. 
+.................... // This union is only used by the low level functions. 
+.................... typedef union xyz_union 
+.................... { 
+....................   struct 
+....................   { 
+....................     unsigned int8 x_lsb; 
+....................     unsigned int8 x_msb; 
+....................     unsigned int8 y_lsb; 
+....................     unsigned int8 y_msb; 
+....................     unsigned int8 z_lsb; 
+....................     unsigned int8 z_msb; 
+....................   } reg; 
+....................   struct 
+....................   { 
+....................     int x; 
+....................     int y; 
+....................     int z; 
+....................   } value; 
+.................... }; 
+....................  
+.................... volatile struct CONFIG_MMA7455 
+.................... { 
+....................    /* data */ 
+....................    struct { 
+....................       unsigned reserved : 1; 
+....................       unsigned DRPD : 1;      //data ready status pin ouput INT1/DRDY pin: 0 = enable , 1 = disable. 
+....................       unsigned SPI3W : 1;     //modo SPI 4hilos = 0, 3 hilos=1 . 
+....................       unsigned STON : 1;      //selft test enable=1, disable=0 . 
+....................       unsigned GLVL : 2;      // 00 = 8g, 10 = 4g, 01 = 2g. 
+....................       unsigned MODE : 2;      // 00 = stanby_mode, 01 = measure mode, 10 = level detection, 11 = pulse detection. 
+....................    } _MODE_CONTROL_REGISTER; 
+....................    /* 
+....................    struct { 
+....................       unsigned reserved : 6; 
+....................       unsigned CLRINT2 : 1;//limpia INT1 bit in $0A 
+....................       unsigned CLRINT1 : 1;//limpia INT2 bit in $0A 
+....................    } _INTERRUP_LACHT_RESET; 
+....................    */ 
+....................    struct { 
+....................       unsigned DFBW: 1;     //filtro digital 0 = 62 Hz rate,1 = 125 Hz rate. 
+....................       unsigned THOPT: 1;    //tipo de valor en el umbral de detecccion (LD only): absoluto = 0, valor Integer con signo = 1. 
+....................       unsigned ZDA: 1;      //deteccion en eje Z: enable = 0, disable = 1. 
+....................       unsigned YDA: 1;      //deteccion en eje X: enable = 0, disable = 1. 
+....................       unsigned XDA: 1;      //deteccion en eje Y: enable = 0, disable = 1. 
+....................       unsigned INTRG: 2;    //configuracion de INT1, INT2 para LD o PD ver tabla1. 
+....................       unsigned INTPIN: 1;   //configuraciones pines de interrupciones con bit de interrupciones (ver tabla2). 
+....................    } _CONTROL_1; 
+....................  
+....................    struct { 
+....................       unsigned reserved: 5;       
+....................       unsigned LDPL: 1;     //tipo de deteccion en LD: 0 = MOV, 1 = CL 
+....................       unsigned PDPL: 1;     //tipo de deteccion en PD: 0 = MOV, 1 = CL 
+....................       unsigned DRVO: 1; 
+....................    } _CONTROL_2; 
+....................  
+....................    unsigned int8 _XOFFL; 
+....................    unsigned int8 _XOFFH; 
+....................    unsigned int8 _YOFFL; 
+....................    unsigned int8 _YOFFH; 
+....................    unsigned int8 _ZOFFL; 
+....................    unsigned int8 _ZOFFH;/*,//no implemntado 
+....................    char _LEVEL_DETECTION_THREHOLDS; 
+....................    char _PULSE_DETECTION_THREHOLDS; 
+....................    char _PULSE_DURATION; 
+....................    char _LANTENCY_TIME; 
+....................    char _TIME_WINDOWS; 
+....................    */ 
+.................... } config_acelerometro = { 
+....................    0b01001001,//0:reserved 
+....................    0b00000000, 
+....................    0b00000000, 
+....................    0x00, 
+....................    0x00, 
+....................    0x00, 
+....................    0x00, 
+....................    0x00/*,//no implmentado 
+....................    0x01, 
+....................    0x01, 
+....................    0x00, 
+....................    0x00, 
+....................    0x00*/ 
+.................... };//variable para la configuracion del accelerometro 
+....................  
+.................... #use i2c(master, sda=PIN_C4, scl=PIN_C3, FORCE_HW, RESTART_WDT)                    //directiva de compilador par ale uso del bus I2C del microcontrolador 
+.................... //configuracion incial del MMA7455 
+.................... int config_MMA(); 
+....................  
+.................... //cambio de configuracion del MMA7455 
+.................... void set_config(*CONFIG_MMA7455); 
+....................  
+.................... //Lectura de datosd desde el MMA7455 
+.................... int read_MMA(unsigned char address, int8 *value); 
+.................... int read_MMA(unsigned char start_address, int8 *buffer,int size); 
+....................  
+.................... //Escritura de datos en el MMA7455 
+.................... int write_MMA(unsigned char address, unsigned int8 *value); 
+.................... int write_MMA(unsigned char start_address, unsigned int8 *pData, int size); 
+.................... /* 
+.................... int1 begin_transmision(unsigned int8 address); 
+.................... int1 end_transmision(bool); 
+.................... int8 requesFROM(unsigned int8 address); 
+.................... */ 
 .................... #endif 
+....................  
+.................... /* 
+.................... DEFINICIONES: 
+.................... MOV = deteccion de movimiento 
+.................... CL = deteccion de caida libre 
+....................  
+.................... tabla 1: configuracion de INTRG 
+.................... ------------------------ 
+.................... INT2TRG      INT1   INT2 
+.................... 00         LD       PD 
+.................... 01         PD       LD 
+.................... 10         sPD     dPD 
+.................... ------------------------ 
+....................  
+.................... tabla2: configuracion de pines de interrupciones 
+.................... ------------------- 
+.................... INTPIN 
+.................... 0       INT1bit  --> INT1pin, INT2bit  --> INT2pin 
+.................... 1       INT1bit  --> INT2pin, INT2bit  --> INT1pin 
+.................... ------------------- 
+.................... */ 
+....................  
+....................  
+....................  
+.................... void config_MMA(){ 
+....................  return; 
+.................... } //setear la cofiguracion incial 
+....................  
+.................... void set_config(*CONFIG_MMA7455){ 
+....................  return; 
+.................... }// cambiar la configuracion incicial (del SPI y/o MMA) 
+....................  
+....................  
+.................... /*///////////////////////////////////////////// 
+.................... read_MMA(): funcion para la lectura de datos desde el accelerometro MMA7455 
+....................             hasta el dispositivo maestro 
+.................... parametros: 
+....................   start: direccion de inicial desde se realizara la lectura 
+....................   buffer: buffer de almacenamiento de los datos leidos 
+....................   size: cantidad de bytes a leer desde el esclavo 
+....................  
+.................... returna: 
+....................   int: 0 no error,  
+....................       1 error de inicio de transmision,  
+....................       2 error de peticion de datos, 
+....................       -11 error en la lectura desde el MMA  
+.................... */ 
+.................... int read_MMA(unsigned char address, int8 *value){ 
+....................   int error = -1; 
+....................    //condicion de inicio de lectura en el MMA7455  
+....................   //error = begin_transmision(MMA7455_I2C_ADDRESS); //inicia la transmicion al MMA7455     
+....................   i2c_start();                                    //señal de start del bus i2c 
+....................   error = i2c_write(MMA7455_I2C_ADDRESS_WRITE);   //se envia la direccion del MMA7455 con escritura 
+....................   error = i2c_write(address);                       //envia el registro inicial de lectura del MMA 
+....................   if(error!=0){return 1;}                         //si existe un error sale de la funcion 
+....................    
+....................   //peticion de datos desde el MMA7455 
+....................   //error = requesFROM(MMA7455_I2C_ADDRESS);      //enivia la peticion de incio de lectura desde el maestro 
+....................   i2c_start();                                    //señal de restart del bus i2c 
+....................   error = i2c_write(MMA7455_I2C_ADDRESS_READ);    //se envia la direccion del MMA7455 con lectura   
+....................   if(error!=0){return 2;}  
+....................  
+....................   while(!i2c_poll()); 
+....................   value = i2c_read(0); 
+....................   i2c_stop(); 
+....................   return 0; 
+.................... } 
+....................  
+.................... int read_MMA(unsigned char start_address, unsigned int8 *buffer,int size){ 
+....................   int error = -1, i = 0; 
+....................   int1 ack = 1; 
+....................    
+....................   //condicion de inicio de lectura en el MMA7455  
+....................   //error = begin_transmision(MMA7455_I2C_ADDRESS); //inicia la transmicion al MMA7455     
+....................   i2c_start();                                    //señal de start del bus i2c 
+....................   error = i2c_write(MMA7455_I2C_ADDRESS_WRITE);   //se envia la direccion del MMA7455 con escritura 
+....................   error = i2c_write(start_address);                       //envia el registro inicial de lectura del MMA 
+....................   if(error!=0){return 1;}                         //si existe un error sale de la funcion 
+....................    
+....................   //peticion de datos desde el MMA7455 
+....................   //error = requesFROM(MMA7455_I2C_ADDRESS);      //enivia la peticion de incio de lectura desde el maestro 
+....................   i2c_start();                                    //señal de restart del bus i2c 
+....................   error = i2c_write(MMA7455_I2C_ADDRESS_READ);    //se envia la direccion del MMA7455 con lectura   
+....................   if(error!=0){return 2;}                         //si error en reques sale de la funcion 
+....................  
+....................   i = 0; 
+....................   ack = 1; 
+....................   while(i2c_poll() && i<size){                    //espera minetras llega un dato desde el MMA7455 
+....................     if((i+1) >= size){ack = 0;}                   //si es el ultimo byte envia NACK 
+....................     buffer[i++]=i2c_read(ack);                    //lee un byte del bus i2c y envia un ACK 
+....................   } 
+....................  
+....................   i2c_stop();                                     //señal de stop en el bus i2c 
+....................    
+....................   if ( i != size){return (3);}                    //retorna 3 si no se completo la lectura 
+....................    
+....................   return (0);   //retorna 0 si succed 
+.................... } //leer datos desde el mma 
+....................  
+....................  
+.................... int write_MMA(unsigned char address, unsigned int8 *value){ 
+....................   int error = 0; 
+....................   //condicion de inicio de escritura en el MMA7455 
+....................   i2c_start();                                    //señal de start del bus i2c 
+....................   error = i2c_write(MMA7455_I2C_ADDRESS_WRITE);   //se envia la direccion del MMA7455 con escritura 
+....................   error = i2c_write(address);               //envia el registro inicial de escritura del MMA 
+....................   if(error!=0){return 1;} 
+....................   error = i2c_write(value);               //envia el registro inicial de escritura del MMA 
+....................   if(error!=0){return 2;} 
+....................   i2c_stop(); 
+....................   return 0; 
+.................... } 
+....................  
+....................  
+.................... int write_MMA(unsigned char start_address, unsigned int8 *pData, int size){ 
+....................   int error = -1, i = 0; 
+....................   int1 ack = 0; 
+....................  
+....................   //condicion de inicio de escritura en el MMA7455 
+....................   i2c_start();                                    //señal de start del bus i2c 
+....................   error = i2c_write(MMA7455_I2C_ADDRESS_WRITE);   //se envia la direccion del MMA7455 con escritura 
+....................   error = i2c_write(start_address);               //envia el registro inicial de escritura del MMA 
+....................   if(error!=0){return 1;}                         //si error en reques sale de la funcion 
+....................   do{ 
+....................     ack = i2c_write(pData[i++]);                  //escribe un byte y espera un ACK 
+....................   }while(ack == 0 && i < size); 
+....................   i2c_stop(); 
+....................   if(i != size){return 2;}                        //si no se completo la escritura retorna error 2 
+....................    
+....................   return 0;//retorna 0 si succed 
+.................... } //escribir datos desde el mma 
+.................... /* 
+.................... int8 begin_transmision(unsigned int8 address){      
+....................   unsigned int8 out = 0; 
+....................   int8 error = -1; 
+....................   out = (address << 1); 
+....................   bit_clear(out, 0); 
+....................   i2c_start(); 
+....................   error = i2c_write(out); 
+....................   return error; 
+.................... } //seleccion del dispositivo en el bus spi 
+....................  
+.................... int1 end_transmicion(){ 
+....................   return; 
+.................... } // deseleccion del dispositivo en el bus spi 
+....................  
+.................... int8 requesFROM(unsigned int8 address){ 
+....................   unsigned int8 out = 0; 
+....................   int8 error = -1; 
+....................   out = (address << 1); 
+....................   bit_set(out, 0); 
+....................   i2c_start(); 
+....................   error = i2c_write(out); 
+....................   return error; 
+.................... } 
+....................  
+.................... int8 bit(int8 pos){ 
+....................   int8 bits = 1; 
+....................   return (bits<<pos); 
+.................... } 
+.................... */ 
 ....................  
 .................... #define READ  0b00000000 
 .................... #define WRITE 0b10000000 
@@ -2365,220 +2716,145 @@ CCS PCH C Compiler, Version 4.105, 13255               25-Jul-12 10:25
 ....................  
 .................... unsigned int8 read_mma(unsigned int8 address){ 
 ....................    address<<=1; 
-*
-000AE:  BCF    FD8.0
-000B0:  RLCF   11,F
 ....................    address|=READ; 
 ....................    //swap(address); 
 ....................    spi_write(address); 
-000B2:  MOVF   FC9,W
-000B4:  MOVFF  11,FC9
-000B8:  RRCF   FC7,W
-000BA:  BNC   00B8
 ....................    //while(!spi_data_is_in()){;} //comprobar con un tiempo espesifico 
 ....................    if(spi_data_is_in()){ 
-000BC:  BTFSS  FC7.0
-000BE:  BRA    00CA
 ....................       respuesta = spi_read(); 
-000C0:  MOVFF  FC9,0A
 ....................       return respuesta; 
-000C4:  MOVFF  0A,01
-000C8:  BRA    00CE
 ....................    }       
 ....................    return -1; 
-000CA:  MOVLW  FF
-000CC:  MOVWF  01
 .................... } 
-000CE:  GOTO   01BE (RETURN)
 ....................  
 ....................  
 .................... void main() 
 .................... { 
-000D2:  CLRF   FF8
-000D4:  BCF    FD0.7
-000D6:  CLRF   FEA
-000D8:  CLRF   FE9
-000DA:  BCF    FB8.3
-000DC:  MOVLW  40
-000DE:  MOVWF  FAF
-000E0:  MOVLW  A6
-000E2:  MOVWF  FAC
-000E4:  MOVLW  90
-000E6:  MOVWF  FAB
-000E8:  CLRF   0A
-000EA:  MOVLW  0F
-000EC:  MOVWF  0C
-000EE:  MOVLW  C7
-000F0:  MOVWF  0B
-000F2:  MOVLW  0F
-000F4:  MOVWF  0E
-000F6:  MOVLW  C9
-000F8:  MOVWF  0D
-000FA:  MOVF   FC1,W
-000FC:  ANDLW  C0
-000FE:  IORLW  0F
-00100:  MOVWF  FC1
-00102:  MOVLW  07
-00104:  MOVWF  FB4
-00106:  CLRF   04
-00108:  CLRF   05
-0010A:  MOVLW  1F
-0010C:  MOVWF  0F
-0010E:  CLRF   10
+00004:  CLRF   FF8
+00006:  BCF    FD0.7
+00008:  CLRF   FEA
+0000A:  CLRF   FE9
+0000C:  BCF    FB8.3
+0000E:  MOVLW  40
+00010:  MOVWF  FAF
+00012:  MOVLW  A6
+00014:  MOVWF  FAC
+00016:  MOVLW  90
+00018:  MOVWF  FAB
+0001A:  BSF    F94.3
+0001C:  BSF    F94.4
+0001E:  MOVLW  18
+00020:  MOVWF  FC8
+00022:  MOVLW  28
+00024:  MOVWF  FC6
+00026:  BSF    FC7.7
+00028:  BCF    FC7.6
+0002A:  CLRF   13
+0002C:  MOVLW  0F
+0002E:  MOVWF  15
+00030:  MOVLW  C7
+00032:  MOVWF  14
+00034:  MOVLW  0F
+00036:  MOVWF  17
+00038:  MOVLW  C9
+0003A:  MOVWF  16
+0003C:  MOVF   FC1,W
+0003E:  ANDLW  C0
+00040:  IORLW  0F
+00042:  MOVWF  FC1
+00044:  MOVLW  07
+00046:  MOVWF  FB4
+00048:  CLRF   04
+0004A:  CLRF   05
+0004C:  MOVLW  01
+0004E:  MOVWF  0A
+00050:  CLRF   0B
+00052:  CLRF   0C
+00054:  CLRF   0D
+00056:  CLRF   0E
+00058:  CLRF   0F
+0005A:  CLRF   10
+0005C:  CLRF   11
+0005E:  CLRF   12
+00060:  MOVLW  1F
+00062:  MOVWF  18
+00064:  CLRF   19
 ....................    unsigned int8 count = 0x1F; 
 ....................    unsigned int8 direcciones = 0x00; 
 ....................     
 ....................  
 ....................    setup_adc_ports(NO_ANALOGS|VSS_VDD); 
-00110:  MOVF   FC1,W
-00112:  ANDLW  C0
-00114:  IORLW  0F
-00116:  MOVWF  FC1
+00066:  MOVF   FC1,W
+00068:  ANDLW  C0
+0006A:  IORLW  0F
+0006C:  MOVWF  FC1
 ....................    setup_adc(ADC_CLOCK_DIV_2|ADC_TAD_MUL_0); 
-00118:  MOVF   FC0,W
-0011A:  ANDLW  C0
-0011C:  MOVWF  FC0
-0011E:  BSF    FC0.7
-00120:  BSF    FC2.0
+0006E:  MOVF   FC0,W
+00070:  ANDLW  C0
+00072:  MOVWF  FC0
+00074:  BCF    FC0.7
+00076:  BSF    FC2.0
 ....................    setup_psp(PSP_DISABLED); 
-00122:  BCF    F96.4
+00078:  BCF    F96.4
 ....................    setup_spi(SPI_MASTER|SPI_L_TO_H|SPI_CLK_DIV_16); 
-00124:  BCF    FC6.5
-00126:  BCF    F94.5
-00128:  BSF    F94.4
-0012A:  BCF    F94.3
-0012C:  MOVLW  21
-0012E:  MOVWF  FC6
-00130:  MOVLW  00
-00132:  MOVWF  FC7
+0007A:  BCF    FC6.5
+0007C:  BCF    F94.5
+0007E:  BSF    F94.4
+00080:  BCF    F94.3
+00082:  MOVLW  21
+00084:  MOVWF  FC6
+00086:  MOVLW  00
+00088:  MOVWF  FC7
 ....................    setup_wdt(WDT_OFF); 
-00134:  BCF    FD1.0
+0008A:  BCF    FD1.0
 ....................    setup_timer_0(RTCC_INTERNAL); 
-00136:  MOVLW  80
-00138:  MOVWF  FD5
+0008C:  MOVLW  80
+0008E:  MOVWF  FD5
 ....................    setup_timer_1(T1_DISABLED); 
-0013A:  CLRF   FCD
+00090:  CLRF   FCD
 ....................    setup_timer_2(T2_DISABLED,0,1); 
-0013C:  MOVLW  00
-0013E:  MOVWF  FCA
-00140:  MOVLW  00
-00142:  MOVWF  FCB
+00092:  MOVLW  00
+00094:  MOVWF  FCA
+00096:  MOVLW  00
+00098:  MOVWF  FCB
 ....................    setup_timer_3(T3_DISABLED|T3_DIV_BY_1); 
-00144:  CLRF   FB1
+0009A:  CLRF   FB1
 ....................    setup_ccp1(CCP_OFF); 
-00146:  BSF    F94.2
-00148:  CLRF   FBD
-0014A:  CLRF   FB7
-0014C:  CLRF   FB6
+0009C:  BSF    F94.2
+0009E:  CLRF   FBD
+000A0:  CLRF   FB7
+000A2:  CLRF   FB6
 ....................    setup_comparator(NC_NC_NC_NC); 
-0014E:  MOVLW  07
-00150:  MOVWF  FB4
-00152:  MOVF   F92,W
-00154:  MOVWF  F92
-00156:  CLRWDT
-00158:  MOVLW  07
-0015A:  MOVWF  00
-0015C:  DECFSZ 00,F
-0015E:  BRA    015C
-00160:  BRA    0162
-00162:  MOVF   FB4,W
-00164:  BCF    FA1.6
+000A4:  MOVLW  07
+000A6:  MOVWF  FB4
+000A8:  MOVF   F92,W
+000AA:  MOVWF  F92
+000AC:  CLRWDT
+000AE:  MOVLW  07
+000B0:  MOVWF  00
+000B2:  DECFSZ 00,F
+000B4:  BRA    00B2
+000B6:  BRA    00B8
+000B8:  MOVF   FB4,W
+000BA:  BCF    FA1.6
 ....................    setup_vref(FALSE); 
-00166:  CLRF   FB5
+000BC:  CLRF   FB5
 .................... //Setup_Oscillator parameter not selected from Intr Oscillator Config tab 
 ....................    // TODO: USER CODE!! 
 ....................    set_tris_A(0b00001111); 
-00168:  MOVLW  0F
-0016A:  MOVWF  F92
+000BE:  MOVLW  0F
+000C0:  MOVWF  F92
 ....................    output_a(0xf0); 
-0016C:  CLRF   F92
-0016E:  MOVLW  F0
-00170:  MOVWF  F89
-....................    delay_ms(1000); 
-00172:  MOVLW  04
-00174:  MOVWF  11
-00176:  MOVLW  FA
-00178:  MOVWF  12
-0017A:  BRA    001C
-0017C:  DECFSZ 11,F
-0017E:  BRA    0176
+000C2:  CLRF   F92
+000C4:  MOVLW  F0
+000C6:  MOVWF  F89
 ....................    while(true){ 
-....................       for (direcciones = 0x00; direcciones < count; direcciones++){ 
-00180:  CLRF   10
-00182:  MOVF   0F,W
-00184:  SUBWF  10,W
-00186:  BC    01F8
-....................          /* code */ 
-....................          printf("ms rq: %X , ",direcciones); 
-00188:  MOVLW  04
-0018A:  MOVWF  FF6
-0018C:  MOVLW  00
-0018E:  MOVWF  FF7
-00190:  MOVLW  07
-00192:  MOVWF  11
-00194:  RCALL  004C
-00196:  MOVFF  10,11
-0019A:  MOVLW  37
-0019C:  MOVWF  12
-0019E:  RCALL  006C
-001A0:  MOVLW  20
-001A2:  BTFSS  F9E.4
-001A4:  BRA    01A2
-001A6:  MOVWF  FAD
-001A8:  MOVLW  2C
-001AA:  BTFSS  F9E.4
-001AC:  BRA    01AA
-001AE:  MOVWF  FAD
-001B0:  MOVLW  20
-001B2:  BTFSS  F9E.4
-001B4:  BRA    01B2
-001B6:  MOVWF  FAD
-....................          if (read_mma(direcciones) != -1) 
-001B8:  MOVFF  10,11
-001BC:  BRA    00AE
-001BE:  MOVF   01,W
-001C0:  SUBLW  FF
-001C2:  BZ    01F4
-....................          {             
-....................             printf("rp: %X \n\r",respuesta); 
-001C4:  MOVLW  12
-001C6:  MOVWF  FF6
-001C8:  MOVLW  00
-001CA:  MOVWF  FF7
-001CC:  MOVLW  04
-001CE:  MOVWF  11
-001D0:  RCALL  004C
-001D2:  MOVFF  0A,11
-001D6:  MOVLW  37
-001D8:  MOVWF  12
-001DA:  RCALL  006C
-001DC:  MOVLW  20
-001DE:  BTFSS  F9E.4
-001E0:  BRA    01DE
-001E2:  MOVWF  FAD
-001E4:  MOVLW  0A
-001E6:  BTFSS  F9E.4
-001E8:  BRA    01E6
-001EA:  MOVWF  FAD
-001EC:  MOVLW  0D
-001EE:  BTFSS  F9E.4
-001F0:  BRA    01EE
-001F2:  MOVWF  FAD
-....................          }          
-....................       } 
-001F4:  INCF   10,F
-001F6:  BRA    0182
-....................       direcciones = 0x00; 
-001F8:  CLRF   10
-....................       /*aqui va el codigo*/ 
-....................       /*for (i = 0; i < count; ++i){ 
-....................          printf("%d \n\r",i ); 
-....................       }*/ 
-....................        
+....................       
+....................  
 ....................    } 
-001FA:  BRA    0180
+000C8:  BRA    00C8
 .................... } 
-001FC:  SLEEP 
+000CA:  SLEEP 
 
 Configuration Fuses:
    Word  1: C200   HS IESO FCMEN
