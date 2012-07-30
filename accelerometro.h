@@ -111,7 +111,7 @@
 // Both have the lower byte at the lower address,
 // so they match.
 // This union is only used by the low level functions.
-typedef union xyz_union
+typedef union 
 {
   struct
   {
@@ -128,7 +128,7 @@ typedef union xyz_union
     int y;
     int z;
   } value;
-};
+} xyz_union;
 
 volatile struct CONFIG_MMA7455
 {
@@ -140,7 +140,7 @@ volatile struct CONFIG_MMA7455
       unsigned STON : 1;      //selft test enable=1, disable=0 .
       unsigned GLVL : 2;      // 00 = 8g, 10 = 4g, 01 = 2g.
       unsigned MODE : 2;      // 00 = stanby_mode, 01 = measure mode, 10 = level detection, 11 = pulse detection.
-   } _MODE_CONTROL_REGISTER;
+   } MODE_CONTROL_REGISTER;
    /*
    struct {
       unsigned reserved : 6;
@@ -156,28 +156,28 @@ volatile struct CONFIG_MMA7455
       unsigned XDA: 1;      //deteccion en eje Y: enable = 0, disable = 1.
       unsigned INTRG: 2;    //configuracion de INT1, INT2 para LD o PD ver tabla1.
       unsigned INTPIN: 1;   //configuraciones pines de interrupciones con bit de interrupciones (ver tabla2).
-   } _CONTROL_1;
+   } CONTROL_1;
 
    struct {
       unsigned reserved: 5;      
       unsigned LDPL: 1;     //tipo de deteccion en LD: 0 = MOV, 1 = CL
       unsigned PDPL: 1;     //tipo de deteccion en PD: 0 = MOV, 1 = CL
       unsigned DRVO: 1;
-   } _CONTROL_2;
+   } CONTROL_2;
 
-   unsigned int8 _XOFFL;
-   unsigned int8 _XOFFH;
-   unsigned int8 _YOFFL;
-   unsigned int8 _YOFFH;
-   unsigned int8 _ZOFFL;
-   unsigned int8 _ZOFFH;/*,//no implemntado
+   int8 XOFFL;
+   int8 XOFFH;
+   int8 YOFFL;
+   int8 YOFFH;
+   int8 ZOFFL;
+   int8 ZOFFH;/*,//no implemntado
    char _LEVEL_DETECTION_THREHOLDS;
    char _PULSE_DETECTION_THREHOLDS;
    char _PULSE_DURATION;
    char _LANTENCY_TIME;
    char _TIME_WINDOWS;
    */
-} config_acelerometro = {
+} CONFIG = {
    0b01001001,//0:reserved
    0b00000000,
    0b00000000,
@@ -193,20 +193,26 @@ volatile struct CONFIG_MMA7455
    0x00*/
 };//variable para la configuracion del accelerometro
 
-#use i2c(master, sda=PIN_C4, scl=PIN_C3, FORCE_HW, RESTART_WDT)                    //directiva de compilador par ale uso del bus I2C del microcontrolador
+
 //configuracion incial del MMA7455
-int config_MMA();
+int init_MMA(void);
+
+//recalibra el offset del MMA7455
+int calibrate_MMA(void);
 
 //cambio de configuracion del MMA7455
 void set_config(*CONFIG_MMA7455);
+
+//Lectura de los valores de x y z
+int xyz_MMA( int *pX, int *pY, int *pZ);
 
 //Lectura de datosd desde el MMA7455
 int read_MMA(unsigned char address, int8 *value);
 int read_MMA(unsigned char start_address, int8 *buffer,int size);
 
 //Escritura de datos en el MMA7455
-int write_MMA(unsigned char address, unsigned int8 *value);
-int write_MMA(unsigned char start_address, unsigned int8 *pData, int size);
+int write_MMA(unsigned char address, int8 *value);
+int write_MMA(unsigned char start_address, int8 *pData, int size);
 /*
 int1 begin_transmision(unsigned int8 address);
 int1 end_transmision(bool);

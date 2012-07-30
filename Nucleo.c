@@ -1,7 +1,8 @@
 #include "Nucleo.h"
 #include <stdio.h>
 #include <stdlib.h>
-#import(FILE=accelerometro.o)
+#include "accelerometro.h"
+//#import(FILE=accelerometro.o)
 #define READ  0b00000000
 #define WRITE 0b10000000
 
@@ -30,7 +31,6 @@ void main()
 {
    unsigned int8 count = 0x1F;
    unsigned int8 direcciones = 0x00;
-   
 
    setup_adc_ports(NO_ANALOGS|VSS_VDD);
    setup_adc(ADC_CLOCK_DIV_2|ADC_TAD_MUL_0);

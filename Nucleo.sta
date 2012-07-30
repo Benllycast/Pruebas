@@ -1,50 +1,56 @@
 
-ROM used: 204 (0%)
-          204 (0%) including unused fragments
+ROM used: 584 (1%)
+          584 (1%) including unused fragments
 
           0 Average locations per line
-          0 Average locations per statement
+          1 Average locations per statement
 
-RAM used: 26 (1%) at main() level
-          26 (1%) worst case
+RAM used: 36 (1%) at main() level
+          38 (1%) worst case
 
-Stack used: 0 worst case (out of 31 total available)
+Stack used: 1 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   56    26   6  Nucleo.c
-   31     0   0  Nucleo.h
+   69    34   6  Nucleo.c
+   32     0   0  Nucleo.h
   463     0   0  I:\Archivos de programa\PICC\devices\18F4620.h
    37     0   0  I:\Archivos de programa\PICC\drivers\stdio.h
   409     0   0  I:\Archivos de programa\PICC\drivers\string.h
    28     0   0  I:\Archivos de programa\PICC\drivers\stddef.h
    28     0   0  I:\Archivos de programa\PICC\drivers\ctype.h
- 1273   359  79  I:\Archivos de programa\PICC\drivers\stdlib.h
-  142    68  15  accelerometro.c
-  237     0   0  accelerometro.h
+ 1273   359  67  I:\Archivos de programa\PICC\drivers\stdlib.h
+  243     0   0  accelerometro.h
+  225   139  26  accelerometro.c
 ----- -----
- 2704   453 Total
+ 2807   532 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
-0    200  49   2   499  3.5  MAIN
+0     42   4   1             @delay_ms1
+0     36   3   1   158  3.9  read_MMA
+0    380  33   3   812  6.4  MAIN
+0     14   1   0             @const421
+0     32   3   3             @PSTRINGCN_9600_31766_31767
+0     66   6   2             @PRINTF_X_9600_31766_31767
+0     10   1   0             @const427
 
 Program metrics:
-    Functions               1
-    Statements              453
-    Comments                59
-    Volume (V)              499
-    Difficilty (D)          3.5
-    Effort to implement (E) 1747
-    Time to implement (T)   2 minutes
+    Functions               2
+    Statements              532
+    Comments                55
+    Volume (V)              1103
+    Difficilty (D)          10.0
+    Effort to implement (E) 10981
+    Time to implement (T)   10 minutes
     Est Delivered Bugs (B)  0
-    Cyclomatic Complexity   1
-    Maintainability (MI)    8
+    Cyclomatic Complexity   3
+    Maintainability (MI)    96
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
-00004-0FFFE   200  65332  
+00004-0FFFE   580  64952  
 
 
 

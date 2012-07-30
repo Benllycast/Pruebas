@@ -1,6 +1,7 @@
->>> Warning 202 "G:\Project\pic\CCS\MMA7455l\accelerometro.h" Line 180(23,42): Variable never used:   config_acelerometro
-G:\Project\pic\CCS\MMA7455l\accelerometro.o ===>  0 Errors,  1 Warnings.
-*** Error 53 "Nucleo.c" Line 51(13,17): Expecting function name  ::
-*** Error 53 "Nucleo.c" Line 55(32,43): Expecting function name  ::
-*** Error 53 "Nucleo.c" Line 58(34,43): Expecting function name  ::
-G:\Project\pic\CCS\MMA7455l\Nucleo.o ===>  3 Errors,  0 Warnings.
+G:\Project\pic\CCS\MMA7455l\accelerometro.o ===>  0 Errors,  0 Warnings.
+>>> Warning 202 "G:\Project\pic\CCS\MMA7455l\accelerometro.h" Line 180(10,16): Variable never used:   CONFIG
+>>> Warning 202 "Nucleo.c" Line 10(15,22): Variable never used:   SSPSTAT
+>>> Warning 202 "Nucleo.c" Line 11(14,20): Variable never used:   SSPBUF
+G:\Project\pic\CCS\MMA7455l\Nucleo.o ===>  0 Errors,  3 Warnings.
+      Memory usage:   ROM=1%      RAM=1% - 1%
+      0 Errors,  0 Warnings.

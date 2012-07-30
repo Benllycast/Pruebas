@@ -8,7 +8,7 @@ CCP_2_HIGH
 PSP_DATA
 C1OUT
 C2OUT
-config_acelerometro
+CONFIG
 
 Project Directory:
     G:\Project\pic\CCS\MMA7455l\
@@ -25,7 +25,7 @@ Units:
 Compiler Settings:
     Processor:      PIC18F4620
     Pointer Size:   16
-    ADC Range:      0-255
+    ADC Range:      0-1023
     Opt Level:      9
     Short,Int,Long: UNSIGNED: 1,8,16
     Float,Double:   32,32

@@ -1,3 +1,9 @@
 青Nucleo
-   青MAIN  0/200  Ram=2
-      青??0??
+   青MAIN  0/380  Ram=3
+      団??0??
+      団@delay_ms1  0/42  Ram=1
+      団@PSTRINGCN_9600_31766_31767  0/32  Ram=3
+      団@PRINTF_X_9600_31766_31767  0/66  Ram=2
+      団read_MMA  0/36  Ram=1
+      団@PSTRINGCN_9600_31766_31767  0/32  Ram=3
+      青@PRINTF_X_9600_31766_31767  0/66  Ram=2

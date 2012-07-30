@@ -1,5 +1,5 @@
 #include <18F4620.h>
-//#device adc=10
+#device adc=10
 
 #FUSES NOWDT                 	//No Watch Dog Timer
 #FUSES WDT128                	//Watch Dog Timer uses 1:128 Postscale
@@ -26,5 +26,6 @@
 #FUSES LPT1OSC               	//Timer1 configured for low-power operation
 #FUSES MCLR                  	//Master Clear pin enabled
 
-#use delay(clock=10000000,RESTART_WDT)
+#use delay(clock=10000000)
 #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8)
+#use i2c(master, sda=PIN_C4, scl=PIN_C3, FORCE_HW, RESTART_WDT)                    //directiva de compilador par ale uso del bus I2C del microcontrolador

@@ -9,17 +9,7 @@ PSP_DATA
 C1OUT
 C2OUT
 _Randseed
-_RETURN_
-CCP_1
-CCP_1_LOW
-CCP_1_HIGH
-CCP_2
-CCP_2_LOW
-CCP_2_HIGH
-PSP_DATA
-C1OUT
-C2OUT
-config_acelerometro
+CONFIG
 respuesta
 SSPSTAT
 SSPBUF
@@ -36,18 +26,15 @@ Project Files:
     I:\Archivos de programa\PICC\drivers\stddef.h
     I:\Archivos de programa\PICC\drivers\ctype.h
     I:\Archivos de programa\PICC\drivers\stdlib.h
-    accelerometro.c (link)
-    Nucleo.h (link)
-    accelerometro.h (link)
+    accelerometro.h
 
 Units:
     G:\Project\pic\CCS\MMA7455l\Nucleo (main)
-    G:\Project\pic\CCS\MMA7455l\accelerometro.o
 
 Compiler Settings:
     Processor:      PIC18F4620
     Pointer Size:   16
-    ADC Range:      0-255
+    ADC Range:      0-1023
     Opt Level:      9
     Short,Int,Long: UNSIGNED: 1,8,16
     Float,Double:   32,32

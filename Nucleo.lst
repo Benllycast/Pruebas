@@ -1,15 +1,15 @@
-CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
+CCS PCH C Compiler, Version 4.105, 13255               30-Jul-12 15:23
 
                Filename: G:\Project\pic\CCS\MMA7455l\Nucleo.lst
 
-               ROM used: 204 bytes (0%)
-                         Largest free fragment is 65332
-               RAM used: 26 (1%) at main() level
-                         26 (1%) worst case
-               Stack:    0 locations
+               ROM used: 584 bytes (1%)
+                         Largest free fragment is 64952
+               RAM used: 36 (1%) at main() level
+                         38 (1%) worst case
+               Stack:    1 locations
 
 *
-00000:  GOTO   0004
+00000:  GOTO   00CC
 ....................  
 .................... #include "Nucleo.h" 
 .................... #include <18F4620.h> 
@@ -17,7 +17,7 @@ CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
 .................... #device PIC18F4620 
 .................... #list 
 ....................  
-.................... //#device adc=10 
+.................... #device adc=10 
 ....................  
 .................... #FUSES NOWDT                 	//No Watch Dog Timer 
 .................... #FUSES WDT128                	//Watch Dog Timer uses 1:128 Postscale 
@@ -44,8 +44,30 @@ CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
 .................... #FUSES LPT1OSC               	//Timer1 configured for low-power operation 
 .................... #FUSES MCLR                  	//Master Clear pin enabled 
 ....................  
-.................... #use delay(clock=10000000,RESTART_WDT) 
+.................... #use delay(clock=10000000) 
+*
+0001C:  CLRF   FEA
+0001E:  MOVLW  24
+00020:  MOVWF  FE9
+00022:  MOVF   FEF,W
+00024:  BZ    0042
+00026:  MOVLW  03
+00028:  MOVWF  01
+0002A:  CLRF   00
+0002C:  DECFSZ 00,F
+0002E:  BRA    002C
+00030:  DECFSZ 01,F
+00032:  BRA    002A
+00034:  MOVLW  3C
+00036:  MOVWF  00
+00038:  DECFSZ 00,F
+0003A:  BRA    0038
+0003C:  BRA    003E
+0003E:  DECFSZ FEF,F
+00040:  BRA    0026
+00042:  GOTO   01C6 (RETURN)
 .................... #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8) 
+.................... #use i2c(master, sda=PIN_C4, scl=PIN_C3, FORCE_HW, RESTART_WDT)                    //directiva de compilador par ale uso del bus I2C del microcontrolador 
 ....................  
 .................... #include <stdio.h> 
 .................... /////////////////////////////////////////////////////////////////////////// 
@@ -2289,14 +2311,524 @@ CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
 ....................  
 .................... #endif 
 ....................  
-.................... #import(FILE=accelerometro.o) 
+.................... #include "accelerometro.h" 
+....................  
+.................... #ifndef ACCELEROMETRO_H 
+....................  
+.................... #define ACCELEROMETRO_H 
+....................  
+.................... #define MMA7455_XOUTL 0x00      // Read only, Output Value X LSB 
+.................... #define MMA7455_XOUTH 0x01      // Read only, Output Value X MSB 
+.................... #define MMA7455_YOUTL 0x02      // Read only, Output Value Y LSB 
+.................... #define MMA7455_YOUTH 0x03      // Read only, Output Value Y MSB 
+.................... #define MMA7455_ZOUTL 0x04      // Read only, Output Value Z LSB 
+.................... #define MMA7455_ZOUTH 0x05      // Read only, Output Value Z MSB 
+.................... #define MMA7455_XOUT8 0x06      // Read only, Output Value X 8 bits 
+.................... #define MMA7455_YOUT8 0x07      // Read only, Output Value Y 8 bits 
+.................... #define MMA7455_ZOUT8 0x08      // Read only, Output Value Z 8 bits 
+.................... #define MMA7455_STATUS 0x09     // Read only, Status Register 
+.................... #define MMA7455_DETSRC 0x0A     // Read only, Detection Source Register 
+.................... #define MMA7455_TOUT 0x0B       // Temperature Output Value (Optional) 
+.................... #define MMA7455_RESERVED1 0x0C  // Reserved 
+.................... #define MMA7455_I2CAD 0x0D      // Read/Write, I2C Device Address 
+.................... #define MMA7455_USRINF 0x0E     // Read only, User Information (Optional) 
+.................... #define MMA7455_WHOAMI 0x0F     // Read only, "Who am I" value (Optional) 
+.................... #define MMA7455_XOFFL 0x10      // Read/Write, Offset Drift X LSB 
+.................... #define MMA7455_XOFFH 0x11      // Read/Write, Offset Drift X MSB 
+.................... #define MMA7455_YOFFL 0x12      // Read/Write, Offset Drift Y LSB 
+.................... #define MMA7455_YOFFH 0x13      // Read/Write, Offset Drift Y MSB 
+.................... #define MMA7455_ZOFFL 0x14      // Read/Write, Offset Drift Z LSB 
+.................... #define MMA7455_ZOFFH 0x15      // Read/Write, Offset Drift Z MSB 
+.................... #define MMA7455_MCTL 0x16       // Read/Write, Mode Control Register 
+.................... #define MMA7455_INTRST 0x17     // Read/Write, Interrupt Latch Reset 
+.................... #define MMA7455_CTL1 0x18       // Read/Write, Control 1 Register 
+.................... #define MMA7455_CTL2 0x19       // Read/Write, Control 2 Register 
+.................... #define MMA7455_LDTH 0x1A       // Read/Write, Level Detection Threshold Limit Value 
+.................... #define MMA7455_PDTH 0x1B       // Read/Write, Pulse Detection Threshold Limit Value 
+.................... #define MMA7455_PD 0x1C         // Read/Write, Pulse Duration Value 
+.................... #define MMA7455_LT 0x1D         // Read/Write, Latency Time Value (between pulses) 
+.................... #define MMA7455_TW 0x1E         // Read/Write, Time Window for Second Pulse Value 
+.................... #define MMA7455_RESERVED2 0x1F  // Reserved 
+....................  
+.................... // Defines for the bits, to be able to change  
+.................... // between bit number and binary definition. 
+.................... // By using the bit number, programming the MMA7455  
+.................... // is like programming an AVR microcontroller. 
+.................... // But instead of using "(1<<X)", or "_BV(X)",  
+.................... // the Arduino "bit(X)" is used. 
+.................... #define MMA7455_D0 0 
+.................... #define MMA7455_D1 1 
+.................... #define MMA7455_D2 2 
+.................... #define MMA7455_D3 3 
+.................... #define MMA7455_D4 4 
+.................... #define MMA7455_D5 5 
+.................... #define MMA7455_D6 6 
+.................... #define MMA7455_D7 7 
+....................  
+.................... // Status Register 
+.................... #define MMA7455_DRDY MMA7455_D0 
+.................... #define MMA7455_DOVR MMA7455_D1 
+.................... #define MMA7455_PERR MMA7455_D2 
+....................  
+.................... // Mode Control Register 
+.................... #define MMA7455_MODE0 MMA7455_D0 
+.................... #define MMA7455_MODE1 MMA7455_D1 
+.................... #define MMA7455_GLVL0 MMA7455_D2 
+.................... #define MMA7455_GLVL1 MMA7455_D3 
+.................... #define MMA7455_STON MMA7455_D4 
+.................... #define MMA7455_SPI3W MMA7455_D5 
+.................... #define MMA7455_DRPD MMA7455_D6 
+....................  
+.................... // Control 1 Register 
+.................... #define MMA7455_INTPIN MMA7455_D0 
+.................... #define MMA7455_INTREG0 MMA7455_D1 
+.................... #define MMA7455_INTREG1 MMA7455_D2 
+.................... #define MMA7455_XDA MMA7455_D3 
+.................... #define MMA7455_YDA MMA7455_D4 
+.................... #define MMA7455_ZDA MMA7455_D5 
+.................... #define MMA7455_THOPT MMA7455_D6 
+.................... #define MMA7455_DFBW MMA7455_D7 
+....................  
+.................... // Control 2 Register 
+.................... #define MMA7455_LDPL MMA7455_D0 
+.................... #define MMA7455_PDPL MMA7455_D1 
+.................... #define MMA7455_DRVO MMA7455_D2 
+....................  
+.................... // Interrupt Latch Reset Register 
+.................... #define MMA7455_CLR_INT1 MMA7455_D0 
+.................... #define MMA7455_CLR_INT2 MMA7455_D1 
+....................  
+.................... // Detection Source Register 
+.................... #define MMA7455_INT1 MMA7455_D0 
+.................... #define MMA7455_INT2 MMA7455_D1 
+.................... #define MMA7455_PDZ MMA7455_D2 
+.................... #define MMA7455_PDY MMA7455_D3 
+.................... #define MMA7455_PDX MMA7455_D4 
+.................... #define MMA7455_LDZ MMA7455_D5 
+.................... #define MMA7455_LDY MMA7455_D6 
+.................... #define MMA7455_LDX MMA7455_D7 
+....................  
+.................... // I2C Device Address Register 
+.................... #define MMA7455_I2CDIS MMA7455_D7 
+....................  
+....................  
+....................  
+.................... // Default I2C address for the MMA7455 
+.................... #define MMA7455_I2C_ADDRESS 0x1D 
+.................... #define MMA7455_I2C_ADDRESS_READ 0X3B 
+.................... #define MMA7455_I2C_ADDRESS_WRITE 0X3A 
+....................  
+....................  
+.................... // When using an union for the registers and 
+.................... // the axis values, the byte order of the accelerometer 
+.................... // should match the byte order of the compiler and AVR chip. 
+.................... // Both have the lower byte at the lower address, 
+.................... // so they match. 
+.................... // This union is only used by the low level functions. 
+.................... typedef union  
+.................... { 
+....................   struct 
+....................   { 
+....................     unsigned int8 x_lsb; 
+....................     unsigned int8 x_msb; 
+....................     unsigned int8 y_lsb; 
+....................     unsigned int8 y_msb; 
+....................     unsigned int8 z_lsb; 
+....................     unsigned int8 z_msb; 
+....................   } reg; 
+....................   struct 
+....................   { 
+....................     int x; 
+....................     int y; 
+....................     int z; 
+....................   } value; 
+.................... } xyz_union; 
+....................  
+.................... volatile struct CONFIG_MMA7455 
+.................... { 
+....................    /* data */ 
+....................    struct { 
+....................       unsigned reserved : 1; 
+....................       unsigned DRPD : 1;      //data ready status pin ouput INT1/DRDY pin: 0 = enable , 1 = disable. 
+....................       unsigned SPI3W : 1;     //modo SPI 4hilos = 0, 3 hilos=1 . 
+....................       unsigned STON : 1;      //selft test enable=1, disable=0 . 
+....................       unsigned GLVL : 2;      // 00 = 8g, 10 = 4g, 01 = 2g. 
+....................       unsigned MODE : 2;      // 00 = stanby_mode, 01 = measure mode, 10 = level detection, 11 = pulse detection. 
+....................    } MODE_CONTROL_REGISTER; 
+....................    /* 
+....................    struct { 
+....................       unsigned reserved : 6; 
+....................       unsigned CLRINT2 : 1;//limpia INT1 bit in $0A 
+....................       unsigned CLRINT1 : 1;//limpia INT2 bit in $0A 
+....................    } _INTERRUP_LACHT_RESET; 
+....................    */ 
+....................    struct { 
+....................       unsigned DFBW: 1;     //filtro digital 0 = 62 Hz rate,1 = 125 Hz rate. 
+....................       unsigned THOPT: 1;    //tipo de valor en el umbral de detecccion (LD only): absoluto = 0, valor Integer con signo = 1. 
+....................       unsigned ZDA: 1;      //deteccion en eje Z: enable = 0, disable = 1. 
+....................       unsigned YDA: 1;      //deteccion en eje X: enable = 0, disable = 1. 
+....................       unsigned XDA: 1;      //deteccion en eje Y: enable = 0, disable = 1. 
+....................       unsigned INTRG: 2;    //configuracion de INT1, INT2 para LD o PD ver tabla1. 
+....................       unsigned INTPIN: 1;   //configuraciones pines de interrupciones con bit de interrupciones (ver tabla2). 
+....................    } CONTROL_1; 
+....................  
+....................    struct { 
+....................       unsigned reserved: 5;       
+....................       unsigned LDPL: 1;     //tipo de deteccion en LD: 0 = MOV, 1 = CL 
+....................       unsigned PDPL: 1;     //tipo de deteccion en PD: 0 = MOV, 1 = CL 
+....................       unsigned DRVO: 1; 
+....................    } CONTROL_2; 
+....................  
+....................    int8 XOFFL; 
+....................    int8 XOFFH; 
+....................    int8 YOFFL; 
+....................    int8 YOFFH; 
+....................    int8 ZOFFL; 
+....................    int8 ZOFFH;/*,//no implemntado 
+....................    char _LEVEL_DETECTION_THREHOLDS; 
+....................    char _PULSE_DETECTION_THREHOLDS; 
+....................    char _PULSE_DURATION; 
+....................    char _LANTENCY_TIME; 
+....................    char _TIME_WINDOWS; 
+....................    */ 
+.................... } CONFIG = { 
+....................    0b01001001,//0:reserved 
+....................    0b00000000, 
+....................    0b00000000, 
+....................    0x00, 
+....................    0x00, 
+....................    0x00, 
+....................    0x00, 
+....................    0x00/*,//no implmentado 
+....................    0x01, 
+....................    0x01, 
+....................    0x00, 
+....................    0x00, 
+....................    0x00*/ 
+.................... };//variable para la configuracion del accelerometro 
+....................  
+....................  
+.................... //configuracion incial del MMA7455 
+.................... int init_MMA(void); 
+....................  
+.................... //recalibra el offset del MMA7455 
+.................... int calibrate_MMA(void); 
+....................  
+.................... //cambio de configuracion del MMA7455 
+.................... void set_config(*CONFIG_MMA7455); 
+....................  
+.................... //Lectura de los valores de x y z 
+.................... int xyz_MMA( int *pX, int *pY, int *pZ); 
+....................  
+.................... //Lectura de datosd desde el MMA7455 
+.................... int read_MMA(unsigned char address, int8 *value); 
+.................... int read_MMA(unsigned char start_address, int8 *buffer,int size); 
+....................  
+.................... //Escritura de datos en el MMA7455 
+.................... int write_MMA(unsigned char address, int8 *value); 
+.................... int write_MMA(unsigned char start_address, int8 *pData, int size); 
+.................... /* 
+.................... int1 begin_transmision(unsigned int8 address); 
+.................... int1 end_transmision(bool); 
+.................... int8 requesFROM(unsigned int8 address); 
+.................... */ 
+.................... #endif 
+....................  
+.................... /* 
+.................... DEFINICIONES: 
+.................... MOV = deteccion de movimiento 
+.................... CL = deteccion de caida libre 
+....................  
+.................... tabla 1: configuracion de INTRG 
+.................... ------------------------ 
+.................... INT2TRG      INT1   INT2 
+.................... 00         LD       PD 
+.................... 01         PD       LD 
+.................... 10         sPD     dPD 
+.................... ------------------------ 
+....................  
+.................... tabla2: configuracion de pines de interrupciones 
+.................... ------------------- 
+.................... INTPIN 
+.................... 0       INT1bit  --> INT1pin, INT2bit  --> INT2pin 
+.................... 1       INT1bit  --> INT2pin, INT2bit  --> INT1pin 
+.................... ------------------- 
+.................... */ 
+....................  
+.................... //#import(FILE=accelerometro.o) 
+.................... #define READ  0b00000000 
+.................... #define WRITE 0b10000000 
+....................  
+.................... unsigned int8 respuesta = 0x00; 
+.................... char* SSPSTAT = 0x0FC7; 
+.................... char* SSPBUF = 0x0FC9; 
+.................... void write_mma(int8 address){ 
+....................    while(!spi_data_is_in()); 
+.................... } 
+....................  
+.................... unsigned int8 read_mma(unsigned int8 address){ 
+....................    address<<=1; 
+*
+000A8:  BCF    FD8.0
+000AA:  RLCF   23,F
+....................    address|=READ; 
+....................    //swap(address); 
+....................    spi_write(address); 
+000AC:  MOVF   FC9,W
+000AE:  MOVFF  23,FC9
+000B2:  RRCF   FC7,W
+000B4:  BNC   00B2
+....................    //while(!spi_data_is_in()){;} //comprobar con un tiempo espesifico 
+....................    if(spi_data_is_in()){ 
+000B6:  BTFSS  FC7.0
+000B8:  BRA    00C4
+....................       respuesta = spi_read(); 
+000BA:  MOVFF  FC9,13
+....................       return respuesta; 
+000BE:  MOVFF  13,01
+000C2:  BRA    00C8
+....................    }       
+....................    return -1; 
+000C4:  MOVLW  FF
+000C6:  MOVWF  01
+.................... } 
+000C8:  GOTO   0208 (RETURN)
+....................  
+....................  
+.................... void main() 
+.................... { 
+000CC:  CLRF   FF8
+000CE:  BCF    FD0.7
+000D0:  CLRF   FEA
+000D2:  CLRF   FE9
+000D4:  BCF    FB8.3
+000D6:  MOVLW  40
+000D8:  MOVWF  FAF
+000DA:  MOVLW  A6
+000DC:  MOVWF  FAC
+000DE:  MOVLW  90
+000E0:  MOVWF  FAB
+000E2:  BSF    F94.3
+000E4:  BSF    F94.4
+000E6:  MOVLW  18
+000E8:  MOVWF  FC8
+000EA:  MOVLW  28
+000EC:  MOVWF  FC6
+000EE:  BSF    FC7.7
+000F0:  BCF    FC7.6
+000F2:  CLRF   13
+000F4:  MOVLW  0F
+000F6:  MOVWF  15
+000F8:  MOVLW  C7
+000FA:  MOVWF  14
+000FC:  MOVLW  0F
+000FE:  MOVWF  17
+00100:  MOVLW  C9
+00102:  MOVWF  16
+00104:  BCF    FB8.3
+00106:  MOVLW  40
+00108:  MOVWF  FAF
+0010A:  MOVLW  A6
+0010C:  MOVWF  FAC
+0010E:  MOVLW  90
+00110:  MOVWF  FAB
+00112:  BSF    F94.3
+00114:  BSF    F94.4
+00116:  MOVLW  18
+00118:  MOVWF  FC8
+0011A:  MOVLW  28
+0011C:  MOVWF  FC6
+0011E:  BSF    FC7.7
+00120:  BCF    FC7.6
+00122:  MOVF   FC1,W
+00124:  ANDLW  C0
+00126:  IORLW  0F
+00128:  MOVWF  FC1
+0012A:  MOVLW  07
+0012C:  MOVWF  FB4
+0012E:  CLRF   04
+00130:  CLRF   05
+00132:  MOVLW  01
+00134:  MOVWF  0A
+00136:  CLRF   0B
+00138:  CLRF   0C
+0013A:  CLRF   0D
+0013C:  CLRF   0E
+0013E:  CLRF   0F
+00140:  CLRF   10
+00142:  CLRF   11
+00144:  CLRF   12
+00146:  MOVWF  18
+00148:  CLRF   19
+0014A:  CLRF   1A
+0014C:  CLRF   1B
+0014E:  CLRF   1C
+00150:  CLRF   1D
+00152:  CLRF   1E
+00154:  CLRF   1F
+00156:  CLRF   20
+00158:  MOVLW  1F
+0015A:  MOVWF  21
+0015C:  CLRF   22
+....................    unsigned int8 count = 0x1F; 
+....................    unsigned int8 direcciones = 0x00; 
+....................  
+....................    setup_adc_ports(NO_ANALOGS|VSS_VDD); 
+0015E:  MOVF   FC1,W
+00160:  ANDLW  C0
+00162:  IORLW  0F
+00164:  MOVWF  FC1
+....................    setup_adc(ADC_CLOCK_DIV_2|ADC_TAD_MUL_0); 
+00166:  MOVF   FC0,W
+00168:  ANDLW  C0
+0016A:  MOVWF  FC0
+0016C:  BSF    FC0.7
+0016E:  BSF    FC2.0
+....................    setup_psp(PSP_DISABLED); 
+00170:  BCF    F96.4
+....................    setup_spi(SPI_MASTER|SPI_L_TO_H|SPI_CLK_DIV_16); 
+00172:  BCF    FC6.5
+00174:  BCF    F94.5
+00176:  BSF    F94.4
+00178:  BCF    F94.3
+0017A:  MOVLW  21
+0017C:  MOVWF  FC6
+0017E:  MOVLW  00
+00180:  MOVWF  FC7
+....................    setup_wdt(WDT_OFF); 
+00182:  BCF    FD1.0
+....................    setup_timer_0(RTCC_INTERNAL); 
+00184:  MOVLW  80
+00186:  MOVWF  FD5
+....................    setup_timer_1(T1_DISABLED); 
+00188:  CLRF   FCD
+....................    setup_timer_2(T2_DISABLED,0,1); 
+0018A:  MOVLW  00
+0018C:  MOVWF  FCA
+0018E:  MOVLW  00
+00190:  MOVWF  FCB
+....................    setup_timer_3(T3_DISABLED|T3_DIV_BY_1); 
+00192:  CLRF   FB1
+....................    setup_ccp1(CCP_OFF); 
+00194:  BSF    F94.2
+00196:  CLRF   FBD
+00198:  CLRF   FB7
+0019A:  CLRF   FB6
+....................    setup_comparator(NC_NC_NC_NC); 
+0019C:  MOVLW  07
+0019E:  MOVWF  FB4
+001A0:  MOVF   F92,W
+001A2:  MOVWF  F92
+001A4:  MOVLW  08
+001A6:  MOVWF  00
+001A8:  DECFSZ 00,F
+001AA:  BRA    01A8
+001AC:  MOVF   FB4,W
+001AE:  BCF    FA1.6
+....................    setup_vref(FALSE); 
+001B0:  CLRF   FB5
+.................... //Setup_Oscillator parameter not selected from Intr Oscillator Config tab 
+....................    // TODO: USER CODE!! 
+....................    set_tris_A(0b00001111); 
+001B2:  MOVLW  0F
+001B4:  MOVWF  F92
+....................    output_a(0xf0); 
+001B6:  CLRF   F92
+001B8:  MOVLW  F0
+001BA:  MOVWF  F89
+....................    delay_ms(1000); 
+001BC:  MOVLW  04
+001BE:  MOVWF  23
+001C0:  MOVLW  FA
+001C2:  MOVWF  24
+001C4:  BRA    001C
+001C6:  DECFSZ 23,F
+001C8:  BRA    01C0
+....................    while(true){ 
+....................       for (direcciones = 0x00; direcciones < count; direcciones++){ 
+001CA:  CLRF   22
+001CC:  MOVF   21,W
+001CE:  SUBWF  22,W
+001D0:  BC    0242
+....................          /* code */ 
+....................          printf("ms rq: %X , ",direcciones); 
+001D2:  MOVLW  04
+001D4:  MOVWF  FF6
+001D6:  MOVLW  00
+001D8:  MOVWF  FF7
+001DA:  MOVLW  07
+001DC:  MOVWF  23
+001DE:  RCALL  0046
+001E0:  MOVFF  22,23
+001E4:  MOVLW  37
+001E6:  MOVWF  24
+001E8:  RCALL  0066
+001EA:  MOVLW  20
+001EC:  BTFSS  F9E.4
+001EE:  BRA    01EC
+001F0:  MOVWF  FAD
+001F2:  MOVLW  2C
+001F4:  BTFSS  F9E.4
+001F6:  BRA    01F4
+001F8:  MOVWF  FAD
+001FA:  MOVLW  20
+001FC:  BTFSS  F9E.4
+001FE:  BRA    01FC
+00200:  MOVWF  FAD
+....................          if (read_mma(direcciones) != -1) 
+00202:  MOVFF  22,23
+00206:  BRA    00A8
+00208:  MOVF   01,W
+0020A:  SUBLW  FF
+0020C:  BZ    023E
+....................          {             
+....................             printf("rp: %X \n\r",respuesta); 
+0020E:  MOVLW  12
+00210:  MOVWF  FF6
+00212:  MOVLW  00
+00214:  MOVWF  FF7
+00216:  MOVLW  04
+00218:  MOVWF  23
+0021A:  RCALL  0046
+0021C:  MOVFF  13,23
+00220:  MOVLW  37
+00222:  MOVWF  24
+00224:  RCALL  0066
+00226:  MOVLW  20
+00228:  BTFSS  F9E.4
+0022A:  BRA    0228
+0022C:  MOVWF  FAD
+0022E:  MOVLW  0A
+00230:  BTFSS  F9E.4
+00232:  BRA    0230
+00234:  MOVWF  FAD
+00236:  MOVLW  0D
+00238:  BTFSS  F9E.4
+0023A:  BRA    0238
+0023C:  MOVWF  FAD
+....................          }          
+....................       } 
+0023E:  INCF   22,F
+00240:  BRA    01CC
+....................       direcciones = 0x00; 
+00242:  CLRF   22
+....................       /*aqui va el codigo*/ 
+....................       /*for (i = 0; i < count; ++i){ 
+....................          printf("%d \n\r",i ); 
+....................       }*/ 
+....................  
+....................    } 
+00244:  BRA    01CA
+.................... } 
+....................  
 .................... #include "Nucleo.h" 
 .................... #include <18F4620.h> 
+00246:  SLEEP 
 .................... //////// Standard Header file for the PIC18F4620 device //////////////// 
 .................... #device PIC18F4620 
 .................... #list 
 ....................  
-.................... //#device adc=10 
+.................... #device adc=10 
 ....................  
 .................... #FUSES NOWDT                 	//No Watch Dog Timer 
 .................... #FUSES WDT128                	//Watch Dog Timer uses 1:128 Postscale 
@@ -2323,8 +2855,9 @@ CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
 .................... #FUSES LPT1OSC               	//Timer1 configured for low-power operation 
 .................... #FUSES MCLR                  	//Master Clear pin enabled 
 ....................  
-.................... #use delay(clock=10000000,RESTART_WDT) 
+.................... #use delay(clock=10000000) 
 .................... #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8) 
+.................... #use i2c(master, sda=PIN_C4, scl=PIN_C3, FORCE_HW, RESTART_WDT)                    //directiva de compilador par ale uso del bus I2C del microcontrolador 
 ....................  
 .................... #include "accelerometro.h" 
 ....................  
@@ -2440,7 +2973,7 @@ CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
 .................... // Both have the lower byte at the lower address, 
 .................... // so they match. 
 .................... // This union is only used by the low level functions. 
-.................... typedef union xyz_union 
+.................... typedef union  
 .................... { 
 ....................   struct 
 ....................   { 
@@ -2457,7 +2990,7 @@ CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
 ....................     int y; 
 ....................     int z; 
 ....................   } value; 
-.................... }; 
+.................... } xyz_union; 
 ....................  
 .................... volatile struct CONFIG_MMA7455 
 .................... { 
@@ -2469,7 +3002,7 @@ CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
 ....................       unsigned STON : 1;      //selft test enable=1, disable=0 . 
 ....................       unsigned GLVL : 2;      // 00 = 8g, 10 = 4g, 01 = 2g. 
 ....................       unsigned MODE : 2;      // 00 = stanby_mode, 01 = measure mode, 10 = level detection, 11 = pulse detection. 
-....................    } _MODE_CONTROL_REGISTER; 
+....................    } MODE_CONTROL_REGISTER; 
 ....................    /* 
 ....................    struct { 
 ....................       unsigned reserved : 6; 
@@ -2485,28 +3018,28 @@ CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
 ....................       unsigned XDA: 1;      //deteccion en eje Y: enable = 0, disable = 1. 
 ....................       unsigned INTRG: 2;    //configuracion de INT1, INT2 para LD o PD ver tabla1. 
 ....................       unsigned INTPIN: 1;   //configuraciones pines de interrupciones con bit de interrupciones (ver tabla2). 
-....................    } _CONTROL_1; 
+....................    } CONTROL_1; 
 ....................  
 ....................    struct { 
 ....................       unsigned reserved: 5;       
 ....................       unsigned LDPL: 1;     //tipo de deteccion en LD: 0 = MOV, 1 = CL 
 ....................       unsigned PDPL: 1;     //tipo de deteccion en PD: 0 = MOV, 1 = CL 
 ....................       unsigned DRVO: 1; 
-....................    } _CONTROL_2; 
+....................    } CONTROL_2; 
 ....................  
-....................    unsigned int8 _XOFFL; 
-....................    unsigned int8 _XOFFH; 
-....................    unsigned int8 _YOFFL; 
-....................    unsigned int8 _YOFFH; 
-....................    unsigned int8 _ZOFFL; 
-....................    unsigned int8 _ZOFFH;/*,//no implemntado 
+....................    int8 XOFFL; 
+....................    int8 XOFFH; 
+....................    int8 YOFFL; 
+....................    int8 YOFFH; 
+....................    int8 ZOFFL; 
+....................    int8 ZOFFH;/*,//no implemntado 
 ....................    char _LEVEL_DETECTION_THREHOLDS; 
 ....................    char _PULSE_DETECTION_THREHOLDS; 
 ....................    char _PULSE_DURATION; 
 ....................    char _LANTENCY_TIME; 
 ....................    char _TIME_WINDOWS; 
 ....................    */ 
-.................... } config_acelerometro = { 
+.................... } CONFIG = { 
 ....................    0b01001001,//0:reserved 
 ....................    0b00000000, 
 ....................    0b00000000, 
@@ -2522,20 +3055,26 @@ CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
 ....................    0x00*/ 
 .................... };//variable para la configuracion del accelerometro 
 ....................  
-.................... #use i2c(master, sda=PIN_C4, scl=PIN_C3, FORCE_HW, RESTART_WDT)                    //directiva de compilador par ale uso del bus I2C del microcontrolador 
+....................  
 .................... //configuracion incial del MMA7455 
-.................... int config_MMA(); 
+.................... int init_MMA(void); 
+....................  
+.................... //recalibra el offset del MMA7455 
+.................... int calibrate_MMA(void); 
 ....................  
 .................... //cambio de configuracion del MMA7455 
 .................... void set_config(*CONFIG_MMA7455); 
+....................  
+.................... //Lectura de los valores de x y z 
+.................... int xyz_MMA( int *pX, int *pY, int *pZ); 
 ....................  
 .................... //Lectura de datosd desde el MMA7455 
 .................... int read_MMA(unsigned char address, int8 *value); 
 .................... int read_MMA(unsigned char start_address, int8 *buffer,int size); 
 ....................  
 .................... //Escritura de datos en el MMA7455 
-.................... int write_MMA(unsigned char address, unsigned int8 *value); 
-.................... int write_MMA(unsigned char start_address, unsigned int8 *pData, int size); 
+.................... int write_MMA(unsigned char address, int8 *value); 
+.................... int write_MMA(unsigned char start_address, int8 *pData, int size); 
 .................... /* 
 .................... int1 begin_transmision(unsigned int8 address); 
 .................... int1 end_transmision(bool); 
@@ -2565,16 +3104,128 @@ CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
 .................... */ 
 ....................  
 ....................  
+.................... //configuracion inicial del MMA7455 
+.................... int init_MMA(void){ 
+....................   int error = 0; 
+....................   xyz_union xyz; 
+....................   unsigned int8 c1, c2; 
+....................   //mode: measurement; sensitivity: 4g 
+....................   c1 = (1<<MMA7455_GLVL1)|(1<<MMA7455_MODE1); 
+....................   error = write_MMA(MMA7455_MCTL, &c1); 
+....................   if (error != 0) 
+....................     return (error); 
 ....................  
-.................... void config_MMA(){ 
-....................  return; 
-.................... } //setear la cofiguracion incial 
+....................   error = read_MMA(MMA7455_MCTL, &c2); 
+....................   if (error != 0) 
+....................     return (error); 
+....................  
+....................   if (c1 != c2) 
+....................     return (-99); 
+....................   else 
+....................     CONFIG.MODE_CONTROL_REGISTER =  c2; 
+....................  
+....................   xyz.value.x = xyz.value.y = xyz.value.z = 0; 
+....................   error = write_MMA(MMA7455_XOFFL, (unsigned int8 *) &xyz, 6); 
+....................   if (error != 0) 
+....................     return (error); 
+....................    
+....................   delay_ms(100); 
+....................   return 0; 
+.................... } 
+....................  
+.................... //calibra el offset de los valores de X, Y, Z. 
+.................... int calibrate_MMA(void){ 
+....................   int x, y, z, error = 0; 
+....................   xyz_union xyz; 
+....................   int c1, c2; 
+....................  
+....................   c1 = CONFIG.MODE_CONTROL_REGISTER.GLVL; 
+....................   if(c1 == 0){ 
+....................     c2 = 16; 
+....................   }else if(c1 == 2){ 
+....................     c2 = 32; 
+....................   }else{ 
+....................     c2 = 64; 
+....................   } 
+....................  
+....................   error = xyz_MMA(&x, &y, &z); 
+....................   if (error != 0) 
+....................     return (error); 
+....................  
+....................   xyz.value.x = 2 * -x;         
+....................   xyz.value.y = 2 * -y; 
+....................   xyz.value.z = 2 * -(z-c2); 
+....................  
+....................   error = write_MMA(MMA7455_XOFFL, (unsigned int8 *) &xyz, 6); 
+....................   if (error != 0) 
+....................     return (error); 
+....................  
+....................   delay_ms(200); 
+....................    
+....................   error = xyz_MMA(&x, &y, &z); 
+....................   if (error != 0) 
+....................     return (error); 
+....................  
+....................   xyz.value.x = 2 * -x;         
+....................   xyz.value.y = 2 * -y; 
+....................   xyz.value.z = 2 * -(z-c2); 
+....................  
+....................   error = write_MMA(MMA7455_XOFFL, (unsigned int8 *) &xyz, 6); 
+....................   if (error != 0) 
+....................     return (error); 
+....................  
+....................   error = read_MMA(MMA7455_XOFFL, (unsigned int8 *) &xyz, 6); 
+....................   if (error != 0) 
+....................     return (error); 
+....................  
+....................   CONFIG.XOFFL = xyz.reg.x_lsb; 
+....................   CONFIG.XOFFH = xyz.reg.x_msb; 
+....................   CONFIG.YOFFL = xyz.reg.x_lsb; 
+....................   CONFIG.YOFFH = xyz.reg.x_msb; 
+....................   CONFIG.ZOFFL = xyz.reg.x_lsb; 
+....................   CONFIG.ZOFFH = xyz.reg.x_msb; 
+....................  
+....................   return 0; 
+.................... } 
 ....................  
 .................... void set_config(*CONFIG_MMA7455){ 
 ....................  return; 
 .................... }// cambiar la configuracion incicial (del SPI y/o MMA) 
 ....................  
 ....................  
+.................... int xyz_MMA( int *pX, int *pY, int *pZ){ 
+....................   xyz_union xyz; 
+....................   int error; 
+....................   unsigned int8 c; 
+....................  
+....................   do{ 
+....................  
+....................     error = read_MMA(MMA7455_STATUS,&c); 
+....................   }while(!bit_test(c, MMA7455_DRDY) && error == 0); 
+....................   if (error != 0) 
+....................     return (error); 
+....................  
+....................   error = read_MMA(MMA7455_XOUTL, (unsigned int8 *)&xyz, 6); 
+....................   if (error != 0) 
+....................     return (error); 
+....................  
+....................   // The output is 10-bits and could be negative. 
+....................   // To use the output as a 16-bit signed integer, 
+....................   // the sign bit (bit 9) is extended for the 16 bits. 
+....................   if (xyz.reg.x_msb & 0x02)    // Bit 9 is sign bit. 
+....................     xyz.reg.x_msb |= 0xFC;     // Stretch bit 9 over other bits. 
+....................   if (xyz.reg.y_msb & 0x02) 
+....................     xyz.reg.y_msb |= 0xFC; 
+....................   if (xyz.reg.z_msb & 0x02) 
+....................     xyz.reg.z_msb |= 0xFC; 
+....................  
+....................   // The result is the g-force in units of 64 per 'g'. 
+....................   *pX = xyz.value.x; 
+....................   *pY = xyz.value.y; 
+....................   *pZ = xyz.value.z; 
+....................  
+....................   return 0; 
+.................... } 
 .................... /*///////////////////////////////////////////// 
 .................... read_MMA(): funcion para la lectura de datos desde el accelerometro MMA7455 
 ....................             hasta el dispositivo maestro 
@@ -2599,7 +3250,7 @@ CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
 ....................   if(error!=0){return 1;}                         //si existe un error sale de la funcion 
 ....................    
 ....................   //peticion de datos desde el MMA7455 
-....................   //error = requesFROM(MMA7455_I2C_ADDRESS);      //enivia la peticion de incio de lectura desde el maestro 
+....................   //error = requesFROM(MMA7455_I2C_ADDRESS);      //envia la peticion de incio de lectura desde el maestro 
 ....................   i2c_start();                                    //señal de restart del bus i2c 
 ....................   error = i2c_write(MMA7455_I2C_ADDRESS_READ);    //se envia la direccion del MMA7455 con lectura   
 ....................   if(error!=0){return 2;}  
@@ -2642,7 +3293,7 @@ CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
 .................... } //leer datos desde el mma 
 ....................  
 ....................  
-.................... int write_MMA(unsigned char address, unsigned int8 *value){ 
+.................... int write_MMA(unsigned char address, int8 *value){ 
 ....................   int error = 0; 
 ....................   //condicion de inicio de escritura en el MMA7455 
 ....................   i2c_start();                                    //señal de start del bus i2c 
@@ -2656,7 +3307,7 @@ CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
 .................... } 
 ....................  
 ....................  
-.................... int write_MMA(unsigned char start_address, unsigned int8 *pData, int size){ 
+.................... int write_MMA(unsigned char start_address, int8 *pData, int size){ 
 ....................   int error = -1, i = 0; 
 ....................   int1 ack = 0; 
 ....................  
@@ -2673,188 +3324,7 @@ CCS PCH C Compiler, Version 4.105, 13255               29-Jul-12 08:24
 ....................    
 ....................   return 0;//retorna 0 si succed 
 .................... } //escribir datos desde el mma 
-.................... /* 
-.................... int8 begin_transmision(unsigned int8 address){      
-....................   unsigned int8 out = 0; 
-....................   int8 error = -1; 
-....................   out = (address << 1); 
-....................   bit_clear(out, 0); 
-....................   i2c_start(); 
-....................   error = i2c_write(out); 
-....................   return error; 
-.................... } //seleccion del dispositivo en el bus spi 
 ....................  
-.................... int1 end_transmicion(){ 
-....................   return; 
-.................... } // deseleccion del dispositivo en el bus spi 
-....................  
-.................... int8 requesFROM(unsigned int8 address){ 
-....................   unsigned int8 out = 0; 
-....................   int8 error = -1; 
-....................   out = (address << 1); 
-....................   bit_set(out, 0); 
-....................   i2c_start(); 
-....................   error = i2c_write(out); 
-....................   return error; 
-.................... } 
-....................  
-.................... int8 bit(int8 pos){ 
-....................   int8 bits = 1; 
-....................   return (bits<<pos); 
-.................... } 
-.................... */ 
-....................  
-.................... #define READ  0b00000000 
-.................... #define WRITE 0b10000000 
-....................  
-.................... unsigned int8 respuesta = 0x00; 
-.................... char* SSPSTAT = 0x0FC7; 
-.................... char* SSPBUF = 0x0FC9; 
-.................... void write_mma(int8 address){ 
-....................    while(!spi_data_is_in()); 
-.................... } 
-....................  
-.................... unsigned int8 read_mma(unsigned int8 address){ 
-....................    address<<=1; 
-....................    address|=READ; 
-....................    //swap(address); 
-....................    spi_write(address); 
-....................    //while(!spi_data_is_in()){;} //comprobar con un tiempo espesifico 
-....................    if(spi_data_is_in()){ 
-....................       respuesta = spi_read(); 
-....................       return respuesta; 
-....................    }       
-....................    return -1; 
-.................... } 
-....................  
-....................  
-.................... void main() 
-.................... { 
-00004:  CLRF   FF8
-00006:  BCF    FD0.7
-00008:  CLRF   FEA
-0000A:  CLRF   FE9
-0000C:  BCF    FB8.3
-0000E:  MOVLW  40
-00010:  MOVWF  FAF
-00012:  MOVLW  A6
-00014:  MOVWF  FAC
-00016:  MOVLW  90
-00018:  MOVWF  FAB
-0001A:  BSF    F94.3
-0001C:  BSF    F94.4
-0001E:  MOVLW  18
-00020:  MOVWF  FC8
-00022:  MOVLW  28
-00024:  MOVWF  FC6
-00026:  BSF    FC7.7
-00028:  BCF    FC7.6
-0002A:  CLRF   13
-0002C:  MOVLW  0F
-0002E:  MOVWF  15
-00030:  MOVLW  C7
-00032:  MOVWF  14
-00034:  MOVLW  0F
-00036:  MOVWF  17
-00038:  MOVLW  C9
-0003A:  MOVWF  16
-0003C:  MOVF   FC1,W
-0003E:  ANDLW  C0
-00040:  IORLW  0F
-00042:  MOVWF  FC1
-00044:  MOVLW  07
-00046:  MOVWF  FB4
-00048:  CLRF   04
-0004A:  CLRF   05
-0004C:  MOVLW  01
-0004E:  MOVWF  0A
-00050:  CLRF   0B
-00052:  CLRF   0C
-00054:  CLRF   0D
-00056:  CLRF   0E
-00058:  CLRF   0F
-0005A:  CLRF   10
-0005C:  CLRF   11
-0005E:  CLRF   12
-00060:  MOVLW  1F
-00062:  MOVWF  18
-00064:  CLRF   19
-....................    unsigned int8 count = 0x1F; 
-....................    unsigned int8 direcciones = 0x00; 
-....................     
-....................  
-....................    setup_adc_ports(NO_ANALOGS|VSS_VDD); 
-00066:  MOVF   FC1,W
-00068:  ANDLW  C0
-0006A:  IORLW  0F
-0006C:  MOVWF  FC1
-....................    setup_adc(ADC_CLOCK_DIV_2|ADC_TAD_MUL_0); 
-0006E:  MOVF   FC0,W
-00070:  ANDLW  C0
-00072:  MOVWF  FC0
-00074:  BCF    FC0.7
-00076:  BSF    FC2.0
-....................    setup_psp(PSP_DISABLED); 
-00078:  BCF    F96.4
-....................    setup_spi(SPI_MASTER|SPI_L_TO_H|SPI_CLK_DIV_16); 
-0007A:  BCF    FC6.5
-0007C:  BCF    F94.5
-0007E:  BSF    F94.4
-00080:  BCF    F94.3
-00082:  MOVLW  21
-00084:  MOVWF  FC6
-00086:  MOVLW  00
-00088:  MOVWF  FC7
-....................    setup_wdt(WDT_OFF); 
-0008A:  BCF    FD1.0
-....................    setup_timer_0(RTCC_INTERNAL); 
-0008C:  MOVLW  80
-0008E:  MOVWF  FD5
-....................    setup_timer_1(T1_DISABLED); 
-00090:  CLRF   FCD
-....................    setup_timer_2(T2_DISABLED,0,1); 
-00092:  MOVLW  00
-00094:  MOVWF  FCA
-00096:  MOVLW  00
-00098:  MOVWF  FCB
-....................    setup_timer_3(T3_DISABLED|T3_DIV_BY_1); 
-0009A:  CLRF   FB1
-....................    setup_ccp1(CCP_OFF); 
-0009C:  BSF    F94.2
-0009E:  CLRF   FBD
-000A0:  CLRF   FB7
-000A2:  CLRF   FB6
-....................    setup_comparator(NC_NC_NC_NC); 
-000A4:  MOVLW  07
-000A6:  MOVWF  FB4
-000A8:  MOVF   F92,W
-000AA:  MOVWF  F92
-000AC:  CLRWDT
-000AE:  MOVLW  07
-000B0:  MOVWF  00
-000B2:  DECFSZ 00,F
-000B4:  BRA    00B2
-000B6:  BRA    00B8
-000B8:  MOVF   FB4,W
-000BA:  BCF    FA1.6
-....................    setup_vref(FALSE); 
-000BC:  CLRF   FB5
-.................... //Setup_Oscillator parameter not selected from Intr Oscillator Config tab 
-....................    // TODO: USER CODE!! 
-....................    set_tris_A(0b00001111); 
-000BE:  MOVLW  0F
-000C0:  MOVWF  F92
-....................    output_a(0xf0); 
-000C2:  CLRF   F92
-000C4:  MOVLW  F0
-000C6:  MOVWF  F89
-....................    while(true){ 
-....................       
-....................  
-....................    } 
-000C8:  BRA    00C8
-.................... } 
-000CA:  SLEEP 
 
 Configuration Fuses:
    Word  1: C200   HS IESO FCMEN
