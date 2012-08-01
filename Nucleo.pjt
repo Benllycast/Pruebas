@@ -18,8 +18,8 @@ AdditionalOptionString=
 [Opened Files]
 1=Nucleo.c
 2=Nucleo.h
-3=accelerometro.h
-4=accelerometro.c
+3=accelerometro.c
+4=accelerometro.h
 5=
 6=
 [Target Data]

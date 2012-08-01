@@ -1,7 +1,4 @@
 G:\Project\pic\CCS\MMA7455l\accelerometro.o ===>  0 Errors,  0 Warnings.
->>> Warning 202 "G:\Project\pic\CCS\MMA7455l\accelerometro.h" Line 180(10,16): Variable never used:   CONFIG
->>> Warning 202 "Nucleo.c" Line 10(15,22): Variable never used:   SSPSTAT
->>> Warning 202 "Nucleo.c" Line 11(14,20): Variable never used:   SSPBUF
-G:\Project\pic\CCS\MMA7455l\Nucleo.o ===>  0 Errors,  3 Warnings.
+G:\Project\pic\CCS\MMA7455l\Nucleo.o ===>  0 Errors,  0 Warnings.
       Memory usage:   ROM=1%      RAM=1% - 1%
       0 Errors,  0 Warnings.

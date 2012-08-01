@@ -94,17 +94,6 @@
 #define MMA7455_LDY MMA7455_D6
 #define MMA7455_LDX MMA7455_D7
 
-// I2C Device Address Register
-#define MMA7455_I2CDIS MMA7455_D7
-
-
-
-// Default I2C address for the MMA7455
-#define MMA7455_I2C_ADDRESS 0x1D
-#define MMA7455_I2C_ADDRESS_READ 0X3B
-#define MMA7455_I2C_ADDRESS_WRITE 0X3A
-
-
 // When using an union for the registers and
 // the axis values, the byte order of the accelerometer
 // should match the byte order of the compiler and AVR chip.
@@ -130,40 +119,12 @@ typedef union
   } value;
 } xyz_union;
 
-volatile struct CONFIG_MMA7455
+typedef struct 
 {
    /* data */
-   struct {
-      unsigned reserved : 1;
-      unsigned DRPD : 1;      //data ready status pin ouput INT1/DRDY pin: 0 = enable , 1 = disable.
-      unsigned SPI3W : 1;     //modo SPI 4hilos = 0, 3 hilos=1 .
-      unsigned STON : 1;      //selft test enable=1, disable=0 .
-      unsigned GLVL : 2;      // 00 = 8g, 10 = 4g, 01 = 2g.
-      unsigned MODE : 2;      // 00 = stanby_mode, 01 = measure mode, 10 = level detection, 11 = pulse detection.
-   } MODE_CONTROL_REGISTER;
-   /*
-   struct {
-      unsigned reserved : 6;
-      unsigned CLRINT2 : 1;//limpia INT1 bit in $0A
-      unsigned CLRINT1 : 1;//limpia INT2 bit in $0A
-   } _INTERRUP_LACHT_RESET;
-   */
-   struct {
-      unsigned DFBW: 1;     //filtro digital 0 = 62 Hz rate,1 = 125 Hz rate.
-      unsigned THOPT: 1;    //tipo de valor en el umbral de detecccion (LD only): absoluto = 0, valor Integer con signo = 1.
-      unsigned ZDA: 1;      //deteccion en eje Z: enable = 0, disable = 1.
-      unsigned YDA: 1;      //deteccion en eje X: enable = 0, disable = 1.
-      unsigned XDA: 1;      //deteccion en eje Y: enable = 0, disable = 1.
-      unsigned INTRG: 2;    //configuracion de INT1, INT2 para LD o PD ver tabla1.
-      unsigned INTPIN: 1;   //configuraciones pines de interrupciones con bit de interrupciones (ver tabla2).
-   } CONTROL_1;
-
-   struct {
-      unsigned reserved: 5;      
-      unsigned LDPL: 1;     //tipo de deteccion en LD: 0 = MOV, 1 = CL
-      unsigned PDPL: 1;     //tipo de deteccion en PD: 0 = MOV, 1 = CL
-      unsigned DRVO: 1;
-   } CONTROL_2;
+   unsigned int8 MODE_CONTROL;
+   unsigned int8 CONTROL_1;
+   unsigned int8 CONTROL_2;
 
    int8 XOFFL;
    int8 XOFFH;
@@ -177,21 +138,17 @@ volatile struct CONFIG_MMA7455
    char _LANTENCY_TIME;
    char _TIME_WINDOWS;
    */
-} CONFIG = {
-   0b01001001,//0:reserved
-   0b00000000,
-   0b00000000,
-   0x00,
-   0x00,
-   0x00,
-   0x00,
-   0x00/*,//no implmentado
-   0x01,
-   0x01,
-   0x00,
-   0x00,
-   0x00*/
-};//variable para la configuracion del accelerometro
+} CONFIG_MMA7455;
+
+// I2C Device Address Register
+#define MMA7455_I2CDIS MMA7455_D7
+
+
+
+// Default I2C address for the MMA7455
+#define MMA7455_I2C_ADDRESS 0x1D
+#define MMA7455_I2C_ADDRESS_READ 0X3B
+#define MMA7455_I2C_ADDRESS_WRITE 0X3A
 
 
 //configuracion incial del MMA7455

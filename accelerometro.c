@@ -1,26 +1,29 @@
 #include "Nucleo.h"
-#include "accelerometro.h"
+#include "accelerometro.h" 
 
+CONFIG_MMA7455 CONFIG = {1,2,3,128,128,128,128,128,128};
 //configuracion inicial del MMA7455
 int init_MMA(void){
   int error = 0;
   xyz_union xyz;
-  unsigned int8 c1, c2;
+  unsigned int8 c1 = 0, c2 = 0;
   //mode: measurement; sensitivity: 4g
-  c1 = (1<<MMA7455_GLVL1)|(1<<MMA7455_MODE1);
+  c1 = MMA7455_GLVL1 | MMA7455_MODE0;
   error = write_MMA(MMA7455_MCTL, &c1);
   if (error != 0)
     return (error);
-
+  
+  //lee la configuracion del accelerometro para comprobar el envio
   error = read_MMA(MMA7455_MCTL, &c2);
   if (error != 0)
     return (error);
-
+  
+  //se comprueban que coinsidan
   if (c1 != c2)
     return (-99);
   else
-    CONFIG.MODE_CONTROL_REGISTER =  c2;
-
+    CONFIG.MODE_CONTROL =  c2;    //se respalda la configuracion en el micro
+  //se configura el offset de los ejes a 0
   xyz.value.x = xyz.value.y = xyz.value.z = 0;
   error = write_MMA(MMA7455_XOFFL, (unsigned int8 *) &xyz, 6);
   if (error != 0)
@@ -34,15 +37,17 @@ int init_MMA(void){
 int calibrate_MMA(void){
   int x, y, z, error = 0;
   xyz_union xyz;
-  int c1, c2;
+  unsigned int8 c1 = 0, c2 = 0;
 
-  c1 = CONFIG.MODE_CONTROL_REGISTER.GLVL;
-  if(c1 == 0){
+  c1 = (CONFIG.MODE_CONTROL & (MMA7455_GLVL1|MMA7455_GLVL0));   //selecciona los bit de GLVL
+  if(c1 == (MMA7455_GLVL0 | MMA7455_GLVL1)){  // si es 8g
     c2 = 16;
-  }else if(c1 == 2){
+  }else if(c1 == MMA7455_GLVL1){ //si es 4g
     c2 = 32;
-  }else{
+  }else if(c1 == MMA7455_GLVL0){ //si es 2g
     c2 = 64;
+  }else{
+    c2 = 64;  //por defecto 2g
   }
 
   error = xyz_MMA(&x, &y, &z);
@@ -140,14 +145,12 @@ returna:
 int read_MMA(unsigned char address, int8 *value){
   int error = -1;
    //condicion de inicio de lectura en el MMA7455 
-  //error = begin_transmision(MMA7455_I2C_ADDRESS); //inicia la transmicion al MMA7455    
   i2c_start();                                    //señal de start del bus i2c
   error = i2c_write(MMA7455_I2C_ADDRESS_WRITE);   //se envia la direccion del MMA7455 con escritura
-  error = i2c_write(address);                       //envia el registro inicial de lectura del MMA
+  error = i2c_write(address);                     //envia el registro inicial de lectura del MMA
   if(error!=0){return 1;}                         //si existe un error sale de la funcion
   
   //peticion de datos desde el MMA7455
-  //error = requesFROM(MMA7455_I2C_ADDRESS);      //envia la peticion de incio de lectura desde el maestro
   i2c_start();                                    //señal de restart del bus i2c
   error = i2c_write(MMA7455_I2C_ADDRESS_READ);    //se envia la direccion del MMA7455 con lectura  
   if(error!=0){return 2;} 
@@ -163,14 +166,12 @@ int read_MMA(unsigned char start_address, unsigned int8 *buffer,int size){
   int1 ack = 1;
   
   //condicion de inicio de lectura en el MMA7455 
-  //error = begin_transmision(MMA7455_I2C_ADDRESS); //inicia la transmicion al MMA7455    
   i2c_start();                                    //señal de start del bus i2c
   error = i2c_write(MMA7455_I2C_ADDRESS_WRITE);   //se envia la direccion del MMA7455 con escritura
-  error = i2c_write(start_address);                       //envia el registro inicial de lectura del MMA
+  error = i2c_write(start_address);               //envia el registro inicial de lectura del MMA
   if(error!=0){return 1;}                         //si existe un error sale de la funcion
   
   //peticion de datos desde el MMA7455
-  //error = requesFROM(MMA7455_I2C_ADDRESS);      //enivia la peticion de incio de lectura desde el maestro
   i2c_start();                                    //señal de restart del bus i2c
   error = i2c_write(MMA7455_I2C_ADDRESS_READ);    //se envia la direccion del MMA7455 con lectura  
   if(error!=0){return 2;}                         //si error en reques sale de la funcion

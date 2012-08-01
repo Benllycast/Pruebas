@@ -1,56 +1,55 @@
 
-ROM used: 584 (1%)
-          584 (1%) including unused fragments
+ROM used: 506 (1%)
+          506 (1%) including unused fragments
 
           0 Average locations per line
           1 Average locations per statement
 
-RAM used: 36 (1%) at main() level
-          38 (1%) worst case
+RAM used: 21 (1%) at main() level
+          25 (1%) worst case
 
-Stack used: 1 worst case (out of 31 total available)
+Stack used: 2 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   69    34   6  Nucleo.c
+   69    27   5  Nucleo.c
    32     0   0  Nucleo.h
   463     0   0  I:\Archivos de programa\PICC\devices\18F4620.h
    37     0   0  I:\Archivos de programa\PICC\drivers\stdio.h
   409     0   0  I:\Archivos de programa\PICC\drivers\string.h
    28     0   0  I:\Archivos de programa\PICC\drivers\stddef.h
    28     0   0  I:\Archivos de programa\PICC\drivers\ctype.h
- 1273   359  67  I:\Archivos de programa\PICC\drivers\stdlib.h
-  243     0   0  accelerometro.h
-  225   139  26  accelerometro.c
+ 1273   359  68  I:\Archivos de programa\PICC\drivers\stdlib.h
+  200     0   0  accelerometro.h
+  226   142  27  accelerometro.c
 ----- -----
- 2807   532 Total
+ 2765   528 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
 0     42   4   1             @delay_ms1
-0     36   3   1   158  3.9  read_MMA
-0    380  33   3   812  6.4  MAIN
-0     14   1   0             @const421
-0     32   3   3             @PSTRINGCN_9600_31766_31767
-0     66   6   2             @PRINTF_X_9600_31766_31767
-0     10   1   0             @const427
+0    248  25   1   468  3.3  MAIN
+0     28   3   0             @const398
+0     34   3   3             @PSTRINGCN_9600_31766_31767
+0     40   4   3             @DIV88
+0    110  11   2             @PRINTF_U_9600_31766_31767
 
 Program metrics:
-    Functions               2
-    Statements              532
-    Comments                55
-    Volume (V)              1103
-    Difficilty (D)          10.0
-    Effort to implement (E) 10981
-    Time to implement (T)   10 minutes
+    Functions               1
+    Statements              528
+    Comments                64
+    Volume (V)              480
+    Difficilty (D)          2.9
+    Effort to implement (E) 1400
+    Time to implement (T)   1 minutes
     Est Delivered Bugs (B)  0
-    Cyclomatic Complexity   3
-    Maintainability (MI)    96
+    Cyclomatic Complexity   1
+    Maintainability (MI)    29
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
-00004-0FFFE   580  64952  
+00004-0FFFE   502  65030  
 
 
 
