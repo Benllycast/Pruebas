@@ -42,14 +42,14 @@
 // is like programming an AVR microcontroller.
 // But instead of using "(1<<X)", or "_BV(X)", 
 // the Arduino "bit(X)" is used.
-#define MMA7455_D0 0
-#define MMA7455_D1 1
-#define MMA7455_D2 2
-#define MMA7455_D3 3
-#define MMA7455_D4 4
-#define MMA7455_D5 5
-#define MMA7455_D6 6
-#define MMA7455_D7 7
+#define MMA7455_D0 0x01 //0
+#define MMA7455_D1 0x02 //1
+#define MMA7455_D2 0x04 //2
+#define MMA7455_D3 0x08 //3
+#define MMA7455_D4 0x10 //4
+#define MMA7455_D5 0x20 //5
+#define MMA7455_D6 0x40 //6
+#define MMA7455_D7 0x80 //7
 
 // Status Register
 #define MMA7455_DRDY MMA7455_D0
@@ -93,6 +93,16 @@
 #define MMA7455_LDZ MMA7455_D5
 #define MMA7455_LDY MMA7455_D6
 #define MMA7455_LDX MMA7455_D7
+
+// I2C Device Address Register
+#define MMA7455_I2CDIS MMA7455_D7
+
+// Default I2C address for the MMA7455
+#define MMA7455_I2C_ADDRESS 0x1D
+//#define MMA7455_I2C_ADDRESS_READ 0X3B
+#define MMA7455_I2C_ADDRESS_READ 0XA1
+//#define MMA7455_I2C_ADDRESS_WRITE 0X3A
+#define MMA7455_I2C_ADDRESS_WRITE 0XA0
 
 // When using an union for the registers and
 // the axis values, the byte order of the accelerometer
@@ -140,17 +150,6 @@ typedef struct
    */
 } CONFIG_MMA7455;
 
-// I2C Device Address Register
-#define MMA7455_I2CDIS MMA7455_D7
-
-
-
-// Default I2C address for the MMA7455
-#define MMA7455_I2C_ADDRESS 0x1D
-#define MMA7455_I2C_ADDRESS_READ 0X3B
-#define MMA7455_I2C_ADDRESS_WRITE 0X3A
-
-
 //configuracion incial del MMA7455
 int init_MMA(void);
 
@@ -170,11 +169,11 @@ int read_MMA(unsigned char start_address, int8 *buffer,int size);
 //Escritura de datos en el MMA7455
 int write_MMA(unsigned char address, int8 *value);
 int write_MMA(unsigned char start_address, int8 *pData, int size);
-/*
-int1 begin_transmision(unsigned int8 address);
-int1 end_transmision(bool);
-int8 requesFROM(unsigned int8 address);
-*/
+
+#define testmma
+#ifdef testmma
+int1 ext_eeprom_ready();
+#endif
 #endif
 
 /*

@@ -1,15 +1,15 @@
-CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
+CCS PCH C Compiler, Version 4.105, 13255               02-Ago-12 21:42
 
                Filename: G:\Project\pic\CCS\MMA7455l\Nucleo.lst
 
-               ROM used: 506 bytes (1%)
-                         Largest free fragment is 65030
+               ROM used: 1340 bytes (2%)
+                         Largest free fragment is 64196
                RAM used: 21 (1%) at main() level
-                         25 (1%) worst case
-               Stack:    2 locations
+                         41 (1%) worst case
+               Stack:    5 locations
 
 *
-00000:  GOTO   0102
+00000:  GOTO   0442
 ....................  
 .................... #include "Nucleo.h" 
 .................... #include <18F4620.h> 
@@ -46,28 +46,55 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 ....................  
 .................... #use delay(clock=10000000) 
 *
-00020:  CLRF   FEA
-00022:  MOVLW  15
-00024:  MOVWF  FE9
-00026:  MOVF   FEF,W
-00028:  BZ    0046
-0002A:  MOVLW  03
-0002C:  MOVWF  01
-0002E:  CLRF   00
-00030:  DECFSZ 00,F
-00032:  BRA    0030
-00034:  DECFSZ 01,F
-00036:  BRA    002E
-00038:  MOVLW  3C
-0003A:  MOVWF  00
-0003C:  DECFSZ 00,F
-0003E:  BRA    003C
-00040:  BRA    0042
-00042:  DECFSZ FEF,F
-00044:  BRA    002A
-00046:  GOTO   01CA (RETURN)
+00032:  CLRF   FEA
+00034:  MOVLW  1E
+00036:  MOVWF  FE9
+00038:  MOVF   FEF,W
+0003A:  BZ    0058
+0003C:  MOVLW  03
+0003E:  MOVWF  01
+00040:  CLRF   00
+00042:  DECFSZ 00,F
+00044:  BRA    0042
+00046:  DECFSZ 01,F
+00048:  BRA    0040
+0004A:  MOVLW  3C
+0004C:  MOVWF  00
+0004E:  DECFSZ 00,F
+00050:  BRA    004E
+00052:  BRA    0054
+00054:  DECFSZ FEF,F
+00056:  BRA    003C
+00058:  RETLW  00
 .................... #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8) 
 .................... #use i2c(master, sda=PIN_C4, scl=PIN_C3, FORCE_HW, RESTART_WDT)                    //directiva de compilador par ale uso del bus I2C del microcontrolador 
+0005A:  BCF    FC6.7
+0005C:  BCF    F9E.3
+0005E:  MOVFF  28,FC9
+00062:  MOVLW  02
+00064:  BTFSC  FC6.7
+00066:  BRA    0072
+00068:  BTFSS  F9E.3
+0006A:  BRA    0068
+0006C:  MOVLW  00
+0006E:  BTFSC  FC5.6
+00070:  MOVLW  01
+00072:  MOVWF  01
+00074:  RETLW  00
+*
+000F8:  BCF    FC6.6
+000FA:  BSF    FC5.3
+000FC:  BTFSC  FC5.3
+000FE:  BRA    00FC
+00100:  BTFSC  00.0
+00102:  BCF    FC5.5
+00104:  BTFSS  00.0
+00106:  BSF    FC5.5
+00108:  BSF    FC5.4
+0010A:  BTFSC  FC5.4
+0010C:  BRA    010A
+0010E:  MOVFF  FC9,01
+00112:  GOTO   0170 (RETURN)
 ....................  
 .................... #include <stdio.h> 
 .................... /////////////////////////////////////////////////////////////////////////// 
@@ -2356,14 +2383,14 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 .................... // is like programming an AVR microcontroller. 
 .................... // But instead of using "(1<<X)", or "_BV(X)",  
 .................... // the Arduino "bit(X)" is used. 
-.................... #define MMA7455_D0 0 
-.................... #define MMA7455_D1 1 
-.................... #define MMA7455_D2 2 
-.................... #define MMA7455_D3 3 
-.................... #define MMA7455_D4 4 
-.................... #define MMA7455_D5 5 
-.................... #define MMA7455_D6 6 
-.................... #define MMA7455_D7 7 
+.................... #define MMA7455_D0 0x01 //0 
+.................... #define MMA7455_D1 0x02 //1 
+.................... #define MMA7455_D2 0x04 //2 
+.................... #define MMA7455_D3 0x08 //3 
+.................... #define MMA7455_D4 0x10 //4 
+.................... #define MMA7455_D5 0x20 //5 
+.................... #define MMA7455_D6 0x40 //6 
+.................... #define MMA7455_D7 0x80 //7 
 ....................  
 .................... // Status Register 
 .................... #define MMA7455_DRDY MMA7455_D0 
@@ -2407,6 +2434,16 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 .................... #define MMA7455_LDZ MMA7455_D5 
 .................... #define MMA7455_LDY MMA7455_D6 
 .................... #define MMA7455_LDX MMA7455_D7 
+....................  
+.................... // I2C Device Address Register 
+.................... #define MMA7455_I2CDIS MMA7455_D7 
+....................  
+.................... // Default I2C address for the MMA7455 
+.................... #define MMA7455_I2C_ADDRESS 0x1D 
+.................... //#define MMA7455_I2C_ADDRESS_READ 0X3B 
+.................... #define MMA7455_I2C_ADDRESS_READ 0XA1 
+.................... //#define MMA7455_I2C_ADDRESS_WRITE 0X3A 
+.................... #define MMA7455_I2C_ADDRESS_WRITE 0XA0 
 ....................  
 .................... // When using an union for the registers and 
 .................... // the axis values, the byte order of the accelerometer 
@@ -2454,17 +2491,6 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 ....................    */ 
 .................... } CONFIG_MMA7455; 
 ....................  
-.................... // I2C Device Address Register 
-.................... #define MMA7455_I2CDIS MMA7455_D7 
-....................  
-....................  
-....................  
-.................... // Default I2C address for the MMA7455 
-.................... #define MMA7455_I2C_ADDRESS 0x1D 
-.................... #define MMA7455_I2C_ADDRESS_READ 0X3B 
-.................... #define MMA7455_I2C_ADDRESS_WRITE 0X3A 
-....................  
-....................  
 .................... //configuracion incial del MMA7455 
 .................... int init_MMA(void); 
 ....................  
@@ -2484,11 +2510,11 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 .................... //Escritura de datos en el MMA7455 
 .................... int write_MMA(unsigned char address, int8 *value); 
 .................... int write_MMA(unsigned char start_address, int8 *pData, int size); 
-.................... /* 
-.................... int1 begin_transmision(unsigned int8 address); 
-.................... int1 end_transmision(bool); 
-.................... int8 requesFROM(unsigned int8 address); 
-.................... */ 
+....................  
+.................... #define testmma 
+.................... #ifdef testmma 
+.................... int1 ext_eeprom_ready(); 
+.................... #endif 
 .................... #endif 
 ....................  
 .................... /* 
@@ -2517,6 +2543,37 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 .................... #define WRITE 0b10000000 
 ....................  
 .................... extern CONFIG_MMA7455 CONFIG; 
+.................... void setup_devices(){ 
+*
+0039E:  MOVLW  FF
+003A0:  MOVWF  14
+.................... 	int error = -1; 
+.................... 	error = init_MMA(); 
+003A2:  BRA    01F6
+003A4:  MOVFF  01,14
+....................    printf("init_error = %d\n\r", error); 
+003A8:  MOVLW  04
+003AA:  MOVWF  FF6
+003AC:  MOVLW  00
+003AE:  MOVWF  FF7
+003B0:  MOVLW  0D
+003B2:  MOVWF  15
+003B4:  RCALL  0284
+003B6:  MOVFF  14,15
+003BA:  MOVLW  1F
+003BC:  MOVWF  16
+003BE:  BRA    02CC
+003C0:  MOVLW  0A
+003C2:  BTFSS  F9E.4
+003C4:  BRA    03C2
+003C6:  MOVWF  FAD
+003C8:  MOVLW  0D
+003CA:  BTFSS  F9E.4
+003CC:  BRA    03CA
+003CE:  MOVWF  FAD
+....................    return; 
+.................... } 
+003D0:  GOTO   0510 (RETURN)
 ....................  
 .................... unsigned int8 respuesta = 0x00; 
 .................... void write_mma(int8 address){ 
@@ -2540,153 +2597,155 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 .................... void main() 
 .................... { 
 *
-00102:  CLRF   FF8
-00104:  BCF    FD0.7
-00106:  CLRF   FEA
-00108:  CLRF   FE9
-0010A:  BCF    FB8.3
-0010C:  MOVLW  40
-0010E:  MOVWF  FAF
-00110:  MOVLW  A6
-00112:  MOVWF  FAC
-00114:  MOVLW  90
-00116:  MOVWF  FAB
-00118:  BSF    F94.3
-0011A:  BSF    F94.4
-0011C:  MOVLW  18
-0011E:  MOVWF  FC8
-00120:  MOVLW  28
-00122:  MOVWF  FC6
-00124:  BSF    FC7.7
-00126:  BCF    FC7.6
-00128:  CLRF   0A
-0012A:  BCF    FB8.3
-0012C:  MOVLW  40
-0012E:  MOVWF  FAF
-00130:  MOVLW  A6
-00132:  MOVWF  FAC
-00134:  MOVLW  90
-00136:  MOVWF  FAB
-00138:  BSF    F94.3
-0013A:  BSF    F94.4
-0013C:  MOVLW  18
-0013E:  MOVWF  FC8
-00140:  MOVLW  28
-00142:  MOVWF  FC6
-00144:  BSF    FC7.7
-00146:  BCF    FC7.6
-00148:  MOVF   FC1,W
-0014A:  ANDLW  C0
-0014C:  IORLW  0F
-0014E:  MOVWF  FC1
-00150:  MOVLW  07
-00152:  MOVWF  FB4
-00154:  CLRF   04
-00156:  CLRF   05
-00158:  MOVLW  01
-0015A:  MOVWF  0B
-0015C:  MOVLW  02
-0015E:  MOVWF  0C
-00160:  MOVLW  03
-00162:  MOVWF  0D
-00164:  MOVLW  80
-00166:  MOVWF  0E
-00168:  MOVWF  0F
-0016A:  MOVWF  10
-0016C:  MOVWF  11
-0016E:  MOVWF  12
-00170:  MOVWF  13
+00442:  CLRF   FF8
+00444:  BCF    FD0.7
+00446:  CLRF   FEA
+00448:  CLRF   FE9
+0044A:  BCF    FB8.3
+0044C:  MOVLW  40
+0044E:  MOVWF  FAF
+00450:  MOVLW  A6
+00452:  MOVWF  FAC
+00454:  MOVLW  90
+00456:  MOVWF  FAB
+00458:  BSF    F94.3
+0045A:  BSF    F94.4
+0045C:  MOVLW  18
+0045E:  MOVWF  FC8
+00460:  MOVLW  28
+00462:  MOVWF  FC6
+00464:  BSF    FC7.7
+00466:  BCF    FC7.6
+00468:  CLRF   0A
+0046A:  BCF    FB8.3
+0046C:  MOVLW  40
+0046E:  MOVWF  FAF
+00470:  MOVLW  A6
+00472:  MOVWF  FAC
+00474:  MOVLW  90
+00476:  MOVWF  FAB
+00478:  BSF    F94.3
+0047A:  BSF    F94.4
+0047C:  MOVLW  18
+0047E:  MOVWF  FC8
+00480:  MOVLW  28
+00482:  MOVWF  FC6
+00484:  BSF    FC7.7
+00486:  BCF    FC7.6
+00488:  MOVF   FC1,W
+0048A:  ANDLW  C0
+0048C:  IORLW  0F
+0048E:  MOVWF  FC1
+00490:  MOVLW  07
+00492:  MOVWF  FB4
+00494:  CLRF   04
+00496:  CLRF   05
+00498:  MOVLW  01
+0049A:  MOVWF  0B
+0049C:  MOVLW  02
+0049E:  MOVWF  0C
+004A0:  MOVLW  03
+004A2:  MOVWF  0D
+004A4:  MOVLW  80
+004A6:  MOVWF  0E
+004A8:  MOVWF  0F
+004AA:  MOVWF  10
+004AC:  MOVWF  11
+004AE:  MOVWF  12
+004B0:  MOVWF  13
 ....................    //unsigned int8 count = 0x1F; 
 ....................    //unsigned int8 direcciones = 0x00; 
 ....................  
 ....................    setup_adc_ports(NO_ANALOGS|VSS_VDD); 
-00172:  MOVF   FC1,W
-00174:  ANDLW  C0
-00176:  IORLW  0F
-00178:  MOVWF  FC1
+004B2:  MOVF   FC1,W
+004B4:  ANDLW  C0
+004B6:  IORLW  0F
+004B8:  MOVWF  FC1
 ....................    setup_adc(ADC_CLOCK_DIV_2|ADC_TAD_MUL_0); 
-0017A:  MOVF   FC0,W
-0017C:  ANDLW  C0
-0017E:  MOVWF  FC0
-00180:  BSF    FC0.7
-00182:  BSF    FC2.0
+004BA:  MOVF   FC0,W
+004BC:  ANDLW  C0
+004BE:  MOVWF  FC0
+004C0:  BSF    FC0.7
+004C2:  BSF    FC2.0
 ....................    setup_psp(PSP_DISABLED); 
-00184:  BCF    F96.4
+004C4:  BCF    F96.4
 ....................    //setup_spi(SPI_MASTER|SPI_L_TO_H|SPI_CLK_DIV_16); 
 ....................    setup_wdt(WDT_OFF); 
-00186:  BCF    FD1.0
+004C6:  BCF    FD1.0
 ....................    setup_timer_0(RTCC_INTERNAL); 
-00188:  MOVLW  80
-0018A:  MOVWF  FD5
+004C8:  MOVLW  80
+004CA:  MOVWF  FD5
 ....................    setup_timer_1(T1_DISABLED); 
-0018C:  CLRF   FCD
+004CC:  CLRF   FCD
 ....................    setup_timer_2(T2_DISABLED,0,1); 
-0018E:  MOVLW  00
-00190:  MOVWF  FCA
-00192:  MOVLW  00
-00194:  MOVWF  FCB
+004CE:  MOVLW  00
+004D0:  MOVWF  FCA
+004D2:  MOVLW  00
+004D4:  MOVWF  FCB
 ....................    setup_timer_3(T3_DISABLED|T3_DIV_BY_1); 
-00196:  CLRF   FB1
+004D6:  CLRF   FB1
 ....................    setup_ccp1(CCP_OFF); 
-00198:  BSF    F94.2
-0019A:  CLRF   FBD
-0019C:  CLRF   FB7
-0019E:  CLRF   FB6
+004D8:  BSF    F94.2
+004DA:  CLRF   FBD
+004DC:  CLRF   FB7
+004DE:  CLRF   FB6
 ....................    setup_comparator(NC_NC_NC_NC); 
-001A0:  MOVLW  07
-001A2:  MOVWF  FB4
-001A4:  MOVF   F92,W
-001A6:  MOVWF  F92
-001A8:  MOVLW  08
-001AA:  MOVWF  00
-001AC:  DECFSZ 00,F
-001AE:  BRA    01AC
-001B0:  MOVF   FB4,W
-001B2:  BCF    FA1.6
+004E0:  MOVLW  07
+004E2:  MOVWF  FB4
+004E4:  MOVF   F92,W
+004E6:  MOVWF  F92
+004E8:  MOVLW  08
+004EA:  MOVWF  00
+004EC:  DECFSZ 00,F
+004EE:  BRA    04EC
+004F0:  MOVF   FB4,W
+004F2:  BCF    FA1.6
 ....................    setup_vref(FALSE); 
-001B4:  CLRF   FB5
+004F4:  CLRF   FB5
 .................... //Setup_Oscillator parameter not selected from Intr Oscillator Config tab 
 ....................    // TODO: USER CODE!! 
 ....................    set_tris_A(0b00001111); 
-001B6:  MOVLW  0F
-001B8:  MOVWF  F92
+004F6:  MOVLW  0F
+004F8:  MOVWF  F92
 ....................    output_a(0xf0); 
-001BA:  CLRF   F92
-001BC:  MOVLW  F0
-001BE:  MOVWF  F89
+004FA:  CLRF   F92
+004FC:  MOVLW  F0
+004FE:  MOVWF  F89
 ....................    delay_ms(1000); 
-001C0:  MOVLW  04
-001C2:  MOVWF  14
-001C4:  MOVLW  FA
-001C6:  MOVWF  15
-001C8:  BRA    0020
-001CA:  DECFSZ 14,F
-001CC:  BRA    01C4
+00500:  MOVLW  04
+00502:  MOVWF  14
+00504:  MOVLW  FA
+00506:  MOVWF  1E
+00508:  RCALL  0032
+0050A:  DECFSZ 14,F
+0050C:  BRA    0504
+....................    setup_devices(); 
+0050E:  BRA    039E
 ....................    while(true){ 
 ....................       	printf("MODE CONTROL REGISTER: %u\n\r",(unsigned int8)CONFIG.MODE_CONTROL); 
-001CE:  MOVLW  04
-001D0:  MOVWF  FF6
-001D2:  MOVLW  00
-001D4:  MOVWF  FF7
-001D6:  MOVLW  17
-001D8:  MOVWF  14
-001DA:  BRA    004A
-001DC:  MOVFF  0B,14
-001E0:  MOVLW  1B
-001E2:  MOVWF  15
-001E4:  BRA    0094
-001E6:  MOVLW  0A
-001E8:  BTFSS  F9E.4
-001EA:  BRA    01E8
-001EC:  MOVWF  FAD
-001EE:  MOVLW  0D
-001F0:  BTFSS  F9E.4
-001F2:  BRA    01F0
-001F4:  MOVWF  FAD
+00510:  MOVLW  16
+00512:  MOVWF  FF6
+00514:  MOVLW  00
+00516:  MOVWF  FF7
+00518:  MOVLW  17
+0051A:  MOVWF  15
+0051C:  RCALL  0284
+0051E:  MOVFF  0B,14
+00522:  MOVLW  1B
+00524:  MOVWF  15
+00526:  BRA    03D4
+00528:  MOVLW  0A
+0052A:  BTFSS  F9E.4
+0052C:  BRA    052A
+0052E:  MOVWF  FAD
+00530:  MOVLW  0D
+00532:  BTFSS  F9E.4
+00534:  BRA    0532
+00536:  MOVWF  FAD
 ....................        
 ....................       //direcciones = 0x00; 
 ....................    } 
-001F6:  BRA    01CE
+00538:  BRA    0510
 .................... } 
 ....................  
 .................... /* 
@@ -2702,7 +2761,7 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 ....................  
 .................... #include "Nucleo.h" 
 .................... #include <18F4620.h> 
-001F8:  SLEEP 
+0053A:  SLEEP 
 .................... //////// Standard Header file for the PIC18F4620 device //////////////// 
 .................... #device PIC18F4620 
 .................... #list 
@@ -2783,14 +2842,14 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 .................... // is like programming an AVR microcontroller. 
 .................... // But instead of using "(1<<X)", or "_BV(X)",  
 .................... // the Arduino "bit(X)" is used. 
-.................... #define MMA7455_D0 0 
-.................... #define MMA7455_D1 1 
-.................... #define MMA7455_D2 2 
-.................... #define MMA7455_D3 3 
-.................... #define MMA7455_D4 4 
-.................... #define MMA7455_D5 5 
-.................... #define MMA7455_D6 6 
-.................... #define MMA7455_D7 7 
+.................... #define MMA7455_D0 0x01 //0 
+.................... #define MMA7455_D1 0x02 //1 
+.................... #define MMA7455_D2 0x04 //2 
+.................... #define MMA7455_D3 0x08 //3 
+.................... #define MMA7455_D4 0x10 //4 
+.................... #define MMA7455_D5 0x20 //5 
+.................... #define MMA7455_D6 0x40 //6 
+.................... #define MMA7455_D7 0x80 //7 
 ....................  
 .................... // Status Register 
 .................... #define MMA7455_DRDY MMA7455_D0 
@@ -2834,6 +2893,16 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 .................... #define MMA7455_LDZ MMA7455_D5 
 .................... #define MMA7455_LDY MMA7455_D6 
 .................... #define MMA7455_LDX MMA7455_D7 
+....................  
+.................... // I2C Device Address Register 
+.................... #define MMA7455_I2CDIS MMA7455_D7 
+....................  
+.................... // Default I2C address for the MMA7455 
+.................... #define MMA7455_I2C_ADDRESS 0x1D 
+.................... //#define MMA7455_I2C_ADDRESS_READ 0X3B 
+.................... #define MMA7455_I2C_ADDRESS_READ 0XA1 
+.................... //#define MMA7455_I2C_ADDRESS_WRITE 0X3A 
+.................... #define MMA7455_I2C_ADDRESS_WRITE 0XA0 
 ....................  
 .................... // When using an union for the registers and 
 .................... // the axis values, the byte order of the accelerometer 
@@ -2881,17 +2950,6 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 ....................    */ 
 .................... } CONFIG_MMA7455; 
 ....................  
-.................... // I2C Device Address Register 
-.................... #define MMA7455_I2CDIS MMA7455_D7 
-....................  
-....................  
-....................  
-.................... // Default I2C address for the MMA7455 
-.................... #define MMA7455_I2C_ADDRESS 0x1D 
-.................... #define MMA7455_I2C_ADDRESS_READ 0X3B 
-.................... #define MMA7455_I2C_ADDRESS_WRITE 0X3A 
-....................  
-....................  
 .................... //configuracion incial del MMA7455 
 .................... int init_MMA(void); 
 ....................  
@@ -2911,11 +2969,11 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 .................... //Escritura de datos en el MMA7455 
 .................... int write_MMA(unsigned char address, int8 *value); 
 .................... int write_MMA(unsigned char start_address, int8 *pData, int size); 
-.................... /* 
-.................... int1 begin_transmision(unsigned int8 address); 
-.................... int1 end_transmision(bool); 
-.................... int8 requesFROM(unsigned int8 address); 
-.................... */ 
+....................  
+.................... #define testmma 
+.................... #ifdef testmma 
+.................... int1 ext_eeprom_ready(); 
+.................... #endif 
 .................... #endif 
 ....................  
 .................... /* 
@@ -2943,34 +3001,94 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 .................... CONFIG_MMA7455 CONFIG = {1,2,3,128,128,128,128,128,128}; 
 .................... //configuracion inicial del MMA7455 
 .................... int init_MMA(void){ 
+*
+001F6:  CLRF   15
+001F8:  CLRF   1C
+001FA:  CLRF   1D
 ....................   int error = 0; 
 ....................   xyz_union xyz; 
 ....................   unsigned int8 c1 = 0, c2 = 0; 
 ....................   //mode: measurement; sensitivity: 4g 
 ....................   c1 = MMA7455_GLVL1 | MMA7455_MODE0; 
+001FC:  MOVLW  09
+001FE:  MOVWF  1C
 ....................   error = write_MMA(MMA7455_MCTL, &c1); 
+00200:  MOVLW  16
+00202:  MOVWF  1E
+00204:  CLRF   20
+00206:  MOVLW  1C
+00208:  MOVWF  1F
+0020A:  BRA    0076
+0020C:  MOVFF  01,15
 ....................   if (error != 0) 
+00210:  MOVF   15,F
+00212:  BZ    021A
 ....................     return (error); 
+00214:  MOVFF  15,01
+00218:  BRA    0280
 ....................    
 ....................   //lee la configuracion del accelerometro para comprobar el envio 
 ....................   error = read_MMA(MMA7455_MCTL, &c2); 
+0021A:  MOVLW  16
+0021C:  MOVWF  1E
+0021E:  CLRF   20
+00220:  MOVLW  1D
+00222:  MOVWF  1F
+00224:  BRA    0116
+00226:  MOVFF  01,15
 ....................   if (error != 0) 
+0022A:  MOVF   15,F
+0022C:  BZ    0234
 ....................     return (error); 
+0022E:  MOVFF  15,01
+00232:  BRA    0280
 ....................    
 ....................   //se comprueban que coinsidan 
 ....................   if (c1 != c2) 
+00234:  MOVF   1D,W
+00236:  SUBWF  1C,W
+00238:  BZ    0242
 ....................     return (-99); 
+0023A:  MOVLW  9D
+0023C:  MOVWF  01
+0023E:  BRA    0280
 ....................   else 
+00240:  BRA    0246
 ....................     CONFIG.MODE_CONTROL =  c2;    //se respalda la configuracion en el micro 
+00242:  MOVFF  1D,0B
 ....................   //se configura el offset de los ejes a 0 
 ....................   xyz.value.x = xyz.value.y = xyz.value.z = 0; 
+00246:  CLRF   18
+00248:  MOVFF  18,17
+0024C:  MOVFF  17,16
 ....................   error = write_MMA(MMA7455_XOFFL, (unsigned int8 *) &xyz, 6); 
+00250:  CLRF   01
+00252:  MOVLW  16
+00254:  MOVWF  00
+00256:  MOVLW  10
+00258:  MOVWF  20
+0025A:  MOVFF  01,22
+0025E:  MOVFF  00,21
+00262:  MOVLW  06
+00264:  MOVWF  23
+00266:  BRA    0182
+00268:  MOVFF  01,15
 ....................   if (error != 0) 
+0026C:  MOVF   15,F
+0026E:  BZ    0276
 ....................     return (error); 
+00270:  MOVFF  15,01
+00274:  BRA    0280
 ....................    
 ....................   delay_ms(100); 
+00276:  MOVLW  64
+00278:  MOVWF  1E
+0027A:  RCALL  0032
 ....................   return 0; 
+0027C:  MOVLW  00
+0027E:  MOVWF  01
 .................... } 
+00280:  GOTO   03A4 (RETURN)
 ....................  
 .................... //calibra el offset de los valores de X, Y, Z. 
 .................... int calibrate_MMA(void){ 
@@ -3036,13 +3154,14 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 ....................  
 .................... int xyz_MMA( int *pX, int *pY, int *pZ){ 
 ....................   xyz_union xyz; 
-....................   int error; 
+....................   int error = 0; 
 ....................   unsigned int8 c; 
 ....................  
 ....................   do{ 
 ....................  
 ....................     error = read_MMA(MMA7455_STATUS,&c); 
-....................   }while(!bit_test(c, MMA7455_DRDY) && error == 0); 
+....................   }while(!bit_test(c, 0) && error == 0); 
+....................    
 ....................   if (error != 0) 
 ....................     return (error); 
 ....................  
@@ -3082,31 +3201,98 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 ....................       -11 error en la lectura desde el MMA  
 .................... */ 
 .................... int read_MMA(unsigned char address, int8 *value){ 
-....................   int error = -1; 
+*
+00116:  CLRF   21
+....................   int error = 0; 
 ....................    //condicion de inicio de lectura en el MMA7455  
+....................   #ifdef testmma 
+....................   while(!ext_eeprom_ready()); 
+00118:  BRA    00D2
+0011A:  MOVF   01,F
+0011C:  BZ    0118
+....................   #endif 
+....................  
 ....................   i2c_start();                                    //señal de start del bus i2c 
+0011E:  BSF    FC5.0
+00120:  BTFSC  FC5.0
+00122:  BRA    0120
 ....................   error = i2c_write(MMA7455_I2C_ADDRESS_WRITE);   //se envia la direccion del MMA7455 con escritura 
+00124:  MOVLW  A0
+00126:  MOVWF  28
+00128:  RCALL  005A
+0012A:  MOVFF  01,21
+....................    
+....................   //////////////////////// 
+....................   #ifdef testmma 
+....................   i2c_write(0); 
+0012E:  CLRF   28
+00130:  RCALL  005A
+....................   #endif 
+....................   //////////////////////// 
 ....................   error = i2c_write(address);                     //envia el registro inicial de lectura del MMA 
+00132:  MOVFF  1E,28
+00136:  RCALL  005A
+00138:  MOVFF  01,21
 ....................   if(error!=0){return 1;}                         //si existe un error sale de la funcion 
+0013C:  MOVF   21,F
+0013E:  BZ    0146
+00140:  MOVLW  01
+00142:  MOVWF  01
+00144:  BRA    017E
 ....................    
 ....................   //peticion de datos desde el MMA7455 
 ....................   i2c_start();                                    //señal de restart del bus i2c 
+00146:  BSF    FC5.1
+00148:  BTFSC  FC5.1
+0014A:  BRA    0148
 ....................   error = i2c_write(MMA7455_I2C_ADDRESS_READ);    //se envia la direccion del MMA7455 con lectura   
-....................   if(error!=0){return 2;}  
-....................  
+0014C:  MOVLW  A1
+0014E:  MOVWF  28
+00150:  RCALL  005A
+00152:  MOVFF  01,21
+....................   if(error!=0){return 2;} 
+00156:  MOVF   21,F
+00158:  BZ    0160
+0015A:  MOVLW  02
+0015C:  MOVWF  01
+0015E:  BRA    017E
+....................   #ifndef testmma  
 ....................   while(!i2c_poll()); 
-....................   value = i2c_read(0); 
+....................   #endif 
+....................   *value = i2c_read(0); 
+00160:  MOVFF  20,03
+00164:  MOVFF  1F,FE9
+00168:  MOVFF  20,FEA
+0016C:  CLRF   00
+0016E:  BRA    00F8
+00170:  MOVFF  01,FEF
 ....................   i2c_stop(); 
+00174:  BSF    FC5.2
+00176:  BTFSC  FC5.2
+00178:  BRA    0176
 ....................   return 0; 
+0017A:  MOVLW  00
+0017C:  MOVWF  01
 .................... } 
+0017E:  GOTO   0226 (RETURN)
 ....................  
 .................... int read_MMA(unsigned char start_address, unsigned int8 *buffer,int size){ 
-....................   int error = -1, i = 0; 
+....................   int error = 0, i = 0; 
 ....................   int1 ack = 1; 
 ....................    
+....................   #ifdef testmma 
+....................   while(!ext_eeprom_ready()); 
+....................   #endif 
+....................  
 ....................   //condicion de inicio de lectura en el MMA7455  
 ....................   i2c_start();                                    //señal de start del bus i2c 
 ....................   error = i2c_write(MMA7455_I2C_ADDRESS_WRITE);   //se envia la direccion del MMA7455 con escritura 
+....................    
+....................   //////////////////////// 
+....................   #ifdef testmma 
+....................   i2c_write(0); 
+....................   #endif 
+....................   //////////////////////// 
 ....................   error = i2c_write(start_address);               //envia el registro inicial de lectura del MMA 
 ....................   if(error!=0){return 1;}                         //si existe un error sale de la funcion 
 ....................    
@@ -3131,37 +3317,168 @@ CCS PCH C Compiler, Version 4.105, 13255               01-Ago-12 12:45
 ....................  
 ....................  
 .................... int write_MMA(unsigned char address, int8 *value){ 
+*
+00076:  CLRF   21
 ....................   int error = 0; 
 ....................   //condicion de inicio de escritura en el MMA7455 
 ....................   i2c_start();                                    //señal de start del bus i2c 
+00078:  BSF    FC5.0
+0007A:  BTFSC  FC5.0
+0007C:  BRA    007A
 ....................   error = i2c_write(MMA7455_I2C_ADDRESS_WRITE);   //se envia la direccion del MMA7455 con escritura 
+0007E:  MOVLW  A0
+00080:  MOVWF  28
+00082:  RCALL  005A
+00084:  MOVFF  01,21
+....................    
+....................   //////////////////////// 
+....................   #ifdef testmma 
+....................   i2c_write(0); 
+00088:  CLRF   28
+0008A:  RCALL  005A
+....................   #endif 
+....................   //////////////////////// 
 ....................   error = i2c_write(address);               //envia el registro inicial de escritura del MMA 
+0008C:  MOVFF  1E,28
+00090:  RCALL  005A
+00092:  MOVFF  01,21
 ....................   if(error!=0){return 1;} 
-....................   error = i2c_write(value);               //envia el registro inicial de escritura del MMA 
+00096:  MOVF   21,F
+00098:  BZ    00A0
+0009A:  MOVLW  01
+0009C:  MOVWF  01
+0009E:  BRA    00CE
+....................   error = i2c_write(*value);               //envia el registro inicial de escritura del MMA 
+000A0:  MOVFF  20,03
+000A4:  MOVFF  1F,FE9
+000A8:  MOVFF  20,FEA
+000AC:  MOVFF  FEF,22
+000B0:  MOVFF  22,28
+000B4:  RCALL  005A
+000B6:  MOVFF  01,21
 ....................   if(error!=0){return 2;} 
+000BA:  MOVF   21,F
+000BC:  BZ    00C4
+000BE:  MOVLW  02
+000C0:  MOVWF  01
+000C2:  BRA    00CE
 ....................   i2c_stop(); 
+000C4:  BSF    FC5.2
+000C6:  BTFSC  FC5.2
+000C8:  BRA    00C6
 ....................   return 0; 
+000CA:  MOVLW  00
+000CC:  MOVWF  01
 .................... } 
+000CE:  GOTO   020C (RETURN)
 ....................  
 ....................  
 .................... int write_MMA(unsigned char start_address, int8 *pData, int size){ 
-....................   int error = -1, i = 0; 
+*
+00182:  CLRF   24
+00184:  CLRF   25
+00186:  BCF    26.0
+....................   int error = 0, i = 0; 
 ....................   int1 ack = 0; 
 ....................  
 ....................   //condicion de inicio de escritura en el MMA7455 
 ....................   i2c_start();                                    //señal de start del bus i2c 
+00188:  BSF    FC5.0
+0018A:  BTFSC  FC5.0
+0018C:  BRA    018A
 ....................   error = i2c_write(MMA7455_I2C_ADDRESS_WRITE);   //se envia la direccion del MMA7455 con escritura 
+0018E:  MOVLW  A0
+00190:  MOVWF  28
+00192:  RCALL  005A
+00194:  MOVFF  01,24
+....................    
+....................   //////////////////////// 
+....................   #ifdef testmma 
+....................   i2c_write(0); 
+00198:  CLRF   28
+0019A:  RCALL  005A
+....................   #endif 
+....................   //////////////////////// 
 ....................   error = i2c_write(start_address);               //envia el registro inicial de escritura del MMA 
+0019C:  MOVFF  20,28
+001A0:  RCALL  005A
+001A2:  MOVFF  01,24
 ....................   if(error!=0){return 1;}                         //si error en reques sale de la funcion 
+001A6:  MOVF   24,F
+001A8:  BZ    01B0
+001AA:  MOVLW  01
+001AC:  MOVWF  01
+001AE:  BRA    01F2
+....................    
 ....................   do{ 
 ....................     ack = i2c_write(pData[i++]);                  //escribe un byte y espera un ACK 
+001B0:  MOVF   25,W
+001B2:  INCF   25,F
+001B4:  CLRF   03
+001B6:  ADDWF  21,W
+001B8:  MOVWF  FE9
+001BA:  MOVF   22,W
+001BC:  ADDWFC 03,W
+001BE:  MOVWF  FEA
+001C0:  MOVFF  FEF,27
+001C4:  MOVFF  27,28
+001C8:  RCALL  005A
+001CA:  MOVF   01,W
+001CC:  BCF    26.0
+001CE:  BTFSC  01.0
+001D0:  BSF    26.0
 ....................   }while(ack == 0 && i < size); 
-....................   i2c_stop(); 
-....................   if(i != size){return 2;}                        //si no se completo la escritura retorna error 2 
+001D2:  BTFSC  26.0
+001D4:  BRA    01DC
+001D6:  MOVF   23,W
+001D8:  SUBWF  25,W
+001DA:  BNC   01B0
 ....................    
-....................   return 0;//retorna 0 si succed 
+....................   i2c_stop(); 
+001DC:  BSF    FC5.2
+001DE:  BTFSC  FC5.2
+001E0:  BRA    01DE
+....................   if(i != size){return 2;}                        //si no se completo la escritura retorna error 2 
+001E2:  MOVF   23,W
+001E4:  SUBWF  25,W
+001E6:  BZ    01EE
+001E8:  MOVLW  02
+001EA:  MOVWF  01
+001EC:  BRA    01F2
+....................   return 0;                                       //retorna 0 si succed 
+001EE:  MOVLW  00
+001F0:  MOVWF  01
 .................... } //escribir datos desde el mma 
+001F2:  GOTO   0268 (RETURN)
 ....................  
+.................... #ifdef testmma 
+.................... int1 ext_eeprom_ready() { 
+....................   int1 ack; 
+....................   i2c_start();            // If the write command is acknowledged, 
+*
+000D2:  BSF    FC5.0
+000D4:  BTFSC  FC5.0
+000D6:  BRA    00D4
+....................   ack = i2c_write(0xa0);  // then the device is ready. 
+000D8:  MOVLW  A0
+000DA:  MOVWF  28
+000DC:  RCALL  005A
+000DE:  MOVF   01,W
+000E0:  BCF    22.0
+000E2:  BTFSC  01.0
+000E4:  BSF    22.0
+....................   i2c_stop(); 
+000E6:  BSF    FC5.2
+000E8:  BTFSC  FC5.2
+000EA:  BRA    00E8
+....................   return !ack; 
+000EC:  MOVLW  00
+000EE:  BTFSS  22.0
+000F0:  MOVLW  01
+000F2:  MOVWF  01
+.................... } 
+000F4:  GOTO   011A (RETURN)
+.................... #endif 
 
 Configuration Fuses:
    Word  1: C200   HS IESO FCMEN

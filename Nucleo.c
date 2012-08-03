@@ -7,6 +7,12 @@
 #define WRITE 0b10000000
 
 extern CONFIG_MMA7455 CONFIG;
+void setup_devices(){
+	int error = -1;
+	error = init_MMA();
+   printf("init_error = %d\n\r", error);
+   return;
+}
 
 unsigned int8 respuesta = 0x00;
 void write_mma(int8 address){
@@ -49,6 +55,7 @@ void main()
    set_tris_A(0b00001111);
    output_a(0xf0);
    delay_ms(1000);
+   setup_devices();
    while(true){
       	printf("MODE CONTROL REGISTER: %u\n\r",(unsigned int8)CONFIG.MODE_CONTROL);
       

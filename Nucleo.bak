@@ -50,7 +50,7 @@ void main()
    output_a(0xf0);
    delay_ms(1000);
    while(true){
-      	printf("MODE CONTROL REGISTER: %u\n\r",(unsigned int8)CONFIG.MODE_CONTROL_REGISTER);
+      	printf("MODE CONTROL REGISTER: %u\n\r",(unsigned int8)CONFIG.MODE_CONTROL);
       
       //direcciones = 0x00;
    }

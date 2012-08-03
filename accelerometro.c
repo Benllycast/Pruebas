@@ -97,13 +97,14 @@ void set_config(*CONFIG_MMA7455){
 
 int xyz_MMA( int *pX, int *pY, int *pZ){
   xyz_union xyz;
-  int error;
+  int error = 0;
   unsigned int8 c;
 
   do{
 
     error = read_MMA(MMA7455_STATUS,&c);
-  }while(!bit_test(c, MMA7455_DRDY) && error == 0);
+  }while(!bit_test(c, 0) && error == 0);
+  
   if (error != 0)
     return (error);
 
@@ -143,31 +144,52 @@ returna:
       -11 error en la lectura desde el MMA 
 */
 int read_MMA(unsigned char address, int8 *value){
-  int error = -1;
+  int error = 0;
    //condicion de inicio de lectura en el MMA7455 
+  #ifdef testmma
+  while(!ext_eeprom_ready());
+  #endif
+
   i2c_start();                                    //señal de start del bus i2c
   error = i2c_write(MMA7455_I2C_ADDRESS_WRITE);   //se envia la direccion del MMA7455 con escritura
+  
+  ////////////////////////
+  #ifdef testmma
+  i2c_write(0);
+  #endif
+  ////////////////////////
   error = i2c_write(address);                     //envia el registro inicial de lectura del MMA
   if(error!=0){return 1;}                         //si existe un error sale de la funcion
   
   //peticion de datos desde el MMA7455
   i2c_start();                                    //señal de restart del bus i2c
   error = i2c_write(MMA7455_I2C_ADDRESS_READ);    //se envia la direccion del MMA7455 con lectura  
-  if(error!=0){return 2;} 
-
+  if(error!=0){return 2;}
+  #ifndef testmma 
   while(!i2c_poll());
-  value = i2c_read(0);
+  #endif
+  *value = i2c_read(0);
   i2c_stop();
   return 0;
 }
 
 int read_MMA(unsigned char start_address, unsigned int8 *buffer,int size){
-  int error = -1, i = 0;
+  int error = 0, i = 0;
   int1 ack = 1;
   
+  #ifdef testmma
+  while(!ext_eeprom_ready());
+  #endif
+
   //condicion de inicio de lectura en el MMA7455 
   i2c_start();                                    //señal de start del bus i2c
   error = i2c_write(MMA7455_I2C_ADDRESS_WRITE);   //se envia la direccion del MMA7455 con escritura
+  
+  ////////////////////////
+  #ifdef testmma
+  i2c_write(0);
+  #endif
+  ////////////////////////
   error = i2c_write(start_address);               //envia el registro inicial de lectura del MMA
   if(error!=0){return 1;}                         //si existe un error sale de la funcion
   
@@ -196,9 +218,15 @@ int write_MMA(unsigned char address, int8 *value){
   //condicion de inicio de escritura en el MMA7455
   i2c_start();                                    //señal de start del bus i2c
   error = i2c_write(MMA7455_I2C_ADDRESS_WRITE);   //se envia la direccion del MMA7455 con escritura
+  
+  ////////////////////////
+  #ifdef testmma
+  i2c_write(0);
+  #endif
+  ////////////////////////
   error = i2c_write(address);               //envia el registro inicial de escritura del MMA
   if(error!=0){return 1;}
-  error = i2c_write(value);               //envia el registro inicial de escritura del MMA
+  error = i2c_write(*value);               //envia el registro inicial de escritura del MMA
   if(error!=0){return 2;}
   i2c_stop();
   return 0;
@@ -206,20 +234,36 @@ int write_MMA(unsigned char address, int8 *value){
 
 
 int write_MMA(unsigned char start_address, int8 *pData, int size){
-  int error = -1, i = 0;
+  int error = 0, i = 0;
   int1 ack = 0;
 
   //condicion de inicio de escritura en el MMA7455
   i2c_start();                                    //señal de start del bus i2c
   error = i2c_write(MMA7455_I2C_ADDRESS_WRITE);   //se envia la direccion del MMA7455 con escritura
+  
+  ////////////////////////
+  #ifdef testmma
+  i2c_write(0);
+  #endif
+  ////////////////////////
   error = i2c_write(start_address);               //envia el registro inicial de escritura del MMA
   if(error!=0){return 1;}                         //si error en reques sale de la funcion
+  
   do{
     ack = i2c_write(pData[i++]);                  //escribe un byte y espera un ACK
   }while(ack == 0 && i < size);
+  
   i2c_stop();
   if(i != size){return 2;}                        //si no se completo la escritura retorna error 2
-  
-  return 0;//retorna 0 si succed
+  return 0;                                       //retorna 0 si succed
 } //escribir datos desde el mma
 
+#ifdef testmma
+int1 ext_eeprom_ready() {
+  int1 ack;
+  i2c_start();            // If the write command is acknowledged,
+  ack = i2c_write(0xa0);  // then the device is ready.
+  i2c_stop();
+  return !ack;
+}
+#endif
