@@ -7,9 +7,10 @@ int init_MMA(void){
   int error = 0;
   xyz_union xyz;
   unsigned int8 c1 = 0, c2 = 0;
+  
   //mode: measurement; sensitivity: 4g
   c1 = MMA7455_GLVL1 | MMA7455_MODE0;
-  error = write_MMA(MMA7455_MCTL, &c1);
+  error = write_MMA(MMA7455_MCTL, &c1);       //escribe la configuracion deseada en el accelerometro
   if (error != 0)
     return (error);
   
@@ -18,22 +19,26 @@ int init_MMA(void){
   if (error != 0)
     return (error);
   
-  //se comprueban que coinsidan
+  //se comprueban la conincidencia entre lo enviado y lo recivido
   if (c1 != c2)
-    return (-99);
+    return (-99);                 //retorna -99 si no cinciden
   else
     CONFIG.MODE_CONTROL =  c2;    //se respalda la configuracion en el micro
+
   //se configura el offset de los ejes a 0
   xyz.value.x = xyz.value.y = xyz.value.z = 0;
   error = write_MMA(MMA7455_XOFFL, (unsigned int8 *) &xyz, 6);
   if (error != 0)
     return (error);
   
-  delay_ms(100);
+  delay_ms(100);                  //espera 100 mls para hasta se hayan escrito todos lso datos
   return 0;
 }
 
-//calibra el offset de los valores de X, Y, Z.
+/**
+para la calibracion de los ejes se supone que este
+en una posicion nivelada horizontalmente evitando posible vibraciones
+*/
 int calibrate_MMA(void){
   int x, y, z, error = 0;
   xyz_union xyz;
@@ -50,15 +55,16 @@ int calibrate_MMA(void){
     c2 = 64;  //por defecto 2g
   }
 
-  error = xyz_MMA(&x, &y, &z);
+  error = xyz_MMA(&x, &y, &z);    //se leen los valores de los ejes
   if (error != 0)
     return (error);
-
+  
+  //calcula offset para el ajuste a 0 de los ejes
   xyz.value.x = 2 * -x;        
   xyz.value.y = 2 * -y;
   xyz.value.z = 2 * -(z-c2);
 
-  error = write_MMA(MMA7455_XOFFL, (unsigned int8 *) &xyz, 6);
+  error = write_MMA(MMA7455_XOFFL, (unsigned int8 *) &xyz, 6);  //se envia el offset al accelerometro
   if (error != 0)
     return (error);
 
@@ -68,6 +74,7 @@ int calibrate_MMA(void){
   if (error != 0)
     return (error);
 
+  //realiza nuevamente la operacion para el reajuste
   xyz.value.x = 2 * -x;        
   xyz.value.y = 2 * -y;
   xyz.value.z = 2 * -(z-c2);
@@ -76,6 +83,7 @@ int calibrate_MMA(void){
   if (error != 0)
     return (error);
 
+  //leen los datos enviados al accelerometro para almacenarlos en el microcontrolador
   error = read_MMA(MMA7455_XOFFL, (unsigned int8 *) &xyz, 6);
   if (error != 0)
     return (error);

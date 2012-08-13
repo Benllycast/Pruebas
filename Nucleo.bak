@@ -2,40 +2,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "accelerometro.h"
-//#import(FILE=accelerometro.o)
-#define READ  0b00000000
-#define WRITE 0b10000000
+#include "analogo_digital.h"
 
 extern CONFIG_MMA7455 CONFIG;
-
-unsigned int8 respuesta = 0x00;
-void write_mma(int8 address){
-   while(!spi_data_is_in());
-}
-
-unsigned int8 read_mma(unsigned int8 address){
-   address<<=1;
-   address|=READ;
-   //swap(address);
-   spi_write(address);
-   //while(!spi_data_is_in()){;} //comprobar con un tiempo espesifico
-   if(spi_data_is_in()){
-      respuesta = spi_read();
-      return respuesta;
-   }      
-   return -1;
-}
-
-
-void main()
-{
-   //unsigned int8 count = 0x1F;
-   //unsigned int8 direcciones = 0x00;
-
-   setup_adc_ports(NO_ANALOGS|VSS_VDD);
-   setup_adc(ADC_CLOCK_DIV_2|ADC_TAD_MUL_0);
+void setup_devices(){
+   int error = -1;
+   /////////////configuracion del MMA7455////////////////
+   //error = init_MMA();
+   //////////////////////////////////////////////////////
+   error = AD_init_adc();
+   
+   printf("init_error = %d\n\r", error);
    setup_psp(PSP_DISABLED);
-   //setup_spi(SPI_MASTER|SPI_L_TO_H|SPI_CLK_DIV_16);
    setup_wdt(WDT_OFF);
    setup_timer_0(RTCC_INTERNAL);
    setup_timer_1(T1_DISABLED);
@@ -44,25 +22,22 @@ void main()
    setup_ccp1(CCP_OFF);
    setup_comparator(NC_NC_NC_NC);
    setup_vref(FALSE);
-//Setup_Oscillator parameter not selected from Intr Oscillator Config tab
-   // TODO: USER CODE!!
-   set_tris_A(0b00001111);
-   output_a(0xf0);
-   delay_ms(1000);
-   while(true){
-      	printf("MODE CONTROL REGISTER: %u\n\r",(unsigned int8)CONFIG.MODE_CONTROL);
-      
-      //direcciones = 0x00;
+   return;
+}
+
+void main()
+{
+   long value = 0;
+   int error = 0;
+   setup_devices();
+   // TODO: USER CODE!!  
+   while(error != 0){
+      error = AD_leer_canal(CANAL_VELOCIDAD, &value);
+      printf("VEL: %Ld \t", value);
+      error = AD_leer_canal(CANAL_ACCELERACION, &value);
+      printf("ACC: %Ld \t", value);
+      error = AD_leer_canal(CANAL_REVOLUCIONES, &value);
+      printf("RPM: %Ld \n\r", value);      
    }
 }
 
-/*
-      for (direcciones = 0x00; direcciones < count; direcciones++){
-      //code
-         printf("ms rq: %X , ",direcciones);
-         if (read_mma(direcciones) != -1)
-         {            
-            printf("rp: %X \n\r",respuesta);
-         }
-      }
-         */

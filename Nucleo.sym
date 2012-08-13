@@ -5,87 +5,78 @@
 003     @SCRATCH
 004-005 strtok.save
 006-009 _Randseed
-00A     respuesta
-00B-013 CONFIG
-014     setup_devices.error
-014     @PRINTF_U_9600_31766_31767.P1
-014     MAIN.@SCRATCH1
-015     @PSTRINGCN_9600_31766_31767.P1
-015     @PRINTF_U_9600_31766_31767.P2
-015     @PRINTF_D_9600_31766_31767.P3
-015     init_MMA.error
-016     @PRINTF_D_9600_31766_31767.P1
-016-01B init_MMA.xyz
-016     @PSTRINGCN_9600_31766_31767.@SCRATCH1
-017     @PSTRINGCN_9600_31766_31767.@SCRATCH2
-017     @PRINTF_D_9600_31766_31767.@SCRATCH1
-018     @PRINTF_D_9600_31766_31767.@SCRATCH2
-019     @PRINTF_D_9600_31766_31767.@SCRATCH3
-01A     @PRINTF_D_9600_31766_31767.@SCRATCH4
-01B     @DIV88.P1
-01C     init_MMA.c1
-01C     @DIV88.P1
-01D     init_MMA.c2
-01D     @DIV88.@SCRATCH1
-01E     write_MMA.address
-01E     read_MMA.address
-01E     @delay_ms1.P1
-01F-020 read_MMA.value
-01F-020 write_MMA.value
-020     write_MMA.start_address
-021     read_MMA.error
-021     write_MMA.error
-021-022 write_MMA.pData
-022.0   ext_eeprom_ready.ack
-022     read_MMA.@SCRATCH1
-022     write_MMA.@SCRATCH1
-023     write_MMA.size
-023     read_MMA.@SCRATCH2
-024     @I2C_READU_1.P1
-024     write_MMA.error
-025     write_MMA.i
-026.0   write_MMA.ack
-027     write_MMA.@SCRATCH1
-028     @I2C_WRITEU_1.P1
+00A-012 CONFIG
+013-014 MAIN.value
+015     MAIN.error
+016     AD_leer_canal.canal
+016     setup_devices.error
+016-017 @PRINTF_LD_9600_31766_31767.P1
+017     @PSTRINGCN_9600_31766_31767.P1
+017-018 AD_leer_canal.buffer
+017     @PRINTF_D_9600_31766_31767.P1
+018     @PRINTF_D_9600_31766_31767.P1
+018     @PSTRINGCN_9600_31766_31767.@SCRATCH1
+018     @PRINTF_LD_9600_31766_31767.@SCRATCH1
+019.0   AD_leer_canal.done
+019     @PSTRINGCN_9600_31766_31767.@SCRATCH2
+019     @PRINTF_D_9600_31766_31767.@SCRATCH1
+019     @PRINTF_LD_9600_31766_31767.@SCRATCH2
+01A     @PRINTF_D_9600_31766_31767.@SCRATCH2
+01A     @PRINTF_LD_9600_31766_31767.@SCRATCH3
+01A     AD_leer_canal.@SCRATCH1
+01B     @PRINTF_D_9600_31766_31767.@SCRATCH3
+01B     @PRINTF_LD_9600_31766_31767.@SCRATCH4
+01B     AD_leer_canal.@SCRATCH2
+01C     @PRINTF_D_9600_31766_31767.@SCRATCH4
+01C     @PRINTF_LD_9600_31766_31767.@SCRATCH5
+01D     @DIV88.P1
+01D     @PRINTF_LD_9600_31766_31767.@SCRATCH6
+01E     @DIV88.P1
+01E     @PRINTF_LD_9600_31766_31767.@SCRATCH7
+01F     @DIV88.@SCRATCH1
 F83     PSP_DATA
 FB4.6   C1OUT
 FB4.7   C2OUT
 FBB     CCP_2
 FBB     CCP_2_LOW
+FBB     CCP_2
+FBB     CCP_2_LOW
 FBC     CCP_2_HIGH
+FBE     CCP_1_LOW
+FBE     CCP_1
 FBE     CCP_1_LOW
 FBE     CCP_1
 FBF     CCP_1_HIGH
 FE1-FE2 @WRITE_PACKED_MEMORY.P1
 FE1-FE2 @READ_PACKED_MEMORY.P2
 FE9-FEA @WRITE_PACKED_MEMORY.P1
-FE9-FEA @READ_PROGRAM_MEMORY.P2
+FE9-FEA @WRITE_PROGRAM_MEMORY.P2
 FE9-FEA @READ_PACKED_MEMORY.P3
-FE9-FEA @WRITE_PROGRAM_MEMORY.P4
+FE9-FEA @READ_PROGRAM_MEMORY.P4
 FF6-FF8 @WRITE_PROGRAM_MEMORY.P1
 FF6-FF8 @READ_PROGRAM_MEMORY.P2
 
 ROM Allocation:
-0032  @delay_ms1
-005A  @I2C_WRITEU_1
-00F8  @I2C_READU_1
-039E  setup_devices
-0004  @const394
-0284  @PSTRINGCN_9600_31766_31767
-02A4  @DIV88
-02CC  @PRINTF_D_9600_31766_31767
-0442  MAIN
-0016  @const410
-03D4  @PRINTF_U_9600_31766_31767
-01F6  init_MMA
-0116  read_MMA
-0076  write_MMA
-0182  write_MMA
-00D2  ext_eeprom_ready
-0442  @cinit
+0174  setup_devices
+0004  @const398
+005A  @PSTRINGCN_9600_31766_31767
+007A  @DIV88
+00A2  @PRINTF_D_9600_31766_31767
+02FC  MAIN
+0016  @const411
+0220  @PRINTF_LD_9600_31766_31767
+0022  @const414
+002E  @const415
+003A  AD_init_adc
+01DC  AD_leer_canal
+02FC  @cinit
 0136  StrtoulGO
 0136  StrtolGO
 
+
+User Memory space: 
+
+User Memory space: 
 
 User Memory space: 
 
@@ -108,11 +99,14 @@ Project Files:
     I:\Archivos de programa\PICC\drivers\ctype.h (link)
     I:\Archivos de programa\PICC\drivers\stdlib.h (link)
     accelerometro.h (link)
+    analogo_digital.h (link)
     accelerometro.c (link)
+    analogo_digital.c (link)
 
 Units:
     G:\Project\pic\CCS\MMA7455l\Nucleo.o
     G:\Project\pic\CCS\MMA7455l\accelerometro.o
+    G:\Project\pic\CCS\MMA7455l\analogo_digital.o
 
 Compiler Settings:
     Processor:      PIC18F4620

@@ -1,4 +1,6 @@
+G:\Project\pic\CCS\MMA7455l\analogo_digital.o ===>  0 Errors,  0 Warnings.
 G:\Project\pic\CCS\MMA7455l\accelerometro.o ===>  0 Errors,  0 Warnings.
-G:\Project\pic\CCS\MMA7455l\Nucleo.o ===>  0 Errors,  0 Warnings.
+>>> Warning 202 "Nucleo.c" Line 7(23,29): Variable never used:   CONFIG
+G:\Project\pic\CCS\MMA7455l\Nucleo.o ===>  0 Errors,  1 Warnings.
       Memory usage:   ROM=2%      RAM=1% - 1%
       0 Errors,  0 Warnings.

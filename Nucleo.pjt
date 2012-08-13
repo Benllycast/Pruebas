@@ -20,8 +20,10 @@ AdditionalOptionString=
 2=Nucleo.h
 3=accelerometro.c
 4=accelerometro.h
-5=
-6=
+5=analogo_digital.c
+6=analogo_digital.h
+7=
+8=
 [Target Data]
 OptionString=+FH
 FileList=G:\Project\pic\CCS\MMA7455l\Nucleo.c
@@ -56,8 +58,23 @@ FileList=
 BuildTool=
 OptionString=
 AdditionalOptionString=
+[Nucleo.o.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[analogo_digital.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
 [Units]
-Count=2
+Count=3
 1=Nucleo.o
 2=accelerometro.o
+3=analogo_digital.o
 Link=1

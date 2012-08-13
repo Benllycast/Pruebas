@@ -8,26 +8,18 @@ CCP_2_HIGH
 PSP_DATA
 C1OUT
 C2OUT
-_Randseed
-CONFIG
 
 Project Directory:
     G:\Project\pic\CCS\MMA7455l\
 
 Project Files:
-    Nucleo.c
+    analogo_digital.c
     Nucleo.h
     I:\Archivos de programa\PICC\devices\18F4620.h
-    I:\Archivos de programa\PICC\drivers\stdio.h
-    I:\Archivos de programa\PICC\drivers\string.h
-    I:\Archivos de programa\PICC\drivers\stddef.h
-    I:\Archivos de programa\PICC\drivers\ctype.h
-    I:\Archivos de programa\PICC\drivers\stdlib.h
-    accelerometro.h
     analogo_digital.h
 
 Units:
-    G:\Project\pic\CCS\MMA7455l\Nucleo (main)
+    G:\Project\pic\CCS\MMA7455l\analogo_digital (main)
 
 Compiler Settings:
     Processor:      PIC18F4620
@@ -40,6 +32,6 @@ Compiler Settings:
 
 Output Files:
     Errors:      Nucleo.err
-    Ext Symbols: Nucleo.esym
-    Object:      Nucleo.o
-    Symbols:     Nucleo.osym
+    Ext Symbols: analogo_digital.esym
+    Object:      analogo_digital.o
+    Symbols:     analogo_digital.osym

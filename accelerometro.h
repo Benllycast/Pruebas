@@ -181,6 +181,17 @@ DEFINICIONES:
 MOV = deteccion de movimiento
 CL = deteccion de caida libre
 
+Initialize the sensor
+Sensitivity:
+  2g : GLVL0
+  4g : GLVL1
+  8g : GLVL1 | GLVL0
+Mode:
+  Standby         : 0
+  Measurement     : MODE0
+  Level Detection : MODE1
+  Pulse Detection : MODE1 | MODE0
+
 tabla 1: configuracion de INTRG
 ------------------------
 INT2TRG      INT1   INT2
