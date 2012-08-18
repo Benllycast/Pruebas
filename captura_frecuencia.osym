@@ -1,0 +1,146 @@
+_RETURN_
+CCP_1
+CCP_1_LOW
+CCP_1_HIGH
+CCP_2
+CCP_2_LOW
+CCP_2_HIGH
+PSP_DATA
+C1OUT
+C2OUT
+MODO_CCP1
+MODO_CCP2
+Q_CCP
+MODO_TIMER_CCP
+overflow_t3_counter
+tiempo_inicial
+tiempo_final
+TOSU
+TOS
+STKPTR
+PCLATU
+PCLATH
+PCL
+TBLPTRU
+TBLPTR
+TABLAT
+PROD
+INTCON
+INTCON2
+INTCON3
+INDF0
+POSTINC0
+POSTDEC0
+PREINC0
+PLUSW0
+FSR0H
+FSR0L
+WREG
+INDF1
+POSTINC1
+POSTDEC1
+PREINC1
+PLUSW1
+FSR1H
+FSR1L
+BSR
+INDF2
+POSTINC2
+POSTDEC2
+PREINC2
+PLUSW2
+FSR2H
+FSR2L
+STATUS
+TMR0
+T0CON
+OSCCON
+LVDCON
+WDTCON
+RCON
+TMR1
+T1CON
+TMR2
+PR2
+T2CON
+SSPBUF
+SSPADD
+SSPSTAT
+SSPCON1
+SSPCON2
+ADRES
+ADCON0
+ADCON1
+ADCON2
+CCPR1
+CCP1CON
+CCPR2
+CCP2CON
+BAUDCON
+PWM1CON
+ECCPAS1
+CVRCON
+CMCON
+TMR3
+T3CON
+SPBRGH
+SPBRG
+RCREG
+TXREG
+TXSTA
+RCSTA
+EEADRH
+EEADR
+EEDATA
+EECON2
+EECON1
+IPR2
+PIR2
+PIE2
+IPR1
+PIR1
+PIE1
+OSCTUNE
+TRISE
+TRISD
+TRISC
+TRISB
+TRISA
+LATE
+LATD
+LATC
+LATB
+LATA
+PORTE
+PORTD
+PORTC
+PORTB
+PORTA
+
+Project Directory:
+    G:\Project\pic\CCS\MMA7455l\
+
+Project Files:
+    captura_frecuencia.c
+    Nucleo.h
+    I:\Archivos de programa\PICC\devices\18F4620.h
+    captura_frecuencia.h
+    registros.h
+
+Units:
+    G:\Project\pic\CCS\MMA7455l\captura_frecuencia (main)
+
+Compiler Settings:
+    Processor:      PIC18F4620
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+    Output file:    Relocatable
+
+Output Files:
+    Errors:      captura_frecuencia.err
+    Ext Symbols: captura_frecuencia.esym
+    Object:      captura_frecuencia.o
+    Symbols:     captura_frecuencia.osym
