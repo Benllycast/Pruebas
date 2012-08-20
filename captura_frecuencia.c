@@ -1,4 +1,6 @@
 #include "Nucleo.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include "captura_frecuencia.h"
 #ifndef REGISTROS_H
 	#include "registros.h"
@@ -34,14 +36,16 @@ void ccp1_isr(void){
 	if(Q_CCP == 0){
 		Q_CCP = 1;
 		//tiempo_inicial = CCP_1;
-		tiempo_inicial = (0x10000*overflow_t3_counter)+CCP_1;
+		tiempo_inicial = (0x10000*overflow_t3_counter)+(unsigned)CCP_1;
+		printf("Ti: %Lu ", tiempo_inicial);
+      
 	}else if(Q_CCP == 1){
-		disable_interrupts(INT_CCP1);
 		disable_interrupts(INT_TIMER3);
+		disable_interrupts(INT_CCP1);		
 		Q_CCP = 2;
 		//tiempo_final = CCP_1;
-		tiempo_final = (0x10000*overflow_t3_counter)+CCP_1;
-		
+		tiempo_final = (0x10000*overflow_t3_counter)+(unsigned)CCP_1;
+		printf("Tf: %Lu ", tiempo_final);
 	}
 }
 
@@ -49,11 +53,14 @@ void ccp1_isr(void){
 void ccp2_isr(void){
 	if(Q_CCP == 0){
 		Q_CCP = 1;
-		tiempo_inicial = (0x10000*overflow_t3_counter)+(int32)CCP_2;
+		//tiempo_inicial = CCP_2;
+		tiempo_inicial = (0x10000*overflow_t3_counter)+CCP_2;
 	}else if(Q_CCP == 1){
-		tiempo_final = (0x10000*overflow_t3_counter)+(int32)CCP_2;
-		disable_interrupts(INT_CCP2);
+		disable_interrupts(INT_TIMER3);
+		disable_interrupts(INT_CCP2);		
 		Q_CCP = 2;
+		//tiempo_final = CCP_2;
+		tiempo_final = (0x10000*overflow_t3_counter)+CCP_2;
 	}
 }
 
@@ -61,19 +68,20 @@ int CP_init_ccp(){
 	//configurar el timer1
 	setup_timer_3(MODO_TIMER_CCP);
 	T3CON.TMR3ON = 0;
+	set_timer3(0);
 	setup_ccp1(MODO_CCP1);
-	set_tris_c(0b00000110)  ;                       
+	setup_ccp2(MODO_CCP2);
+	TRISC.TRISC1 = TRISC.TRISC2 = 1  ;                       
 	return 0;
 }
 
 int CP_leer_ccp(int canal, int32 *buffer){
 	//CODIGO DE MANEJO DE CCP
 	int32 resultado = 0;
-	set_timer3(0x0000);		//se resetea el timer  a 0
-	T3CON.TMR3ON = 1;
 	enable_interrupts(GLOBAL);		//habilita las interrupciones globales
 	enable_interrupts(INT_TIMER3);
-
+	set_timer3(0);		//se resetea el timer  a 0
+	T3CON.TMR3ON = 1;
 	if(canal == CANAL_1){
 		enable_interrupts(INT_CCP1);	//si es el canal 1 se habilita la interrupcion del modulo CCP1
 	}else if(canal == CANAL_2){

@@ -25,7 +25,8 @@ AdditionalOptionString=
 7=I:\Archivos de programa\PICC\devices\18F4620.h
 8=captura_frecuencia.c
 9=captura_frecuencia.h
-10=
+10=registros.h
+11=
 [Target Data]
 OptionString=+FH
 FileList=G:\Project\pic\CCS\MMA7455l\Nucleo.c

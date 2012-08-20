@@ -1,8 +1,9 @@
->>> Warning 202 "captura_frecuencia.c" Line 8(15,24): Variable never used:   MODO_CCP2
-G:\Project\pic\CCS\MMA7455l\captura_frecuencia.o ===>  0 Errors,  1 Warnings.
+G:\Project\pic\CCS\MMA7455l\captura_frecuencia.o ===>  0 Errors,  0 Warnings.
 G:\Project\pic\CCS\MMA7455l\analogo_digital.o ===>  0 Errors,  0 Warnings.
 G:\Project\pic\CCS\MMA7455l\accelerometro.o ===>  0 Errors,  0 Warnings.
 >>> Warning 202 "Nucleo.c" Line 8(23,29): Variable never used:   CONFIG
 G:\Project\pic\CCS\MMA7455l\Nucleo.o ===>  0 Errors,  1 Warnings.
-      Memory usage:   ROM=3%      RAM=1% - 2%
-      0 Errors,  0 Warnings.
+>>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (@PSTRINGCN_9600_31766_31767)
+>>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (@PRINTF_L32U_9600_31766_31767)
+      Memory usage:   ROM=3%      RAM=2% - 3%
+      0 Errors,  2 Warnings.
