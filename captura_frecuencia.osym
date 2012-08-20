@@ -8,13 +8,6 @@ CCP_2_HIGH
 PSP_DATA
 C1OUT
 C2OUT
-MODO_CCP1
-MODO_CCP2
-Q_CCP
-MODO_TIMER_CCP
-overflow_t3_counter
-tiempo_inicial
-tiempo_final
 TOSU
 TOS
 STKPTR
@@ -116,6 +109,13 @@ PORTD
 PORTC
 PORTB
 PORTA
+MODO_CCP1
+MODO_CCP2
+Q_CCP
+MODO_TIMER_CCP
+overflow_t3_counter
+tiempo_inicial
+tiempo_final
 
 Project Directory:
     G:\Project\pic\CCS\MMA7455l\
@@ -140,7 +140,7 @@ Compiler Settings:
     Output file:    Relocatable
 
 Output Files:
-    Errors:      captura_frecuencia.err
+    Errors:      Nucleo.err
     Ext Symbols: captura_frecuencia.esym
     Object:      captura_frecuencia.o
     Symbols:     captura_frecuencia.osym

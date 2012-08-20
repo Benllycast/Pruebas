@@ -10,6 +10,8 @@ C1OUT
 C2OUT
 _Randseed
 CONFIG
+tiempo_inicial
+tiempo_final
 
 Project Directory:
     G:\Project\pic\CCS\MMA7455l\
@@ -25,6 +27,7 @@ Project Files:
     I:\Archivos de programa\PICC\drivers\stdlib.h
     accelerometro.h
     analogo_digital.h
+    captura_frecuencia.h
 
 Units:
     G:\Project\pic\CCS\MMA7455l\Nucleo (main)

@@ -1,15 +1,69 @@
-CCS PCH C Compiler, Version 4.105, 13255               13-Ago-12 14:12
+CCS PCH C Compiler, Version 4.105, 13255               19-Ago-12 15:31
 
                Filename: G:\Project\pic\CCS\MMA7455l\Nucleo.lst
 
-               ROM used: 1046 bytes (2%)
-                         Largest free fragment is 64490
-               RAM used: 22 (1%) at main() level
-                         32 (1%) worst case
-               Stack:    3 locations
+               ROM used: 1902 bytes (3%)
+                         Largest free fragment is 63630
+               RAM used: 58 (1%) at main() level
+                         87 (2%) worst case
+               Stack:    4 worst case (3 in main + 1 for interrupts)
 
 *
-00000:  GOTO   02FC
+00000:  GOTO   0634
+*
+00008:  MOVWF  04
+0000A:  MOVFF  FD8,05
+0000E:  MOVFF  FE0,06
+00012:  MOVLB  0
+00014:  MOVFF  FE9,0C
+00018:  MOVFF  FEA,07
+0001C:  MOVFF  FE1,08
+00020:  MOVFF  FE2,09
+00024:  MOVFF  FD9,0A
+00028:  MOVFF  FDA,0B
+0002C:  MOVFF  FF3,12
+00030:  MOVFF  FF4,13
+00034:  MOVFF  FFA,14
+00038:  MOVFF  FF5,15
+0003C:  MOVFF  FF6,16
+00040:  MOVFF  FF7,17
+00044:  MOVFF  00,0E
+00048:  MOVFF  01,0F
+0004C:  MOVFF  02,10
+00050:  MOVFF  03,11
+00054:  BTFSS  FA0.1
+00056:  GOTO   0060
+0005A:  BTFSC  FA1.1
+0005C:  GOTO   0108
+00060:  BTFSS  F9D.2
+00062:  GOTO   006C
+00066:  BTFSC  F9E.2
+00068:  GOTO   0110
+0006C:  BTFSS  FA0.0
+0006E:  GOTO   0078
+00072:  BTFSC  FA1.0
+00074:  GOTO   0168
+00078:  MOVFF  0E,00
+0007C:  MOVFF  0F,01
+00080:  MOVFF  10,02
+00084:  MOVFF  11,03
+00088:  MOVFF  0C,FE9
+0008C:  MOVFF  07,FEA
+00090:  BSF    07.7
+00092:  MOVFF  08,FE1
+00096:  MOVFF  09,FE2
+0009A:  MOVFF  0A,FD9
+0009E:  MOVFF  0B,FDA
+000A2:  MOVFF  12,FF3
+000A6:  MOVFF  13,FF4
+000AA:  MOVFF  14,FFA
+000AE:  MOVFF  15,FF5
+000B2:  MOVFF  16,FF6
+000B6:  MOVFF  17,FF7
+000BA:  MOVF   04,W
+000BC:  MOVFF  06,FE0
+000C0:  MOVFF  05,FD8
+000C4:  RETFIE 0
 ....................  
 .................... #include "Nucleo.h" 
 .................... #include <18F4620.h> 
@@ -43,8 +97,29 @@ CCS PCH C Compiler, Version 4.105, 13255               13-Ago-12 14:12
 .................... #FUSES PBADEN                	//PORTB pins are configured as analog input channels on RESET 
 .................... #FUSES LPT1OSC               	//Timer1 configured for low-power operation 
 .................... #FUSES MCLR                  	//Master Clear pin enabled 
+.................... #FUSES CCP2C1 
 ....................  
 .................... #use delay(clock=10000000) 
+0060A:  CLRF   FEA
+0060C:  MOVLW  3A
+0060E:  MOVWF  FE9
+00610:  MOVF   FEF,W
+00612:  BZ    0630
+00614:  MOVLW  03
+00616:  MOVWF  01
+00618:  CLRF   00
+0061A:  DECFSZ 00,F
+0061C:  BRA    061A
+0061E:  DECFSZ 01,F
+00620:  BRA    0618
+00622:  MOVLW  3C
+00624:  MOVWF  00
+00626:  DECFSZ 00,F
+00628:  BRA    0626
+0062A:  BRA    062C
+0062C:  DECFSZ FEF,F
+0062E:  BRA    0614
+00630:  GOTO   076E (RETURN)
 .................... #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8) 
 .................... #use i2c(master, sda=PIN_C4, scl=PIN_C3, FORCE_HW, RESTART_WDT)                    //directiva de compilador par ale uso del bus I2C del microcontrolador 
 ....................  
@@ -2520,230 +2595,251 @@ CCS PCH C Compiler, Version 4.105, 13255               13-Ago-12 14:12
 .................... int AD_leer_canal(int canal, long *buffer); 
 .................... #endif 
 ....................  
+.................... #include "captura_frecuencia.h" 
+.................... #ifndef CAPTURA_FRECUENCIA 
+.................... #define CAPTURA_FRECUENCIA 
+.................... //canales de lectura 
+.................... #define CANAL_1 1 
+.................... #define CANAL_2 2 
+....................  
+.................... int CP_init_ccp(); 
+.................... int CP_leer_ccp(int canal, int32 *buffer); 
+.................... #endif 
+....................  
 ....................  
 .................... extern CONFIG_MMA7455 CONFIG; 
+.................... extern unsigned int32 tiempo_inicial, tiempo_final; 
 .................... void setup_devices(){ 
 *
-00174:  MOVLW  FF
-00176:  MOVWF  16
+00314:  MOVLW  FF
+00316:  MOVWF  3A
 ....................    int error = -1; 
 ....................    /////////////configuracion del MMA7455//////////////// 
 ....................    //error = init_MMA(); 
 ....................    ////////////////////////////////////////////////////// 
-....................    error = AD_init_adc(); 
-00178:  BRA    003A
-0017A:  MOVFF  01,16
-....................     
+....................    //error = AD_init_adc(); 
+....................    ////////////////////////////////////////////////////// 
+....................    error = CP_init_ccp(); 
+00318:  BRA    01D6
+0031A:  MOVFF  01,3A
 ....................    printf("init_error = %d\n\r", error); 
-0017E:  MOVLW  04
-00180:  MOVWF  FF6
-00182:  MOVLW  00
-00184:  MOVWF  FF7
-00186:  MOVLW  0D
-00188:  MOVWF  17
-0018A:  RCALL  005A
-0018C:  MOVFF  16,17
-00190:  MOVLW  1F
-00192:  MOVWF  18
-00194:  BRA    00A2
-00196:  MOVLW  0A
-00198:  BTFSS  F9E.4
-0019A:  BRA    0198
-0019C:  MOVWF  FAD
-0019E:  MOVLW  0D
-001A0:  BTFSS  F9E.4
-001A2:  BRA    01A0
-001A4:  MOVWF  FAD
+0031E:  MOVLW  C6
+00320:  MOVWF  FF6
+00322:  MOVLW  00
+00324:  MOVWF  FF7
+00326:  MOVLW  0D
+00328:  MOVWF  3B
+0032A:  RCALL  01FA
+0032C:  MOVFF  3A,3B
+00330:  MOVLW  1F
+00332:  MOVWF  3C
+00334:  BRA    0242
+00336:  MOVLW  0A
+00338:  BTFSS  F9E.4
+0033A:  BRA    0338
+0033C:  MOVWF  FAD
+0033E:  MOVLW  0D
+00340:  BTFSS  F9E.4
+00342:  BRA    0340
+00344:  MOVWF  FAD
 ....................    setup_psp(PSP_DISABLED); 
-001A6:  BCF    F96.4
+00346:  BCF    F96.4
 ....................    setup_wdt(WDT_OFF); 
-001A8:  BCF    FD1.0
+00348:  BCF    FD1.0
 ....................    setup_timer_0(RTCC_INTERNAL); 
-001AA:  MOVLW  80
-001AC:  MOVWF  FD5
+0034A:  MOVLW  80
+0034C:  MOVWF  FD5
 ....................    setup_timer_1(T1_DISABLED); 
-001AE:  CLRF   FCD
+0034E:  CLRF   FCD
 ....................    setup_timer_2(T2_DISABLED,0,1); 
-001B0:  MOVLW  00
-001B2:  MOVWF  FCA
-001B4:  MOVLW  00
-001B6:  MOVWF  FCB
-....................    setup_timer_3(T3_DISABLED|T3_DIV_BY_1); 
-001B8:  CLRF   FB1
-....................    setup_ccp1(CCP_OFF); 
-001BA:  BSF    F94.2
-001BC:  CLRF   FBD
-001BE:  CLRF   FB7
-001C0:  CLRF   FB6
+00350:  MOVLW  00
+00352:  MOVWF  FCA
+00354:  MOVLW  00
+00356:  MOVWF  FCB
+....................    //setup_timer_3(T3_DISABLED|T3_DIV_BY_1); 
+....................    //setup_ccp1(CCP_OFF); 
 ....................    setup_comparator(NC_NC_NC_NC); 
-001C2:  MOVLW  07
-001C4:  MOVWF  FB4
-001C6:  MOVF   F92,W
-001C8:  MOVWF  F92
-001CA:  MOVLW  08
-001CC:  MOVWF  00
-001CE:  DECFSZ 00,F
-001D0:  BRA    01CE
-001D2:  MOVF   FB4,W
-001D4:  BCF    FA1.6
+00358:  MOVLW  07
+0035A:  MOVWF  FB4
+0035C:  MOVF   F92,W
+0035E:  MOVWF  F92
+00360:  MOVLW  08
+00362:  MOVWF  00
+00364:  DECFSZ 00,F
+00366:  BRA    0364
+00368:  MOVF   FB4,W
+0036A:  BCF    FA1.6
 ....................    setup_vref(FALSE); 
-001D6:  CLRF   FB5
+0036C:  CLRF   FB5
 ....................    return; 
 .................... } 
-001D8:  GOTO   0354 (RETURN)
+0036E:  GOTO   06B0 (RETURN)
 ....................  
 .................... void main() 
 .................... { 
 *
-002FC:  CLRF   FF8
-002FE:  BCF    FD0.7
-00300:  CLRF   FEA
-00302:  CLRF   FE9
-00304:  BCF    FB8.3
-00306:  MOVLW  40
-00308:  MOVWF  FAF
-0030A:  MOVLW  A6
-0030C:  MOVWF  FAC
-0030E:  MOVLW  90
-00310:  MOVWF  FAB
-00312:  BSF    F94.3
-00314:  BSF    F94.4
-00316:  MOVLW  18
-00318:  MOVWF  FC8
-0031A:  MOVLW  28
-0031C:  MOVWF  FC6
-0031E:  BSF    FC7.7
-00320:  BCF    FC7.6
-00322:  MOVF   FC1,W
-00324:  ANDLW  C0
-00326:  IORLW  0F
-00328:  MOVWF  FC1
-0032A:  MOVLW  07
-0032C:  MOVWF  FB4
-0032E:  CLRF   04
-00330:  CLRF   05
-00332:  MOVLW  01
-00334:  MOVWF  0A
-00336:  MOVLW  02
-00338:  MOVWF  0B
-0033A:  MOVLW  03
-0033C:  MOVWF  0C
-0033E:  MOVLW  80
-00340:  MOVWF  0D
-00342:  MOVWF  0E
-00344:  MOVWF  0F
-00346:  MOVWF  10
-00348:  MOVWF  11
-0034A:  MOVWF  12
-0034C:  CLRF   14
-0034E:  CLRF   13
-00350:  CLRF   15
-....................    long value = 0; 
+00634:  CLRF   FF8
+00636:  BCF    FD0.7
+00638:  BSF    07.7
+0063A:  CLRF   FEA
+0063C:  CLRF   FE9
+0063E:  BCF    FB8.3
+00640:  MOVLW  40
+00642:  MOVWF  FAF
+00644:  MOVLW  A6
+00646:  MOVWF  FAC
+00648:  MOVLW  90
+0064A:  MOVWF  FAB
+0064C:  BSF    F94.3
+0064E:  BSF    F94.4
+00650:  MOVLW  18
+00652:  MOVWF  FC8
+00654:  MOVLW  28
+00656:  MOVWF  FC6
+00658:  BSF    FC7.7
+0065A:  BCF    FC7.6
+0065C:  MOVLW  05
+0065E:  MOVWF  28
+00660:  MOVWF  29
+00662:  CLRF   2A
+00664:  MOVLW  CD
+00666:  MOVWF  2B
+00668:  CLRF   2C
+0066A:  CLRF   30
+0066C:  CLRF   2F
+0066E:  CLRF   2E
+00670:  CLRF   2D
+00672:  CLRF   34
+00674:  CLRF   33
+00676:  CLRF   32
+00678:  CLRF   31
+0067A:  MOVF   FC1,W
+0067C:  ANDLW  C0
+0067E:  IORLW  0F
+00680:  MOVWF  FC1
+00682:  MOVLW  07
+00684:  MOVWF  FB4
+00686:  CLRF   19
+00688:  CLRF   1A
+0068A:  MOVLW  01
+0068C:  MOVWF  1F
+0068E:  MOVLW  02
+00690:  MOVWF  20
+00692:  MOVLW  03
+00694:  MOVWF  21
+00696:  MOVLW  80
+00698:  MOVWF  22
+0069A:  MOVWF  23
+0069C:  MOVWF  24
+0069E:  MOVWF  25
+006A0:  MOVWF  26
+006A2:  MOVWF  27
+006A4:  CLRF   38
+006A6:  CLRF   37
+006A8:  CLRF   36
+006AA:  CLRF   35
+006AC:  CLRF   39
+....................    int32 value = 0; 
 ....................    int error = 0; 
 ....................    setup_devices(); 
-00352:  BRA    0174
+006AE:  BRA    0314
 ....................    // TODO: USER CODE!!   
 ....................    while(error == 0){ 
-00354:  MOVF   15,F
-00356:  BNZ   0414
-....................       error = AD_leer_canal(CANAL_VELOCIDAD, &value); 
-00358:  CLRF   16
-0035A:  CLRF   18
-0035C:  MOVLW  13
-0035E:  MOVWF  17
-00360:  RCALL  01DC
-00362:  MOVFF  01,15
-....................       printf("VEL: %Ld \t", value); 
-00366:  MOVLW  16
-00368:  MOVWF  FF6
-0036A:  MOVLW  00
-0036C:  MOVWF  FF7
-0036E:  MOVLW  05
-00370:  MOVWF  17
-00372:  RCALL  005A
-00374:  MOVLW  10
-00376:  MOVWF  FE9
-00378:  MOVFF  14,17
-0037C:  MOVFF  13,16
-00380:  RCALL  0220
-00382:  MOVLW  20
-00384:  BTFSS  F9E.4
-00386:  BRA    0384
-00388:  MOVWF  FAD
-0038A:  MOVLW  09
-0038C:  BTFSS  F9E.4
-0038E:  BRA    038C
-00390:  MOVWF  FAD
-....................       error = AD_leer_canal(CANAL_ACCELERACION, &value); 
-00392:  MOVLW  01
-00394:  MOVWF  16
-00396:  CLRF   18
-00398:  MOVLW  13
-0039A:  MOVWF  17
-0039C:  RCALL  01DC
-0039E:  MOVFF  01,15
-....................       printf("ACC: %Ld \t", value); 
-003A2:  MOVLW  22
-003A4:  MOVWF  FF6
-003A6:  MOVLW  00
-003A8:  MOVWF  FF7
-003AA:  MOVLW  05
-003AC:  MOVWF  17
-003AE:  RCALL  005A
-003B0:  MOVLW  10
-003B2:  MOVWF  FE9
-003B4:  MOVFF  14,17
-003B8:  MOVFF  13,16
-003BC:  RCALL  0220
-003BE:  MOVLW  20
-003C0:  BTFSS  F9E.4
-003C2:  BRA    03C0
-003C4:  MOVWF  FAD
-003C6:  MOVLW  09
-003C8:  BTFSS  F9E.4
-003CA:  BRA    03C8
-003CC:  MOVWF  FAD
-....................       error = AD_leer_canal(CANAL_REVOLUCIONES, &value); 
-003CE:  MOVLW  02
-003D0:  MOVWF  16
-003D2:  CLRF   18
-003D4:  MOVLW  13
-003D6:  MOVWF  17
-003D8:  RCALL  01DC
-003DA:  MOVFF  01,15
-....................       printf("RPM: %Ld \n\r", value);       
-003DE:  MOVLW  2E
-003E0:  MOVWF  FF6
-003E2:  MOVLW  00
-003E4:  MOVWF  FF7
-003E6:  MOVLW  05
-003E8:  MOVWF  17
-003EA:  RCALL  005A
-003EC:  MOVLW  10
-003EE:  MOVWF  FE9
-003F0:  MOVFF  14,17
-003F4:  MOVFF  13,16
-003F8:  RCALL  0220
-003FA:  MOVLW  20
-003FC:  BTFSS  F9E.4
-003FE:  BRA    03FC
-00400:  MOVWF  FAD
-00402:  MOVLW  0A
-00404:  BTFSS  F9E.4
-00406:  BRA    0404
-00408:  MOVWF  FAD
-0040A:  MOVLW  0D
-0040C:  BTFSS  F9E.4
-0040E:  BRA    040C
-00410:  MOVWF  FAD
+006B0:  MOVF   39,F
+006B2:  BNZ   0770
+....................       error = CP_leer_ccp(CANAL_1, &value); 
+006B4:  MOVLW  01
+006B6:  MOVWF  3A
+006B8:  CLRF   3C
+006BA:  MOVLW  35
+006BC:  MOVWF  3B
+006BE:  BRA    0372
+006C0:  MOVFF  01,39
+....................       printf("inicio: %Lu \t", tiempo_inicial); 
+006C4:  MOVLW  D8
+006C6:  MOVWF  FF6
+006C8:  MOVLW  00
+006CA:  MOVWF  FF7
+006CC:  MOVLW  08
+006CE:  MOVWF  3B
+006D0:  RCALL  01FA
+006D2:  MOVLW  41
+006D4:  MOVWF  FE9
+006D6:  MOVFF  30,3D
+006DA:  MOVFF  2F,3C
+006DE:  MOVFF  2E,3B
+006E2:  MOVFF  2D,3A
+006E6:  RCALL  045E
+006E8:  MOVLW  20
+006EA:  BTFSS  F9E.4
+006EC:  BRA    06EA
+006EE:  MOVWF  FAD
+006F0:  MOVLW  09
+006F2:  BTFSS  F9E.4
+006F4:  BRA    06F2
+006F6:  MOVWF  FAD
+....................       printf("final: %Lu \t", tiempo_final); 
+006F8:  MOVLW  E6
+006FA:  MOVWF  FF6
+006FC:  MOVLW  00
+006FE:  MOVWF  FF7
+00700:  MOVLW  07
+00702:  MOVWF  3B
+00704:  RCALL  01FA
+00706:  MOVLW  41
+00708:  MOVWF  FE9
+0070A:  MOVFF  34,3D
+0070E:  MOVFF  33,3C
+00712:  MOVFF  32,3B
+00716:  MOVFF  31,3A
+0071A:  RCALL  045E
+0071C:  MOVLW  20
+0071E:  BTFSS  F9E.4
+00720:  BRA    071E
+00722:  MOVWF  FAD
+00724:  MOVLW  09
+00726:  BTFSS  F9E.4
+00728:  BRA    0726
+0072A:  MOVWF  FAD
+....................       printf("CCP canal 1: %Ld \n\r", value); 
+0072C:  MOVLW  F4
+0072E:  MOVWF  FF6
+00730:  MOVLW  00
+00732:  MOVWF  FF7
+00734:  MOVLW  0D
+00736:  MOVWF  3B
+00738:  RCALL  01FA
+0073A:  MOVLW  41
+0073C:  MOVWF  FE9
+0073E:  MOVFF  38,3D
+00742:  MOVFF  37,3C
+00746:  MOVFF  36,3B
+0074A:  MOVFF  35,3A
+0074E:  BRA    050A
+00750:  MOVLW  20
+00752:  BTFSS  F9E.4
+00754:  BRA    0752
+00756:  MOVWF  FAD
+00758:  MOVLW  0A
+0075A:  BTFSS  F9E.4
+0075C:  BRA    075A
+0075E:  MOVWF  FAD
+00760:  MOVLW  0D
+00762:  BTFSS  F9E.4
+00764:  BRA    0762
+00766:  MOVWF  FAD
+....................       delay_ms(250); 
+00768:  MOVLW  FA
+0076A:  MOVWF  3A
+0076C:  BRA    060A
 ....................    } 
-00412:  BRA    0354
+0076E:  BRA    06B0
 .................... } 
 ....................  
 ....................  
 .................... #include "Nucleo.h" 
 .................... #include <18F4620.h> 
-00414:  SLEEP 
+00770:  SLEEP 
 .................... //////// Standard Header file for the PIC18F4620 device //////////////// 
 .................... #device PIC18F4620 
 .................... #list 
@@ -2774,6 +2870,7 @@ CCS PCH C Compiler, Version 4.105, 13255               13-Ago-12 14:12
 .................... #FUSES PBADEN                	//PORTB pins are configured as analog input channels on RESET 
 .................... #FUSES LPT1OSC               	//Timer1 configured for low-power operation 
 .................... #FUSES MCLR                  	//Master Clear pin enabled 
+.................... #FUSES CCP2C1 
 ....................  
 .................... #use delay(clock=10000000) 
 .................... #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8) 
@@ -3298,6 +3395,7 @@ CCS PCH C Compiler, Version 4.105, 13255               13-Ago-12 14:12
 .................... #FUSES PBADEN                	//PORTB pins are configured as analog input channels on RESET 
 .................... #FUSES LPT1OSC               	//Timer1 configured for low-power operation 
 .................... #FUSES MCLR                  	//Master Clear pin enabled 
+.................... #FUSES CCP2C1 
 ....................  
 .................... #use delay(clock=10000000) 
 .................... #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8) 
@@ -3326,11 +3424,6 @@ CCS PCH C Compiler, Version 4.105, 13255               13-Ago-12 14:12
 ....................  
 .................... int AD_init_adc(){ 
 .................... 	setup_adc_ports(AN0_TO_AN2); 
-*
-0003A:  MOVF   FC1,W
-0003C:  ANDLW  C0
-0003E:  IORLW  0C
-00040:  MOVWF  FC1
 ....................  
 .................... //corregir despues 
 .................... #if getenv("CLOCK") == 4000000 
@@ -3339,66 +3432,998 @@ CCS PCH C Compiler, Version 4.105, 13255               13-Ago-12 14:12
 .................... 	setup_adc(ADC_CLOCK_DIV_16|ADC_TAD_MUL_2); 
 .................... #elif getenv("CLOCK") == 10000000 
 .................... 	setup_adc(ADC_CLOCK_DIV_32|ADC_TAD_MUL_2); 
-00042:  MOVF   FC0,W
-00044:  ANDLW  C0
-00046:  IORLW  0A
-00048:  MOVWF  FC0
-0004A:  BSF    FC0.7
-0004C:  BSF    FC2.0
 .................... #elif getenv("CLOCK") == 20000000 
 .................... 	setup_adc(ADC_CLOCK_DIV_64|ADC_TAD_MUL_2); 
 .................... #else 
 .................... 	setup_adc(ADC_CLOCK_DIV_32|ADC_TAD_MUL_2); 
 .................... #endif 
 .................... 	set_tris_a(0x07);		//RB0 y RB1 entradas 
-0004E:  MOVLW  07
-00050:  MOVWF  F92
 .................... 	return 0; 
-00052:  MOVLW  00
-00054:  MOVWF  01
 .................... } 
-00056:  GOTO   017A (RETURN)
 ....................  
 .................... int AD_leer_canal(int canal, long *buffer){ 
 .................... 	set_adc_channel(canal); 
-*
-001DC:  RLCF   16,W
-001DE:  MOVWF  00
-001E0:  RLCF   00,F
-001E2:  MOVLW  FC
-001E4:  ANDWF  00,F
-001E6:  MOVF   FC2,W
-001E8:  ANDLW  C3
-001EA:  IORWF  00,W
-001EC:  MOVWF  FC2
 .................... 	read_adc(ADC_START_ONLY); 
-001EE:  BSF    FC2.1
 .................... 	int1 done = adc_done(); 
-001F0:  BCF    19.0
-001F2:  BTFSS  FC2.1
-001F4:  BSF    19.0
 .................... 	while(!done){ 
-001F6:  BTFSC  19.0
-001F8:  BRA    0202
 .................... 		done = adc_done(); 
-001FA:  BCF    19.0
-001FC:  BTFSS  FC2.1
-001FE:  BSF    19.0
 .................... 	} 
-00200:  BRA    01F6
 .................... 	*buffer = read_adc(ADC_READ_ONLY); 
-00202:  MOVFF  18,03
-00206:  MOVFF  17,FE9
-0020A:  MOVFF  18,FEA
-0020E:  BTFSC  FC2.1
-00210:  BRA    020E
-00212:  MOVFF  FC3,FEF
-00216:  MOVFF  FC4,FEC
 .................... 	return 0; 
-0021A:  MOVLW  00
-0021C:  MOVWF  01
 .................... } 
-0021E:  RETLW  00
+....................  
+.................... #include "Nucleo.h" 
+.................... #include <18F4620.h> 
+.................... //////// Standard Header file for the PIC18F4620 device //////////////// 
+.................... #device PIC18F4620 
+.................... #list 
+....................  
+.................... #device adc=10 
+....................  
+.................... #FUSES NOWDT                 	//No Watch Dog Timer 
+.................... #FUSES WDT128                	//Watch Dog Timer uses 1:128 Postscale 
+.................... #FUSES HS                    	//High speed Osc (> 4mhz for PCM/PCH) (>10mhz for PCD) 
+.................... #FUSES NOPROTECT             	//Code not protected from reading 
+.................... #FUSES IESO                  	//Internal External Switch Over mode enabled 
+.................... #FUSES NOBROWNOUT            	//No brownout reset 
+.................... #FUSES BORV21                	//Brownout reset at 2.1V 
+.................... #FUSES NOPUT                 	//No Power Up Timer 
+.................... #FUSES NOCPD                 	//No EE protection 
+.................... #FUSES STVREN                	//Stack full/underflow will cause reset 
+.................... #FUSES NODEBUG               	//No Debug mode for ICD 
+.................... #FUSES NOLVP                 	//No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES NOWRT                 	//Program memory not write protected 
+.................... #FUSES NOWRTD                	//Data EEPROM not write protected 
+.................... #FUSES NOEBTR                	//Memory not protected from table reads 
+.................... #FUSES NOCPB                 	//No Boot Block code protection 
+.................... #FUSES NOEBTRB               	//Boot block not protected from table reads 
+.................... #FUSES NOWRTC                	//configuration not registers write protected 
+.................... #FUSES NOWRTB                	//Boot block not write protected 
+.................... #FUSES FCMEN                 	//Fail-safe clock monitor enabled 
+.................... #FUSES NOXINST               	//Extended set extension and Indexed Addressing mode disabled (Legacy mode) 
+.................... #FUSES PBADEN                	//PORTB pins are configured as analog input channels on RESET 
+.................... #FUSES LPT1OSC               	//Timer1 configured for low-power operation 
+.................... #FUSES MCLR                  	//Master Clear pin enabled 
+.................... #FUSES CCP2C1 
+....................  
+.................... #use delay(clock=10000000) 
+.................... #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8) 
+.................... #use i2c(master, sda=PIN_C4, scl=PIN_C3, FORCE_HW, RESTART_WDT)                    //directiva de compilador par ale uso del bus I2C del microcontrolador 
+....................  
+.................... #include "captura_frecuencia.h" 
+.................... #ifndef CAPTURA_FRECUENCIA 
+.................... #define CAPTURA_FRECUENCIA 
+.................... //canales de lectura 
+.................... #define CANAL_1 1 
+.................... #define CANAL_2 2 
+....................  
+.................... int CP_init_ccp(); 
+.................... int CP_leer_ccp(int canal, int32 *buffer); 
+.................... #endif 
+....................  
+.................... #ifndef REGISTROS_H 
+.................... 	#include "registros.h" 
+.................... #ifndef REGISTROS_H 
+.................... #define REGISTROS_H 
+....................  
+.................... struct TOSU { 
+....................    unsigned int TOSU:5; 
+.................... } TOSU; 
+.................... #byte TOSU = 0xFFF 
+....................  
+.................... #word TOS = 0xFFE 
+....................  
+.................... struct STKPTR { 
+....................    unsigned int STKPTR:5; 
+....................    unsigned int :1; 
+....................    unsigned int STKUNF:1; 
+....................    unsigned int STKFUL:1; 
+.................... } STKPTR; 
+.................... #byte STKPTR = 0xFFC 
+....................  
+.................... struct PCLATU { 
+....................    unsigned int PCU:5; 
+.................... } PCLATU; 
+.................... #byte PCLATU = 0xFFB 
+....................  
+.................... #byte PCLATH = 0xFFA 
+....................  
+.................... #byte PCL = 0xFF9 
+....................  
+.................... struct TBLPTRU { 
+....................    unsigned int TBLPTRU:5; 
+....................    unsigned int ACSS:1; 
+.................... } TBLPTRU; 
+.................... #byte TBLPTRU = 0xFF8 
+....................  
+.................... #word TBLPTR = 0xFF7 
+....................  
+.................... #byte TABLAT = 0xFF5 
+....................  
+.................... #word PROD = 0xFF4 
+....................  
+.................... struct INTCON { 
+....................    unsigned int RBIF:1; 
+....................    unsigned int INT0IF:1; 
+....................    unsigned int TMR0IF:1; 
+....................    unsigned int RBIE:1; 
+....................    unsigned int INT0IE:1; 
+....................    unsigned int TMR0IE:1; 
+....................    unsigned int PEIE:1; 
+....................    unsigned int GIE:1; 
+.................... } INTCON; 
+.................... #byte INTCON = 0xFF2 
+....................  
+.................... struct INTCON2 { 
+....................    unsigned int RBIP:1; 
+....................    unsigned int :1; 
+....................    unsigned int TMR0IP:1; 
+....................    unsigned int :1; 
+....................    unsigned int INTEDG:1; 
+....................    unsigned int INTEDG_2:1; 
+....................    unsigned int INTEDG_3:1; 
+....................    unsigned int RBPU:1; 
+.................... } INTCON2; 
+.................... #byte INTCON2 = 0xFF1 
+....................  
+.................... struct INTCON3 { 
+....................    unsigned int INT1IF:1; 
+....................    unsigned int INT2IF:1; 
+....................    unsigned int :1; 
+....................    unsigned int INT1IE:1; 
+....................    unsigned int INT2IE:1; 
+....................    unsigned int :1; 
+....................    unsigned int INT1IP:1; 
+....................    unsigned int INT2IP:1; 
+.................... } INTCON3; 
+.................... #byte INTCON3 = 0xFF0 
+....................  
+.................... #byte INDF0 = 0xFEF 
+....................  
+.................... #byte POSTINC0 = 0xFEE 
+....................  
+.................... #byte POSTDEC0 = 0xFED 
+....................  
+.................... #byte PREINC0 = 0xFEC 
+....................  
+.................... #byte PLUSW0 = 0xFEB 
+....................  
+.................... struct FSR0H { 
+....................    unsigned int FSR0H:4; 
+.................... } FSR0H; 
+.................... #byte FSR0H = 0xFEA 
+....................  
+.................... #byte FSR0L = 0xFE9 
+....................  
+.................... #byte WREG = 0xFE8 
+....................  
+.................... #byte INDF1 = 0xFE7 
+....................  
+.................... #byte POSTINC1 = 0xFE6 
+....................  
+.................... #byte POSTDEC1 = 0xFE5 
+....................  
+.................... #byte PREINC1 = 0xFE4 
+....................  
+.................... #byte PLUSW1 = 0xFE3 
+....................  
+.................... struct FSR1H { 
+....................    unsigned int FSR1H:4; 
+.................... } FSR1H; 
+.................... #byte FSR1H = 0xFE2 
+....................  
+.................... #byte FSR1L = 0xFE1 
+....................  
+.................... struct BSR { 
+....................    unsigned int BSR:4; 
+.................... } BSR; 
+.................... #byte BSR = 0xFE0 
+....................  
+.................... #byte INDF2 = 0xFDF 
+....................  
+.................... #byte POSTINC2 = 0xFDE 
+....................  
+.................... #byte POSTDEC2 = 0xFDD 
+....................  
+.................... #byte PREINC2 = 0xFDC 
+....................  
+.................... #byte PLUSW2 = 0xFDB 
+....................  
+.................... struct FSR2H { 
+....................    unsigned int FSR2H:4; 
+.................... } FSR2H; 
+.................... #byte FSR2H = 0xFDA 
+....................  
+.................... #byte FSR2L = 0xFD9 
+....................  
+.................... struct STATUS { 
+....................    unsigned int C:1; 
+....................    unsigned int DC:1; 
+....................    unsigned int Z:1; 
+....................    unsigned int OV:1; 
+....................    unsigned int N:1; 
+.................... } STATUS; 
+.................... #byte STATUS = 0xFD8 
+....................  
+.................... #word TMR0 = 0xFD7 
+....................  
+.................... struct T0CON { 
+....................    unsigned int T0PS:3; 
+....................    unsigned int PSA:1; 
+....................    unsigned int T0SE:1; 
+....................    unsigned int T0CS:1; 
+....................    unsigned int T08BIT:1; 
+....................    unsigned int TMR0ON:1; 
+.................... } T0CON; 
+.................... #byte T0CON = 0xFD5 
+....................  
+.................... struct OSCCON { 
+....................    unsigned int SCS:2; 
+....................    unsigned int IOFS:1; 
+....................    unsigned int OSTS:1; 
+....................    unsigned int IRCF:3; 
+....................    unsigned int IDLEN:1; 
+.................... } OSCCON; 
+.................... #byte OSCCON = 0xFD3 
+....................  
+.................... struct LVDCON { 
+....................    unsigned int LVDL:4; 
+....................    unsigned int LVDEN:1; 
+....................    unsigned int BGST:1; 
+.................... } LVDCON; 
+.................... #byte LVDCON = 0xFD2 
+....................  
+.................... struct WDTCON { 
+....................    unsigned int SWDTEN:1; 
+.................... } WDTCON; 
+.................... #byte WDTCON = 0xFD1 
+....................  
+.................... struct RCON { 
+....................    unsigned int BOR:1; 
+....................    unsigned int POR:1; 
+....................    unsigned int PD:1; 
+....................    unsigned int TO:1; 
+....................    unsigned int RI:1; 
+....................    unsigned int :1; 
+....................    unsigned int SBOREN:1; 
+....................    unsigned int IPEN:1; 
+.................... } RCON; 
+.................... #byte RCON = 0xFD0 
+....................  
+.................... #word TMR1 = 0xFCF 
+....................  
+.................... struct T1CON { 
+....................    unsigned int TMR1ON:1; 
+....................    unsigned int TMR1CS:1; 
+....................    unsigned int T1SYNC:1; 
+....................    unsigned int T1OSCEN:1; 
+....................    unsigned int T1CKPS:2; 
+....................    unsigned int T1RUN:1; 
+....................    unsigned int RD16:1; 
+.................... } T1CON; 
+.................... #byte T1CON = 0xFCD 
+....................  
+.................... #byte TMR2 = 0xFCC 
+....................  
+.................... #byte PR2 = 0xFCB 
+....................  
+.................... struct T2CON { 
+....................    unsigned int T2CKPS:2; 
+....................    unsigned int TMR2ON:1; 
+....................    unsigned int TOUTPS:4; 
+.................... } T2CON; 
+.................... #byte T2CON = 0xFCA 
+....................  
+.................... #byte SSPBUF = 0xFC9 
+....................  
+.................... #byte SSPADD = 0xFC8 
+....................  
+.................... struct SSPSTAT { 
+....................    unsigned int BF:1; 
+....................    unsigned int UA:1; 
+....................    unsigned int R:1; 
+....................    unsigned int S:1; 
+....................    unsigned int P:1; 
+....................    unsigned int D:1; 
+....................    unsigned int CKE:1; 
+....................    unsigned int SMP:1; 
+.................... } SSPSTAT; 
+.................... #byte SSPSTAT = 0xFC7 
+....................  
+.................... struct SSPCON1 { 
+....................    unsigned int SSPM:4; 
+....................    unsigned int CKP:1; 
+....................    unsigned int SSPEN:1; 
+....................    unsigned int SSPOV:1; 
+....................    unsigned int WCOL:1; 
+.................... } SSPCON1; 
+.................... #byte SSPCON1 = 0xFC6 
+....................  
+.................... struct SSPCON2 { 
+....................    unsigned int SEN:1; 
+....................    unsigned int RSEN:1; 
+....................    unsigned int PEN:1; 
+....................    unsigned int RCEN:1; 
+....................    unsigned int ACKEN:1; 
+....................    unsigned int ACKDT:1; 
+....................    unsigned int ACKSTAT:1; 
+....................    unsigned int GCEN:1; 
+.................... } SSPCON2; 
+.................... #byte SSPCON2 = 0xFC5 
+....................  
+.................... #word ADRES = 0xFC4 
+....................  
+.................... struct ADCON0 { 
+....................    unsigned int ADON:1; 
+....................    unsigned int GO:1; 
+....................    unsigned int CHS:4; 
+.................... } ADCON0; 
+.................... #byte ADCON0 = 0xFC2 
+....................  
+.................... struct ADCON1 { 
+....................    unsigned int PCFG:4; 
+....................    unsigned int VCFG:2; 
+.................... } ADCON1; 
+.................... #byte ADCON1 = 0xFC1 
+....................  
+.................... struct ADCON2 { 
+....................    unsigned int ADCS:3; 
+....................    unsigned int ACQT:3; 
+....................    unsigned int :1; 
+....................    unsigned int ADFM:1; 
+.................... } ADCON2; 
+.................... #byte ADCON2 = 0xFC0 
+....................  
+.................... ///////////////////////////// 
+.................... //CCP 1 REGISTER 
+.................... #word CCPR1 = 0xFBF 
+....................  
+.................... struct CCP1CON { 
+....................    unsigned int CCP1M:4; 
+....................    unsigned int DC1B:2; 
+....................    unsigned int P1M:2; 
+.................... } CCP1CON; 
+.................... #byte CCP1CON = 0xFBD 
+.................... ///////////////////////////// 
+....................  
+.................... ///////////////////////////// 
+.................... //CCP 2 REGISTER 
+.................... #word CCPR2 = 0xFBC 
+.................... struct CCP2CON { 
+....................    unsigned int CCP2M:4; 
+....................    unsigned int DC2B:2; 
+.................... } CCP2CON; 
+.................... #byte CCP2CON = 0xFBA 
+.................... //////////////////////////// 
+....................  
+.................... struct BAUDCON { 
+....................    unsigned int ABDEN:1; 
+....................    unsigned int WUE:1; 
+....................    unsigned int :1; 
+....................    unsigned int BRG1:1; 
+....................    unsigned int TXCKP:1; 
+....................    unsigned int RXDTP:1; 
+....................    unsigned int RCMT:1; 
+....................    unsigned int ABDOVF:1; 
+.................... } BAUDCON; 
+.................... #byte BAUDCON = 0xFB8 
+....................  
+.................... struct PWM1CON { 
+....................    unsigned int PDC:7; 
+....................    unsigned int PRSEN:1; 
+.................... } PWM1CON; 
+.................... #byte PWM1CON = 0xFB7 
+....................  
+.................... struct ECCPAS1 { 
+....................    unsigned int PSSBD:2; 
+....................    unsigned int PSSAC:2; 
+....................    unsigned int ECCPAS:3; 
+....................    unsigned int ECCPASE:1; 
+.................... } ECCPAS1; 
+.................... #byte ECCPAS1 = 0xFB6 
+....................  
+.................... struct CVRCON { 
+....................    unsigned int CVR:4; 
+....................    unsigned int CVRSS:1; 
+....................    unsigned int CVRR:1; 
+....................    unsigned int CVROE:1; 
+....................    unsigned int CVREN:1; 
+.................... } CVRCON; 
+.................... #byte CVRCON = 0xFB5 
+....................  
+.................... struct CMCON { 
+....................    unsigned int CM:3; 
+....................    unsigned int CIS:1; 
+....................    unsigned int C1INV:1; 
+....................    unsigned int C2INV:1; 
+....................    unsigned int C1OUT:1; 
+....................    unsigned int C2OUT:1; 
+.................... } CMCON; 
+.................... #byte CMCON = 0xFB4 
+....................  
+.................... #word TMR3 = 0xFB3 
+....................  
+.................... ///////////////////////////// 
+.................... //TIMER 3 REGISTER 
+.................... struct T3CON { 
+....................    unsigned int TMR3ON:1; 
+....................    unsigned int TMR3CS:1; 
+....................    unsigned int T3SYNC:1; 
+....................    unsigned int T3CCP:1; 
+....................    unsigned int T3CKPS:2; 
+....................    unsigned int T3CCP_2:1; 
+....................    unsigned int RD16:1; 
+.................... } T3CON; 
+.................... #byte T3CON = 0xFB1 
+.................... ///////////////////////////// 
+....................  
+.................... #byte SPBRGH = 0xFB0 
+....................  
+.................... #byte SPBRG = 0xFAF 
+....................  
+.................... #byte RCREG = 0xFAE 
+....................  
+.................... #byte TXREG = 0xFAD 
+....................  
+.................... struct TXSTA { 
+....................    unsigned int TX9D:1; 
+....................    unsigned int TRMT:1; 
+....................    unsigned int BRGH:1; 
+....................    unsigned int SENDB:1; 
+....................    unsigned int SYNC:1; 
+....................    unsigned int TXEN:1; 
+....................    unsigned int TX:1; 
+....................    unsigned int CSRC:1; 
+.................... } TXSTA; 
+.................... #byte TXSTA = 0xFAC 
+....................  
+.................... struct RCSTA { 
+....................    unsigned int RX9D:1; 
+....................    unsigned int OERR:1; 
+....................    unsigned int FERR:1; 
+....................    unsigned int ADDEN:1; 
+....................    unsigned int CREN:1; 
+....................    unsigned int SREN:1; 
+....................    unsigned int RX:1; 
+....................    unsigned int SPEN:1; 
+.................... } RCSTA; 
+.................... #byte RCSTA = 0xFAB 
+....................  
+.................... struct EEADRH { 
+....................    unsigned int EEADRH:2; 
+.................... } EEADRH; 
+.................... #byte EEADRH = 0xFAA 
+....................  
+.................... #byte EEADR = 0xFA9 
+....................  
+.................... #byte EEDATA = 0xFA8 
+....................  
+.................... #byte EECON2 = 0xFA7 
+....................  
+.................... struct EECON1 { 
+....................    unsigned int RD:1; 
+....................    unsigned int WR:1; 
+....................    unsigned int WREN:1; 
+....................    unsigned int WRERR:1; 
+....................    unsigned int FREE:1; 
+....................    unsigned int :1; 
+....................    unsigned int CFGS:1; 
+....................    unsigned int EEPGD:1; 
+.................... } EECON1; 
+.................... #byte EECON1 = 0xFA6 
+....................  
+.................... struct IPR2 { 
+....................    unsigned int CCP2IP:1; 
+....................    unsigned int TMR3IP:1; 
+....................    unsigned int LVDIP:1; 
+....................    unsigned int BCLIP:1; 
+....................    unsigned int EEIP:1; 
+....................    unsigned int :1; 
+....................    unsigned int CMIP:1; 
+....................    unsigned int OSCFIP:1; 
+.................... } IPR2; 
+.................... #byte IPR2 = 0xFA2 
+....................  
+.................... struct PIR2 { 
+....................    unsigned int CCP2IF:1; 
+....................    unsigned int TMR3IF:1; 
+....................    unsigned int LVDIF:1; 
+....................    unsigned int BCLIF:1; 
+....................    unsigned int EEIF:1; 
+....................    unsigned int :1; 
+....................    unsigned int CMIF:1; 
+....................    unsigned int OSCFIF:1; 
+.................... } PIR2; 
+.................... #byte PIR2 = 0xFA1 
+....................  
+.................... struct PIE2 { 
+....................    unsigned int CCP2IE:1; 
+....................    unsigned int TMR3IE:1; 
+....................    unsigned int LVDIE:1; 
+....................    unsigned int BCLIE:1; 
+....................    unsigned int EEIE:1; 
+....................    unsigned int :1; 
+....................    unsigned int CMIE:1; 
+....................    unsigned int OSCFIE:1; 
+.................... } PIE2; 
+.................... #byte PIE2 = 0xFA0 
+....................  
+.................... struct IPR1 { 
+....................    unsigned int TMR1IP:1; 
+....................    unsigned int TMR2IP:1; 
+....................    unsigned int CCP1IP:1; 
+....................    unsigned int SSPIP:1; 
+....................    unsigned int TXIP:1; 
+....................    unsigned int RCIP:1; 
+....................    unsigned int ADIP:1; 
+....................    unsigned int PSPIP:1; 
+.................... } IPR1; 
+.................... #byte IPR1 = 0xF9F 
+....................  
+.................... struct PIR1 { 
+....................    unsigned int TMR1IF:1; 
+....................    unsigned int TMR2IF:1; 
+....................    unsigned int CCP1IF:1; 
+....................    unsigned int SSPIF:1; 
+....................    unsigned int TXIF:1; 
+....................    unsigned int RCIF:1; 
+....................    unsigned int ADIF:1; 
+....................    unsigned int PSPIF:1; 
+.................... } PIR1; 
+.................... #byte PIR1 = 0xF9E 
+....................  
+.................... struct PIE1 { 
+....................    unsigned int TMR1IE:1; 
+....................    unsigned int TMR2IE:1; 
+....................    unsigned int CCP1IE:1; 
+....................    unsigned int SSPIE:1; 
+....................    unsigned int TXIE:1; 
+....................    unsigned int RCIE:1; 
+....................    unsigned int ADIE:1; 
+....................    unsigned int PSPIE:1; 
+.................... } PIE1; 
+.................... #byte PIE1 = 0xF9D 
+....................  
+.................... struct OSCTUNE { 
+....................    unsigned int TUN:5; 
+....................    unsigned int :1; 
+....................    unsigned int PLLEN:1; 
+....................    unsigned int HF256DIV:1; 
+.................... } OSCTUNE; 
+.................... #byte OSCTUNE = 0xF9B 
+....................  
+.................... struct TRISE { 
+....................    unsigned int :4; 
+....................    unsigned int PSPMODE:1; 
+....................    unsigned int IBOV:1; 
+....................    unsigned int OBF:1; 
+....................    unsigned int IBF:1; 
+.................... } TRISE; 
+.................... #byte TRISE = 0xF96 
+....................  
+.................... struct TRISD { 
+....................    unsigned int TRISD0:1; 
+....................    unsigned int TRISD1:1; 
+....................    unsigned int TRISD2:1; 
+....................    unsigned int TRISD3:1; 
+....................    unsigned int TRISD4:1; 
+....................    unsigned int TRISD5:1; 
+....................    unsigned int TRISD6:1; 
+....................    unsigned int TRISD7:1; 
+.................... } TRISD; 
+.................... #byte TRISD = 0xF95 
+....................  
+.................... struct TRISC { 
+....................    unsigned int TRISC0:1; 
+....................    unsigned int TRISC1:1; 
+....................    unsigned int TRISC2:1; 
+....................    unsigned int TRISC3:1; 
+....................    unsigned int TRISC4:1; 
+....................    unsigned int TRISC5:1; 
+....................    unsigned int TRISC6:1; 
+....................    unsigned int TRISC7:1; 
+.................... } TRISC; 
+.................... #byte TRISC = 0xF94 
+....................  
+.................... struct TRISB { 
+....................    unsigned int TRISB0:1; 
+....................    unsigned int TRISB1:1; 
+....................    unsigned int TRISB2:1; 
+....................    unsigned int TRISB3:1; 
+....................    unsigned int TRISB4:1; 
+....................    unsigned int TRISB5:1; 
+....................    unsigned int TRISB6:1; 
+....................    unsigned int TRISB7:1; 
+.................... } TRISB; 
+.................... #byte TRISB = 0xF93 
+....................  
+.................... struct TRISA { 
+....................    unsigned int TRISA0:1; 
+....................    unsigned int TRISA1:1; 
+....................    unsigned int TRISA2:1; 
+....................    unsigned int TRISA3:1; 
+....................    unsigned int TRISA4:1; 
+....................    unsigned int TRISA5:1; 
+....................    unsigned int TRISA6:1; 
+....................    unsigned int TRISA7:1; 
+.................... } TRISA; 
+.................... #byte TRISA = 0xF92 
+....................  
+.................... struct LATE { 
+....................    unsigned int LATE0:1; 
+....................    unsigned int LATE1:1; 
+....................    unsigned int LATE2:1; 
+....................    unsigned int LATE3:1; 
+....................    unsigned int LATE4:1; 
+....................    unsigned int LATE5:1; 
+....................    unsigned int LATE6:1; 
+....................    unsigned int LATE7:1; 
+.................... } LATE; 
+.................... #byte LATE = 0xF8D 
+....................  
+.................... struct LATD { 
+....................    unsigned int LATD0:1; 
+....................    unsigned int LATD1:1; 
+....................    unsigned int LATD2:1; 
+....................    unsigned int LATD3:1; 
+....................    unsigned int LATD4:1; 
+....................    unsigned int LATD5:1; 
+....................    unsigned int LATD6:1; 
+....................    unsigned int LATD7:1; 
+.................... } LATD; 
+.................... #byte LATD = 0xF8C 
+....................  
+.................... struct LATC { 
+....................    unsigned int LATC0:1; 
+....................    unsigned int LATC1:1; 
+....................    unsigned int LATC2:1; 
+....................    unsigned int LATC3:1; 
+....................    unsigned int LATC4:1; 
+....................    unsigned int LATC5:1; 
+....................    unsigned int LATC6:1; 
+....................    unsigned int LATC7:1; 
+.................... } LATC; 
+.................... #byte LATC = 0xF8B 
+....................  
+.................... struct LATB { 
+....................    unsigned int LATB0:1; 
+....................    unsigned int LATB1:1; 
+....................    unsigned int LATB2:1; 
+....................    unsigned int LATB3:1; 
+....................    unsigned int LATB4:1; 
+....................    unsigned int LATB5:1; 
+....................    unsigned int LATB6:1; 
+....................    unsigned int LATB7:1; 
+.................... } LATB; 
+.................... #byte LATB = 0xF8A 
+....................  
+.................... struct LATA { 
+....................    unsigned int LATA0:1; 
+....................    unsigned int LATA1:1; 
+....................    unsigned int LATA2:1; 
+....................    unsigned int LATA3:1; 
+....................    unsigned int LATA4:1; 
+....................    unsigned int LATA5:1; 
+....................    unsigned int LATA6:1; 
+....................    unsigned int LATA7:1; 
+.................... } LATA; 
+.................... #byte LATA = 0xF89 
+....................  
+.................... struct PORTE { 
+....................    unsigned int RE0:1; 
+....................    unsigned int RE1:1; 
+....................    unsigned int RE2:1; 
+....................    unsigned int RE3:1; 
+....................    unsigned int RE4:1; 
+....................    unsigned int RE5:1; 
+....................    unsigned int RE6:1; 
+....................    unsigned int RE7:1; 
+.................... } PORTE; 
+.................... #byte PORTE = 0xF84 
+....................  
+.................... struct PORTD { 
+....................    unsigned int RD0:1; 
+....................    unsigned int RD1:1; 
+....................    unsigned int RD2:1; 
+....................    unsigned int RD3:1; 
+....................    unsigned int RD4:1; 
+....................    unsigned int RD5:1; 
+....................    unsigned int RD6:1; 
+....................    unsigned int RD7:1; 
+.................... } PORTD; 
+.................... #byte PORTD = 0xF83 
+....................  
+.................... struct PORTC { 
+....................    unsigned int RC0:1; 
+....................    unsigned int RC1:1; 
+....................    unsigned int RC2:1; 
+....................    unsigned int RC3:1; 
+....................    unsigned int RC4:1; 
+....................    unsigned int RC5:1; 
+....................    unsigned int RC6:1; 
+....................    unsigned int RC7:1; 
+.................... } PORTC; 
+.................... #byte PORTC = 0xF82 
+....................  
+.................... struct PORTB { 
+....................    unsigned int RB0:1; 
+....................    unsigned int RB1:1; 
+....................    unsigned int RB2:1; 
+....................    unsigned int RB3:1; 
+....................    unsigned int RB4:1; 
+....................    unsigned int RB5:1; 
+....................    unsigned int RB6:1; 
+....................    unsigned int RB7:1; 
+.................... } PORTB; 
+.................... #byte PORTB = 0xF81 
+....................  
+.................... struct PORTA { 
+....................    unsigned int RA0:1; 
+....................    unsigned int RA1:1; 
+....................    unsigned int RA2:1; 
+....................    unsigned int RA3:1; 
+....................    unsigned int RA4:1; 
+....................    unsigned int RA5:1; 
+....................    unsigned int RA6:1; 
+....................    unsigned int RA7:1; 
+.................... } PORTA; 
+.................... #byte PORTA = 0xF80 
+....................  
+.................... #endif 
+....................  
+.................... #endif 
+.................... //tipos de capturas de los modulos CCP 
+.................... int MODO_CCP1 = CCP_CAPTURE_RE; 
+.................... int MODO_CCP2 = CCP_CAPTURE_RE; 
+....................  
+.................... int Q_CCP = 0;		//estados de la captura de la frecuencia 
+.................... /* 
+.................... 	Q=0 :	capturando el tiempo de flanco de subida 
+.................... 	Q=1 :	capturando el tiempo de flanco de bajada 
+.................... 	Q=2 :	relizando el calculo de ancho de pulso o periodo 
+.................... */ 
+....................  
+.................... /*se utiliza el TIMER3 como contador de tiempo del modulo CCP 
+.................... 	TIMER3 con reloj interno (Fosc/4) 
+.................... 	con divicion de frecuencia por 1 
+.................... 	TIMER3 para ambos modulos CCP1 y CCP2 
+.................... */ 
+.................... int MODO_TIMER_CCP = T3_INTERNAL|T3_DIV_BY_1|T3_CCP1_TO_2; 
+....................  
+.................... unsigned int overflow_t3_counter = 0; 
+.................... unsigned int32 tiempo_inicial = 0, tiempo_final = 0; 
+....................  
+.................... #INT_TIMER3 
+.................... void timer3_isr(void){ 
+.................... 	overflow_t3_counter++; 
+*
+00108:  INCF   2C,F
+.................... } 
+....................  
+0010A:  BCF    FA1.1
+0010C:  GOTO   0078
+.................... #INT_CCP1 
+.................... void ccp1_isr(void){ 
+.................... 	if(Q_CCP == 0){ 
+00110:  MOVF   2A,F
+00112:  BNZ   0138
+.................... 		Q_CCP = 1; 
+00114:  MOVLW  01
+00116:  MOVWF  2A
+.................... 		//tiempo_inicial = CCP_1; 
+.................... 		tiempo_inicial = (0x10000*overflow_t3_counter)+CCP_1; 
+00118:  CLRF   01
+0011A:  CLRF   53
+0011C:  CLRF   54
+0011E:  MOVF   FBE,W
+00120:  ADDWF  53,W
+00122:  MOVWF  2D
+00124:  MOVF   FBF,W
+00126:  ADDWFC 54,W
+00128:  MOVWF  2E
+0012A:  MOVLW  00
+0012C:  ADDWFC 2C,W
+0012E:  MOVWF  2F
+00130:  MOVLW  00
+00132:  ADDWFC 01,W
+00134:  MOVWF  30
+.................... 	}else if(Q_CCP == 1){ 
+00136:  BRA    0162
+00138:  DECFSZ 2A,W
+0013A:  BRA    0162
+.................... 		disable_interrupts(INT_CCP1); 
+0013C:  BCF    F9D.2
+.................... 		disable_interrupts(INT_TIMER3); 
+0013E:  BCF    FA0.1
+.................... 		Q_CCP = 2; 
+00140:  MOVLW  02
+00142:  MOVWF  2A
+.................... 		//tiempo_final = CCP_1; 
+.................... 		tiempo_final = (0x10000*overflow_t3_counter)+CCP_1; 
+00144:  CLRF   01
+00146:  CLRF   53
+00148:  CLRF   54
+0014A:  MOVF   FBE,W
+0014C:  ADDWF  53,W
+0014E:  MOVWF  31
+00150:  MOVF   FBF,W
+00152:  ADDWFC 54,W
+00154:  MOVWF  32
+00156:  MOVLW  00
+00158:  ADDWFC 2C,W
+0015A:  MOVWF  33
+0015C:  MOVLW  00
+0015E:  ADDWFC 01,W
+00160:  MOVWF  34
+.................... 		 
+.................... 	} 
+.................... } 
+....................  
+00162:  BCF    F9E.2
+00164:  GOTO   0078
+.................... #INT_CCP2 
+.................... void ccp2_isr(void){ 
+.................... 	if(Q_CCP == 0){ 
+00168:  MOVF   2A,F
+0016A:  BNZ   019C
+.................... 		Q_CCP = 1; 
+0016C:  MOVLW  01
+0016E:  MOVWF  2A
+.................... 		tiempo_inicial = (0x10000*overflow_t3_counter)+(int32)CCP_2; 
+00170:  CLRF   01
+00172:  CLRF   02
+00174:  CLRF   03
+00176:  MOVFF  01,56
+0017A:  CLRF   53
+0017C:  CLRF   54
+0017E:  CLRF   02
+00180:  CLRF   03
+00182:  MOVF   FBB,W
+00184:  ADDWF  53,W
+00186:  MOVWF  2D
+00188:  MOVF   FBC,W
+0018A:  ADDWFC 54,W
+0018C:  MOVWF  2E
+0018E:  MOVF   02,W
+00190:  ADDWFC 2C,W
+00192:  MOVWF  2F
+00194:  MOVF   03,W
+00196:  ADDWFC 56,W
+00198:  MOVWF  30
+.................... 	}else if(Q_CCP == 1){ 
+0019A:  BRA    01D0
+0019C:  DECFSZ 2A,W
+0019E:  BRA    01D0
+.................... 		tiempo_final = (0x10000*overflow_t3_counter)+(int32)CCP_2; 
+001A0:  CLRF   01
+001A2:  CLRF   02
+001A4:  CLRF   03
+001A6:  MOVFF  01,56
+001AA:  CLRF   53
+001AC:  CLRF   54
+001AE:  CLRF   02
+001B0:  CLRF   03
+001B2:  MOVF   FBB,W
+001B4:  ADDWF  53,W
+001B6:  MOVWF  31
+001B8:  MOVF   FBC,W
+001BA:  ADDWFC 54,W
+001BC:  MOVWF  32
+001BE:  MOVF   02,W
+001C0:  ADDWFC 2C,W
+001C2:  MOVWF  33
+001C4:  MOVF   03,W
+001C6:  ADDWFC 56,W
+001C8:  MOVWF  34
+.................... 		disable_interrupts(INT_CCP2); 
+001CA:  BCF    FA0.0
+.................... 		Q_CCP = 2; 
+001CC:  MOVLW  02
+001CE:  MOVWF  2A
+.................... 	} 
+.................... } 
+....................  
+001D0:  BCF    FA1.0
+001D2:  GOTO   0078
+.................... int CP_init_ccp(){ 
+.................... 	//configurar el timer1 
+.................... 	setup_timer_3(MODO_TIMER_CCP); 
+001D6:  MOVFF  2B,FB1
+.................... 	T3CON.TMR3ON = 0; 
+001DA:  BCF    FB1.0
+.................... 	setup_ccp1(MODO_CCP1); 
+001DC:  MOVF   28,W
+001DE:  ANDLW  08
+001E0:  BTFSC  FD8.2
+001E2:  BCF    F82.2
+001E4:  CLRF   FBD
+001E6:  MOVFF  28,FBD
+001EA:  CLRF   FB7
+001EC:  CLRF   FB6
+.................... 	set_tris_c(0b00000110)  ;                        
+001EE:  MOVLW  06
+001F0:  MOVWF  F94
+.................... 	return 0; 
+001F2:  MOVLW  00
+001F4:  MOVWF  01
+.................... } 
+001F6:  GOTO   031A (RETURN)
+....................  
+.................... int CP_leer_ccp(int canal, int32 *buffer){ 
+*
+00372:  CLRF   40
+00374:  CLRF   3F
+00376:  CLRF   3E
+00378:  CLRF   3D
+.................... 	//CODIGO DE MANEJO DE CCP 
+.................... 	int32 resultado = 0; 
+.................... 	set_timer3(0x0000);		//se resetea el timer  a 0 
+0037A:  CLRF   FB3
+0037C:  CLRF   FB2
+.................... 	T3CON.TMR3ON = 1; 
+0037E:  BSF    FB1.0
+.................... 	enable_interrupts(GLOBAL);		//habilita las interrupciones globales 
+00380:  MOVLW  C0
+00382:  IORWF  FF2,F
+.................... 	enable_interrupts(INT_TIMER3); 
+00384:  BSF    FA0.1
+....................  
+.................... 	if(canal == CANAL_1){ 
+00386:  DECFSZ 3A,W
+00388:  BRA    038E
+.................... 		enable_interrupts(INT_CCP1);	//si es el canal 1 se habilita la interrupcion del modulo CCP1 
+0038A:  BSF    F9D.2
+.................... 	}else if(canal == CANAL_2){ 
+0038C:  BRA    039E
+0038E:  MOVF   3A,W
+00390:  SUBLW  02
+00392:  BNZ   0398
+.................... 		enable_interrupts(INT_CCP2);	//si es el canal 2 se habilita la interrupcion del modulo CCP2 
+00394:  BSF    FA0.0
+.................... 	}else{return (1);} 
+00396:  BRA    039E
+00398:  MOVLW  01
+0039A:  MOVWF  01
+0039C:  BRA    03E0
+.................... 	while(Q_CCP != 2){;} 				//espera a que se carguen los valores de los tiempos 
+0039E:  MOVF   2A,W
+003A0:  SUBLW  02
+003A2:  BZ    03A6
+003A4:  BRA    039E
+.................... 	//disable_interrupts(INT_CCP1); 
+.................... 	//disable_interrupts(INT_CCP2); 
+.................... 	//resultado = (0x10000*overflow_t3_counter) - tiempo_final + tiempo_inicial;		//se calcula el periodo del pulso 
+.................... 	resultado = tiempo_final - tiempo_inicial;		//se calcula el periodo del pulso 
+003A6:  MOVF   2D,W
+003A8:  SUBWF  31,W
+003AA:  MOVWF  3D
+003AC:  MOVF   2E,W
+003AE:  SUBWFB 32,W
+003B0:  MOVWF  3E
+003B2:  MOVF   2F,W
+003B4:  SUBWFB 33,W
+003B6:  MOVWF  3F
+003B8:  MOVF   30,W
+003BA:  SUBWFB 34,W
+003BC:  MOVWF  40
+.................... 	Q_CCP = 0;							//regreso al estado inicial para la proxima lectura 
+003BE:  CLRF   2A
+.................... 	T3CON.TMR3ON = 0;					//se desactiva del TIMER3 para no generar interrupciones 
+003C0:  BCF    FB1.0
+.................... 	overflow_t3_counter = 0; 
+003C2:  CLRF   2C
+.................... 	*buffer = resultado; 
+003C4:  MOVFF  3B,FE9
+003C8:  MOVFF  3C,FEA
+003CC:  MOVFF  3D,FEF
+003D0:  MOVFF  3E,FEC
+003D4:  MOVFF  3F,FEC
+003D8:  MOVFF  40,FEC
+.................... 	return (0); 
+003DC:  MOVLW  00
+003DE:  MOVWF  01
+.................... } 
+003E0:  GOTO   06C0 (RETURN)
 
 Configuration Fuses:
    Word  1: C200   HS IESO FCMEN

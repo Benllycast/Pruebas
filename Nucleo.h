@@ -25,6 +25,7 @@
 #FUSES PBADEN                	//PORTB pins are configured as analog input channels on RESET
 #FUSES LPT1OSC               	//Timer1 configured for low-power operation
 #FUSES MCLR                  	//Master Clear pin enabled
+#FUSES CCP2C1
 
 #use delay(clock=10000000)
 #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8)
