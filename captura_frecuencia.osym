@@ -8,7 +8,6 @@ CCP_2_HIGH
 PSP_DATA
 C1OUT
 C2OUT
-_Randseed
 TOSU
 TOS
 STKPTR
@@ -125,11 +124,6 @@ Project Files:
     captura_frecuencia.c
     Nucleo.h
     I:\Archivos de programa\PICC\devices\18F4620.h
-    I:\Archivos de programa\PICC\drivers\stdio.h
-    I:\Archivos de programa\PICC\drivers\string.h
-    I:\Archivos de programa\PICC\drivers\stddef.h
-    I:\Archivos de programa\PICC\drivers\ctype.h
-    I:\Archivos de programa\PICC\drivers\stdlib.h
     captura_frecuencia.h
     registros.h
 

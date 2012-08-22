@@ -10,6 +10,8 @@ C1OUT
 C2OUT
 _Randseed
 CONFIG
+tiempo_inicial
+tiempo_final
 
 Project Directory:
     G:\Project\pic\CCS\MMA7455l\
