@@ -17,17 +17,18 @@ int AD_init_adc(){
 #else
 	setup_adc(ADC_CLOCK_DIV_32|ADC_TAD_MUL_2);
 #endif
-	set_tris_a(0x07);		//RB0 y RB1 entradas
+	set_tris_a(0x07);		//RB0 a RB1 entradas
 	return 0;
 }
 
 int AD_leer_canal(int canal, long *buffer){
+	int1 done;
 	set_adc_channel(canal);
 	read_adc(ADC_START_ONLY);
-	int1 done = adc_done();
-	while(!done){
+	
+	do {
 		done = adc_done();
-	}
+	}while(!done);
 	*buffer = read_adc(ADC_READ_ONLY);
 	return 0;
 }

@@ -1,7 +1,5 @@
 G:\Project\pic\CCS\MMA7455l\captura_frecuencia.o ===>  0 Errors,  0 Warnings.
 G:\Project\pic\CCS\MMA7455l\analogo_digital.o ===>  0 Errors,  0 Warnings.
-G:\Project\pic\CCS\MMA7455l\accelerometro.o ===>  0 Errors,  0 Warnings.
->>> Warning 202 "Nucleo.c" Line 8(23,29): Variable never used:   CONFIG
-G:\Project\pic\CCS\MMA7455l\Nucleo.o ===>  0 Errors,  1 Warnings.
-      Memory usage:   ROM=2%      RAM=1% - 2%
-      0 Errors,  0 Warnings.
+*** Error 18 "Nucleo.c" Line 1(0,1): File can not be opened
+     File: Nucleo.o.o
+      1 Errors,  0 Warnings.

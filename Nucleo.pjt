@@ -12,7 +12,7 @@ BuildTool=
 OptionString=
 AdditionalOptionString=
 [mru-list]
-1=Nucleo.c
+1=Nucleo.o.c
 [Windows]
 0=0000 %S 0 0 796 451 3 0
 [Opened Files]
@@ -26,10 +26,11 @@ AdditionalOptionString=
 8=captura_frecuencia.c
 9=captura_frecuencia.h
 10=registros.h
-11=
+11=memoria.c
+12=
 [Target Data]
 OptionString=+FH
-FileList=G:\Project\pic\CCS\MMA7455l\Nucleo.c
+FileList=accelerometro.o
 BuildTool=C-COMPILER
 AdditionalOptionString=
 BuildRequired=1
@@ -76,9 +77,11 @@ BuildTool=
 OptionString=
 AdditionalOptionString=
 [Units]
-Count=4
-1=Nucleo.o
+Count=5
+1=Nucleo.o.c
 2=accelerometro.o
 3=analogo_digital.o
 4=captura_frecuencia.o
 Link=1
+5=memoria.c
+6=memoria.h

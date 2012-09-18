@@ -1,0 +1,48 @@
+_RETURN_
+CCP_1
+CCP_1_LOW
+CCP_1_HIGH
+CCP_2
+CCP_2_LOW
+CCP_2_HIGH
+PSP_DATA
+C1OUT
+C2OUT
+MEMORIA_OK
+response
+ini_buffer
+info
+file_name
+handshaking
+append
+performance
+
+Project Directory:
+    G:\Project\pic\CCS\MMA7455l\
+
+Project Files:
+    memoria.c
+    Nucleo.h
+    I:\Archivos de programa\PICC\devices\18F4620.h
+    I:\Archivos de programa\PICC\drivers\string.h
+    I:\Archivos de programa\PICC\drivers\stddef.h
+    I:\Archivos de programa\PICC\drivers\ctype.h
+    memoria.h
+
+Units:
+    G:\Project\pic\CCS\MMA7455l\memoria (main)
+
+Compiler Settings:
+    Processor:      PIC18F4620
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+    Output file:    Relocatable
+
+Output Files:
+    Errors:      memoria.err
+    Ext Symbols: memoria.esym
+    Object:      memoria.o
+    Symbols:     memoria.osym

@@ -1,7 +1,6 @@
-C L "MAIN" 0 12 1 "FUNCTION"
-D G "__PCH__" 0 44 ""4.105""
-D G "__DEVICE__" 0 44 "4620"
-D G "__DATE__" 0 44 ""21-Ago-12""
+D G "__PCH__" 0 36 ""4.105""
+D G "__DEVICE__" 0 36 "4620"
+D G "__DATE__" 0 36 ""18-Sep-12""
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 1

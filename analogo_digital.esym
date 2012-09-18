@@ -1,7 +1,7 @@
-D G "__PCH__" 0 108 ""4.105""
-D G "__DEVICE__" 0 108 "4620"
-D G "__DATE__" 0 108 ""21-Ago-12""
-D G "__TIME__" 0 108 ""15:08:43"" "Standard Header file for the PIC18F4620 device ////////////////"
+D G "__PCH__" 0 110 ""4.105""
+D G "__DEVICE__" 0 110 "4620"
+D G "__DATE__" 0 110 ""18-Sep-12""
+D G "__TIME__" 0 110 ""17:50:42"" "Standard Header file for the PIC18F4620 device ////////////////"
 d G "PIN_A0" 2 25 "31744"
 d G "PIN_A1" 2 26 "31745"
 d G "PIN_A2" 2 27 "31746"
@@ -308,7 +308,7 @@ C L "AD_init_adc" 0 8 1 "FUNCTION"
 F G "AD_leer_canal" 0 24 "int8()"
 V L "canal" 0 24 "int8"
 V L "buffer" 0 24 "*int16"
-V L "done" 0 27 "int1"
+V L "done" 0 25 "int1"
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 1
