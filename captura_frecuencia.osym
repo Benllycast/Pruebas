@@ -124,8 +124,8 @@ Project Files:
     captura_frecuencia.c
     Nucleo.h
     I:\Archivos de programa\PICC\devices\18F4620.h
-    captura_frecuencia.h
     registros.h
+    captura_frecuencia.h
 
 Units:
     G:\Project\pic\CCS\MMA7455l\captura_frecuencia (main)

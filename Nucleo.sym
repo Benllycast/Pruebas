@@ -26,52 +26,67 @@
 018     @INTERRUPT_AREA
 019-01A strtok.save
 01B-01E _Randseed
-01F-027 CONFIG
-028     MODO_CCP1
-029     MODO_CCP2
-02A     Q_CCP
-02B     MODO_TIMER_CCP
-02C     overflow_t3_counter
-02D-030 tiempo_inicial
-031-034 tiempo_final
-035-038 MAIN.value
-039     MAIN.error
-03A     setup_devices.error
-03A     CP_leer_ccp.canal
-03A-03D @PRINTF_L32U_9600_31766_31767.P1
-03B-03C CP_leer_ccp.buffer
-03D-040 CP_leer_ccp.resultado
-03E     @PRINTF_L32U_9600_31766_31767.@SCRATCH1
-03F     @PRINTF_L32U_9600_31766_31767.@SCRATCH2
-040     @PRINTF_L32U_9600_31766_31767.@SCRATCH3
-041     @PRINTF_L32U_9600_31766_31767.@SCRATCH4
-041     CP_leer_ccp.@SCRATCH1
-042     @PRINTF_L32U_9600_31766_31767.@SCRATCH5
-042     CP_leer_ccp.@SCRATCH2
-043     @PRINTF_L32U_9600_31766_31767.@SCRATCH6
-044     @PRINTF_L32U_9600_31766_31767.@SCRATCH7
-045     @PRINTF_L32U_9600_31766_31767.@SCRATCH8
-046-049 @DIV3232.P1
-04A-04D @DIV3232.P1
-04E     @DIV3232.@SCRATCH1
-04F     @DIV3232.@SCRATCH2
-050     @DIV3232.@SCRATCH3
-051     @DIV3232.@SCRATCH4
-052     @DIV3232.@SCRATCH5
-053     ccp1_isr.@SCRATCH1
-053     ccp2_isr.@SCRATCH1
-054     ccp1_isr.@SCRATCH2
-054     ccp2_isr.@SCRATCH2
-055     ccp1_isr.@SCRATCH3
-055     ccp2_isr.@SCRATCH3
-056     ccp1_isr.@SCRATCH4
-056     ccp2_isr.@SCRATCH4
+01F-020 strtok.save
+021.0   MEMORIA_OK
+022-041 response
+042-043 ini_buffer
+044-048 info
+049-054 file_name
+055     handshaking
+056     append
+057     performance
+058-060 CONFIG
+061     MODO_CCP1
+062     MODO_CCP2
+063     Q_CCP
+064     MODO_TIMER_CCP
+065     overflow_t3_counter
+066-069 tiempo_inicial
+06A-06D tiempo_final
+06E-071 MAIN.value
+072     MAIN.error
+073     setup_devices.error
+074     MEMORIA_init.ack
+074     init_MMA.error
+075-07A init_MMA.xyz
+075     MEMORIA_init.@SCRATCH1
+07B     init_MMA.c1
+07C     init_MMA.c2
+07D     write_MMA.address
+07D     read_MMA.address
+07D     @delay_ms1.P1
+07E-07F read_MMA.value
+07E-07F write_MMA.value
+07F     write_MMA.start_address
+080     write_MMA.error
+080-081 write_MMA.pData
+080     read_MMA.error
+081.0   ext_eeprom_ready.ack
+081     read_MMA.@SCRATCH1
+081     write_MMA.@SCRATCH1
+082     write_MMA.size
+082     read_MMA.@SCRATCH2
+083     @I2C_READU_1.P1
+083     write_MMA.error
+084     write_MMA.i
+085.0   write_MMA.ack
+086     write_MMA.@SCRATCH1
+087     @I2C_WRITEU_1.P1
+088     ccp1_isr.@SCRATCH1
+088     ccp2_isr.@SCRATCH1
+089     ccp1_isr.@SCRATCH2
+089     ccp2_isr.@SCRATCH2
+08A     ccp1_isr.@SCRATCH3
+08A     ccp2_isr.@SCRATCH3
+08B     ccp1_isr.@SCRATCH4
+08B     ccp2_isr.@SCRATCH4
 F80     PORTA
 F81     PORTB
 F82     PORTC
 F83     PSP_DATA
 F83     PORTD
 F83     PSP_DATA
+F83     PORTD
 F84     PORTE
 F89     LATA
 F8A     LATB
@@ -111,21 +126,25 @@ FB6     ECCPAS1
 FB7     PWM1CON
 FB8     BAUDCON
 FBA     CCP2CON
-FBB     CCP_2
 FBB     CCP_2_LOW
 FBB     CCP_2
 FBB     CCP_2_LOW
 FBB     CCP_2
 FBB     CCP_2_LOW
+FBB     CCP_2
 FBC     CCP_2_HIGH
 FBC     CCPR2
 FBC     CCP_2_HIGH
 FBD     CCP1CON
-FBE     CCP_1
 FBE     CCP_1_LOW
 FBE     CCP_1
 FBE     CCP_1_LOW
 FBE     CCP_1
+FBE     CCP_1_LOW
+FBF     CCP_1_HIGH
+FBF     CCPR1
+FBF     CCP_1_HIGH
+FBF     CCPR1
 FBF     CCP_1_HIGH
 FBF     CCPR1
 FC0     ADCON2
@@ -159,7 +178,8 @@ FDF     INDF2
 FE0     BSR
 FE1     FSR1L
 FE1-FE2 @READ_PACKED_MEMORY.P1
-FE1-FE2 @WRITE_PACKED_MEMORY.P2
+FE1     FSR1L
+FE1-FE2 @WRITE_PACKED_MEMORY.P1
 FE2     FSR1H
 FE3     PLUSW1
 FE4     PREINC1
@@ -167,10 +187,12 @@ FE5     POSTDEC1
 FE6     POSTINC1
 FE7     INDF1
 FE8     WREG
-FE9-FEA @WRITE_PROGRAM_MEMORY.P1
+FE9-FEA @READ_PROGRAM_MEMORY.P1
+FE9     FSR0L
+FE9-FEA @WRITE_PACKED_MEMORY.P1
 FE9-FEA @READ_PACKED_MEMORY.P2
-FE9-FEA @READ_PROGRAM_MEMORY.P3
-FE9-FEA @WRITE_PACKED_MEMORY.P4
+FE9     FSR0L
+FE9-FEA @WRITE_PROGRAM_MEMORY.P1
 FE9     FSR0L
 FEA     FSR0H
 FEB     PLUSW0
@@ -183,8 +205,8 @@ FF1     INTCON2
 FF2     INTCON
 FF4     PROD
 FF5     TABLAT
-FF6-FF8 @READ_PROGRAM_MEMORY.P1
-FF6-FF8 @WRITE_PROGRAM_MEMORY.P2
+FF6-FF8 @WRITE_PROGRAM_MEMORY.P1
+FF6-FF8 @READ_PROGRAM_MEMORY.P2
 FF7     TBLPTR
 FF8     TBLPTRU
 FF9     PCL
@@ -195,19 +217,32 @@ FFE     TOS
 FFF     TOSU
 
 ROM Allocation:
-01D6  setup_devices
-03C6  MAIN
-02A0  @DIV3232
-031A  @PRINTF_L32U_9600_31766_31767
+035E  @delay_ms1
+01C2  @I2C_WRITEU_1
+0260  @I2C_READU_1
+04FA  setup_devices
+0542  MAIN
+046A  @PUTCHARI_BIU_2
+0472  MEMORIA_init
+0004  MEMORIA_reset
+0386  init_MMA
+027E  read_MMA
+01DE  write_MMA
+02EA  write_MMA
+023A  ext_eeprom_ready
+0414  AD_init_adc
 00C6  timer3_isr
 00CE  ccp1_isr
-0126  ccp2_isr
-01A0  CP_init_ccp
-020C  CP_leer_ccp
-03C6  @cinit
+0148  ccp2_isr
+0434  CP_init_ccp
+0542  @cinit
 0136  StrtoulGO
 0136  StrtolGO
 
+
+User Memory space: 
+
+User Memory space: 
 
 User Memory space: 
 
@@ -232,6 +267,7 @@ Project Files:
     Nucleo.c
     Nucleo.h (link)
     I:\Archivos de programa\PICC\devices\18F4620.h (link)
+    registros.h (link)
     I:\Archivos de programa\PICC\drivers\stdio.h (link)
     I:\Archivos de programa\PICC\drivers\string.h (link)
     I:\Archivos de programa\PICC\drivers\stddef.h (link)
@@ -240,13 +276,15 @@ Project Files:
     accelerometro.h (link)
     analogo_digital.h (link)
     captura_frecuencia.h (link)
+    memoria.h (link)
+    memoria.c (link)
     accelerometro.c (link)
     analogo_digital.c (link)
     captura_frecuencia.c (link)
-    registros.h (link)
 
 Units:
     G:\Project\pic\CCS\MMA7455l\Nucleo.o
+    G:\Project\pic\CCS\MMA7455l\memoria.o
     G:\Project\pic\CCS\MMA7455l\accelerometro.o
     G:\Project\pic\CCS\MMA7455l\analogo_digital.o
     G:\Project\pic\CCS\MMA7455l\captura_frecuencia.o

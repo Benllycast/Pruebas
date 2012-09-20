@@ -8,6 +8,107 @@ CCP_2_HIGH
 PSP_DATA
 C1OUT
 C2OUT
+TOSU
+TOS
+STKPTR
+PCLATU
+PCLATH
+PCL
+TBLPTRU
+TBLPTR
+TABLAT
+PROD
+INTCON
+INTCON2
+INTCON3
+INDF0
+POSTINC0
+POSTDEC0
+PREINC0
+PLUSW0
+FSR0H
+FSR0L
+WREG
+INDF1
+POSTINC1
+POSTDEC1
+PREINC1
+PLUSW1
+FSR1H
+FSR1L
+BSR
+INDF2
+POSTINC2
+POSTDEC2
+PREINC2
+PLUSW2
+FSR2H
+FSR2L
+STATUS
+TMR0
+T0CON
+OSCCON
+LVDCON
+WDTCON
+RCON
+TMR1
+T1CON
+TMR2
+PR2
+T2CON
+SSPBUF
+SSPADD
+SSPSTAT
+SSPCON1
+SSPCON2
+ADRES
+ADCON0
+ADCON1
+ADCON2
+CCPR1
+CCP1CON
+CCPR2
+CCP2CON
+BAUDCON
+PWM1CON
+ECCPAS1
+CVRCON
+CMCON
+TMR3
+T3CON
+SPBRGH
+SPBRG
+RCREG
+TXREG
+TXSTA
+RCSTA
+EEADRH
+EEADR
+EEDATA
+EECON2
+EECON1
+IPR2
+PIR2
+PIE2
+IPR1
+PIR1
+PIE1
+OSCTUNE
+TRISE
+TRISD
+TRISC
+TRISB
+TRISA
+LATE
+LATD
+LATC
+LATB
+LATA
+PORTE
+PORTD
+PORTC
+PORTB
+PORTA
 MEMORIA_OK
 response
 ini_buffer
@@ -24,6 +125,7 @@ Project Files:
     memoria.c
     Nucleo.h
     I:\Archivos de programa\PICC\devices\18F4620.h
+    registros.h
     I:\Archivos de programa\PICC\drivers\string.h
     I:\Archivos de programa\PICC\drivers\stddef.h
     I:\Archivos de programa\PICC\drivers\ctype.h
@@ -42,7 +144,7 @@ Compiler Settings:
     Output file:    Relocatable
 
 Output Files:
-    Errors:      memoria.err
+    Errors:      Nucleo.err
     Ext Symbols: memoria.esym
     Object:      memoria.o
     Symbols:     memoria.osym

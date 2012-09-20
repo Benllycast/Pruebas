@@ -32,8 +32,8 @@
 #define MEMORIA_NO_HANDSHAKING 0x00
 #define MEMORIA_HANDSHAKING 0x01
 
-#define MEMORIA_HIGH_PERFORMANCE 0X00
-#define MEMORIA_LOW_PERFORMANCE 0X40
+#define MEMORIA_HIGH_PERFORMANCE 0x00
+#define MEMORIA_LOW_PERFORMANCE 0x40
 //#define MEMORIA_OUT_TIME	65535	//modificar para colocar tiempos mas largos
 //#define MEMORIA_COMPROBAR_ARCHIVO
 
@@ -45,6 +45,5 @@ int MEMORIA_recive(char *data , unsigned int size);
 int MEMORIA_setparam(unsigned int param, char *value, unsigned int size);
 int MEMORIA_init();
 void MEMORIA_reset();
-int open(char *name_file);
-void close();
+int MEMORIA_select_file(char *file_name);
 #endif

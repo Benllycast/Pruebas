@@ -1,65 +1,76 @@
 
-ROM used: 1210 (2%)
-          1210 (2%) including unused fragments
+ROM used: 1548 (2%)
+          1548 (2%) including unused fragments
 
           0 Average locations per line
           2 Average locations per statement
 
-RAM used: 58 (1%) at main() level
-          87 (2%) worst case
+RAM used: 115 (3%) at main() level
+          140 (4%) worst case
 
-Stack used: 3 worst case (out of 31 total available)
+Stack used: 6 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   43    14   2  Nucleo.c
-   33     0   0  Nucleo.h
+   47    16   2  Nucleo.c
+   34     0   0  Nucleo.h
   463     0   0  I:\Archivos de programa\PICC\devices\18F4620.h
+  668     0   0  registros.h
    37     0   0  I:\Archivos de programa\PICC\drivers\stdio.h
   409     0   0  I:\Archivos de programa\PICC\drivers\string.h
    28     0   0  I:\Archivos de programa\PICC\drivers\stddef.h
    28     0   0  I:\Archivos de programa\PICC\drivers\ctype.h
- 1273   359  61  I:\Archivos de programa\PICC\drivers\stdlib.h
+ 1273   359  54  I:\Archivos de programa\PICC\drivers\stdlib.h
   210     0   0  accelerometro.h
    18     0   0  analogo_digital.h
    10     0   0  captura_frecuencia.h
-  278   152  26  accelerometro.c
-   34    12   2  analogo_digital.c
-  107    56   9  captura_frecuencia.c
-  668     0   0  registros.h
+   50     0   0  memoria.h
+  267    67  10  memoria.c
+  278   152  23  accelerometro.c
+   35    11   2  analogo_digital.c
+  109    59   9  captura_frecuencia.c
 ----- -----
- 3639   593 Total
+ 3964   664 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
-0     54   2   1   231  3.2  setup_devices
-0    248  10   5   194  3.4  MAIN
-0    122   5  13             @DIV3232
-0    172   7  12             @PRINTF_L32U_9600_31766_31767
+0     40   1   1             @delay_ms1
+0     28   1   1             @I2C_WRITEU_1
+0     30   1   1             @I2C_READU_1
+0     72   2   1   321  3.3  setup_devices
+0    202   7   5   106  2.5  MAIN
+0      8   0   0   180  5.0  @PUTCHARI_BIU_2
+0    136   4   2   812  6.3  MEMORIA_init
+0      4   0   0     3  0.0  MEMORIA_reset
+0    142   5   9   806  7.1  init_MMA
+0    108   3   6   441  4.9  read_MMA
+0     92   3   5   338  4.2  write_MMA
+0    116   4   8   527  7.6  write_MMA
+0     38   1   1    84  2.4  ext_eeprom_ready
+0     32   1   0   125  2.6  AD_init_adc
 0      8   0   0    17  1.3  timer3_isr
-0     88   4   4   272  4.3  ccp1_isr
-0    122   5   4   323  4.6  ccp2_isr
+0    122   4   4   323  4.6  ccp1_isr
+0    122   4   4   323  4.6  ccp2_isr
 0     54   2   0   172  2.7  CP_init_ccp
-0    148   6   9   663  6.9  CP_leer_ccp
 
 Program metrics:
-    Functions               7
-    Statements              593
-    Comments                82
-    Volume (V)              2792
-    Difficilty (D)          26.6
-    Effort to implement (E) 74215
-    Time to implement (T)   1 hours, 9 minutes
-    Est Delivered Bugs (B)  1
-    Cyclomatic Complexity   7
-    Maintainability (MI)    26
+    Functions               15
+    Statements              664
+    Comments                104
+    Volume (V)              7563
+    Difficilty (D)          60.3
+    Effort to implement (E) 456395
+    Time to implement (T)   7 hours, 3 minutes
+    Est Delivered Bugs (B)  2
+    Cyclomatic Complexity   21
+    Maintainability (MI)    37
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
-00004-00006     0  4  
+00004-00006     4  0  
 00008-000C4   190  0  
-000C6-0FFFE  1016  64322  
+000C6-0FFFE  1350  63988  
 
 
 

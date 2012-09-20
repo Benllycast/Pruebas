@@ -1,4 +1,5 @@
 #include <18F4620.h>
+//#include "registros.h"
 #device adc=10
 
 #FUSES NOWDT                 	//No Watch Dog Timer
