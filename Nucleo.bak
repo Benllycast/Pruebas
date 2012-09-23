@@ -1,5 +1,8 @@
+#ifndef NUCLEO_H
+#define NUCLEO_H
+
 #include <18F4620.h>
-#include "registros.h"
+//#include "registros.h"
 #device adc=10
 
 #FUSES NOWDT                 	//No Watch Dog Timer
@@ -31,3 +34,7 @@
 #use delay(clock=10000000)
 #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8)
 #use i2c(master, sda=PIN_C4, scl=PIN_C3, FORCE_HW, RESTART_WDT)                    //directiva de compilador par ale uso del bus I2C del microcontrolador
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#endif

@@ -25,68 +25,87 @@
 017     @INTERRUPT_AREA
 018     @INTERRUPT_AREA
 019-01A strtok.save
-01B-01E _Randseed
-01F-020 strtok.save
-021.0   MEMORIA_OK
-022-041 response
-042-043 ini_buffer
-044-048 info
-049-054 file_name
-055     handshaking
-056     append
-057     performance
-058-060 CONFIG
-061     MODO_CCP1
-062     MODO_CCP2
-063     Q_CCP
-064     MODO_TIMER_CCP
-065     overflow_t3_counter
-066-069 tiempo_inicial
-06A-06D tiempo_final
-06E-071 MAIN.value
-072     MAIN.error
-073     setup_devices.error
-074     MEMORIA_init.ack
-074     init_MMA.error
-075-07A init_MMA.xyz
-075     MEMORIA_init.@SCRATCH1
-07B     init_MMA.c1
-07C     init_MMA.c2
-07D     write_MMA.address
-07D     read_MMA.address
-07D     @delay_ms1.P1
-07E-07F read_MMA.value
-07E-07F write_MMA.value
-07F     write_MMA.start_address
-080     write_MMA.error
-080-081 write_MMA.pData
-080     read_MMA.error
-081.0   ext_eeprom_ready.ack
-081     read_MMA.@SCRATCH1
-081     write_MMA.@SCRATCH1
-082     write_MMA.size
-082     read_MMA.@SCRATCH2
-083     @I2C_READU_1.P1
-083     write_MMA.error
-084     write_MMA.i
-085.0   write_MMA.ack
-086     write_MMA.@SCRATCH1
-087     @I2C_WRITEU_1.P1
-088     ccp1_isr.@SCRATCH1
-088     ccp2_isr.@SCRATCH1
-089     ccp1_isr.@SCRATCH2
-089     ccp2_isr.@SCRATCH2
-08A     ccp1_isr.@SCRATCH3
-08A     ccp2_isr.@SCRATCH3
-08B     ccp1_isr.@SCRATCH4
-08B     ccp2_isr.@SCRATCH4
+01B-01C strtok.save
+01D.0   MEMORIA_OK
+01D.1   MEMORIA_HW
+01D.2   timeout_error
+01E     MEM_proceso
+01F     i
+020     car
+021-022 time_delay
+023-024 MEMORIA_PIN_RESET
+025-028 tamano
+029-02D MEM_info
+02E-039 MEM_file_name
+03A     MEM_handshaking
+03B     MEM_append
+03C     MEM_performance
+03D     MEM_RESPONSE
+03E-03F strtok.save
+040-048 CONFIG
+049-04A strtok.save
+04B-04C strtok.save
+04D     MODO_CCP1
+04E     MODO_CCP2
+04F     Q_CCP
+050     MODO_TIMER_CCP
+051     overflow_t3_counter
+052-055 tiempo_inicial
+056-059 tiempo_final
+05A-05D MAIN.value
+05E     MAIN.error
+05F     setup_devices.error
+060     @PUTCHAR_2_.P1
+060     init_MMA.error
+060     @WRITEBITA.P1
+060-061 MEMORIA_getc.timeout
+060     @READBITA.P1
+060     MEMORIA_init.@SCRATCH1
+061-062 @READBITA.P1
+061-066 init_MMA.xyz
+061     @WRITEBITA.P1
+061     @PUTCHAR_2_.@SCRATCH1
+062-063 @WRITEBITA.P1
+062     @GETCH_2_.@SCRATCH1
+062     MEMORIA_getc.@SCRATCH1
+063     @delay_us1.P1
+063     @GETCH_2_.@SCRATCH2
+067     init_MMA.c1
+068     init_MMA.c2
+069     write_MMA.address
+069     read_MMA.address
+069     @delay_ms1.P1
+06A-06B write_MMA.value
+06A-06B read_MMA.value
+06B     write_MMA.start_address
+06C     write_MMA.error
+06C-06D write_MMA.pData
+06C     read_MMA.error
+06D.0   ext_eeprom_ready.ack
+06D     read_MMA.@SCRATCH1
+06D     write_MMA.@SCRATCH1
+06E     write_MMA.size
+06E     read_MMA.@SCRATCH2
+06F     @I2C_READU_1.P1
+06F     write_MMA.error
+070     write_MMA.i
+071.0   write_MMA.ack
+072     write_MMA.@SCRATCH1
+073     @I2C_WRITEU_1.P1
+074     ccp1_isr.@SCRATCH1
+074     ccp2_isr.@SCRATCH1
+075     ccp1_isr.@SCRATCH2
+075     ccp2_isr.@SCRATCH2
+076     ccp1_isr.@SCRATCH3
+076     ccp2_isr.@SCRATCH3
+077     ccp1_isr.@SCRATCH4
+077     ccp2_isr.@SCRATCH4
 F80     PORTA
 F81     PORTB
 F82     PORTC
 F83     PSP_DATA
 F83     PORTD
 F83     PSP_DATA
-F83     PORTD
 F84     PORTE
 F89     LATA
 F8A     LATB
@@ -130,11 +149,8 @@ FBB     CCP_2_LOW
 FBB     CCP_2
 FBB     CCP_2_LOW
 FBB     CCP_2
-FBB     CCP_2_LOW
-FBB     CCP_2
 FBC     CCP_2_HIGH
 FBC     CCPR2
-FBC     CCP_2_HIGH
 FBD     CCP1CON
 FBE     CCP_1_LOW
 FBE     CCP_1
@@ -144,9 +160,6 @@ FBE     CCP_1_LOW
 FBF     CCP_1_HIGH
 FBF     CCPR1
 FBF     CCP_1_HIGH
-FBF     CCPR1
-FBF     CCP_1_HIGH
-FBF     CCPR1
 FC0     ADCON2
 FC1     ADCON1
 FC2     ADCON0
@@ -176,10 +189,9 @@ FDD     POSTDEC2
 FDE     POSTINC2
 FDF     INDF2
 FE0     BSR
+FE1-FE2 @WRITE_PACKED_MEMORY.P1
 FE1     FSR1L
 FE1-FE2 @READ_PACKED_MEMORY.P1
-FE1     FSR1L
-FE1-FE2 @WRITE_PACKED_MEMORY.P1
 FE2     FSR1H
 FE3     PLUSW1
 FE4     PREINC1
@@ -191,9 +203,7 @@ FE9-FEA @READ_PROGRAM_MEMORY.P1
 FE9     FSR0L
 FE9-FEA @WRITE_PACKED_MEMORY.P1
 FE9-FEA @READ_PACKED_MEMORY.P2
-FE9     FSR0L
-FE9-FEA @WRITE_PROGRAM_MEMORY.P1
-FE9     FSR0L
+FE9-FEA @WRITE_PROGRAM_MEMORY.P3
 FEA     FSR0H
 FEB     PLUSW0
 FEC     PREINC0
@@ -205,8 +215,8 @@ FF1     INTCON2
 FF2     INTCON
 FF4     PROD
 FF5     TABLAT
-FF6-FF8 @WRITE_PROGRAM_MEMORY.P1
-FF6-FF8 @READ_PROGRAM_MEMORY.P2
+FF6-FF8 @READ_PROGRAM_MEMORY.P1
+FF6-FF8 @WRITE_PROGRAM_MEMORY.P2
 FF7     TBLPTR
 FF8     TBLPTRU
 FF9     PCL
@@ -218,13 +228,18 @@ FFF     TOSU
 
 ROM Allocation:
 035E  @delay_ms1
+056C  @delay_us1
 01C2  @I2C_WRITEU_1
 0260  @I2C_READU_1
-04FA  setup_devices
-0542  MAIN
-046A  @PUTCHARI_BIU_2
-0472  MEMORIA_init
-0004  MEMORIA_reset
+06B6  setup_devices
+06FE  MAIN
+0522  @PUTCHAR_2_
+058A  @GETCH_2_
+062C  MEMORIA_init
+04D8  MEMORIA_reset
+046A  @WRITEBITA
+04A8  @READBITA
+05DC  MEMORIA_getc
 0386  init_MMA
 027E  read_MMA
 01DE  write_MMA
@@ -235,9 +250,7 @@ ROM Allocation:
 00CE  ccp1_isr
 0148  ccp2_isr
 0434  CP_init_ccp
-0542  @cinit
-0136  StrtoulGO
-0136  StrtolGO
+06FE  @cinit
 
 
 User Memory space: 
@@ -267,12 +280,9 @@ Project Files:
     Nucleo.c
     Nucleo.h (link)
     I:\Archivos de programa\PICC\devices\18F4620.h (link)
-    registros.h (link)
-    I:\Archivos de programa\PICC\drivers\stdio.h (link)
     I:\Archivos de programa\PICC\drivers\string.h (link)
     I:\Archivos de programa\PICC\drivers\stddef.h (link)
     I:\Archivos de programa\PICC\drivers\ctype.h (link)
-    I:\Archivos de programa\PICC\drivers\stdlib.h (link)
     accelerometro.h (link)
     analogo_digital.h (link)
     captura_frecuencia.h (link)
@@ -281,6 +291,7 @@ Project Files:
     accelerometro.c (link)
     analogo_digital.c (link)
     captura_frecuencia.c (link)
+    registros.h (link)
 
 Units:
     G:\Project\pic\CCS\MMA7455l\Nucleo.o

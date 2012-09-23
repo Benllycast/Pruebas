@@ -1,232 +1,314 @@
 #include "Nucleo.h"
-#include <string.h>
 #include "memoria.h"
+#use rs232(stream=MEMORIA,baud=9600,parity=N,xmit=PIN_D6,rcv=PIN_D7,bits=8,FORCE_SW,DISABLE_INTS)
 
-#use rs232(stream=MEMORIA,baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8)
+short MEMORIA_OK = FALSE;
+short MEMORIA_HW = FALSE;                                      //comprueba que la memoria este inicializada
+short timeout_error = FALSE;
+int MEM_proceso = -1;                                          //puede ser de escritura o lectura
+unsigned int i = 0;
+unsigned int car = 0;
+unsigned long time_delay = 10;
+int16 MEMORIA_PIN_RESET = PIN_D5;
+unsigned int32 tamano = 0;
+char MEM_info[5] = {0x00,0x00,0x00,0x00,0x00};                 //guarda la informacion del dispositivo de memoria conectado
+char MEM_file_name[MEMORIA_NAME_LENG_LIMIT];                   //nombre del archivo actualmente utilizado
+char MEM_handshaking = 0x01;                                   //opcion de handshaking
+char MEM_append = MEMORIA_APPEND;                              //opcion para crear o agregar datos en un archivo
+char MEM_performance = MEMORIA_HIGH_PERFORMANCE;               //opcion de velocidad de trasnmicion
+char MEM_RESPONSE = MEMORIA_NOACK;
 
-short MEMORIA_OK = FALSE;                                   //comprueba que la memoria este inicializada
-char response[MEMORIA_BUFFER];                              //buffer para almacenar la respuesta de la memoria
-char *ini_buffer = &response;                               //puntero para recorrer el buffer de memoria
-char info[5] = {0x00,0x00,0x00,0x00,0x00};                  //guarda la informacion del dispositivo de memoria conectado
-char file_name[MEMORIA_NAME_LENG_LIMIT];                    //nombre del archivo actualmente utilizado
-char handshaking = MEMORIA_HANDSHAKING;                     //opcion de handshaking
-char append = MEMORIA_APPEND;                               //opcion para crear o agregar datos en un archivo
-char performance = MEMORIA_HIGH_PERFORMANCE;                //opcion de velocidad de trasnmicion
 
-//funcion global para la escritura de datos en un archivo
-int MEMORIA_write(char *buffer, unsigned int size){         
-   int i = 0;
-   int enviados = 0;
-   int32 tamano = 0;
-   int car = 0;
-   tamano = (int32)size;
-   car = strlen(file_name);                                 //cantidad de caracteres a enviar
-   fputc(MEMORIA_EXT_CMD,MEMORIA);                          //envia el @ a la memoria
-   fputc(MEMORIA_CMD_WRITE_FILE,MEMORIA);                   //comando de escritura en archivo
-   fputc((handshaking|append|performance),MEMORIA);         //opciones del comando
+
+///////////////////////////////////////////////////////////
+//funcion general para incializar el dispositivo de memoria
+///////////////////////////////////////////////////////////
+int MEMORIA_init(void){
+
+   if(!MEMORIA_HW)
+      return (-1);
+
+   MEMORIA_reset();
+   delay_ms(550);
    
-   for(i =0; (i < MEMORIA_NAME_LENG_LIMIT) && (i < car);i++)
-      fputc(file_name[i],MEMORIA);                          //envia lel nombre de archivo a escribir
-
-   fputc(0x00,MEMORIA);                                     //terminador de nombre de cadena
-
-   fputc(make8(tamano,3),MEMORIA);                          //envia el primer byte del tamaño del buffer
-   fputc(make8(tamano,2),MEMORIA);
-   fputc(make8(tamano,1),MEMORIA);
-   fputc(make8(tamano,0),MEMORIA);                          //envia el ultimo byte del tamaño del buffer
-
-   enviados = MEMORIA_send(buffer,size);                    //envia los datos a la memoria
-   if(enviados != size)                                     //si no se completa el envio retorna -1
-      return(-1);
-   
-   return (enviados);                                       //si todo ok retorna la cantida de bytes enviados
-}
-
-//funcion global para leer datos guardados en un archivo
-int MEMORIA_read(char *buffer, unsigned int size){
-
-   return (0);
-}
-
-//funcion para enviar un solo byte y esperar la respuesta desde el dispostivo de memoria
-int MEMORIA_send(char data){
-   char respuesta = 0x00;
-
-#ifdef MEMORIA_OUT_TIME    //si el tiempo de la espera es limitado
-   unsigned long tiempo_limite = 0; //variable para tiempo maximo de espera
-#endif
-
-   //comprueba que la memoria este inicializada
-   if(!MEMORIA_OK){
-      return(-1);
+   fputc(MEMORIA_CMD_AUTOBAUD,MEMORIA);  
+   MEM_RESPONSE = MEMORIA_getc();
+   if((!MEM_RESPONSE && timeout_error)||(MEM_RESPONSE != MEMORIA_ACK)){
+      return (1);
    }
 
-   fputc(data,MEMORIA);                                     //envia un dato a la memoria
-
-#ifdef MEMORIA_OUT_TIME    //si el tiempo de la espera es limitado
-   
-      while(!kbhit(MEMORIA) && (tiempo_limite < MEMORIA_OUT_TIME)){  //espera mientras llega un dato o no sobrepase el limite de tiempo
-         tiempo_limite++;
-      }
-      if(tiempo_limite >= MEMORIA_OUT_TIME)                 //si se pasa el tiempo de espera retorna -1
-         return(-1);
-
-#endif 
-   if(kbhit(MEMORIA))                                       //espera la respuesta de la memoria
-         respuesta = fgetc(MEMORIA);                        //lee la respuesta de la memoria
-
-   return ((respuesta == MEMORIA_ACK)? 0:1);                //retorna 1 o 0 dependiendo si es ACK
-}
-
-//funcion para enviar multiples bytes de datos hacia la memoria
-int MEMORIA_send(char *data, unsigned int size){
-   unsigned int indice = 0;
-   char respuesta = MEMORIA_NOACK;
-
-#ifdef MEMORIA_OUT_TIME       //si el tiempo de la espera es limitado
-   unsigned long tiempo_limite = 0; 
-#endif
-   //comprueba que la memoria este inicializada
-   if(!MEMORIA_OK){
-      return(-1);
-   }
-   do{
-      fputc(data[indice],MEMORIA);                          //envia 1 byte de datos a la memoria
-         
-#ifdef MEMORIA_OUT_TIME       //si el tiempo de la espera es limitado
-
-      while(!kbhit(MEMORIA) && (tiempo_limite < MEMORIA_OUT_TIME)){
-         tiempo_limite++;
-      }
-      if(tiempo_limite >= MEMORIA_OUT_TIME)
-         return(indice);
-
-#endif
-
-      if(kbhit(MEMORIA))
-         respuesta = fgetc(MEMORIA);                        //lee la respuesta de la memoria
-      indice++;                                             //aumenta el indice de bytes
-   }while((indice < size) && (respuesta == MEMORIA_ACK));
-   return (indice);                                         //retorna el total de bytes enviados a la memoria
-}
-
-int recivir(char *data , unsigned int size){
-   return (0);
-}
-
-int MEMORIA_setparam(unsigned int param, char *value, unsigned int size){return (0);}
-
-int MEMORIA_init(){
-   char ack = MEMORIA_NOACK;
-
-   MEMORIA_reset();                                         //envia un reset a la memoria para inicializarlar nuevamente    
-   delay_ms(550);                                           //espera de 550ms para el envio de comandos
-   
-   fputc(MEMORIA_CMD_AUTOBAUD,MEMORIA);                     //configura el baudorate de la memoria
-   
-   if(kbhit(MEMORIA))                                       //espera la respuesa desde el dispositivo
-      ack = fgetc(MEMORIA);
-   if(ack != MEMORIA_ACK)
-      return (-1);                                          //si repuesta  != ACK retorna -1
-
-   fputc(MEMORIA_CMD_VER_INFO, MEMORIA);                    //envia el comando de informacion del dispositivo
-   
-   while(!kbhit(MEMORIA));                                  //se espera a que se recivan datos desde el dispositivo
-
-   info[0] = fgetc(MEMORIA);                                //guarda la informacion del dispositivo
-   info[1] = fgetc(MEMORIA);
-   info[2] = fgetc(MEMORIA);
-   info[3] = fgetc(MEMORIA);
-   info[4] = fgetc(MEMORIA);
-
-   fputc(MEMORIA_CMD_INITIALIZE,MEMORIA);                   //incializa la memoria en modo FAT16
-
-   if(kbhit(MEMORIA))
-      ack = fgetc(MEMORIA);
-
-   if(ack != MEMORIA_ACK){
-      return (-2);
+   fputc(MEMORIA_CMD_INITIALIZE,MEMORIA);
+   MEM_RESPONSE = MEMORIA_getc();
+   if((!MEM_RESPONSE && timeout_error)||(MEM_RESPONSE != MEMORIA_ACK)){
+      return (2);
    }else{
       MEMORIA_OK = TRUE;
    }
+
+   fputc(MEMORIA_CMD_VER_INFO, MEMORIA);                    //envia el comando de informacion del dispositivo
+   MEM_info[0] = MEMORIA_getc();
+   MEM_info[1] = MEMORIA_getc();
+   MEM_info[2] = MEMORIA_getc();
+   MEM_info[3] = MEMORIA_getc();
+   MEM_info[4] = MEMORIA_getc();
+   
    return (0);
-
 }      //inicializa el dispositivo
-void MEMORIA_reset(){
-   //resetea el dispositivo
+///////////////////////////////////////////////////////////
+//funcion general para señal de reset al dispositivo de memoria
+///////////////////////////////////////////////////////////
+void MEMORIA_reset(void){
+   output_low(MEMORIA_PIN_RESET);
+   delay_ms(5);
+   output_float(MEMORIA_PIN_RESET);
 }
-int MEMORIA_select_file(char *file_name){
 
-#ifdef MEMORIA_COMPROBAR_ARCHIVO    //si comprobar el archivo antes de crearlo
- 
-   char temp_name[12], temp_name2[12];
-   char c = 0x00;
-   int i = 0, match = -1;
-   short ENCUENTRA = FALSE, new_char = FALSE;
-   unsigned int ncar = strlen(file_name);
+///////////////////////////////////////////////////////////
+//funcion general para inicializar el pin de reset del dispositivo de memoria
+///////////////////////////////////////////////////////////
+int MEMORIA_init_hw(){
+   //aqui se inicializa el hardwar de la memoria
+   /*
+   {
+      CODIGO DE INICIALIZACION DEL PIN_DE_RESET DEL
+      DISPOSITIVO DE MEMORIA;     
+   }
+   */
+   output_float(MEMORIA_PIN_RESET);
+   MEMORIA_HW = TRUE;
+   return (0);
+}
+///////////////////////////////////////////////////////////
+//funcion global para la escritura de datos en un archivo
+///////////////////////////////////////////////////////////
+int MEMORIA_write(unsigned int size){
 
-//comprueba que la memoria este inicializada
-   if(!MEMORIA_OK){
+   if(!MEMORIA_OK || MEM_proceso != WR){
       return(-1);
    }
-   
-   
-   if(ncar > MEMORIA_NAME_LENG_LIMIT){
-      ncar = MEMORIA_NAME_LENG_LIMIT;
+   if(size <= 100){
+      MEM_handshaking = MEMORIA_NO_HANDSHAKING;
+   }else{
+      MEM_handshaking = MEMORIA_MAX_HANDSHAKING;
    }
-   strncpy(temp_name, file_name, ncar);
    
-   fputc(MEMORIA_EXT_CMD, MEMORIA);
-   fputc(MEMORIA_CMD_LIST_DIRECTORY, MEMORIA);
-   for(i = 0; i < ncar; i++){
-      fputc(temp_name[i], MEMORIA);
+   tamano = (unsigned int32)size;
+   car = strlen(MEM_file_name);
+
+   fputc(MEMORIA_EXT_CMD,MEMORIA);
+   fputc(MEMORIA_CMD_WRITE_FILE,MEMORIA);
+   fputc((MEM_handshaking|MEM_append|MEM_performance),MEMORIA);
+   
+   for(i =0; (i < MEMORIA_NAME_LENG_LIMIT) && (i < car);i++)
+      fputc(MEM_file_name[i],MEMORIA);
+
+   fputc(0x00,MEMORIA);
+
+   fputc(make8(tamano,3),MEMORIA);
+   fputc(make8(tamano,2),MEMORIA);
+   fputc(make8(tamano,1),MEMORIA);
+   fputc(make8(tamano,0),MEMORIA);
+
+   MEM_RESPONSE = MEMORIA_getc();
+   if(!MEM_RESPONSE && timeout_error)
+      return (-1);
+   if(MEM_RESPONSE != MEMORIA_ACK){
+      return (-1);
    }
-   fputc(MEMORIA_NAME_TERMINATOR, MEMORIA);
+   return (0);
+}
+
+///////////////////////////////////////////////////////////
+//funcion para enviar multiples bytes de datos hacia la memoria
+///////////////////////////////////////////////////////////
+int MEMORIA_set_data(char *data){
+//tamano buffer mañimo de 100 bytes
+   if(!MEMORIA_OK || (MEM_proceso != WR))
+      return(-1);
    
    i = 0;
-   do{
-      if(kbhit(MEMORIA)){
-         c = fgetc(MEMORIA);
-         new_char = TRUE;  
-      }else{
-         new_char = FALSE;
-      }
-         
-      
-      if(new_char && isalnum(c) && !ENCUENTRA ){
-         strcat(temp_name2,&c);
+   if(MEM_handshaking == MEMORIA_NO_HANDSHAKING){
+      while((tamano > 0) && (i < MEM_handshaking)){
+         fputc(data[i],MEMORIA);
          i++;
+         tamano--;
       }
-
-      if(new_char && (c == MEMORIA_DELIMITADOR) && !ENCUENTRA){
-         match = strncmp(temp_name,temp_name2,i);
-         if(match == 0){
-            ENCUENTRA = TRUE;
-         }
-         strcpy(temp_name2, "");
-         i = 0;
-      }
-   }while(c != MEMORIA_ACK || c!= MEMORIA_NOACK);
-   
-   if(ENCUENTRA){
-      strcpy(file_name, temp_name);
-      return(1);
    }else{
+      while((tamano > 0)){
+         fputc(data[i],MEMORIA);
+         i++;
+         tamano--;
+      }
+   }
+
+   //si alcanzo el total de datos
+   if(tamano == 0){
+      MEM_RESPONSE = MEMORIA_getc();
+      if((!MEM_RESPONSE && timeout_error)||(MEM_RESPONSE != MEMORIA_ACK)){
+         return (-1);
+      }
+      MEM_proceso = (-1);
+   }
+   return (i);
+}
+
+///////////////////////////////////////////////////////////
+//funcion global para leer datos guardados en un archivo 
+///////////////////////////////////////////////////////////
+unsigned int32 MEMORIA_read(void){
+   char Umsb = 0, Ulsb = 0, Lmsb = 0,Llsb = 0;
+
+   if(!MEMORIA_OK || (MEM_proceso != RD)){                                         //comprueba que la memoria este inicializada
       return(0);
    }
 
-#else   
+   fputc(MEMORIA_EXT_CMD,MEMORIA);                          //envia el @ a la memoria
+   fputc(MEMORIA_CMD_READ_FILE,MEMORIA);                    //comando de lectura en archivo
+   fputc(MEMORIA_MAX_HANDSHAKING,MEMORIA);                   //opciones del comando
    
+   for(i =0; (i < MEMORIA_NAME_LENG_LIMIT) && (i < car);i++)
+      fputc(MEM_file_name[i],MEMORIA);                          //envia el nombre de archivo a escribir
+
+   fputc(0x00,MEMORIA);                                     //terminador de nombre de cadena
+
+   Umsb = MEMORIA_getc();
+   if(!Umsb && timeout_error) return (0);
+   Ulsb = MEMORIA_getc();
+   if(!Ulsb && timeout_error) return (0);
+   Lmsb = MEMORIA_getc();
+   if(!Lmsb && timeout_error) return (0);
+   Llsb = MEMORIA_getc();
+   if(!Llsb && timeout_error) return (0);
+
+   tamano = make32(Umsb,Ulsb,Lmsb,Llsb);
+   return (tamano);                                              
+}
+
+///////////////////////////////////////////////////////////
+//funcion para cancelar la operaciones en un archivo 
+///////////////////////////////////////////////////////////
+int MEMORIA_cancel(void){
+
+   if(MEM_proceso == RD){
+      fputc(MEMORIA_NOACK, MEMORIA);
+      MEM_RESPONSE = MEMORIA_getc();   
+   }
+
+   if(MEM_proceso == WR){
+      return (-1);
+   }
+
+   tamano = 0;
+   MEM_proceso = (-1);
+   MEM_handshaking = MEMORIA_DEFAULT_HANDSHAKING;
+   return (0);
+}
+
+///////////////////////////////////////////////////////////
+//funcion general para recivir datos desde la memoria
+///////////////////////////////////////////////////////////
+int MEMORIA_get_data(char *buffer){   
+   char c;
+   
+   if(!MEMORIA_OK || (MEM_proceso != RD)){                                         //comprueba que la memoria este inicializada
+      return(-1);
+   }else{
+      
+      i = 0;
+      fputc(MEMORIA_ACK, MEMORIA);//envia un ACK para recivir nuevos datos
+
+      while((i < MEMORIA_MAX_HANDSHAKING) && (tamano > 0 /*hay mas datos*/)){
+         c = MEMORIA_getc();
+         if(!c && timeout_error)
+            return (-1);
+         buffer[i] = c;
+         i++;
+         tamano--;
+      }
+
+      //si alcanzo el total de datos
+      if(tamano == 0){
+         MEM_RESPONSE = MEMORIA_getc();
+         MEM_proceso = (-1);
+      }
+      return (i);   
+   }   
+}
+
+///////////////////////////////////////////////////////////
+//funcion general para configurar las opciones de la memoria
+///////////////////////////////////////////////////////////
+int MEMORIA_set_param(unsigned int param, char *value, unsigned int size){return (0);}
+
+///////////////////////////////////////////////////////////
+//funcion general para seleccionar el archivo de trabajo
+///////////////////////////////////////////////////////////
+int MEMORIA_open(char *filename, char modo){
    unsigned int ncar =0;
-//comprueba que la memoria este inicializada
-   if(!MEMORIA_OK){
+
+   if(!MEMORIA_OK){                                               //comprueba que la memoria este inicializada
       return(-1);
    }
-   ncar = strlen(file_name);
+
+   if(modo == 'r')
+      MEM_proceso = RD;
+   else if(modo == 'w')
+      MEM_proceso = WR;
+   else
+      return(-1);
+   
+   ncar = strlen(filename);
    ncar = (ncar <= MEMORIA_NAME_LENG_LIMIT)? ncar : MEMORIA_NAME_LENG_LIMIT;
-   strncpy(file_name, file_name, ncar);
-   return (1);
- 
-#endif
-}   
-void close(){}   //cierra el buffer de lectura del archivo
+   strncpy(MEM_file_name, filename, ncar);
+   car = ncar;
+   i = 0;
+   car = 0;
+   timeout_error = FALSE;
+   MEM_handshaking = MEMORIA_DEFAULT_HANDSHAKING;
+   MEM_RESPONSE = MEMORIA_NOACK;
+   MEM_proceso = (-1);
+   
+   return (0);
+}
+
+///////////////////////////////////////////////////////////
+//funcion general para saber si la mmeoria esta actualmente en un proceso de trabajo
+///////////////////////////////////////////////////////////
+int MEMORIA_is_busy(void){
+
+   if(MEM_proceso != (-1)){                                         //comprueba que la memoria este inicializada
+      return(1);
+   }
+   return (0);
+} 
+
+///////////////////////////////////////////////////////////
+//funcion general cerrar el actual archivo de trabajo
+///////////////////////////////////////////////////////////
+void close(){
+   strcpy (MEM_file_name,"");
+   i = 0;
+   car = 0;
+   timeout_error = FALSE;
+   MEM_handshaking = MEMORIA_DEFAULT_HANDSHAKING;
+   MEM_RESPONSE = MEMORIA_NOACK;
+   MEM_proceso = (-1);
+}//cierra el buffer de lectura del archivo
+
+///////////////////////////////////////////////////////////
+//funcion general obtener un caracter trasmitido desde la memoria
+///////////////////////////////////////////////////////////
+char MEMORIA_getc(void){
+   long timeout;
+   timeout_error=FALSE;
+   timeout=0;
+   while(!kbhit()&&(++timeout<50000)) // 1/2
+      delay_us(time_delay);
+
+   if(kbhit())
+      return(fgetc(MEMORIA));
+   else {
+      timeout_error=TRUE;
+      return(0);
+   }
+}

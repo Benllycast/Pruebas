@@ -1,12 +1,8 @@
 G:\Project\pic\CCS\MMA7455l\captura_frecuencia.o ===>  0 Errors,  0 Warnings.
-G:\Project\pic\CCS\MMA7455l\analogo_digital.o ===>  0 Errors,  0 Warnings.
-G:\Project\pic\CCS\MMA7455l\accelerometro.o ===>  0 Errors,  0 Warnings.
->>> Warning 202 "memoria.c" Line 9(18,28): Variable never used:   ini_buffer
-G:\Project\pic\CCS\MMA7455l\memoria.o ===>  0 Errors,  1 Warnings.
->>> Warning 202 "Nucleo.c" Line 9(23,29): Variable never used:   CONFIG
->>> Warning 202 "Nucleo.c" Line 10(23,37): Variable never used:   tiempo_inicial
->>> Warning 202 "Nucleo.c" Line 10(39,51): Variable never used:   tiempo_final
->>> Warning 202 "Nucleo.c" Line 36(16,21): Variable never used:   value
+>>> Warning 202 "Nucleo.c" Line 7(23,29): Variable never used:   CONFIG
+>>> Warning 202 "Nucleo.c" Line 8(23,37): Variable never used:   tiempo_inicial
+>>> Warning 202 "Nucleo.c" Line 8(39,51): Variable never used:   tiempo_final
+>>> Warning 202 "Nucleo.c" Line 34(16,21): Variable never used:   value
 G:\Project\pic\CCS\MMA7455l\Nucleo.o ===>  0 Errors,  4 Warnings.
-      Memory usage:   ROM=2%      RAM=3% - 4%
+      Memory usage:   ROM=3%      RAM=2% - 3%
       0 Errors,  0 Warnings.

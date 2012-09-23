@@ -124,8 +124,11 @@ Project Files:
     captura_frecuencia.c
     Nucleo.h
     I:\Archivos de programa\PICC\devices\18F4620.h
-    registros.h
+    I:\Archivos de programa\PICC\drivers\string.h
+    I:\Archivos de programa\PICC\drivers\stddef.h
+    I:\Archivos de programa\PICC\drivers\ctype.h
     captura_frecuencia.h
+    registros.h
 
 Units:
     G:\Project\pic\CCS\MMA7455l\captura_frecuencia (main)

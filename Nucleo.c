@@ -1,6 +1,4 @@
 #include "Nucleo.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include "accelerometro.h"
 #include "analogo_digital.h"
 #include "captura_frecuencia.h"
