@@ -8,9 +8,6 @@ CCP_2_HIGH
 PSP_DATA
 C1OUT
 C2OUT
-CONFIG
-tiempo_inicial
-tiempo_final
 
 Project Directory:
     G:\Project\pic\CCS\MMA7455l\
@@ -26,6 +23,7 @@ Project Files:
     analogo_digital.h
     captura_frecuencia.h
     memoria.h
+    ds1307.h
 
 Units:
     G:\Project\pic\CCS\MMA7455l\Nucleo (main)

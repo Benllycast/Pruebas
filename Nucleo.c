@@ -3,19 +3,22 @@
 #include "analogo_digital.h"
 #include "captura_frecuencia.h"
 #include "memoria.h"
+#include "ds1307.h"
 
-extern CONFIG_MMA7455 CONFIG;
-extern unsigned int32 tiempo_inicial, tiempo_final;
+//extern CONFIG_MMA7455 CONFIG;
+//extern unsigned int32 tiempo_inicial, tiempo_final;
 void setup_devices(){
    int error = -1;
    /////////////configuracion del MMA7455////////////////
-   error = init_MMA();
+   //error = init_MMA();
    //////////////////////////////////////////////////////
-   error = AD_init_adc();
+   //error = AD_init_adc();
    //////////////////////////////////////////////////////
-   error = CP_init_ccp();
+   //error = CP_init_ccp();
    //////////////////////////////////////////////////////
-   error = MEMORIA_init();
+   //error = MEMORIA_init();
+   //////////////////////////////////////////////////////
+   ds1307_init(DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
    //////////////////////////////////////////////////////
    setup_psp(PSP_DISABLED);
    setup_wdt(WDT_OFF);
@@ -31,14 +34,18 @@ void setup_devices(){
 
 void main()
 {
-   int32 value = 0;
-   int error = 0;
+   byte dia = 0x01, mes = 0x01, ano = 0x0C, 
+         hora = 0x01, min = 0x01, sec = 0x01, dow = 0x00; 
    setup_devices();
+   ds1307_set_date_time(dia, mes, ano, dow, hora, min, sec);
    // TODO: USER CODE!!  
-   while(error == 0){
-      //error = CP_leer_ccp(CANAL_2, &value);
-      //printf("%Lu,%Lu,%Lu\n\r", tiempo_inicial,tiempo_final, value);
-      delay_ms(250);
+   while(1){
+      ds1307_get_date(dia, mes, ano, dow);
+      printf("fecha: %u/%u/%u dow: %u \n\r",dia, mes, ano, dow);
+      delay_ms(99);
+      ds1307_get_time(hora, min, sec);
+      printf("hora: %u:%u:%u\n\r", hora, min, sec);
+      delay_ms(900);
    }
 }
 

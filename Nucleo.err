@@ -1,8 +1,7 @@
-G:\Project\pic\CCS\MMA7455l\captura_frecuencia.o ===>  0 Errors,  0 Warnings.
->>> Warning 202 "Nucleo.c" Line 7(23,29): Variable never used:   CONFIG
->>> Warning 202 "Nucleo.c" Line 8(23,37): Variable never used:   tiempo_inicial
->>> Warning 202 "Nucleo.c" Line 8(39,51): Variable never used:   tiempo_final
->>> Warning 202 "Nucleo.c" Line 34(16,21): Variable never used:   value
-G:\Project\pic\CCS\MMA7455l\Nucleo.o ===>  0 Errors,  4 Warnings.
+>>> Warning 203 "ds1307.c" Line 181(1,1): Condition always TRUE
+G:\Project\pic\CCS\MMA7455l\ds1307.o ===>  0 Errors,  1 Warnings.
+>>> Warning 203 "Nucleo.c" Line 42(1,1): Condition always TRUE
+>>> Warning 202 "Nucleo.c" Line 11(14,19): Variable never used:   error
+G:\Project\pic\CCS\MMA7455l\Nucleo.o ===>  0 Errors,  2 Warnings.
       Memory usage:   ROM=3%      RAM=2% - 3%
       0 Errors,  0 Warnings.

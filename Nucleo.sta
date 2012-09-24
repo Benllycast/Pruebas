@@ -1,79 +1,67 @@
 
-ROM used: 2036 (3%)
-          2036 (3%) including unused fragments
+ROM used: 1972 (3%)
+          1972 (3%) including unused fragments
 
           1 Average locations per line
-          4 Average locations per statement
+          8 Average locations per statement
 
 RAM used: 95 (2%) at main() level
-          120 (3%) worst case
+          104 (3%) worst case
 
-Stack used: 6 worst case (out of 31 total available)
+Stack used: 3 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   45    16   3  Nucleo.c
+   52    19   8  Nucleo.c
    41     0   0  Nucleo.h
   463     0   0  I:\Archivos de programa\PICC\devices\18F4620.h
-  409   121  23  I:\Archivos de programa\PICC\drivers\string.h
+  409   121  52  I:\Archivos de programa\PICC\drivers\string.h
    28     0   0  I:\Archivos de programa\PICC\drivers\stddef.h
    28     0   0  I:\Archivos de programa\PICC\drivers\ctype.h
   210     0   0  accelerometro.h
    18     0   0  analogo_digital.h
    10     0   0  captura_frecuencia.h
-   56     0   0  memoria.h
-  315   173  33  memoria.c
-  278   152  29  accelerometro.c
-   35    11   2  analogo_digital.c
-  109    59  11  captura_frecuencia.c
-  668     0   0  registros.h
+   62     0   0  memoria.h
+   68     0   0  ds1307.h
+  204    93  40  ds1307.c
 ----- -----
- 2713   532 Total
+ 1593   233 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
 0     40   1   1             @delay_ms1
-0     30   1   1             @delay_us1
-0     28   1   1             @I2C_WRITEU_1
-0     30   1   1             @I2C_READU_1
-0     72   2   1   321  3.3  setup_devices
-0    250   6   5   106  2.5  MAIN
-0     74   2   2   321  3.3  @PUTCHAR_2_
-0     82   2   2   106  2.5  @GETCH_2_
-0    138   3   1   753  6.7  MEMORIA_init
-0     74   2   0    54  1.2  MEMORIA_reset
-0     62   2   6             @WRITEBITA
-0     48   1   5             @READBITA
-0     80   2   3   245  5.4  MEMORIA_getc
-0    142   3   9   806  7.1  init_MMA
-0    108   3   6   441  4.9  read_MMA
-0     92   2   5   338  4.2  write_MMA
-0    116   3   8   527  7.6  write_MMA
-0     38   1   1    84  2.4  ext_eeprom_ready
-0     32   1   0   125  2.6  AD_init_adc
-0      8   0   0    17  1.3  timer3_isr
-0    122   3   4   323  4.6  ccp1_isr
-0    122   3   4   323  4.6  ccp2_isr
-0     54   1   0   172  2.7  CP_init_ccp
+0     54   1   1   240  3.7  setup_devices
+0    934  24   8   598  2.8  MAIN
+0     28   1   0   497  2.4  @const282
+0     32   1   3   531  2.7  @PSTRINGCN_9600_31766_31767
+0     40   1   3   437  3.1  @DIV88
+0    108   3   2   367  3.0  @PRINTF_U_9600_31766_31767
+0     18   0   0   219  2.4  @const291
+0     88   2   3   240  3.7  @I2C_READ_2
+0     92   2   1   598  2.8  @I2C_WRITE_2
+0    266   7   3   497  2.4  ds1307_init
+0    194   5   8   531  2.7  ds1307_set_date_time
+ Inline        5   437  3.1  ds1307_get_date
+ Inline        4   367  3.0  ds1307_get_time
+0     36   1   3   240  6.0  ds1307_bin2bcd
+0     38   1   3   155  4.7  ds1307_bcd2bin
 
 Program metrics:
-    Functions               17
-    Statements              532
-    Comments                76
-    Volume (V)              8673
-    Difficilty (D)          67.1
-    Effort to implement (E) 581897
-    Time to implement (T)   8 hours, 59 minutes
+    Functions               15
+    Statements              233
+    Comments                81
+    Volume (V)              10162
+    Difficilty (D)          49.0
+    Effort to implement (E) 498232
+    Time to implement (T)   7 hours, 41 minutes
     Est Delivered Bugs (B)  2
-    Cyclomatic Complexity   21
-    Maintainability (MI)    76
+    Cyclomatic Complexity   1
+    Maintainability (MI)    71
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
-00004-00006     0  4  
-00008-000C4   190  0  
-000C6-0FFFE  1842  63496  
+00004-0FFFE  1968  63564  
 
 
 

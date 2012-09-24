@@ -8,36 +8,23 @@ CCP_2_HIGH
 PSP_DATA
 C1OUT
 C2OUT
-MEMORIA_OK
-MEMORIA_HW
-timeout_error
-MEM_proceso
-i
-car
-time_delay
-MEMORIA_PIN_RESET
-tamano
-MEM_info
-MEM_file_name
-MEM_handshaking
-MEM_append
-MEM_performance
-MEM_RESPONSE
+days_of_week
+@sprintf_string
 
 Project Directory:
     G:\Project\pic\CCS\MMA7455l\
 
 Project Files:
-    memoria.c
+    ds1307.c
     Nucleo.h
     I:\Archivos de programa\PICC\devices\18F4620.h
     I:\Archivos de programa\PICC\drivers\string.h
     I:\Archivos de programa\PICC\drivers\stddef.h
     I:\Archivos de programa\PICC\drivers\ctype.h
-    memoria.h
+    ds1307.h
 
 Units:
-    G:\Project\pic\CCS\MMA7455l\memoria (main)
+    G:\Project\pic\CCS\MMA7455l\ds1307 (main)
 
 Compiler Settings:
     Processor:      PIC18F4620
@@ -50,6 +37,6 @@ Compiler Settings:
 
 Output Files:
     Errors:      Nucleo.err
-    Ext Symbols: memoria.esym
-    Object:      memoria.o
-    Symbols:     memoria.osym
+    Ext Symbols: ds1307.esym
+    Object:      ds1307.o
+    Symbols:     ds1307.osym

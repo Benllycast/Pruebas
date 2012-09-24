@@ -45,16 +45,17 @@
 //#define MEMORIA_OUT_TIME	65535	//modificar para colocar tiempos mas largos
 //#define MEMORIA_COMPROBAR_ARCHIVO
 
-int MEMORIA_init();
+int MEMORIA_reset(void);
+int MEMORIA_init_hw(void);
+int MEMORIA_init(void);
+int MEMORIA_open(char *filename, char modo);
+int MEMORIA_cancel(void);
 int MEMORIA_write(unsigned int size);
-int MEMORIA_set_data(char *buffer);
-unsigned int32 MEMORIA_read();
-int MEMORIA_cancel();
+int MEMORIA_set_data(char *data, unsigned int size);
+char MEMORIA_putc(char c);
+unsigned int32 MEMORIA_read(unsigned int num_bytes);
 int MEMORIA_get_data(char *buffer);
-void MEMORIA_reset();
-int MEMORIA_select_file();
-int MEMORIA_open(char *filename, int modo);
-int MEMORIA_is_busy();
-void close();
-char MEMORIA_getc();
+int MEMORIA_close(void);
+int MEMORIA_is_busy(void);
+char MEMORIA_getc(void);
 #endif

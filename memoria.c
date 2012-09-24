@@ -3,23 +3,23 @@
 #use rs232(stream=MEMORIA,baud=9600,parity=N,xmit=PIN_D6,rcv=PIN_D7,bits=8,FORCE_SW,DISABLE_INTS)
 
 short MEMORIA_OK = FALSE;
-short MEMORIA_HW = FALSE;                                      //comprueba que la memoria este inicializada
+short MEMORIA_HW = FALSE;
 short timeout_error = FALSE;
-int MEM_proceso = INI_HW;                                          //puede ser de escritura o lectura
+int MEM_proceso = INI_HW;
 unsigned int i = 0;
 unsigned int car = 0;
 unsigned long time_delay = 50000;
 int16 MEMORIA_PIN_RESET = PIN_D5;
 unsigned int32 tamano = 0;
-char MEM_info[5] = {0x00,0x00,0x00,0x00,0x00};                 //guarda la informacion del dispositivo de memoria conectado
-char MEM_file_name[MEMORIA_NAME_LENG_LIMIT];                   //nombre del archivo actualmente utilizado
-char MEM_handshaking = MEMORIA_DEFAULT_HANDSHAKING;                                   //opcion de handshaking
-char MEM_append = MEMORIA_APPEND;                              //opcion para crear o agregar datos en un archivo
-char MEM_performance = MEMORIA_HIGH_PERFORMANCE;               //opcion de velocidad de trasnmicion
+char MEM_info[5] = {0x00,0x00,0x00,0x00,0x00};
+char MEM_file_name[MEMORIA_NAME_LENG_LIMIT];
+char MEM_handshaking = MEMORIA_DEFAULT_HANDSHAKING;
+char MEM_append = MEMORIA_APPEND;
+char MEM_performance = MEMORIA_HIGH_PERFORMANCE;
 char MEM_RESPONSE = MEMORIA_NOACK;
 
 ///////////////////////////////////////////////////////////
-//funcion general para señal de reset al dispositivo de memoria
+//
 ///////////////////////////////////////////////////////////
 int MEMORIA_reset(void){
    output_low(MEMORIA_PIN_RESET);
@@ -28,18 +28,23 @@ int MEMORIA_reset(void){
 }
 
 ///////////////////////////////////////////////////////////
-//funcion general para inicializar el pin de reset del dispositivo de memoria
+//
 ///////////////////////////////////////////////////////////
-int MEMORIA_init_hw(){
+int MEMORIA_init_hw(void){
    output_float(MEMORIA_PIN_RESET);
    MEMORIA_HW = TRUE;
    MEMORIA_OK = FALSE;
+   MEM_info[0] = 0x00;
+   MEM_info[1] = 0x00;
+   MEM_info[2] = 0x00;
+   MEM_info[3] = 0x00;
+   MEM_info[4] = 0x00;
    MEM_proceso = INI_SW;
    return (0);
 }
 
 ///////////////////////////////////////////////////////////
-//funcion general para incializar el dispositivo de memoria
+//
 ///////////////////////////////////////////////////////////
 int MEMORIA_init(void){
 
@@ -61,7 +66,7 @@ int MEMORIA_init(void){
       MEMORIA_OK = TRUE;
    }
 
-   fputc(MEMORIA_CMD_VER_INFO, MEMORIA);                    //envia el comando de informacion del dispositivo
+   fputc(MEMORIA_CMD_VER_INFO, MEMORIA);
    MEM_info[0] = MEMORIA_getc();
    MEM_info[1] = MEMORIA_getc();
    MEM_info[2] = MEMORIA_getc();
@@ -73,7 +78,7 @@ int MEMORIA_init(void){
 }      //inicializa el dispositivo
 
 ///////////////////////////////////////////////////////////
-//funcion general para seleccionar el archivo de trabajo
+//
 ///////////////////////////////////////////////////////////
 int MEMORIA_open(char *filename, char modo){
    unsigned int ncar =0;
@@ -100,9 +105,13 @@ int MEMORIA_open(char *filename, char modo){
 }
 
 ///////////////////////////////////////////////////////////
-//funcion para cancelar la operaciones en un archivo 
+//
 ///////////////////////////////////////////////////////////
 int MEMORIA_cancel(void){
+
+   if((MEM_proceso != GET) || (MEM_proceso != SET)){
+      return(-1);
+   }
 
    if(MEM_proceso == GET){
       fputc(MEMORIA_NOACK, MEMORIA);
@@ -165,7 +174,7 @@ int MEMORIA_write(unsigned int size){
 //
 ///////////////////////////////////////////////////////////
 int MEMORIA_set_data(char *data, unsigned int size){
-   short full = FALSE;
+
    if(!MEMORIA_OK || (MEM_proceso != SET) || (tamano <= 0))
       return(-1);
 
@@ -203,7 +212,7 @@ char MEMORIA_putc(char c){
 unsigned int32 MEMORIA_read(unsigned int num_bytes){
    char Umsb = 0, Ulsb = 0, Lmsb = 0,Llsb = 0;
 
-   if(!MEMORIA_OK || (MEM_proceso != RD)){                                         //comprueba que la memoria este inicializada
+   if(!MEMORIA_OK || (MEM_proceso != RD)){
       return(0);
    }
 
@@ -213,9 +222,9 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
       return (2);
    
    
-   fputc(MEMORIA_EXT_CMD,MEMORIA);                          //envia el @ a la memoria
-   fputc(MEMORIA_CMD_READ_FILE,MEMORIA);                    //comando de lectura en archivo
-   fputc(MEM_handshaking,MEMORIA);                  //opciones del comando (solo se reciviran 50 bytes de datos)
+   fputc(MEMORIA_EXT_CMD,MEMORIA);
+   fputc(MEMORIA_CMD_READ_FILE,MEMORIA);
+   fputc(MEM_handshaking,MEMORIA);
    
    for(i =0; (i < MEMORIA_NAME_LENG_LIMIT) && (i < car); ++i)
       fputc(MEM_file_name[i],MEMORIA);
@@ -250,8 +259,10 @@ int MEMORIA_get_data(char *buffer){
    fputc(MEMORIA_ACK, MEMORIA);                                                  //envia un ACK para recivir nuevos datos
    while((i < MEM_handshaking) && (tamano > 0 /*hay mas datos*/)){
       c = MEMORIA_getc();
+      
       if(!c && timeout_error)
          return (-1);
+      
       buffer[i] = c;
       i++;
       tamano--;
@@ -271,7 +282,11 @@ int MEMORIA_get_data(char *buffer){
 ///////////////////////////////////////////////////////////
 //funcion general cerrar el actual archivo de trabajo
 ///////////////////////////////////////////////////////////
-void close(){
+int MEMORIA_close(void){
+
+   if(!MEMORIA_OK || (MEM_proceso != CLOSE))
+      return (-1);
+
    strcpy (MEM_file_name,"");
    i = 0;
    car = 0;
@@ -279,6 +294,7 @@ void close(){
    MEM_handshaking = MEMORIA_DEFAULT_HANDSHAKING;
    MEM_RESPONSE = MEMORIA_NOACK;
    MEM_proceso = OPEN;
+   return(0);
 }
 
 ///////////////////////////////////////////////////////////
