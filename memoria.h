@@ -1,9 +1,16 @@
 #ifndef MEMORIA_H
 #define MEMORIA_H
 
-#define RD 	0
-#define WR	1
-#define MEMORIA_BUFFER 		50
+#define MAX_BUFFER 		100
+
+#define INI_HW	0
+#define INI_SW	1
+#define OPEN	2
+#define RD		3
+#define GET		4
+#define WR		5
+#define SET		6
+#define CLOSE	7
 
 #define MEMORIA_CMD_AUTOBAUD	0x55
 #define MEMORIA_CMD_VER_INFO	0x56
@@ -13,8 +20,6 @@
 #define MEMORIA_EXT_CMD			0x40
 #define MEMORIA_CMD_READ_FILE	0x61
 #define MEMORIA_CMD_WRITE_FILE	0x74
-#define MEMORIA_CMD_ERASE_FILE	0X65
-#define MEMORIA_CMD_LIST_DIRECTORY	0X64
 
 #define MEMORIA_FAT_VALUE	0x08
 

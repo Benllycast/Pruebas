@@ -1,3 +1,5 @@
 cambios a realizar:
 	memoria.c
 		mantener procesos de lectura y escritura por aparte
+		colocar el fputc dentro de una funcion que reciba el caracter ha enviar
+		analizar el read y el write para enviar maximo 100 bytes de datos
