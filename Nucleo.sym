@@ -3,90 +3,272 @@
 001     _RETURN_
 002     @SCRATCH
 003     @SCRATCH
-004-005 strtok.save
-006-007 strtok.save
-008-054 days_of_week
-055-056 @sprintf_string
-057     MAIN.dia
-058     MAIN.mes
-059     MAIN.ano
-05A     MAIN.hora
-05B     MAIN.min
-05C     MAIN.sec
-05D     MAIN.dow
-05E     setup_devices.error
-05E     @PRINTF_U_9600_31766_31767.P1
-05E     @PSTRINGCN_9600_31766_31767.P2
-05E     ds1307_set_date_time.day
-05E     MAIN.@SCRATCH1
-05E     ds1307_get_date.@SCRATCH1
-05E     ds1307_get_time.@SCRATCH1
-05F     ds1307_set_date_time.mth
-05F     @delay_ms1.P1
-05F     ds1307_init.val
-05F     @PRINTF_U_9600_31766_31767.P1
-05F     @PSTRINGCN_9600_31766_31767.@SCRATCH1
-060     ds1307_init.seconds
-060     @DIV88.P1
-060     ds1307_set_date_time.year
-060     @PSTRINGCN_9600_31766_31767.@SCRATCH2
-061     ds1307_set_date_time.dow
-061     @DIV88.P1
-061     ds1307_init.@SCRATCH1
-062     @I2C_READ_2.P1
-062     ds1307_set_date_time.hr
-062     @DIV88.@SCRATCH1
-063     ds1307_set_date_time.min
-063     ds1307_bcd2bin.bcd_value
-063     @I2C_READ_2.@SCRATCH1
-064     ds1307_set_date_time.sec
-064     ds1307_bcd2bin.temp
-064     @I2C_READ_2.@SCRATCH2
-065     ds1307_bin2bcd.binary_value
-065     ds1307_set_date_time.@SCRATCH1
-065     ds1307_bcd2bin.@SCRATCH1
-066     ds1307_bin2bcd.temp
-066     @I2C_WRITE_2.P1
-067     ds1307_bin2bcd.retval
+004     @INTERRUPT_AREA
+005     @INTERRUPT_AREA
+006     @INTERRUPT_AREA
+007     @INTERRUPT_AREA
+008     @INTERRUPT_AREA
+009     @INTERRUPT_AREA
+00A     @INTERRUPT_AREA
+00B     @INTERRUPT_AREA
+00C     @INTERRUPT_AREA
+00D     @INTERRUPT_AREA
+00E     @INTERRUPT_AREA
+00F     @INTERRUPT_AREA
+010     @INTERRUPT_AREA
+011     @INTERRUPT_AREA
+012     @INTERRUPT_AREA
+013     @INTERRUPT_AREA
+014     @INTERRUPT_AREA
+015     @INTERRUPT_AREA
+016     @INTERRUPT_AREA
+017     @INTERRUPT_AREA
+018     @INTERRUPT_AREA
+019-01A strtok.save
+01B-01C strtok.save
+01D-025 CONFIG
+026-027 strtok.save
+028.0   MEMORIA_OK
+028.1   MEMORIA_HW
+028.2   timeout_error
+029     MEM_proceso
+02A     i
+02B     car
+02C-02D time_delay
+02E-02F MEMORIA_PIN_RESET
+030-033 tamano
+034-038 MEM_info
+039-044 MEM_file_name
+045     MEM_handshaking
+046     MEM_append
+047     MEM_performance
+048     MEM_RESPONSE
+049-04A strtok.save
+04B-097 days_of_week
+098-099 @sprintf_string
+09A-09B strtok.save
+09C     MODO_CCP1
+09D     MODO_CCP2
+09E     Q_CCP
+09F     MODO_TIMER_CCP
+0A0     overflow_t3_counter
+0A1-0A4 tiempo_inicial
+0A5-0A8 tiempo_final
+0A9-0AA strtok.save
+0AB     MAIN.dia
+0AC     MAIN.mes
+0AD     MAIN.ano
+0AE     MAIN.hora
+0AF     MAIN.min
+0B0     MAIN.sec
+0B1     MAIN.dow
+0B2     @PRINTF_U_9600_31766_31767.P1
+0B2     setup_devices.error
+0B2     @PSTRINGCN_9600_31766_31767.P1
+0B2     ds1307_set_date_time.day
+0B2     MAIN.@SCRATCH1
+0B2     ds1307_get_date.@SCRATCH1
+0B2     ds1307_get_time.@SCRATCH1
+0B3     ds1307_set_date_time.mth
+0B3     ds1307_init.val
+0B3     @PRINTF_U_9600_31766_31767.P1
+0B3     @delay_ms1.P2
+0B3     @PSTRINGCN_9600_31766_31767.@SCRATCH1
+0B4     ds1307_init.seconds
+0B4     @DIV88.P1
+0B4     ds1307_set_date_time.year
+0B4     @PSTRINGCN_9600_31766_31767.@SCRATCH2
+0B5     ds1307_set_date_time.dow
+0B5     @DIV88.P1
+0B5     ds1307_init.@SCRATCH1
+0B6     ds1307_set_date_time.hr
+0B6     @I2C_READ_2.P1
+0B6     @DIV88.@SCRATCH1
+0B7     ds1307_set_date_time.min
+0B7     ds1307_bcd2bin.bcd_value
+0B7     @I2C_READ_2.@SCRATCH1
+0B8     ds1307_bcd2bin.temp
+0B8     ds1307_set_date_time.sec
+0B8     @I2C_READ_2.@SCRATCH2
+0B9     ds1307_bin2bcd.binary_value
+0B9     ds1307_set_date_time.@SCRATCH1
+0B9     ds1307_bcd2bin.@SCRATCH1
+0BA     ds1307_bin2bcd.temp
+0BA     @I2C_WRITE_2.P1
+0BB     ds1307_bin2bcd.retval
+0BC     ccp1_isr.@SCRATCH1
+0BC     ccp2_isr.@SCRATCH1
+0BD     ccp1_isr.@SCRATCH2
+0BD     ccp2_isr.@SCRATCH2
+0BE     ccp1_isr.@SCRATCH3
+0BE     ccp2_isr.@SCRATCH3
+0BF     ccp1_isr.@SCRATCH4
+0BF     ccp2_isr.@SCRATCH4
+F80     PORTA
+F81     PORTB
+F82     PORTC
 F83     PSP_DATA
+F83     PORTD
+F83     PSP_DATA
+F84     PORTE
+F89     LATA
+F8A     LATB
+F8B     LATC
+F8C     LATD
+F8D     LATE
+F92     TRISA
+F93     TRISB
+F94     TRISC
+F95     TRISD
+F96     TRISE
+F9B     OSCTUNE
+F9D     PIE1
+F9E     PIR1
+F9F     IPR1
+FA0     PIE2
+FA1     PIR2
+FA2     IPR2
+FA6     EECON1
+FA7     EECON2
+FA8     EEDATA
+FA9     EEADR
+FAA     EEADRH
+FAB     RCSTA
+FAC     TXSTA
+FAD     TXREG
+FAE     RCREG
+FAF     SPBRG
+FB0     SPBRGH
+FB1     T3CON
+FB3     TMR3
+FB4     CMCON
 FB4.6   C1OUT
 FB4.7   C2OUT
+FB5     CVRCON
+FB6     ECCPAS1
+FB7     PWM1CON
+FB8     BAUDCON
+FBA     CCP2CON
+FBB     CCP_2
+FBB     CCP_2_LOW
+FBB     CCP_2
 FBB     CCP_2_LOW
 FBB     CCP_2
 FBB     CCP_2_LOW
 FBB     CCP_2
+FBC     CCPR2
 FBC     CCP_2_HIGH
+FBD     CCP1CON
+FBE     CCP_1
 FBE     CCP_1_LOW
 FBE     CCP_1
+FBE     CCP_1_LOW
+FBF     CCPR1
 FBF     CCP_1_HIGH
-FE1-FE2 @READ_PACKED_MEMORY.P1
-FE1-FE2 @WRITE_PACKED_MEMORY.P2
+FC0     ADCON2
+FC1     ADCON1
+FC2     ADCON0
+FC4     ADRES
+FC5     SSPCON2
+FC6     SSPCON1
+FC7     SSPSTAT
+FC8     SSPADD
+FC9     SSPBUF
+FCA     T2CON
+FCB     PR2
+FCC     TMR2
+FCD     T1CON
+FCF     TMR1
+FD0     RCON
+FD1     WDTCON
+FD2     LVDCON
+FD3     OSCCON
+FD5     T0CON
+FD7     TMR0
+FD8     STATUS
+FD9     FSR2L
+FDA     FSR2H
+FDB     PLUSW2
+FDC     PREINC2
+FDD     POSTDEC2
+FDE     POSTINC2
+FDF     INDF2
+FE0     BSR
+FE1     FSR1L
+FE1-FE2 @WRITE_PACKED_MEMORY.P1
+FE1-FE2 @READ_PACKED_MEMORY.P2
+FE2     FSR1H
+FE3     PLUSW1
+FE4     PREINC1
+FE5     POSTDEC1
+FE6     POSTINC1
+FE7     INDF1
+FE8     WREG
+FE9     FSR0L
 FE9-FEA @WRITE_PACKED_MEMORY.P1
 FE9-FEA @WRITE_PROGRAM_MEMORY.P2
 FE9-FEA @READ_PACKED_MEMORY.P3
 FE9-FEA @READ_PROGRAM_MEMORY.P4
-FF6-FF8 @READ_PROGRAM_MEMORY.P1
-FF6-FF8 @WRITE_PROGRAM_MEMORY.P2
+FEA     FSR0H
+FEB     PLUSW0
+FEC     PREINC0
+FED     POSTDEC0
+FEE     POSTINC0
+FEF     INDF0
+FF0     INTCON3
+FF1     INTCON2
+FF2     INTCON
+FF4     PROD
+FF5     TABLAT
+FF6-FF8 @WRITE_PROGRAM_MEMORY.P1
+FF6-FF8 @READ_PROGRAM_MEMORY.P2
+FF7     TBLPTR
+FF8     TBLPTRU
+FF9     PCL
+FFA     PCLATH
+FFB     PCLATU
+FFC     STKPTR
+FFE     TOS
+FFF     TOSU
 
 ROM Allocation:
-03E6  @delay_ms1
-023A  setup_devices
-040E  MAIN
-0004  @const282
-0332  @PSTRINGCN_9600_31766_31767
-0352  @DIV88
-037A  @PRINTF_U_9600_31766_31767
-0020  @const291
-008E  @I2C_READ_2
-0032  @I2C_WRITE_2
-0130  ds1307_init
-0270  ds1307_set_date_time
-0582  ds1307_get_date
-06B0  ds1307_get_time
-010C  ds1307_bin2bcd
-00E6  ds1307_bcd2bin
-040E  @cinit
+0610  @delay_ms1
+0450  setup_devices
+0638  MAIN
+00C6  @const282
+055C  @PSTRINGCN_9600_31766_31767
+057C  @DIV88
+05A4  @PRINTF_U_9600_31766_31767
+00E2  @const291
+025C  @I2C_READ_2
+01F0  @I2C_WRITE_2
+030C  ds1307_init
+0488  ds1307_set_date_time
+0850  ds1307_get_date
+099A  ds1307_get_time
+02E8  ds1307_bin2bcd
+02C2  ds1307_bcd2bin
+00F4  timer3_isr
+00FC  ccp1_isr
+0176  ccp2_isr
+0638  @cinit
 
+
+User Memory space: 
+
+User Memory space: 
+
+User Memory space: 
+
+User Memory space: 
+
+User Memory space: 
+
+User Memory space: 
+
+User Memory space: 
+
+User Memory space: 
 
 User Memory space: 
 
@@ -102,7 +284,7 @@ Project Directory:
 Project Files:
     Nucleo.c
     Nucleo.h (link)
-    I:\Archivos de programa\PICC\devices\18F4620.h (link)
+    I:\Archivos de programa\PICC\devices\18F4550.h (link)
     I:\Archivos de programa\PICC\drivers\string.h (link)
     I:\Archivos de programa\PICC\drivers\stddef.h (link)
     I:\Archivos de programa\PICC\drivers\ctype.h (link)
@@ -111,14 +293,23 @@ Project Files:
     captura_frecuencia.h (link)
     memoria.h (link)
     ds1307.h (link)
+    accelerometro.c (link)
+    memoria.c (link)
     ds1307.c (link)
+    captura_frecuencia.c (link)
+    registros.h (link)
+    analogo_digital.c (link)
 
 Units:
     G:\Project\pic\CCS\MMA7455l\Nucleo.o
+    G:\Project\pic\CCS\MMA7455l\accelerometro.o
+    G:\Project\pic\CCS\MMA7455l\memoria.o
     G:\Project\pic\CCS\MMA7455l\ds1307.o
+    G:\Project\pic\CCS\MMA7455l\captura_frecuencia.o
+    G:\Project\pic\CCS\MMA7455l\analogo_digital.o
 
 Compiler Settings:
-    Processor:      PIC18F4620
+    Processor:      PIC18F4550
     Pointer Size:   16
     ADC Range:      0-255
     Opt Level:      9

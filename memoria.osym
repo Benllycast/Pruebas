@@ -30,7 +30,7 @@ Project Directory:
 Project Files:
     memoria.c
     Nucleo.h
-    I:\Archivos de programa\PICC\devices\18F4620.h
+    I:\Archivos de programa\PICC\devices\18F4550.h
     I:\Archivos de programa\PICC\drivers\string.h
     I:\Archivos de programa\PICC\drivers\stddef.h
     I:\Archivos de programa\PICC\drivers\ctype.h
@@ -40,7 +40,7 @@ Units:
     G:\Project\pic\CCS\MMA7455l\memoria (main)
 
 Compiler Settings:
-    Processor:      PIC18F4620
+    Processor:      PIC18F4550
     Pointer Size:   16
     ADC Range:      0-1023
     Opt Level:      9

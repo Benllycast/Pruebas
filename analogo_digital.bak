@@ -1,12 +1,13 @@
 #include "Nucleo.h"
 #include "analogo_digital.h"
 
+#define ADC_TAD_MUL_2      0x08
 
 int AD_init_adc(){
 	setup_adc_ports(AN0_TO_AN2);
 
 //corregir despues
-#if getenv("CLOCK") == 4000000
+#if (getenv("CLOCK") == 4000000)
 	setup_adc(ADC_CLOCK_DIV_8|ADC_TAD_MUL_2);
 #elif getenv("CLOCK") == 8000000
 	setup_adc(ADC_CLOCK_DIV_16|ADC_TAD_MUL_2);
@@ -17,17 +18,18 @@ int AD_init_adc(){
 #else
 	setup_adc(ADC_CLOCK_DIV_32|ADC_TAD_MUL_2);
 #endif
-	set_tris_a(0x03);		//RB0 y RB1 entradas
+	set_tris_a(0x07);		//RB0 a RB1 entradas
 	return 0;
 }
 
 int AD_leer_canal(int canal, long *buffer){
+	int1 done;
 	set_adc_channel(canal);
 	read_adc(ADC_START_ONLY);
-	int1 done = adc_done();
-	while(!done){
+	
+	do {
 		done = adc_done();
-	}
+	}while(!done);
 	*buffer = read_adc(ADC_READ_ONLY);
 	return 0;
 }

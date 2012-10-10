@@ -1,7 +1,11 @@
+G:\Project\pic\CCS\MMA7455l\analogo_digital.o ===>  0 Errors,  0 Warnings.
+G:\Project\pic\CCS\MMA7455l\captura_frecuencia.o ===>  0 Errors,  0 Warnings.
 >>> Warning 203 "ds1307.c" Line 181(1,1): Condition always TRUE
 G:\Project\pic\CCS\MMA7455l\ds1307.o ===>  0 Errors,  1 Warnings.
+G:\Project\pic\CCS\MMA7455l\memoria.o ===>  0 Errors,  0 Warnings.
+G:\Project\pic\CCS\MMA7455l\accelerometro.o ===>  0 Errors,  0 Warnings.
 >>> Warning 203 "Nucleo.c" Line 42(1,1): Condition always TRUE
 >>> Warning 202 "Nucleo.c" Line 11(14,19): Variable never used:   error
 G:\Project\pic\CCS\MMA7455l\Nucleo.o ===>  0 Errors,  2 Warnings.
-      Memory usage:   ROM=3%      RAM=2% - 3%
+      Memory usage:   ROM=8%      RAM=9% - 9%
       0 Errors,  0 Warnings.

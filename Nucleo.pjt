@@ -1,9 +1,9 @@
 [PROJECT]
 Target=Nucleo.hex
 Development_Mode=
-Processor_Text=PIC18F4620
+Processor_Text=PIC18F4550
 ToolSuite=CCS
-Processor=0x4620
+Processor=0x4550
 [G:\Project\pic\CCS\MMA7455l\Nucleo]
 Type=4
 Path=
@@ -16,11 +16,11 @@ AdditionalOptionString=
 [Windows]
 0=0000 %S 0 0 796 451 3 0
 [Opened Files]
-1=ds1307.c
-2=Nucleo.c
+1=Nucleo.c
+2=ds1307.c
 3=Nucleo.h
-4=
-5=memoria.h
+4=I:\Archivos de programa\PICC\devices\18F4550.h
+5=analogo_digital.c
 6=
 7=I:\Archivos de programa\PICC\devices\18F4620.h
 8=captura_frecuencia.c
@@ -84,7 +84,11 @@ BuildTool=
 OptionString=
 AdditionalOptionString=
 [Units]
-Count=2
+Count=6
 1=Nucleo.o
-2=ds1307.o
+2=accelerometro.o
+3=memoria.o
+4=ds1307.o
+5=captura_frecuencia.o
+6=analogo_digital.o
 Link=1
