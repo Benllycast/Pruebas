@@ -1,77 +1,138 @@
 
-ROM used: 2744 (8%)
-          2744 (8%) including unused fragments
+ROM used: 5070 (15%)
+          5070 (15%) including unused fragments
 
           1 Average locations per line
-          4 Average locations per statement
+          6 Average locations per statement
 
-RAM used: 179 (9%) at main() level
-          192 (9%) worst case
+RAM used: 325 (16%) at main() level
+          368 (18%) worst case
 
-Stack used: 4 worst case (out of 31 total available)
+Stack used: 16 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   52    19   3  Nucleo.c
-   62     0   0  Nucleo.h
+   69    49   6  Nucleo.c
+   69    49   6  comunicacion.c
+   61     0   0  Nucleo.h
   457     0   0  I:\Archivos de programa\PICC\devices\18F4550.h
-  409   121  19  I:\Archivos de programa\PICC\drivers\string.h
+   37     0   0  I:\Archivos de programa\PICC\drivers\stdio.h
+  409     0   0  I:\Archivos de programa\PICC\drivers\string.h
    28     0   0  I:\Archivos de programa\PICC\drivers\stddef.h
-   28     0   0  I:\Archivos de programa\PICC\drivers\ctype.h
+   28    99  11  I:\Archivos de programa\PICC\drivers\ctype.h
+   13     0   0  comunicacion.h
+  288     0   0  usb_desc_cdc.h
+ 1063     0   0  I:\Archivos de programa\PICC\drivers\usb.h
+  582   128  15  I:\Archivos de programa\PICC\drivers\usb_cdc.h
+  222     0   0  I:\Archivos de programa\PICC\drivers\pic18_usb.h
+  328     0   0  I:\Archivos de programa\PICC\drivers\usb_hw_layer.h
+  279     0   0  I:\Archivos de programa\PICC\drivers\usb_desc_cdc.h
+  808   237  27  I:\Archivos de programa\PICC\drivers\usb.c
+ 1281   320  36  I:\Archivos de programa\PICC\drivers\pic18_usb.c
   210     0   0  accelerometro.h
    18     0   0  analogo_digital.h
    10     0   0  captura_frecuencia.h
    62     0   0  memoria.h
    68     0   0  ds1307.h
-  278   152  24  accelerometro.c
-  330   182  29  memoria.c
-  204    93  15  ds1307.c
-  109    59   9  captura_frecuencia.c
-  668     0   0  registros.h
-   36    11   2  analogo_digital.c
+    7     0   0  utilidades.h
 ----- -----
- 3029   637 Total
+ 6397   882 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
-0     40   1   1             @delay_ms1
-0     56   1   1   240  3.7  setup_devices
-0   1156  21   8   598  2.8  MAIN
-0     28   1   0    17  1.3  @const282
-0     32   1   3  1047  9.0  @PSTRINGCN_9600_31766_31767
-0     40   1   3   441  4.9  @DIV88
-0    108   2   2   841  8.4  @PRINTF_U_9600_31766_31767
-0     18   0   0   338  4.2  @const291
-0    102   2   3    17  1.3  @I2C_READ_2
-0    108   2   1   323  4.6  @I2C_WRITE_2
-0    324   6   3   497  2.4  ds1307_init
-0    212   4   8   531  2.7  ds1307_set_date_time
- Inline        5   437  3.1  ds1307_get_date
- Inline        4   367  3.0  ds1307_get_time
-0     36   1   3   240  6.0  ds1307_bin2bcd
-0     38   1   3   155  4.7  ds1307_bcd2bin
-0      8   0   0    17  1.3  timer3_isr
-0    122   2   4   323  4.6  ccp1_isr
-0    122   2   4   323  4.6  ccp2_isr
+0     42   0   1             @delay_ms1
+0     32   0   0   270  3.1  @const216
+0     32   0   0             @const218
+0     48   0   0             @const220
+0     48   0   0             @const222
+0     84   1   0             @const224
+0     18   0   0   230  4.7  @const226
+0     24   0   0             @const228
+0     34   0   0             @const232
+0     68   1   0             @const235
+0     64   1   3   133  4.3  usb_tbe
+0     34   0   1   134  2.5  usb_detach
+0     34   0   0   136  2.2  usb_attach
+0      6   0   0    16  1.0  usb_init_cs
+0     48   0   1   359  4.6  usb_task
+0    212   2   7  1083  5.4  usb_flush_in
+0    142   1  10   320  5.5  usb_put_packet
+0    184   2   7   899  4.9  usb_flush_out
+0     46   0   3    61  2.6  usb_rx_packet_size
+0     70   1   4   251  4.6  usb_stall_ep
+0     68   1   4   258  4.6  usb_unstall_ep
+0     86   1   5   360  5.8  usb_endpoint_stalled
+0     22   0   1    88  2.7  usb_set_address
+0    370   4  10  1722  9.8  usb_set_configured
+0     76   1   3   192  3.2  usb_disable_endpoint
+0     22   0   1    93  2.9  usb_disable_endpoints
+0      4   0   0    39  2.0  usb_clear_trn
+0    126   1   2   638  6.6  usb_isr
+0      6   0   0    43  2.0  usb_isr_sof
+0     42   0   0   357  4.2  usb_isr_rst
+0     32   0   0   508  4.0  usb_init_ep0_setup
+0      8   0   0    74  2.8  usb_isr_uerr
+0     10   0   0    82  2.8  usb_isr_uidle
+0     16   0   0   102  3.3  usb_isr_activity
+0     14   0   0   151  3.9  usb_isr_stall
+0      6   0   1    30  1.7  usb_request_send_response
+0      6   0   0    22  1.2  usb_request_get_data
+0      6   0   0    22  1.2  usb_request_stall
+0    332   3   5  2031  7.9  usb_isr_tok_dne
+0      6   0   0    29  1.9  usb_enumerated
+0     40   0   3   248  4.0  usb_token_reset
+0     68   1   3   267  5.9  usb_endpoint_is_valid
+0     34   0   1   204  3.1  usb_isr_tok_in_dne
+0     18   0   1   108  2.5  usb_isr_tok_out_dne
+0     52   1   0   336  5.5  usb_isr_tok_setup_dne
+0    166   2   0  1454  8.3  usb_isr_tkn_setup_StandardDevice
+0    142   1   3   930  7.7  usb_isr_tkn_setup_StandardInterface
+0     96   1   0   753  5.8  usb_isr_tkn_setup_StandardEndpoint
+0    146   1   0  1088  8.7  usb_Get_Descriptor
+0     14   0   0    76  1.8  usb_finish_set_address
+0    102   1   4   591  8.6  usb_copy_desc_seg_to_ep
+0    100   1   0   477  6.1  usb_isr_tok_out_cdc_control_dne
+0    164   2   0  1121  8.3  usb_isr_tkn_cdc
+0     24   0   0   174  3.6  usb_isr_tok_out_cdc_data_dne
+0     10   0   0    30  1.5  usb_isr_tok_in_cdc_data_dne
+0     30   0   0    86  2.1  usb_cdc_flush_out_buffer
+0     34   0   0   255  2.3  usb_cdc_init
+0     14   0   0    59  2.3  usb_cdc_get_discard
+0     48   0   4   220  4.5  _usb_cdc_putc_fast_noflush
+0     44   0   1    63  1.6  usb_cdc_putc_fast
+0     54   1   1   115  3.3  usb_cdc_putc
+0     38   0   0   139  2.8  COM_init
+0     34   0   0   124  2.7  COM_sense
+0    102   1   5   428  7.3  COM_send
+0     52   1   5   129  4.6  strlen
+0     96   1   1   270  3.1  setup_devices
+0     16   0   0             @const789
+0     34   0   3             @PSTRINGCN_9600_31766_31767
+0     40   0   3             @DIV88
+0    210   2   6             @PRINTF_D_9600_31766_31767
+0    246   2  14   230  4.7  MAIN
+0     40   0   2             @PSTRINGR_9600_31766_31767
+0     28   0   0             @const803
+0     36   0   2             @PSTRINGC_9600_31766_31767
 
 Program metrics:
-    Functions               18
-    Statements              637
-    Comments                93
-    Volume (V)              11453
-    Difficilty (D)          75.4
-    Effort to implement (E) 863513
-    Time to implement (T)   13 hours, 20 minutes
-    Est Delivered Bugs (B)  3
-    Cyclomatic Complexity   24
-    Maintainability (MI)    61
+    Functions               59
+    Statements              882
+    Comments                205
+    Volume (V)              40049
+    Difficilty (D)          249.3
+    Effort to implement (E) 9983636
+    Time to implement (T)   154 hours, 4 minutes
+    Est Delivered Bugs (B)  15
+    Cyclomatic Complexity   131
+    Maintainability (MI)    105
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
-00004-00006     0  4  
-00008-000C4   190  0  
-000C6-07FFE  2550  30020  
+00004-00006     4  0  
+00008-000AC   166  0  
+000AE-07FFE  4896  27698  
 
 
 

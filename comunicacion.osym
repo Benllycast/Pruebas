@@ -1,0 +1,113 @@
+_RETURN_
+CCP_1
+CCP_1_LOW
+CCP_1_HIGH
+CCP_2
+CCP_2_LOW
+CCP_2_HIGH
+PSP_DATA
+C1OUT
+C2OUT
+USB_stack_status
+usb_ep_tx_type
+usb_ep_rx_type
+usb_ep_tx_size
+usb_ep_rx_size
+USB_CONFIG_DESC
+USB_NUM_INTERFACES
+USB_CLASS_DESCRIPTORS
+USB_DEVICE_DESC
+USB_STRING_DESC_OFFSET
+USB_STRING_DESC
+g_USBRAM
+UFRML
+UFRMH
+UIR
+UIE
+UEIR
+UEIE
+U1STAT
+UCON
+UADDR
+UCFG
+USTATCopy
+g_UEP
+UIR_SOF
+UIR_STALL
+UIR_IDLE
+UIR_TRN
+UIR_ACTV
+UIR_UERR
+UIR_URST
+UIE_SOF
+UIE_STALL
+UIE_IDLE
+UIE_TRN
+UIE_ACTV
+UIE_UERR
+UIE_URST
+UCON_PBRST
+UCON_SE0
+UCON_PKTDIS
+UCON_USBEN
+UCON_RESUME
+UCON_SUSPND
+usb_state
+__setup_0_tx_size
+USB_address_pending
+usb_getdesc_ptr
+usb_getdesc_len
+USB_Interface
+usb_cdc_line_coding
+usb_cdc_break
+usb_cdc_encapsulated_cmd
+usb_cdc_put_buffer
+usb_cdc_put_buffer_nextin
+usb_cdc_get_buffer_status
+usb_cdc_got_set_line_coding
+usb_cdc_carrier
+g_LastCDCDataPacketSize
+__usb_cdc_state
+INTCON
+INT_GIE
+i
+com_usb_state
+
+Project Directory:
+    G:\Project\pic\CCS\MMA7455l\
+
+Project Files:
+    comunicacion.c
+    Nucleo.h
+    I:\Archivos de programa\PICC\devices\18F4550.h
+    I:\Archivos de programa\PICC\drivers\stdio.h
+    I:\Archivos de programa\PICC\drivers\string.h
+    I:\Archivos de programa\PICC\drivers\stddef.h
+    I:\Archivos de programa\PICC\drivers\ctype.h
+    comunicacion.h
+    usb_desc_cdc.h
+    I:\Archivos de programa\PICC\drivers\usb.h
+    I:\Archivos de programa\PICC\drivers\usb_cdc.h
+    I:\Archivos de programa\PICC\drivers\pic18_usb.h
+    I:\Archivos de programa\PICC\drivers\usb_hw_layer.h
+    I:\Archivos de programa\PICC\drivers\usb_desc_cdc.h
+    I:\Archivos de programa\PICC\drivers\usb.c
+    I:\Archivos de programa\PICC\drivers\pic18_usb.c
+
+Units:
+    G:\Project\pic\CCS\MMA7455l\comunicacion (main)
+
+Compiler Settings:
+    Processor:      PIC18F4550
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+    Output file:    Relocatable
+
+Output Files:
+    Errors:      Nucleo.err
+    Ext Symbols: comunicacion.esym
+    Object:      comunicacion.o
+    Symbols:     comunicacion.osym

@@ -13,5 +13,5 @@
 #endif
 
 int AD_init_adc();
-int AD_leer_canal(int canal, long *buffer);
+int AD_leer_canal(int canal, int16 *buffer);
 #endif

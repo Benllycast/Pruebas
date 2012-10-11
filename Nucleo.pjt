@@ -12,18 +12,18 @@ BuildTool=
 OptionString=
 AdditionalOptionString=
 [mru-list]
-1=Nucleo.c
+1=comunicacion.c
 [Windows]
 0=0000 %S 0 0 796 451 3 0
 [Opened Files]
-1=Nucleo.c
-2=ds1307.c
-3=Nucleo.h
-4=I:\Archivos de programa\PICC\devices\18F4550.h
-5=analogo_digital.c
-6=
-7=I:\Archivos de programa\PICC\devices\18F4620.h
-8=captura_frecuencia.c
+1=utilidades.h
+2=utilidades.c
+3=comunicacion.c
+4=comunicacion.h
+5=Nucleo.c
+6=Nucleo.h
+7=
+8=
 9=captura_frecuencia.h
 10=registros.h
 11=memoria.c
@@ -83,12 +83,15 @@ FileList=
 BuildTool=
 OptionString=
 AdditionalOptionString=
+[comunicacion.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
 [Units]
-Count=6
-1=Nucleo.o
-2=accelerometro.o
-3=memoria.o
-4=ds1307.o
-5=captura_frecuencia.o
-6=analogo_digital.o
+Count=2
+1=comunicacion.o
+2=Nucleo.o
 Link=1

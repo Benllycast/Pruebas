@@ -25,7 +25,7 @@ int AD_init_adc(){
 	return 0;
 }
 
-int AD_leer_canal(int canal, long *buffer){
+int AD_leer_canal(int canal, int16 *buffer){
 	int1 done;
 	set_adc_channel(canal);
 	read_adc(ADC_START_ONLY);

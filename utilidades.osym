@@ -13,23 +13,16 @@ Project Directory:
     G:\Project\pic\CCS\MMA7455l\
 
 Project Files:
-    Nucleo.c
+    utilidades.c
     Nucleo.h
     I:\Archivos de programa\PICC\devices\18F4550.h
-    I:\Archivos de programa\PICC\drivers\stdio.h
     I:\Archivos de programa\PICC\drivers\string.h
     I:\Archivos de programa\PICC\drivers\stddef.h
     I:\Archivos de programa\PICC\drivers\ctype.h
-    comunicacion.h
-    accelerometro.h
-    analogo_digital.h
-    captura_frecuencia.h
-    memoria.h
-    ds1307.h
     utilidades.h
 
 Units:
-    G:\Project\pic\CCS\MMA7455l\Nucleo (main)
+    G:\Project\pic\CCS\MMA7455l\utilidades (main)
 
 Compiler Settings:
     Processor:      PIC18F4550
@@ -42,6 +35,6 @@ Compiler Settings:
 
 Output Files:
     Errors:      Nucleo.err
-    Ext Symbols: Nucleo.esym
-    Object:      Nucleo.o
-    Symbols:     Nucleo.osym
+    Ext Symbols: utilidades.esym
+    Object:      utilidades.o
+    Symbols:     utilidades.osym

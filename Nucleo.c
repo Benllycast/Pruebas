@@ -1,10 +1,14 @@
 #include "Nucleo.h"
+#include "comunicacion.h"
 #include "accelerometro.h"
 #include "analogo_digital.h"
 #include "captura_frecuencia.h"
 #include "memoria.h"
 #include "ds1307.h"
+#include "utilidades.h"
 
+
+#define MAX 20;
 //extern CONFIG_MMA7455 CONFIG;
 //extern unsigned int32 tiempo_inicial, tiempo_final;
 void setup_devices(){
@@ -18,7 +22,10 @@ void setup_devices(){
    //////////////////////////////////////////////////////
    //error = MEMORIA_init();
    //////////////////////////////////////////////////////
-   ds1307_init(DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
+   //ds1307_init(DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
+   //////////////////////////////////////////////////////
+   //////////////////////////////////////////////////////
+   error = COM_init();
    //////////////////////////////////////////////////////
    setup_psp(PSP_DISABLED);
    setup_wdt(WDT_OFF);
@@ -29,23 +36,22 @@ void setup_devices(){
    //setup_ccp1(CCP_OFF);
    setup_comparator(NC_NC_NC_NC);
    setup_vref(FALSE);
+   printf("usb error =%d\n\r", error);
    return;
 }
 
 void main()
 {
-   byte dia = 0x01, mes = 0x01, ano = 0x0C, 
-         hora = 0x01, min = 0x01, sec = 0x01, dow = 0x00; 
+   char* mensaje = "hola mundo\n\r";
    setup_devices();
-   ds1307_set_date_time(dia, mes, ano, dow, hora, min, sec);
-   // TODO: USER CODE!!  
    while(1){
-      ds1307_get_date(dia, mes, ano, dow);
-      printf("fecha: %u/%u/%u dow: %u \n\r",dia, mes, ano, dow);
-      delay_ms(99);
-      ds1307_get_time(hora, min, sec);
-      printf("hora: %u:%u:%u\n\r", hora, min, sec);
-      delay_ms(900);
+      if(COM_sense() != USB_NO_ATTACHED){
+         COM_send(mensaje, strlen(mensaje));
+         printf("%s", mensaje);
+      }else
+         printf("esperando a conectar....\n\r");
+      
+      delay_ms(500);
    }
 }
 
