@@ -1,6 +1,7 @@
 #include "Nucleo.h"
 #include "memoria.h"
 #use rs232(stream=MEMORIA,baud=9600,parity=N,xmit=PIN_D6,rcv=PIN_D7,bits=8,FORCE_SW,DISABLE_INTS)
+#define MEMORIA_PIN_RESET PIN_D5
 
 short MEMORIA_OK = FALSE;
 short MEMORIA_HW = FALSE;
@@ -9,7 +10,7 @@ int MEM_proceso = INI_HW;
 unsigned int i = 0;
 unsigned int car = 0;
 unsigned long time_delay = 50000;
-int16 MEMORIA_PIN_RESET = PIN_D5;
+
 unsigned int32 tamano = 0;
 char MEM_info[5] = {0x00,0x00,0x00,0x00,0x00};
 char MEM_file_name[MEMORIA_NAME_LENG_LIMIT];

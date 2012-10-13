@@ -17,6 +17,7 @@ Project Files:
     accelerometro.c
     Nucleo.h
     I:\Archivos de programa\PICC\devices\18F4550.h
+    I:\Archivos de programa\PICC\drivers\stdio.h
     I:\Archivos de programa\PICC\drivers\string.h
     I:\Archivos de programa\PICC\drivers\stddef.h
     I:\Archivos de programa\PICC\drivers\ctype.h
