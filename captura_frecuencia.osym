@@ -48,7 +48,7 @@ STATUS
 TMR0
 T0CON
 OSCCON
-LVDCON
+HLVDCON
 WDTCON
 RCON
 TMR1
@@ -70,8 +70,8 @@ CCP1CON
 CCPR2
 CCP2CON
 BAUDCON
-PWM1CON
-ECCPAS1
+ECCP1DEL
+ECCP1AS
 CVRCON
 CMCON
 TMR3
@@ -82,7 +82,6 @@ RCREG
 TXREG
 TXSTA
 RCSTA
-EEADRH
 EEADR
 EEDATA
 EECON2
@@ -109,10 +108,40 @@ PORTD
 PORTC
 PORTB
 PORTA
+UEP15
+UEP14
+UEP13
+UEP12
+UEP11
+UEP10
+UEP9
+UEP8
+UEP7
+UEP6
+UEP5
+UEP4
+UEP3
+UEP2
+UEP1
+UEP0
+UCFG
+UADDR
+UCON
+USTAT
+UEIE
+UEIR
+UIE
+UIR
+UFRMH
+UFRML
+SPPCON
+SPPEPS
+SPPCFG
+SPPDATA
+MODO_TIMER_CCP
 MODO_CCP1
 MODO_CCP2
 Q_CCP
-MODO_TIMER_CCP
 overflow_t3_counter
 tiempo_inicial
 tiempo_final
@@ -124,12 +153,12 @@ Project Files:
     captura_frecuencia.c
     Nucleo.h
     I:\Archivos de programa\PICC\devices\18F4550.h
+    PIC18F4550.h
     I:\Archivos de programa\PICC\drivers\stdio.h
     I:\Archivos de programa\PICC\drivers\string.h
     I:\Archivos de programa\PICC\drivers\stddef.h
     I:\Archivos de programa\PICC\drivers\ctype.h
     captura_frecuencia.h
-    registros.h
 
 Units:
     G:\Project\pic\CCS\MMA7455l\captura_frecuencia (main)

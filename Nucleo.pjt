@@ -16,16 +16,16 @@ AdditionalOptionString=
 [Windows]
 0=0000 %S 0 0 796 451 3 0
 [Opened Files]
-1=captura_frecuencia.o
-2=captura_frecuencia.o.txt
-3=utilidades.h
-4=utilidades.c
-5=comunicacion.c
-6=comunicacion.h
-7=Nucleo.h
-8=ds1307.c
-9=accelerometro.c
-10=Nucleo.c
+1=utilidades.h
+2=utilidades.c
+3=comunicacion.c
+4=comunicacion.h
+5=Nucleo.h
+6=ds1307.c
+7=accelerometro.c
+8=Nucleo.c
+9=PIC18F4550.h
+10=
 11=
 12=
 [Target Data]
@@ -98,8 +98,9 @@ BuildTool=
 OptionString=
 AdditionalOptionString=
 [Units]
-Count=3
+Count=4
 1=Nucleo.o
-2=analogo_digital.o
-3=ds1307.o
+2=ds1307.o
+3=analogo_digital.o
+4=captura_frecuencia.o
 Link=1

@@ -9,6 +9,7 @@ frecuencia de la CPU:24 Mhz; el FUSE CPIDIV3 para dividir los 96Mhz hasta 24MHz 
 #ifndef NUCLEO_H
 #define NUCLEO_H
 #include <18F4550.h>
+#include "PIC18F4550.h"
 #device adc=10
 
 /*

@@ -1,20 +1,21 @@
 
-ROM used: 2132 (7%)
-          2132 (7%) including unused fragments
+ROM used: 6340 (19%)
+          6340 (19%) including unused fragments
 
-          1 Average locations per line
-          17 Average locations per statement
+          2 Average locations per line
+          28 Average locations per statement
 
-RAM used: 95 (5%) at main() level
-          104 (5%) worst case
+RAM used: 181 (9%) at main() level
+          209 (10%) worst case
 
-Stack used: 3 worst case (out of 31 total available)
+Stack used: 4 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   65    18  15  Nucleo.c
-   63     0   0  Nucleo.h
+  157    66  30  Nucleo.c
+   64     0   0  Nucleo.h
   457     0   0  I:\Archivos de programa\PICC\devices\18F4550.h
+  907     0   0  PIC18F4550.h
    37     0   0  I:\Archivos de programa\PICC\drivers\stdio.h
   409     0   0  I:\Archivos de programa\PICC\drivers\string.h
    28     0   0  I:\Archivos de programa\PICC\drivers\stddef.h
@@ -26,48 +27,71 @@ Lines Stmts  %   Files
    62     0   0  memoria.h
    68     0   0  ds1307.h
     7     0   0  utilidades.h
-   41    13  10  analogo_digital.c
-  204    93  75  ds1307.c
+  204    93  42  ds1307.c
+   41    13   6  analogo_digital.c
+   98    51  23  captura_frecuencia.c
 ----- -----
- 1720   124 Total
+ 2818   223 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
-0     42   1   1             @delay_ms1
-0    102   2   3             @I2C_READ_1
-0    108   3   1             @I2C_WRITE_1
-0    102   2   1   310  3.6  setup_devices
-0     16   0   0   247  4.6  @const289
-0     32   1   3   437  3.1  @PSTRINGCN_9600_31766_31767
-0     40   1   3   367  3.0  @DIV88
-0    210   5   6   219  2.4  @PRINTF_D_9600_31766_31767
-0    614  14   6   265  3.1  MAIN
-0     24   1   0   172  3.2  @const304
-0    108   3   2   145  1.9  @PRINTF_U_9600_31766_31767
-0    222   5   9   172  3.2  @PRINTF_LD_9600_31766_31767
-0     30   1   0    74  2.0  AD_init_adc
-0     78   2   6   247  4.6  AD_leer_canal
-0    324   8   3   497  2.4  ds1307_init
+0     42   0   1             @delay_ms1
+0    102   1   3             @I2C_READ_1
+0    108   1   1             @I2C_WRITE_1
+0    108   1   1   341  3.6  setup_devices
+0     16   0   0   531  2.7  @const1002
+0     34   0   3   437  3.1  @PSTRINGCN_9600_31766_31767
+0     40   0   3   367  3.0  @DIV88
+0    210   2   6   219  2.4  @PRINTF_D_9600_31766_31767
+0    408   3   1   109  1.6  MAIN
+0    596   5   0   300  2.7  leer_aceleracion
+0     34   0   0             @const1022
+0     28   0   1   300  2.7  @SPRINTF
+0    102   1   2             @PRINTF_U_1023
+0     30   0   3             @PSTRINGCN_1023
+0    234   2   9     5  1.0  @PRINTF_LD_1023
+0     38   0   2     5  1.0  @PSTRINGR_9600_31766_31767
+0    632   5   0   300  2.7  leer_velocidad
+0     34   0   0   313  2.7  @const1035
+0    670   5   0   300  2.7  leer_revoluciones
+0     34   0   0   313  2.7  @const1037
+0    676   5   0   287  2.3  leer_ccp1
+0     34   0   0     5  1.0  @const1039
+0    122   1  13             @DIV3232
+0    172   1  12   287  2.3  @PRINTF_L32U_1023
+0    676   5   0   287  2.3  leer_ccp2
+0     34   0   0             @const1046
+0    324   3   3   497  2.4  ds1307_init
+ Inline        5   437  3.1  ds1307_get_date
  Inline        4   367  3.0  ds1307_get_time
-0     38   1   3   240  6.0  ds1307_bin2bcd
-0     38   1   3   155  4.7  ds1307_bcd2bin
+0     38   0   3   240  6.0  ds1307_bin2bcd
+0     38   0   3   155  4.7  ds1307_bcd2bin
+0     30   0   0    74  2.0  AD_init_adc
+0     76   1   6   247  4.6  AD_leer_canal
+0      8   0   0    17  1.3  timer3_isr
+0    122   1   4   323  4.6  ccp1_isr
+0    122   1   4   323  4.6  ccp2_isr
+0     54   0   0   172  2.7  CP_init_ccp
+0    120   1   5   511  6.7  CP_leer_ccp
 
 Program metrics:
-    Functions               15
-    Statements              124
-    Comments                131
-    Volume (V)              6871
-    Difficilty (D)          50.7
-    Effort to implement (E) 348524
-    Time to implement (T)   5 hours, 23 minutes
-    Est Delivered Bugs (B)  2
-    Cyclomatic Complexity   3
-    Maintainability (MI)    55
+    Functions               30
+    Statements              223
+    Comments                147
+    Volume (V)              15387
+    Difficilty (D)          88.3
+    Effort to implement (E) 1358273
+    Time to implement (T)   20 hours, 58 minutes
+    Est Delivered Bugs (B)  4
+    Cyclomatic Complexity   8
+    Maintainability (MI)    92
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
-00004-07FFE  2128  30636  
+00004-00006     0  4  
+00008-000C4   190  0  
+000C6-07FFE  6146  26424  
 
 
 

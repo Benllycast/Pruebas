@@ -123,9 +123,9 @@ typedef union
   } reg;
   struct
   {
-    int x;
-    int y;
-    int z;
+    int16 x;
+    int16 y;
+    int16 z;
   } value;
 } xyz_union;
 

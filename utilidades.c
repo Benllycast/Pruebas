@@ -25,6 +25,6 @@ int16 calc_CRC(char *buffer, unsigned int8 leng){
    MyCRC = 0xFFFF; 
    for(i=0 ; i<leng ; i++) { 
       MyCRC = crc_1021(MyCRC,buffer[i]); 
-   } 
+   }
    return (MyCRC);
 }
