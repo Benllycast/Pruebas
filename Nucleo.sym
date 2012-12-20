@@ -48,85 +48,95 @@
 0AB     overflow_t3_counter
 0AC-0AF tiempo_inicial
 0B0-0B3 tiempo_final
-0B4     @PRINTF_U_1023.P1
-0B4     setup_devices.error
-0B4-0B7 @PRINTF_L32U_1023.P1
-0B4     AD_leer_canal.canal
+0B4     @PRINTF_U_1015.P1
 0B4     CP_leer_ccp.canal
-0B4-0B5 @PRINTF_LD_1023.P1
-0B4     @PSTRINGCN_1023.P2
+0B4     AD_leer_canal.canal
+0B4     setup_devices.error
 0B4     MAIN.@SCRATCH1
+0B4     leer_aceleracion.@SCRATCH1
 0B4     @PSTRINGR_9600_31766_31767.@SCRATCH1
+0B4     leer_velocidad.@SCRATCH1
+0B4     leer_revoluciones.@SCRATCH1
+0B4     leer_ccp1.@SCRATCH1
+0B4     leer_ccp2.@SCRATCH1
 0B4     ds1307_get_date.@SCRATCH1
 0B4     ds1307_get_time.@SCRATCH1
 0B5     @PSTRINGCN_9600_31766_31767.P1
-0B5     ds1307_init.val
+0B5     @PRINTF_D_9600_31766_31767.P2
+0B5     @delay_ms1.P3
 0B5-0B6 CP_leer_ccp.buffer
 0B5-0B6 AD_leer_canal.buffer
-0B5     @delay_ms1.P1
-0B5     @PRINTF_U_1023.P2
-0B5     @PRINTF_D_9600_31766_31767.P3
-0B5     @PSTRINGCN_1023.@SCRATCH1
+0B5     ds1307_init.val
+0B5     @PRINTF_U_1015.P1
+0B5     leer_aceleracion.@SCRATCH2
 0B5     @PSTRINGR_9600_31766_31767.@SCRATCH2
-0B6     @PRINTF_D_9600_31766_31767.P1
+0B5     leer_velocidad.@SCRATCH2
+0B5     leer_revoluciones.@SCRATCH2
+0B5     leer_ccp1.@SCRATCH2
+0B5     leer_ccp2.@SCRATCH2
+0B6-0B7 @PRINTF_LD_1015.P1
+0B6     @PSTRINGCN_1015.P2
+0B6     @PRINTF_D_9600_31766_31767.P3
 0B6     ds1307_init.seconds
+0B6-0B9 @PRINTF_L32U_1015.P1
 0B6     @PSTRINGCN_9600_31766_31767.@SCRATCH1
-0B6     @PSTRINGCN_1023.@SCRATCH2
-0B6     @PRINTF_LD_1023.@SCRATCH1
 0B7.0   AD_leer_canal.done
 0B7     ds1307_bin2bcd.binary_value
 0B7     @PSTRINGCN_9600_31766_31767.@SCRATCH2
 0B7     @PRINTF_D_9600_31766_31767.@SCRATCH1
-0B7     @PRINTF_LD_1023.@SCRATCH2
+0B7     @PSTRINGCN_1015.@SCRATCH1
 0B7     ds1307_init.@SCRATCH1
 0B7     CP_leer_ccp.@SCRATCH1
-0B8     @I2C_READ_1.P1
-0B8     @I2C_WRITE_1.P2
 0B8     ds1307_bin2bcd.temp
+0B8     @I2C_WRITE_1.P1
+0B8     @I2C_READ_1.P2
 0B8     @PRINTF_D_9600_31766_31767.@SCRATCH2
-0B8     @PRINTF_LD_1023.@SCRATCH3
-0B8     @PRINTF_L32U_1023.@SCRATCH1
+0B8     @PSTRINGCN_1015.@SCRATCH2
+0B8     @PRINTF_LD_1015.@SCRATCH1
 0B8     AD_leer_canal.@SCRATCH1
 0B8     CP_leer_ccp.@SCRATCH2
-0B9     ds1307_bin2bcd.retval
 0B9     ds1307_bcd2bin.bcd_value
+0B9     ds1307_bin2bcd.retval
 0B9     @I2C_READ_1.@SCRATCH1
 0B9     @PRINTF_D_9600_31766_31767.@SCRATCH3
-0B9     @PRINTF_LD_1023.@SCRATCH4
-0B9     @PRINTF_L32U_1023.@SCRATCH2
+0B9     @PRINTF_LD_1015.@SCRATCH2
 0B9     AD_leer_canal.@SCRATCH2
 0BA     ds1307_bcd2bin.temp
 0BA     @I2C_READ_1.@SCRATCH2
 0BA     @PRINTF_D_9600_31766_31767.@SCRATCH4
-0BA     @PRINTF_LD_1023.@SCRATCH5
-0BA     @PRINTF_L32U_1023.@SCRATCH3
+0BA     @PRINTF_LD_1015.@SCRATCH3
+0BA     @PRINTF_L32U_1015.@SCRATCH1
 0BB     @DIV88.P1
-0BB     @PRINTF_LD_1023.@SCRATCH6
-0BB     @PRINTF_L32U_1023.@SCRATCH4
+0BB     @PRINTF_LD_1015.@SCRATCH4
+0BB     @PRINTF_L32U_1015.@SCRATCH2
 0BB     ds1307_bcd2bin.@SCRATCH1
 0BC     @DIV88.P1
-0BC     @PRINTF_LD_1023.@SCRATCH7
-0BC     @PRINTF_L32U_1023.@SCRATCH5
+0BC     @PRINTF_LD_1015.@SCRATCH5
+0BC     @PRINTF_L32U_1015.@SCRATCH3
 0BD     @DIV88.@SCRATCH1
-0BD     @PRINTF_L32U_1023.@SCRATCH6
-0BE     @PRINTF_L32U_1023.@SCRATCH7
-0BF     @PRINTF_L32U_1023.@SCRATCH8
-0C0     @SPRINTF.P1
-0C0-0C3 @DIV3232.P2
-0C4-0C7 @DIV3232.P1
-0C8     @DIV3232.@SCRATCH1
-0C9     @DIV3232.@SCRATCH2
-0CA     @DIV3232.@SCRATCH3
-0CB     @DIV3232.@SCRATCH4
-0CC     @DIV3232.@SCRATCH5
-0CD     ccp1_isr.@SCRATCH1
-0CD     ccp2_isr.@SCRATCH1
-0CE     ccp1_isr.@SCRATCH2
-0CE     ccp2_isr.@SCRATCH2
-0CF     ccp1_isr.@SCRATCH3
-0CF     ccp2_isr.@SCRATCH3
-0D0     ccp1_isr.@SCRATCH4
-0D0     ccp2_isr.@SCRATCH4
+0BD     @PRINTF_LD_1015.@SCRATCH6
+0BD     @PRINTF_L32U_1015.@SCRATCH4
+0BE     @PRINTF_LD_1015.@SCRATCH7
+0BE     @PRINTF_L32U_1015.@SCRATCH5
+0BF     @PRINTF_L32U_1015.@SCRATCH6
+0C0     @PRINTF_L32U_1015.@SCRATCH7
+0C1     @PRINTF_L32U_1015.@SCRATCH8
+0C2     @SPRINTF.P1
+0C2-0C5 @DIV3232.P2
+0C6-0C9 @DIV3232.P1
+0CA     @DIV3232.@SCRATCH1
+0CB     @DIV3232.@SCRATCH2
+0CC     @DIV3232.@SCRATCH3
+0CD     @DIV3232.@SCRATCH4
+0CE     @DIV3232.@SCRATCH5
+0CF     ccp1_isr.@SCRATCH1
+0CF     ccp2_isr.@SCRATCH1
+0D0     ccp1_isr.@SCRATCH2
+0D0     ccp2_isr.@SCRATCH2
+0D1     ccp1_isr.@SCRATCH3
+0D1     ccp2_isr.@SCRATCH3
+0D2     ccp1_isr.@SCRATCH4
+0D2     ccp2_isr.@SCRATCH4
 F62     SPPDATA
 F63     SPPCFG
 F64     SPPEPS
@@ -160,6 +170,8 @@ F7F     UEP15
 F80     PORTA
 F81     PORTB
 F82     PORTC
+F83     PSP_DATA
+F83     PORTD
 F83     PSP_DATA
 F83     PORTD
 F83     PSP_DATA
@@ -209,8 +221,8 @@ FBC     CCP_2_HIGH
 FBC     CCPR2
 FBC     CCP_2_HIGH
 FBC     CCPR2
+FBC     CCP_2_HIGH
 FBD     CCP1CON
-FBE     CCP_1_LOW
 FBE     CCP_1
 FBE     CCP_1_LOW
 FBE     CCP_1
@@ -219,9 +231,6 @@ FBE     CCP_1
 FBF     CCPR1
 FBF     CCP_1_HIGH
 FBF     CCPR1
-FBF     CCP_1_HIGH
-FBF     CCPR1
-FBF     CCP_1_HIGH
 FC0     ADCON2
 FC1     ADCON1
 FC2     ADCON0
@@ -253,7 +262,8 @@ FDF     INDF2
 FE0     BSR
 FE1     FSR1L
 FE1-FE2 @READ_PACKED_MEMORY.P1
-FE1-FE2 @WRITE_PACKED_MEMORY.P2
+FE1     FSR1L
+FE1-FE2 @WRITE_PACKED_MEMORY.P1
 FE1     FSR1L
 FE2     FSR1H
 FE3     PLUSW1
@@ -263,13 +273,12 @@ FE6     POSTINC1
 FE7     INDF1
 FE8     WREG
 FE9     FSR0L
-FE9-FEA @READ_PROGRAM_MEMORY.P1
+FE9-FEA @WRITE_PACKED_MEMORY.P1
 FE9     FSR0L
 FE9-FEA @READ_PACKED_MEMORY.P1
-FE9-FEA @WRITE_PACKED_MEMORY.P2
+FE9-FEA @WRITE_PROGRAM_MEMORY.P2
 FE9     FSR0L
-FE9-FEA @WRITE_PROGRAM_MEMORY.P1
-FE9     FSR0L
+FE9-FEA @READ_PROGRAM_MEMORY.P1
 FEA     FSR0H
 FEB     PLUSW0
 FEC     PREINC0
@@ -293,45 +302,46 @@ FFE     TOS
 FFF     TOSU
 
 ROM Allocation:
-1706  @delay_ms1
-033C  @I2C_READ_1
-02D0  @I2C_WRITE_1
-064E  setup_devices
-00C6  @const1002
-0532  @PSTRINGCN_9600_31766_31767
-0554  @DIV88
-057C  @PRINTF_D_9600_31766_31767
-1730  MAIN
-08B6  leer_aceleracion
-00D6  @const1022
-0706  @SPRINTF
-0722  @PRINTF_U_1023
-0788  @PSTRINGCN_1023
-07A6  @PRINTF_LD_1023
-0890  @PSTRINGR_9600_31766_31767
-0B0A  leer_velocidad
-00F8  @const1035
-0D82  leer_revoluciones
-011A  @const1037
-11BE  leer_ccp1
-013C  @const1039
-1098  @DIV3232
-1112  @PRINTF_L32U_1023
-1462  leer_ccp2
-015E  @const1046
-03EE  ds1307_init
-1536  ds1307_get_date
-1462  ds1307_get_time
-03C8  ds1307_bin2bcd
-03A2  ds1307_bcd2bin
-027C  AD_init_adc
-06BA  AD_leer_canal
-0180  timer3_isr
-0188  ccp1_isr
-0202  ccp2_isr
-029A  CP_init_ccp
-1020  CP_leer_ccp
-1730  @cinit
+17E2  @delay_ms1
+039A  @I2C_READ_1
+032E  @I2C_WRITE_1
+00C6  mod_to_str
+06AC  setup_devices
+0124  @const1003
+0590  @PSTRINGCN_9600_31766_31767
+05B2  @DIV88
+05DA  @PRINTF_D_9600_31766_31767
+180C  MAIN
+0914  leer_aceleracion
+0134  @const1014
+0764  @SPRINTF
+0780  @PRINTF_U_1015
+07E6  @PSTRINGCN_1015
+0804  @PRINTF_LD_1015
+08EE  @PSTRINGR_9600_31766_31767
+0B7E  leer_velocidad
+0156  @const1027
+0E0E  leer_revoluciones
+0178  @const1029
+126E  leer_ccp1
+019A  @const1031
+113A  @DIV3232
+11C8  @PRINTF_L32U_1015
+1528  leer_ccp2
+01BC  @const1038
+044C  ds1307_init
+15FC  ds1307_get_date
+1528  ds1307_get_time
+0426  ds1307_bin2bcd
+0400  ds1307_bcd2bin
+02DA  AD_init_adc
+0718  AD_leer_canal
+01DE  timer3_isr
+01E6  ccp1_isr
+0260  ccp2_isr
+02F8  CP_init_ccp
+10C2  CP_leer_ccp
+180C  @cinit
 
 
 User Memory space: 
@@ -351,17 +361,17 @@ User Memory space:
 User Memory space: 
 
 Project Directory:
-    G:\Project\pic\CCS\MMA7455l\
+    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\
 
 Project Files:
     Nucleo.c
     Nucleo.h (link)
-    I:\Archivos de programa\PICC\devices\18F4550.h (link)
+    ..\..\..\..\Archivos de programa\PICC\devices\18F4550.h (link)
     PIC18F4550.h (link)
-    I:\Archivos de programa\PICC\drivers\stdio.h (link)
-    I:\Archivos de programa\PICC\drivers\string.h (link)
-    I:\Archivos de programa\PICC\drivers\stddef.h (link)
-    I:\Archivos de programa\PICC\drivers\ctype.h (link)
+    ..\..\..\..\Archivos de programa\PICC\drivers\stdio.h (link)
+    ..\..\..\..\Archivos de programa\PICC\drivers\string.h (link)
+    ..\..\..\..\Archivos de programa\PICC\drivers\stddef.h (link)
+    ..\..\..\..\Archivos de programa\PICC\drivers\ctype.h (link)
     comunicacion.h (link)
     accelerometro.h (link)
     analogo_digital.h (link)
@@ -374,10 +384,10 @@ Project Files:
     captura_frecuencia.c (link)
 
 Units:
-    G:\Project\pic\CCS\MMA7455l\Nucleo.o
-    G:\Project\pic\CCS\MMA7455l\ds1307.o
-    G:\Project\pic\CCS\MMA7455l\analogo_digital.o
-    G:\Project\pic\CCS\MMA7455l\captura_frecuencia.o
+    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\Nucleo.o
+    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\ds1307.o
+    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\analogo_digital.o
+    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\captura_frecuencia.o
 
 Compiler Settings:
     Processor:      PIC18F4550

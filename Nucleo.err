@@ -1,8 +1,8 @@
-G:\Project\pic\CCS\MMA7455l\captura_frecuencia.o ===>  0 Errors,  0 Warnings.
-G:\Project\pic\CCS\MMA7455l\analogo_digital.o ===>  0 Errors,  0 Warnings.
+C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\captura_frecuencia.o ===>  0 Errors,  0 Warnings.
+C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\analogo_digital.o ===>  0 Errors,  0 Warnings.
 >>> Warning 203 "ds1307.c" Line 181(1,1): Condition always TRUE
-G:\Project\pic\CCS\MMA7455l\ds1307.o ===>  0 Errors,  1 Warnings.
->>> Warning 203 "Nucleo.c" Line 65(1,1): Condition always TRUE
-G:\Project\pic\CCS\MMA7455l\Nucleo.o ===>  0 Errors,  1 Warnings.
-      Memory usage:   ROM=19%      RAM=9% - 10%
+C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\ds1307.o ===>  0 Errors,  1 Warnings.
+>>> Warning 203 "Nucleo.c" Line 64(1,1): Condition always TRUE
+C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\Nucleo.o ===>  0 Errors,  1 Warnings.
+      Memory usage:   ROM=20%      RAM=9% - 10%
       0 Errors,  0 Warnings.

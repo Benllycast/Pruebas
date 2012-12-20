@@ -142,21 +142,21 @@ days_of_week
 @sprintf_string
 
 Project Directory:
-    G:\Project\pic\CCS\MMA7455l\
+    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\
 
 Project Files:
     ds1307.c
     Nucleo.h
-    I:\Archivos de programa\PICC\devices\18F4550.h
+    ..\..\..\..\Archivos de programa\PICC\devices\18F4550.h
     PIC18F4550.h
-    I:\Archivos de programa\PICC\drivers\stdio.h
-    I:\Archivos de programa\PICC\drivers\string.h
-    I:\Archivos de programa\PICC\drivers\stddef.h
-    I:\Archivos de programa\PICC\drivers\ctype.h
+    ..\..\..\..\Archivos de programa\PICC\drivers\stdio.h
+    ..\..\..\..\Archivos de programa\PICC\drivers\string.h
+    ..\..\..\..\Archivos de programa\PICC\drivers\stddef.h
+    ..\..\..\..\Archivos de programa\PICC\drivers\ctype.h
     ds1307.h
 
 Units:
-    G:\Project\pic\CCS\MMA7455l\ds1307 (main)
+    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\ds1307 (main)
 
 Compiler Settings:
     Processor:      PIC18F4550
