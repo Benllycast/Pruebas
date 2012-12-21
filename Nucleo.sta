@@ -1,6 +1,6 @@
 
-ROM used: 6578 (20%)
-          6578 (20%) including unused fragments
+ROM used: 6546 (20%)
+          6546 (20%) including unused fragments
 
           2 Average locations per line
           32 Average locations per statement
@@ -14,12 +14,12 @@ Lines Stmts  %   Files
 ----- ----- ---  -----
   127    49  24  Nucleo.c
    64     0   0  Nucleo.h
-  458     0   0  ..\..\..\..\Archivos de programa\PICC\devices\18F4550.h
+  457     0   0  I:\Archivos de programa\PICC\devices\18F4550.h
   907     0   0  PIC18F4550.h
-   37     0   0  ..\..\..\..\Archivos de programa\PICC\drivers\stdio.h
-  409     0   0  ..\..\..\..\Archivos de programa\PICC\drivers\string.h
-   32     0   0  ..\..\..\..\Archivos de programa\PICC\drivers\stddef.h
-   28     0   0  ..\..\..\..\Archivos de programa\PICC\drivers\ctype.h
+   37     0   0  I:\Archivos de programa\PICC\drivers\stdio.h
+  409     0   0  I:\Archivos de programa\PICC\drivers\string.h
+   28     0   0  I:\Archivos de programa\PICC\drivers\stddef.h
+   28     0   0  I:\Archivos de programa\PICC\drivers\ctype.h
    13     0   0  comunicacion.h
   210     0   0  accelerometro.h
    18     0   0  analogo_digital.h
@@ -31,7 +31,7 @@ Lines Stmts  %   Files
    41    13   6  analogo_digital.c
    98    51  25  captura_frecuencia.c
 ----- -----
- 2793   206 Total
+ 2788   206 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
@@ -44,7 +44,7 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     34   0   3   367  3.0  @PSTRINGCN_9600_31766_31767
 0     40   0   3   219  2.4  @DIV88
 0    210   2   6   145  1.9  @PRINTF_D_9600_31766_31767
-0    426   3   1   109  1.6  MAIN
+0    408   3   1   109  1.6  MAIN
 0    618   5   2   315  3.2  leer_aceleracion
 0     34   0   0             @const1014
 0     28   0   1             @SPRINTF
@@ -53,15 +53,15 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0    234   2   9             @PRINTF_LD_1015
 0     38   0   2             @PSTRINGR_9600_31766_31767
 0    656   5   2   315  3.2  leer_velocidad
-0     34   0   0   300  2.7  @const1027
+0     34   0   0             @const1027
 0    692   5   2   315  3.2  leer_revoluciones
-0     34   0   0   300  2.7  @const1029
+0     34   0   0             @const1029
 0    698   5   2   302  2.7  leer_ccp1
-0     34   0   0   287  2.3  @const1031
-0    142   1  13             @DIV3232
-0    166   1  12   300  2.7  @PRINTF_L32U_1015
+0     34   0   0             @const1031
+0    122   1  13             @DIV3232
+0    172   1  12             @PRINTF_L32U_1015
 0    698   5   2   302  2.7  leer_ccp2
-0     34   0   0   287  2.3  @const1038
+0     34   0   0             @const1038
 0    324   2   3   497  2.4  ds1307_init
  Inline        5   437  3.1  ds1307_get_date
  Inline        4   367  3.0  ds1307_get_time
@@ -76,23 +76,23 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0    120   1   5   511  6.7  CP_leer_ccp
 
 Program metrics:
-    Functions               31
+    Functions               26
     Statements              206
     Comments                147
-    Volume (V)              17263
-    Difficilty (D)          101.7
-    Effort to implement (E) 1755308
-    Time to implement (T)   27 hours, 5 minutes
-    Est Delivered Bugs (B)  5
+    Volume (V)              14021
+    Difficilty (D)          88.6
+    Effort to implement (E) 1242669
+    Time to implement (T)   19 hours, 11 minutes
+    Est Delivered Bugs (B)  4
     Cyclomatic Complexity   9
-    Maintainability (MI)    96
+    Maintainability (MI)    79
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
 00004-00006     0  4  
 00008-000C4   190  0  
-000C6-07FFE  6384  26186  
+000C6-07FFE  6352  26218  
 
 
 

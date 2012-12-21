@@ -152,17 +152,17 @@ mod_to_str
 @sprintf_string
 
 Project Directory:
-    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\
+    G:\Project\pic\CCS\MMA7455l\
 
 Project Files:
     Nucleo.c
     Nucleo.h
-    ..\..\..\..\Archivos de programa\PICC\devices\18F4550.h
+    I:\Archivos de programa\PICC\devices\18F4550.h
     PIC18F4550.h
-    ..\..\..\..\Archivos de programa\PICC\drivers\stdio.h
-    ..\..\..\..\Archivos de programa\PICC\drivers\string.h
-    ..\..\..\..\Archivos de programa\PICC\drivers\stddef.h
-    ..\..\..\..\Archivos de programa\PICC\drivers\ctype.h
+    I:\Archivos de programa\PICC\drivers\stdio.h
+    I:\Archivos de programa\PICC\drivers\string.h
+    I:\Archivos de programa\PICC\drivers\stddef.h
+    I:\Archivos de programa\PICC\drivers\ctype.h
     comunicacion.h
     accelerometro.h
     analogo_digital.h
@@ -172,7 +172,7 @@ Project Files:
     utilidades.h
 
 Units:
-    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\Nucleo (main)
+    G:\Project\pic\CCS\MMA7455l\Nucleo (main)
 
 Compiler Settings:
     Processor:      PIC18F4550

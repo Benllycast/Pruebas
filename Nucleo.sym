@@ -217,11 +217,13 @@ FBB     CCP_2
 FBB     CCP_2_LOW
 FBB     CCP_2
 FBB     CCP_2_LOW
+FBB     CCP_2
 FBC     CCP_2_HIGH
 FBC     CCPR2
 FBC     CCP_2_HIGH
 FBC     CCPR2
 FBC     CCP_2_HIGH
+FBC     CCPR2
 FBD     CCP1CON
 FBE     CCP_1
 FBE     CCP_1_LOW
@@ -231,6 +233,7 @@ FBE     CCP_1
 FBF     CCPR1
 FBF     CCP_1_HIGH
 FBF     CCPR1
+FBF     CCP_1_HIGH
 FC0     ADCON2
 FC1     ADCON1
 FC2     ADCON0
@@ -261,10 +264,9 @@ FDE     POSTINC2
 FDF     INDF2
 FE0     BSR
 FE1     FSR1L
-FE1-FE2 @READ_PACKED_MEMORY.P1
-FE1     FSR1L
 FE1-FE2 @WRITE_PACKED_MEMORY.P1
 FE1     FSR1L
+FE1-FE2 @READ_PACKED_MEMORY.P1
 FE2     FSR1H
 FE3     PLUSW1
 FE4     PREINC1
@@ -273,12 +275,12 @@ FE6     POSTINC1
 FE7     INDF1
 FE8     WREG
 FE9     FSR0L
-FE9-FEA @WRITE_PACKED_MEMORY.P1
-FE9     FSR0L
 FE9-FEA @READ_PACKED_MEMORY.P1
-FE9-FEA @WRITE_PROGRAM_MEMORY.P2
+FE9-FEA @WRITE_PACKED_MEMORY.P2
 FE9     FSR0L
 FE9-FEA @READ_PROGRAM_MEMORY.P1
+FE9-FEA @WRITE_PROGRAM_MEMORY.P2
+FE9     FSR0L
 FEA     FSR0H
 FEB     PLUSW0
 FEC     PREINC0
@@ -290,8 +292,8 @@ FF1     INTCON2
 FF2     INTCON
 FF4     PROD
 FF5     TABLAT
-FF6-FF8 @READ_PROGRAM_MEMORY.P1
-FF6-FF8 @WRITE_PROGRAM_MEMORY.P2
+FF6-FF8 @WRITE_PROGRAM_MEMORY.P1
+FF6-FF8 @READ_PROGRAM_MEMORY.P2
 FF7     TBLPTR
 FF8     TBLPTRU
 FF9     PCL
@@ -302,7 +304,7 @@ FFE     TOS
 FFF     TOSU
 
 ROM Allocation:
-17E2  @delay_ms1
+17D4  @delay_ms1
 039A  @I2C_READ_1
 032E  @I2C_WRITE_1
 00C6  mod_to_str
@@ -311,7 +313,7 @@ ROM Allocation:
 0590  @PSTRINGCN_9600_31766_31767
 05B2  @DIV88
 05DA  @PRINTF_D_9600_31766_31767
-180C  MAIN
+17FE  MAIN
 0914  leer_aceleracion
 0134  @const1014
 0764  @SPRINTF
@@ -323,15 +325,15 @@ ROM Allocation:
 0156  @const1027
 0E0E  leer_revoluciones
 0178  @const1029
-126E  leer_ccp1
+1260  leer_ccp1
 019A  @const1031
 113A  @DIV3232
-11C8  @PRINTF_L32U_1015
-1528  leer_ccp2
+11B4  @PRINTF_L32U_1015
+151A  leer_ccp2
 01BC  @const1038
 044C  ds1307_init
-15FC  ds1307_get_date
-1528  ds1307_get_time
+15EE  ds1307_get_date
+151A  ds1307_get_time
 0426  ds1307_bin2bcd
 0400  ds1307_bcd2bin
 02DA  AD_init_adc
@@ -341,7 +343,7 @@ ROM Allocation:
 0260  ccp2_isr
 02F8  CP_init_ccp
 10C2  CP_leer_ccp
-180C  @cinit
+17FE  @cinit
 
 
 User Memory space: 
@@ -361,17 +363,17 @@ User Memory space:
 User Memory space: 
 
 Project Directory:
-    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\
+    G:\Project\pic\CCS\MMA7455l\
 
 Project Files:
     Nucleo.c
     Nucleo.h (link)
-    ..\..\..\..\Archivos de programa\PICC\devices\18F4550.h (link)
+    I:\Archivos de programa\PICC\devices\18F4550.h (link)
     PIC18F4550.h (link)
-    ..\..\..\..\Archivos de programa\PICC\drivers\stdio.h (link)
-    ..\..\..\..\Archivos de programa\PICC\drivers\string.h (link)
-    ..\..\..\..\Archivos de programa\PICC\drivers\stddef.h (link)
-    ..\..\..\..\Archivos de programa\PICC\drivers\ctype.h (link)
+    I:\Archivos de programa\PICC\drivers\stdio.h (link)
+    I:\Archivos de programa\PICC\drivers\string.h (link)
+    I:\Archivos de programa\PICC\drivers\stddef.h (link)
+    I:\Archivos de programa\PICC\drivers\ctype.h (link)
     comunicacion.h (link)
     accelerometro.h (link)
     analogo_digital.h (link)
@@ -384,10 +386,10 @@ Project Files:
     captura_frecuencia.c (link)
 
 Units:
-    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\Nucleo.o
-    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\ds1307.o
-    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\analogo_digital.o
-    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\captura_frecuencia.o
+    G:\Project\pic\CCS\MMA7455l\Nucleo.o
+    G:\Project\pic\CCS\MMA7455l\ds1307.o
+    G:\Project\pic\CCS\MMA7455l\analogo_digital.o
+    G:\Project\pic\CCS\MMA7455l\captura_frecuencia.o
 
 Compiler Settings:
     Processor:      PIC18F4550

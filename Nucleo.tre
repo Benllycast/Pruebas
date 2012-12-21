@@ -1,5 +1,5 @@
 ÀÄNucleo
-   ÃÄMAIN  0/426  Ram=1
+   ÃÄMAIN  0/408  Ram=1
    ³  ÃÄ??0??
    ³  ÃÄsetup_devices  0/108  Ram=1
    ³  ³  ÃÄAD_init_adc  0/30  Ram=0
@@ -314,10 +314,10 @@
    ³  ³  ÃÄ@SPRINTF  0/28  Ram=1
    ³  ³  ÃÄ@PSTRINGCN_1015  0/30  Ram=3
    ³  ³  ³  ÀÄ@SPRINTF  0/28  Ram=1
-   ³  ³  ÃÄ@PRINTF_L32U_1015  0/166  Ram=12
-   ³  ³  ³  ÃÄ@DIV3232  0/142  Ram=13
+   ³  ³  ÃÄ@PRINTF_L32U_1015  0/172  Ram=12
+   ³  ³  ³  ÃÄ@DIV3232  0/122  Ram=13
    ³  ³  ³  ÃÄ@SPRINTF  0/28  Ram=1
-   ³  ³  ³  ÀÄ@DIV3232  0/142  Ram=13
+   ³  ³  ³  ÀÄ@DIV3232  0/122  Ram=13
    ³  ³  ÀÄ@PSTRINGR_9600_31766_31767  0/38  Ram=2
    ³  ÃÄleer_ccp2  0/698  Ram=2
    ³  ³  ÃÄds1307_get_time  (Inline)  Ram=4
@@ -390,10 +390,10 @@
    ³  ³  ÃÄ@SPRINTF  0/28  Ram=1
    ³  ³  ÃÄ@PSTRINGCN_1015  0/30  Ram=3
    ³  ³  ³  ÀÄ@SPRINTF  0/28  Ram=1
-   ³  ³  ÃÄ@PRINTF_L32U_1015  0/166  Ram=12
-   ³  ³  ³  ÃÄ@DIV3232  0/142  Ram=13
+   ³  ³  ÃÄ@PRINTF_L32U_1015  0/172  Ram=12
+   ³  ³  ³  ÃÄ@DIV3232  0/122  Ram=13
    ³  ³  ³  ÃÄ@SPRINTF  0/28  Ram=1
-   ³  ³  ³  ÀÄ@DIV3232  0/142  Ram=13
+   ³  ³  ³  ÀÄ@DIV3232  0/122  Ram=13
    ³  ³  ÀÄ@PSTRINGR_9600_31766_31767  0/38  Ram=2
    ³  ÀÄ@delay_ms1  0/42  Ram=1
    ÃÄtimer3_isr  0/8  Ram=0
