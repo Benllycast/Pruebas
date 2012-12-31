@@ -26,14 +26,14 @@
 //// permission.  Derivative programs created using this software      ////
 //// in object code form are not restricted in any way.                ////
 ///////////////////////////////////////////////////////////////////////////
+/*============================================================================
+CDC USB descriptor propio para el manejo de datos por usb
 
 
 
 
 
-
-
-
+============================================================================*/
 #IFNDEF __USB_DESCRIPTORS__
 #DEFINE __USB_DESCRIPTORS__
 

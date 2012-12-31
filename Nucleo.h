@@ -1,23 +1,18 @@
-/*
-configuracione de hardware
-oscilador: 20Mhz. con PLL:activo para dividir por 5 y obtener 4Mhz, aumentarlo a 96Mhz y dividirlo a 48Mhz para la frecuencia del modulo USB;
-frecuencia de la CPU:24 Mhz; el FUSE CPIDIV3 para dividir los 96Mhz hasta 24MHz como frecuencia de entradad de la CPU 
+/*=========================Configuracion del Hardware==========================
 
+oscilador: 20Mhz. con PLL:activo para dividir por 5 y obtener 4Mhz, aumentandolo a 96Mhz-> div:2 a 48Mhz para la frecuencia del modulo USB;
+frecuencia de la CPU:24 Mhz; el FUSE CPIDIV3 para dividir los 96Mhz hasta 24MHz como frecuencia de entradad de la CPU
 
-*/
+==============================================================================*/
 
+/*=================== CABEZERA DEL ARCHIVO ===================================*/
 #ifndef NUCLEO_H
 #define NUCLEO_H
 #include <18F4550.h>
-#include "PIC18F4550.h"
+//#include "PIC18F4550.h"
 #device adc=10
 
-/*
-#include <18F4620.h>
-//#include "registros.h"
-#device adc=10
-*/
-
+/*====================fuses de configuracion del dispositivo==================*/
 #FUSES NOWDT                 	//No Watch Dog Timer
 #FUSES WDT128                	//Watch Dog Timer uses 1:128 Postscale
 #FUSES HSPLL                  //High speed Osc (> 4mhz for PCM/PCH) (>10mhz for PCD) with PLL enable
@@ -29,7 +24,7 @@ frecuencia de la CPU:24 Mhz; el FUSE CPIDIV3 para dividir los 96Mhz hasta 24MHz 
 #FUSES STVREN                	//Stack full/underflow will cause reset
 
 #FUSES NODEBUG               	//No Debug mode for ICD
-#FUSES NOLVP                 	//No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O
+#FUSES NOLVP                 	//No low voltage programing, B3(PIC16) or B5(PIC18) used for I/O
 #FUSES NOWRT                 	//Program memory not write protected
 #FUSES NOWRTD                	//Data EEPROM not write protected
 #FUSES IESO                  	//Internal External Switch Over mode enabled
@@ -44,20 +39,31 @@ frecuencia de la CPU:24 Mhz; el FUSE CPIDIV3 para dividir los 96Mhz hasta 24MHz 
 #FUSES MCLR                  	//Master Clear pin enabled
 #FUSES LPT1OSC               	//Timer1 configured for low-power operation
 #FUSES NOXINST               	//Extended set extension and Indexed Addressing mode disabled (Legacy mode)
-#FUSES PLL5							//PLL enable div by 5 input Osc
-#FUSES CPUDIV3						//postscaler PLL div by 4                      
-#FUSES USBDIV						//enable USBDIV, div output PLL by 2
+#FUSES PLL5							//(PLL prescaler) PLL enable div by 5 input Osc
+#FUSES CPUDIV3						//postscaler PLL div by 4 (whit pll enable)                     
+#FUSES USBDIV						//enable USBDIV, USB clock source come from PLL divide by 2
 #FUSES VREGEN						//internal regulator USB enable
 #FUSES ICPRT						
 #FUSES CCP2C1						//CPP input/output multiplexed whit RC1
 
-//cambiar el valor del clock si se cambia la frecuencia de la CPU
-#use delay(clock=24000000)
-#use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8)
-#define PIN_SDA PIN_B0
-#define PIN_SCL PIN_B1
-#use i2c(master, sda= PIN_SDA, scl=PIN_SCL/*, FORCE_HW, RESTART_WDT*/)                    //directiva de compilador para el uso del bus I2C del microcontrolador
+
+/*============================ DEFINICIONES DE PINES =========================*/
+#define PIN_SDA	PIN_B0
+#define PIN_SCL	PIN_B1
+#define PIN_XMIT	PIN_C6
+#define PIN_RCV	PIN_C7
+
+/*=================== CONFIGURACION DEL RELOJ DE TRABAJO =====================*/
+#use delay(clock=24000000)	//cambiar el valor del clock si se cambia la frecuencia de la CPU
+
+/*=================== CONFIGURACION LIBRERIAS DE COMUNICACION ================*/
+#use rs232(baud=9600,parity=N,xmit=PIN_XMIT,rcv=PIN_RCV,bits=8)
+//directiva de compilador para el uso del bus I2C del microcontrolador
+#use i2c(master, sda= PIN_SDA, scl=PIN_SCL/*, FORCE_HW, RESTART_WDT*/)
+
+/*=================== LIBRERIAS ESTANDAR PARA EL MANEJO DE DATOS =============*/
 #include <stdio.h>
 //#include <stdlib.h>
 #include <string.h>
-#endif
+
+#endif	//ifndef NUCLEO_H

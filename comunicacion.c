@@ -4,7 +4,6 @@
 #include "usb_desc_cdc.h"
 #include <usb_cdc.h>
 
-
 unsigned int i = 0;
 int8 com_usb_state = -1;
 int COM_init(){
