@@ -1,6 +1,6 @@
 
-ROM used: 4664 (14%)
-          4664 (14%) including unused fragments
+ROM used: 4668 (14%)
+          4668 (14%) including unused fragments
 
           1 Average locations per line
           6 Average locations per statement
@@ -12,37 +12,37 @@ Stack used: 16 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-  140    27   4  Nucleo.c
+  141    28   4  Nucleo.c
    70     0   0  Nucleo.h
-  457     0   0  I:\Archivos de programa\PICC\devices\18F4550.h
-   37     0   0  I:\Archivos de programa\PICC\drivers\stdio.h
-  409     0   0  I:\Archivos de programa\PICC\drivers\string.h
-   28     0   0  I:\Archivos de programa\PICC\drivers\stddef.h
-   28     0   0  I:\Archivos de programa\PICC\drivers\ctype.h
+  458     0   0  ..\..\..\..\..\Archivos de programa\PICC\Devices\18F4550.h
+   37     0   0  ..\..\..\..\..\Archivos de programa\PICC\Drivers\stdio.h
+  409     0   0  ..\..\..\..\..\Archivos de programa\PICC\Drivers\string.h
+   32     0   0  ..\..\..\..\..\Archivos de programa\PICC\Drivers\stddef.h
+   28     0   0  ..\..\..\..\..\Archivos de programa\PICC\Drivers\ctype.h
    13     0   0  comunicacion.h
    68    49   6  comunicacion.c
   288     0   0  usb_desc_cdc.h
- 1063     0   0  I:\Archivos de programa\PICC\drivers\usb.h
-  582   128  17  I:\Archivos de programa\PICC\drivers\usb_cdc.h
-  222     0   0  I:\Archivos de programa\PICC\drivers\pic18_usb.h
-  328     0   0  I:\Archivos de programa\PICC\drivers\usb_hw_layer.h
-  279     0   0  I:\Archivos de programa\PICC\drivers\usb_desc_cdc.h
-  808   237  31  I:\Archivos de programa\PICC\drivers\usb.c
- 1281   320  42  I:\Archivos de programa\PICC\drivers\pic18_usb.c
+ 1063     0   0  ..\..\..\..\..\Archivos de programa\PICC\Drivers\usb.h
+  582   128  17  ..\..\..\..\..\Archivos de programa\PICC\Drivers\usb_cdc.h
+  222     0   0  ..\..\..\..\..\Archivos de programa\PICC\Drivers\pic18_usb.h
+  328     0   0  ..\..\..\..\..\Archivos de programa\PICC\Drivers\usb_hw_layer.h
+  279     0   0  ..\..\..\..\..\Archivos de programa\PICC\Drivers\usb_desc_cdc.h
+  808   237  31  ..\..\..\..\..\Archivos de programa\PICC\Drivers\usb.c
+ 1281   320  42  ..\..\..\..\..\Archivos de programa\PICC\Drivers\pic18_usb.c
 ----- -----
- 6101   761 Total
+ 6107   762 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
 0     42   0   1             @delay_ms1
 0     60   1   1   255  3.2  setup_devices
-0    224   2  14   488  4.6  MAIN
+0    228   2  14   529  4.7  MAIN
 0      8   0   0             @const185
 0     34   0   2             @PSTRINGC_9600_31766_31767
 0     18   0   0             @const187
 0     52   1   5   129  4.6  strlen
 0     32   0   0   255  3.2  @const370
-0     32   0   0   488  4.6  @const372
+0     32   0   0   529  4.7  @const372
 0     48   1   0             @const374
 0     48   1   0             @const376
 0     84   1   0             @const378
@@ -107,12 +107,12 @@ Page ROM  %  RAM   Vol Diff  Functions:
 
 Program metrics:
     Functions               59
-    Statements              761
+    Statements              762
     Comments                225
-    Volume (V)              40964
-    Difficilty (D)          249.7
-    Effort to implement (E) 10228723
-    Time to implement (T)   157 hours, 51 minutes
+    Volume (V)              41112
+    Difficilty (D)          249.8
+    Effort to implement (E) 10268269
+    Time to implement (T)   158 hours, 28 minutes
     Est Delivered Bugs (B)  16
     Cyclomatic Complexity   131
     Maintainability (MI)    101
@@ -122,7 +122,7 @@ Program metrics:
 00000-00002     4  0  
 00004-00006     4  0  
 00008-000AC   166  0  
-000AE-07FFE  4490  28104  
+000AE-07FFE  4494  28100  
 
 
 

@@ -13,7 +13,7 @@
 
 #define INDICADOR_AZUL PIN_E0
 #define INDICADOR_ROJO PIN_E1
-#define INDICADOR_AMARILLO	PIN_E2
+#define INDICADOR_AMARILLO   PIN_E2
 #define MAX 40
 
 //extern CONFIG_MMA7455 CONFIG;
@@ -70,23 +70,24 @@ void main()
 {
    char* mensaje = "hola mundo\n\r";
    setup_devices();
-   output_bit(INDICADOR_AZUL, 0);
+   output_bit(INDICADOR_AZUL, 1);
    output_bit(INDICADOR_ROJO, 1);
    output_bit(INDICADOR_AMARILLO, 1);
    
    
    while(1){ 
       if(COM_sense() == USB_OK){
-      	output_bit(INDICADOR_AZUL, 1);
-      	output_bit(INDICADOR_ROJO, 0);
+         output_bit(INDICADOR_AZUL, 1);
+         output_bit(INDICADOR_ROJO, 0);
          COM_send(mensaje, strlen(mensaje));
          printf("OK :)\n\r");
       }else{
       printf("no conectado :(\n\r");
-      	output_bit(INDICADOR_AZUL, 0);
-      	output_bit(INDICADOR_ROJO, 1);
+         output_bit(INDICADOR_AZUL, 0);
+         output_bit(INDICADOR_ROJO, 1);
       }
       delay_ms(500);
+      output_bit(INDICADOR_AZUL, 1);
    }
 }
 //=============================================================

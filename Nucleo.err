@@ -1,6 +1,6 @@
-G:\Project\pic\CCS\MMA7455l\comunicacion.o ===>  0 Errors,  0 Warnings.
+C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\Pruebas\comunicacion.o ===>  0 Errors,  0 Warnings.
 >>> Warning 203 "Nucleo.c" Line 78(1,1): Condition always TRUE
-G:\Project\pic\CCS\MMA7455l\Nucleo.o ===>  0 Errors,  1 Warnings.
+C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\Pruebas\Nucleo.o ===>  0 Errors,  1 Warnings.
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_tbe)
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_flush_out_buffer)

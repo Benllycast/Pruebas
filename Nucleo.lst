@@ -1,9 +1,9 @@
-CCS PCH C Compiler, Version 4.105, 13255               31-Dic-12 08:07
+CCS PCH C Compiler, Version 4.110, 5967               31-Dic-12 16:16
 
-               Filename: G:\Project\pic\CCS\MMA7455l\Nucleo.lst
+               Filename: C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\Pruebas\Nucleo.lst
 
-               ROM used: 4664 bytes (14%)
-                         Largest free fragment is 28104
+               ROM used: 4668 bytes (14%)
+                         Largest free fragment is 28100
                RAM used: 325 (16%) at main() level
                          368 (18%) worst case
                Stack:    16 worst case (7 in main + 9 for interrupts)
@@ -193,7 +193,11 @@ CCS PCH C Compiler, Version 4.105, 13255               31-Dic-12 08:07
 .................... #define ptrdiff_t unsigned int16 
 .................... #endif 
 ....................  
+.................... #if defined(__PCB__) 
 .................... #define size_t unsigned int8 
+.................... #else 
+.................... #define size_t unsigned int16 
+.................... #endif 
 .................... #define wchar_t char 
 .................... #define NULL 0 
 ....................  
@@ -1090,7 +1094,7 @@ CCS PCH C Compiler, Version 4.105, 13255               31-Dic-12 08:07
 ....................  
 .................... #define INDICADOR_AZUL PIN_E0 
 .................... #define INDICADOR_ROJO PIN_E1 
-.................... #define INDICADOR_AMARILLO	PIN_E2 
+.................... #define INDICADOR_AMARILLO   PIN_E2 
 .................... #define MAX 40 
 ....................  
 .................... //extern CONFIG_MMA7455 CONFIG; 
@@ -1239,8 +1243,8 @@ CCS PCH C Compiler, Version 4.105, 13255               31-Dic-12 08:07
 11D0:  CLRF   x93
 ....................    setup_devices(); 
 11D2:  BRA    0F82
-....................    output_bit(INDICADOR_AZUL, 0); 
-11D4:  BCF    F8D.0
+....................    output_bit(INDICADOR_AZUL, 1); 
+11D4:  BSF    F8D.0
 11D6:  BCF    F96.0
 ....................    output_bit(INDICADOR_ROJO, 1); 
 11D8:  BSF    F8D.1
@@ -1255,10 +1259,10 @@ CCS PCH C Compiler, Version 4.105, 13255               31-Dic-12 08:07
 11E0:  RCALL  0FBE
 11E2:  MOVF   01,F
 11E4:  BNZ   1214
-....................       	output_bit(INDICADOR_AZUL, 1); 
+....................          output_bit(INDICADOR_AZUL, 1); 
 11E6:  BSF    F8D.0
 11E8:  BCF    F96.0
-....................       	output_bit(INDICADOR_ROJO, 0); 
+....................          output_bit(INDICADOR_ROJO, 0); 
 11EA:  BCF    F8D.1
 11EC:  BCF    F96.1
 ....................          COM_send(mensaje, strlen(mensaje)); 
@@ -1287,10 +1291,10 @@ CCS PCH C Compiler, Version 4.105, 13255               31-Dic-12 08:07
 1218:  MOVLW  02
 121A:  MOVWF  FF7
 121C:  RCALL  110C
-....................       	output_bit(INDICADOR_AZUL, 0); 
+....................          output_bit(INDICADOR_AZUL, 0); 
 121E:  BCF    F8D.0
 1220:  BCF    F96.0
-....................       	output_bit(INDICADOR_ROJO, 1); 
+....................          output_bit(INDICADOR_ROJO, 1); 
 1222:  BSF    F8D.1
 1224:  BCF    F96.1
 ....................       } 
@@ -1302,8 +1306,11 @@ CCS PCH C Compiler, Version 4.105, 13255               31-Dic-12 08:07
 122E:  BRA    112E
 1230:  DECFSZ x94,F
 1232:  BRA    122A
+....................       output_bit(INDICADOR_AZUL, 1); 
+1234:  BSF    F8D.0
+1236:  BCF    F96.0
 ....................    } 
-1234:  BRA    11E0
+1238:  BRA    11E0
 .................... } 
 .................... //============================================================= 
 .................... /* 
@@ -1356,7 +1363,7 @@ CCS PCH C Compiler, Version 4.105, 13255               31-Dic-12 08:07
 ....................  
 .................... #include "Nucleo.h" 
 .................... /*=========================Configuracion del Hardware========================== 
-1236:  SLEEP 
+123A:  SLEEP 
 ....................  
 .................... oscilador: 20Mhz. con PLL:activo para dividir por 5 y obtener 4Mhz, aumentandolo a 96Mhz-> div:2 a 48Mhz para la frecuencia del modulo USB; 
 .................... frecuencia de la CPU:24 Mhz; el FUSE CPIDIV3 para dividir los 96Mhz hasta 24MHz como frecuencia de entradad de la CPU 
@@ -1471,7 +1478,11 @@ CCS PCH C Compiler, Version 4.105, 13255               31-Dic-12 08:07
 .................... #define ptrdiff_t unsigned int16 
 .................... #endif 
 ....................  
+.................... #if defined(__PCB__) 
 .................... #define size_t unsigned int8 
+.................... #else 
+.................... #define size_t unsigned int16 
+.................... #endif 
 .................... #define wchar_t char 
 .................... #define NULL 0 
 ....................  
@@ -11182,7 +11193,7 @@ Configuration Fuses:
    Word  1: CE3F   IESO FCMEN HSPLL PLL12 CPUDIV4 USBDIV
    Word  2: 0E39   NOBROWNOUT WDT128 NOWDT BORV20 NOPUT VREGEN
    Word  3: 8700   PBADEN CCP2C1 MCLR LPT1OSC
-   Word  4: 0081   STVREN NODEBUG NOLVP NOXINST NOICPRT
+   Word  4: 00A1   STVREN NODEBUG NOLVP NOXINST ICPRT
    Word  5: C00F   NOPROTECT NOCPD NOCPB
    Word  6: E00F   NOWRT NOWRTD NOWRTC NOWRTB
    Word  7: 400F   NOEBTR NOEBTRB

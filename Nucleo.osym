@@ -10,20 +10,20 @@ C1OUT
 C2OUT
 
 Project Directory:
-    G:\Project\pic\CCS\MMA7455l\
+    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\Pruebas\
 
 Project Files:
     Nucleo.c
     Nucleo.h
-    I:\Archivos de programa\PICC\devices\18F4550.h
-    I:\Archivos de programa\PICC\drivers\stdio.h
-    I:\Archivos de programa\PICC\drivers\string.h
-    I:\Archivos de programa\PICC\drivers\stddef.h
-    I:\Archivos de programa\PICC\drivers\ctype.h
+    ..\..\..\..\..\Archivos de programa\PICC\Devices\18F4550.h
+    ..\..\..\..\..\Archivos de programa\PICC\Drivers\stdio.h
+    ..\..\..\..\..\Archivos de programa\PICC\Drivers\string.h
+    ..\..\..\..\..\Archivos de programa\PICC\Drivers\stddef.h
+    ..\..\..\..\..\Archivos de programa\PICC\Drivers\ctype.h
     comunicacion.h
 
 Units:
-    G:\Project\pic\CCS\MMA7455l\Nucleo (main)
+    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\Pruebas\Nucleo (main)
 
 Compiler Settings:
     Processor:      PIC18F4550

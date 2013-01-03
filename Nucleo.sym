@@ -148,16 +148,16 @@
 400-4AF g_USBRAM
 F66     UFRML
 F67     UFRMH
-F68     UIR
 F68.0   UIR_URST
+F68     UIR
 F68.1   UIR_UERR
 F68.2   UIR_ACTV
 F68.3   UIR_TRN
 F68.4   UIR_IDLE
 F68.5   UIR_STALL
 F68.6   UIR_SOF
-F69.0   UIE_URST
 F69     UIE
+F69.0   UIE_URST
 F69.1   UIE_UERR
 F69.2   UIE_ACTV
 F69.3   UIE_TRN
@@ -180,20 +180,18 @@ F70-F7F g_UEP
 F83     PSP_DATA
 FB4.6   C1OUT
 FB4.7   C2OUT
-FBB     CCP_2_LOW
 FBB     CCP_2
 FBB     CCP_2_LOW
-FBB     CCP_2
 FBC     CCP_2_HIGH
 FBE     CCP_1_LOW
 FBE     CCP_1
 FBE     CCP_1_LOW
 FBF     CCP_1_HIGH
-FE1-FE2 @WRITE_PACKED_MEMORY.P1
-FE1-FE2 @READ_PACKED_MEMORY.P2
-FE9-FEA @WRITE_PACKED_MEMORY.P1
-FE9-FEA @WRITE_PROGRAM_MEMORY.P2
-FE9-FEA @READ_PROGRAM_MEMORY.P3
+FE1-FE2 @READ_PACKED_MEMORY.P1
+FE1-FE2 @WRITE_PACKED_MEMORY.P2
+FE9-FEA @WRITE_PROGRAM_MEMORY.P1
+FE9-FEA @READ_PROGRAM_MEMORY.P2
+FE9-FEA @WRITE_PACKED_MEMORY.P3
 FE9-FEA @READ_PACKED_MEMORY.P4
 FF2     INTCON
 FF2.7   INT_GIE
@@ -283,30 +281,30 @@ User Memory space:
 User Memory space: 
 
 Project Directory:
-    G:\Project\pic\CCS\MMA7455l\
+    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\Pruebas\
 
 Project Files:
     Nucleo.c
     Nucleo.h (link)
-    I:\Archivos de programa\PICC\devices\18F4550.h (link)
-    I:\Archivos de programa\PICC\drivers\stdio.h (link)
-    I:\Archivos de programa\PICC\drivers\string.h (link)
-    I:\Archivos de programa\PICC\drivers\stddef.h (link)
-    I:\Archivos de programa\PICC\drivers\ctype.h (link)
+    ..\..\..\..\..\Archivos de programa\PICC\Devices\18F4550.h (link)
+    ..\..\..\..\..\Archivos de programa\PICC\Drivers\stdio.h (link)
+    ..\..\..\..\..\Archivos de programa\PICC\Drivers\string.h (link)
+    ..\..\..\..\..\Archivos de programa\PICC\Drivers\stddef.h (link)
+    ..\..\..\..\..\Archivos de programa\PICC\Drivers\ctype.h (link)
     comunicacion.h (link)
     comunicacion.c (link)
     usb_desc_cdc.h (link)
-    I:\Archivos de programa\PICC\drivers\usb.h (link)
-    I:\Archivos de programa\PICC\drivers\usb_cdc.h (link)
-    I:\Archivos de programa\PICC\drivers\pic18_usb.h (link)
-    I:\Archivos de programa\PICC\drivers\usb_hw_layer.h (link)
-    I:\Archivos de programa\PICC\drivers\usb_desc_cdc.h (link)
-    I:\Archivos de programa\PICC\drivers\usb.c (link)
-    I:\Archivos de programa\PICC\drivers\pic18_usb.c (link)
+    ..\..\..\..\..\Archivos de programa\PICC\Drivers\usb.h (link)
+    ..\..\..\..\..\Archivos de programa\PICC\Drivers\usb_cdc.h (link)
+    ..\..\..\..\..\Archivos de programa\PICC\Drivers\pic18_usb.h (link)
+    ..\..\..\..\..\Archivos de programa\PICC\Drivers\usb_hw_layer.h (link)
+    ..\..\..\..\..\Archivos de programa\PICC\Drivers\usb_desc_cdc.h (link)
+    ..\..\..\..\..\Archivos de programa\PICC\Drivers\usb.c (link)
+    ..\..\..\..\..\Archivos de programa\PICC\Drivers\pic18_usb.c (link)
 
 Units:
-    G:\Project\pic\CCS\MMA7455l\Nucleo.o
-    G:\Project\pic\CCS\MMA7455l\comunicacion.o
+    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\Pruebas\Nucleo.o
+    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\Pruebas\comunicacion.o
 
 Compiler Settings:
     Processor:      PIC18F4550
