@@ -38,14 +38,14 @@ CDC USB descriptor propio para el manejo de datos por usb
 #DEFINE __USB_DESCRIPTORS__
 
 ///////// config options, although it's best to leave alone for this demo /////
-#define  USB_CONFIG_PID       0x0033
-#define  USB_CONFIG_VID       0x0461
-#define  USB_CONFIG_BUS_POWER 100   //100mA  (range is 0..500)
+#define  USB_CONFIG_PID       0x000B
+#define  USB_CONFIG_VID       0x04D8
+#define  USB_CONFIG_BUS_POWER 0x64   		//100mA  (range is 0..500)
 #define  USB_CONFIG_VERSION   0x0100      //01.00  //range is 00.00 to 99.99
 //////// end config ///////////////////////////////////////////////////////////
 
-#DEFINE USB_HID_DEVICE  FALSE
-#DEFINE USB_CDC_DEVICE  TRUE
+#define USB_HID_DEVICE  FALSE
+#define USB_CDC_DEVICE  TRUE
 
 #define USB_CDC_COMM_IN_ENDPOINT       1
 #define USB_CDC_COMM_IN_SIZE           8
@@ -92,11 +92,6 @@ CDC USB descriptor propio para el manejo de datos por usb
          0x00, //index of string descriptor for this configuration      ==6
          0xC0, //bit 6=1 if self powered, bit 5=1 if supports remote wakeup (we don't), bits 0-4 unused and bit7=1         ==7
          USB_CONFIG_BUS_POWER/2, //maximum bus power required (maximum milliamperes/2)  (0x32 = 100mA)  ==8
-
-
-
-
-
 
    //interface descriptor 0 (comm class interface)
          USB_DESC_INTERFACE_LEN, //length of descriptor      =9
@@ -168,7 +163,7 @@ CDC USB descriptor propio para el manejo de datos por usb
          USB_CDC_DATA_IN_ENDPOINT | 0x80, //endpoint number and direction (0x82 = EP2 IN)       ==62
          0x02, //transfer type supported (0x02 is bulk)         ==63
          USB_CDC_DATA_IN_SIZE & 0xFF, (USB_CDC_DATA_IN_SIZE >> 8) & 0xFF, //maximum packet size supported                  ==64, 65
-         1,  //polling interval, in ms.  (cant be smaller than 10)      ==66
+         250,  //polling interval, in ms.  (cant be smaller than 10)      ==66
    };
 
    //****** BEGIN CONFIG DESCRIPTOR LOOKUP TABLES ********
@@ -187,6 +182,9 @@ CDC USB descriptor propio para el manejo de datos por usb
    //second dimension specifies which interface
    //last dimension specifies which class in this interface to get, but most will only have 1 class per interface
    //if a class descriptor is not valid, set the value to 0xFFFF
+   
+   /*	
+   //////////////////////////////////////////
    const int8 USB_CLASS_DESCRIPTORS[USB_NUM_CONFIGURATIONS][USB_MAX_NUM_INTERFACES][4]=
    {
    //config 1
@@ -196,6 +194,18 @@ CDC USB descriptor propio para el manejo de datos por usb
       //interface 1
          //no classes for this interface
          0xFF,0xFF,0xFF,0xFF
+   };
+   ///////////////////////////////////////////
+   */
+   const int16 USB_CLASS_DESCRIPTORS[USB_NUM_CONFIGURATIONS][USB_MAX_NUM_INTERFACES][4]=
+   {
+   //config 1
+      //interface 0
+         //class 1-4
+         18,23,27,32,
+      //interface 1
+         //no classes for this interface
+         0xFFFF,0xFFFF,0xFFFF,0xFFFF
    };
 
    #if (sizeof(USB_CONFIG_DESC) != USB_TOTAL_CONFIG_LEN)
@@ -238,7 +248,7 @@ CDC USB descriptor propio para el manejo de datos por usb
 ///
 //////////////////////////////////////////////////////////////////
 
-#if !defined(USB_STRINGS_OVERWRITTEN)
+//#if !defined(USB_STRINGS_OVERWRITTEN)
 //the offset of the starting location of each string.  offset[0] is the start of string 0, offset[1] is the start of string 1, etc.
 char USB_STRING_DESC_OFFSET[]={0,4,12};
 
@@ -282,6 +292,6 @@ char const USB_STRING_DESC[]={
          's',0
 
 };
-#endif   //!defined(USB_STRINGS_OVERWRITTEN)
+//#endif   //!defined(USB_STRINGS_OVERWRITTEN)
 
 #ENDIF

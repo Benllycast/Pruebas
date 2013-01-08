@@ -71,31 +71,30 @@ __usb_cdc_state
 INTCON
 INT_GIE
 i
-com_usb_state
 
 Project Directory:
-    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\Pruebas\
+    G:\Project\pic\CCS\Pruebas\
 
 Project Files:
     comunicacion.c
     Nucleo.h
-    ..\..\..\..\..\Archivos de programa\PICC\Devices\18F4550.h
-    ..\..\..\..\..\Archivos de programa\PICC\Drivers\stdio.h
-    ..\..\..\..\..\Archivos de programa\PICC\Drivers\string.h
-    ..\..\..\..\..\Archivos de programa\PICC\Drivers\stddef.h
-    ..\..\..\..\..\Archivos de programa\PICC\Drivers\ctype.h
+    I:\Archivos de programa\PICC\Devices\18F4550.h
+    I:\Archivos de programa\PICC\Drivers\stdio.h
+    I:\Archivos de programa\PICC\Drivers\string.h
+    I:\Archivos de programa\PICC\Drivers\stddef.h
+    I:\Archivos de programa\PICC\Drivers\ctype.h
     comunicacion.h
     usb_desc_cdc.h
-    ..\..\..\..\..\Archivos de programa\PICC\Drivers\usb.h
-    ..\..\..\..\..\Archivos de programa\PICC\Drivers\usb_cdc.h
-    ..\..\..\..\..\Archivos de programa\PICC\Drivers\pic18_usb.h
-    ..\..\..\..\..\Archivos de programa\PICC\Drivers\usb_hw_layer.h
-    ..\..\..\..\..\Archivos de programa\PICC\Drivers\usb_desc_cdc.h
-    ..\..\..\..\..\Archivos de programa\PICC\Drivers\usb.c
-    ..\..\..\..\..\Archivos de programa\PICC\Drivers\pic18_usb.c
+    I:\Archivos de programa\PICC\Drivers\usb.h
+    I:\Archivos de programa\PICC\Drivers\usb_cdc.h
+    I:\Archivos de programa\PICC\Drivers\pic18_usb.h
+    I:\Archivos de programa\PICC\Drivers\usb_hw_layer.h
+    I:\Archivos de programa\PICC\Drivers\usb_desc_cdc.h
+    I:\Archivos de programa\PICC\Drivers\usb.c
+    I:\Archivos de programa\PICC\Drivers\pic18_usb.c
 
 Units:
-    C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\Pruebas\comunicacion (main)
+    G:\Project\pic\CCS\Pruebas\comunicacion (main)
 
 Compiler Settings:
     Processor:      PIC18F4550

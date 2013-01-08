@@ -79,10 +79,9 @@ void main()
       if(COM_sense() == USB_OK){
          output_bit(INDICADOR_AZUL, 1);
          output_bit(INDICADOR_ROJO, 0);
-         COM_send(mensaje, strlen(mensaje));
-         printf("OK :)\n\r");
+         COM_printf(mensaje);
       }else{
-      printf("no conectado :(\n\r");
+      	printf("no conectado :(\n\r");
          output_bit(INDICADOR_AZUL, 0);
          output_bit(INDICADOR_ROJO, 1);
       }

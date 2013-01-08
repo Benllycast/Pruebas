@@ -16,10 +16,10 @@ AdditionalOptionString=
 [Windows]
 0=0000 %S 0 0 796 451 3 0
 [Opened Files]
-1=comunicacion.c
-2=Nucleo.c
-3=Nucleo.h
-4=comunicacion.h
+1=Nucleo.c
+2=comunicacion.c
+3=comunicacion.h
+4=Nucleo.h
 5=
 6=
 7=
@@ -30,12 +30,12 @@ AdditionalOptionString=
 12=
 [Target Data]
 OptionString=+FH
-FileList=C:\Documents and Settings\BENJAMIN\Escritorio\MMA7455l\Pruebas\Nucleo.c
+FileList=G:\Project\pic\CCS\Pruebas\Nucleo.c
 BuildTool=C-COMPILER
 AdditionalOptionString=
 BuildRequired=1
 [Directories]
-Include=C:\Archivos de programa\PICC\Devices;C:\Archivos de programa\PICC\Drivers;
+Include=I:\Archivos de programa\PICC\Devices;I:\Archivos de programa\PICC\Drivers;
 Library=
 LinkerScript=
 [defines]
