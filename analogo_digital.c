@@ -2,10 +2,9 @@
 #include "analogo_digital.h"
 
 #define ADC_TAD_MUL_2      0x08
-#define ADC_INPUT_PORT	0x07
-int AD_init_adc(){
-	setup_adc_ports(AN0_TO_AN2);
+#define ADC_INPUT_PORT		0x07
 
+int AD_init_adc(){
 //corregir despues
 /*
 #if (getenv("CLOCK") == 4000000)
@@ -20,8 +19,9 @@ int AD_init_adc(){
 	setup_adc(ADC_CLOCK_DIV_32|ADC_TAD_MUL_2);
 #endif
 */	
-	setup_adc(ADC_CLOCK_DIV_32|ADC_TAD_MUL_2);
 	set_tris_a(ADC_INPUT_PORT);		//RB0 a RB1 entradas
+	setup_adc_ports(AN0_TO_AN2);
+	setup_adc(ADC_CLOCK_DIV_64|ADC_TAD_MUL_2);	
 	return 0;
 }
 
@@ -35,6 +35,6 @@ int AD_leer_canal(int canal, int16 *buffer){
 		done = adc_done();
 	}while(!done);
 	*buffer = read_adc(ADC_READ_ONLY);
-	delay_us(1);
+	delay_us(3);
 	return 0;
 }
