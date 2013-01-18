@@ -19,9 +19,10 @@ int AD_init_adc(){
 	setup_adc(ADC_CLOCK_DIV_32|ADC_TAD_MUL_2);
 #endif
 */	
-	set_tris_a(ADC_INPUT_PORT);		//RB0 a RB1 entradas
+	output_a(0x00);
+	set_tris_a(ADC_INPUT_PORT);		//RA0 a RA2 entradas
 	setup_adc_ports(AN0_TO_AN2);
-	setup_adc(ADC_CLOCK_DIV_64|ADC_TAD_MUL_2);	
+	setup_adc(ADC_CLOCK_DIV_64|ADC_TAD_MUL_2|VSS_VDD);	
 	return 0;
 }
 

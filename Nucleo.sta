@@ -1,81 +1,81 @@
 
-ROM used: 9318 (28%)
-          9318 (28%) including unused fragments
+ROM used: 9632 (29%)
+          9632 (29%) including unused fragments
 
           1 Average locations per line
-          11 Average locations per statement
+          8 Average locations per statement
 
-RAM used: 444 (22%) at main() level
-          486 (24%) worst case
+RAM used: 461 (23%) at main() level
+          502 (25%) worst case
 
 Stack used: 18 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-  160    55   6  Nucleo.c
-   72     0   0  Nucleo.h
+  168    62   5  Nucleo.c
+   73     0   0  Nucleo.h
   457     0   0  I:\Archivos de programa\PICC\Devices\18F4550.h
    37     0   0  I:\Archivos de programa\PICC\Drivers\stdio.h
   409     0   0  I:\Archivos de programa\PICC\Drivers\string.h
    28     0   0  I:\Archivos de programa\PICC\Drivers\stddef.h
    28     0   0  I:\Archivos de programa\PICC\Drivers\ctype.h
+ 1273   359  28  I:\Archivos de programa\PICC\Drivers\stdlib.h
    16     0   0  comunicacion.h
    18     0   0  analogo_digital.h
-   68     0   0  ds1307.h
-   41    13   1  analogo_digital.c
-   63    41   5  comunicacion.c
+   71     0   0  ds1307.h
+   42    14   1  analogo_digital.c
+   63    41   3  comunicacion.c
   298     0   0  usb_desc_cdc.h
  1063     0   0  I:\Archivos de programa\PICC\Drivers\usb.h
-  582   128  14  I:\Archivos de programa\PICC\Drivers\usb_cdc.h
+  582   137  11  I:\Archivos de programa\PICC\Drivers\usb_cdc.h
   222     0   0  I:\Archivos de programa\PICC\Drivers\pic18_usb.h
   328     0   0  I:\Archivos de programa\PICC\Drivers\usb_hw_layer.h
   279     0   0  I:\Archivos de programa\PICC\Drivers\usb_desc_cdc.h
-  808   237  27  I:\Archivos de programa\PICC\Drivers\usb.c
- 1281   320  36  I:\Archivos de programa\PICC\Drivers\pic18_usb.c
-  204    93  10  ds1307.c
+  808   237  19  I:\Archivos de programa\PICC\Drivers\usb.c
+ 1281   320  25  I:\Archivos de programa\PICC\Drivers\pic18_usb.c
+  405    93   7  ds1307.c
 ----- -----
- 6462   887 Total
+ 7949  1263 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
-0     44   0   1             @delay_ms1
-0    106   1   3             @I2C_READ_1
-0    118   1   1             @I2C_WRITE_1
-0     94   1   0    74  2.0  @const594
-0    144   1   2   583  3.8  setup_devices
-0     66   0   1   250  3.1  _debug_usb
-0     18   0   0   367  3.0  @const238
+0     42   0   1             @delay_ms1
+0    106   1   3   104  2.1  @I2C_READ_2
+0    118   1   1   247  4.6  @I2C_WRITE_2
+0     94   0   0   497  2.4  @const1128
+0    144   1   2   626  3.8  setup_devices
+0     56   0   1   226  3.0  _debug_usb
+0     18   0   0   367  3.0  @const417
 0     32   0   1   219  2.4  @SPRINTF
-0     34   0   2   145  1.9  @PSTRINGC_239
-0     18   0   0   172  3.2  @const243
-0     36   0   2             @PSTRINGC_9600_31766_31767
-0    400   2   0    81  1.6  MAIN
-0    768   4   2   348  4.1  leer_aceleracion
-0     34   0   0   240  6.0  @const247
-0     44   0   3   155  4.7  @DIV88
-0    124   1   2             @PRINTF_U_239
-0     40   0   3             @PSTRINGCN_239
-0    244   1   9             @PRINTF_LD_239
-0    784   4   2   348  4.1  leer_velocidad
-0     34   0   0             @const258
-0    806   4   2   348  4.1  leer_revoluciones
-0     34   0   0             @const259
-0     30   0   0    74  2.0  AD_init_adc
-0     84   0   6   247  4.6  AD_leer_canal
-0     32   0   0   497  2.4  @const582
-0     32   0   0   531  2.7  @const584
-0     48   0   0   437  3.1  @const586
-0     48   0   0   367  3.0  @const588
-0     84   0   0   219  2.4  @const590
-0     18   0   0   145  1.9  @const592
-0     32   0   0   172  3.2  @const594
-0     34   0   0             @const598
-0     68   0   0    81  1.6  @const601
+0     34   0   2   145  1.9  @PSTRINGC_418
+0    428   2   1   102  1.6  MAIN
+0    788   4   2   457  4.6  leer_aceleracion
+0     34   0   0             @const424
+0     44   0   3             @DIV88
+0    222   1   6   240  6.0  @PRINTF_D_418
+0     40   0   3   155  4.7  @PSTRINGCN_418
+0    244   1   9             @PRINTF_LD_418
+0    806   4   2   457  4.6  leer_velocidad
+0     34   0   0             @const435
+0    124   1   2             @PRINTF_U_418
+0    814   4   2   457  4.6  leer_revoluciones
+0     34   0   0             @const439
+0     34   0   0   104  2.1  AD_init_adc
+0     82   0   6   247  4.6  AD_leer_canal
+0     32   0   0   104  2.1  @const1112
+0     32   0   0   247  4.6  @const1114
+0     48   0   0   497  2.4  @const1116
+0     48   0   0   531  2.7  @const1118
+0     84   0   0   437  3.1  @const1120
+0     18   0   0   367  3.0  @const1122
+0     32   0   0   219  2.4  @const1124
+0     34   0   0   145  1.9  @const1128
+0     68   0   0   172  3.2  @const1131
 0     68   0   3   133  4.3  usb_tbe
-0     40   0   1   134  2.5  usb_detach
+0     38   0   1   134  2.5  usb_detach
 0     34   0   0   136  2.2  usb_attach
 0      6   0   0    16  1.0  usb_init_cs
-0     34   0   1   346  4.6  usb_task
+0     50   0   1   359  4.6  usb_task
 0    220   1   7  1083  5.4  usb_flush_in
 0    146   1  10   320  5.5  usb_put_packet
 0    192   1   7   899  4.9  usb_flush_out
@@ -83,8 +83,8 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     74   0   4   251  4.6  usb_stall_ep
 0     72   0   4   258  4.6  usb_unstall_ep
 0     90   0   5   360  5.8  usb_endpoint_stalled
-0     26   0   1    88  2.7  usb_set_address
-0    416   2  10  1722  9.8  usb_set_configured
+0     30   0   1    88  2.7  usb_set_address
+0    420   2  10  1722  9.8  usb_set_configured
 0     84   0   3   192  3.2  usb_disable_endpoint
 0     30   0   1    93  2.9  usb_disable_endpoints
 0      4   0   0    39  2.0  usb_clear_trn
@@ -99,21 +99,21 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0      6   0   1    30  1.7  usb_request_send_response
 0      6   0   0    22  1.2  usb_request_get_data
 0      6   0   0    22  1.2  usb_request_stall
-0    378   2   5  2031  7.9  usb_isr_tok_dne
+0    384   2   5  2031  7.9  usb_isr_tok_dne
 0      6   0   0    29  1.9  usb_enumerated
 0     44   0   3   248  4.0  usb_token_reset
 0     80   0   3   267  5.9  usb_endpoint_is_valid
 0     50   0   1   204  3.1  usb_isr_tok_in_dne
 0     30   0   1   108  2.5  usb_isr_tok_out_dne
 0     52   0   0   336  5.5  usb_isr_tok_setup_dne
-0    184   1   0  1454  8.3  usb_isr_tkn_setup_StandardDevice
+0    188   1   0  1454  8.3  usb_isr_tkn_setup_StandardDevice
 0    158   1   3   930  7.7  usb_isr_tkn_setup_StandardInterface
 0    106   1   0   753  5.8  usb_isr_tkn_setup_StandardEndpoint
-0    154   1   0  1088  8.7  usb_Get_Descriptor
+0    158   1   0  1088  8.7  usb_Get_Descriptor
 0     14   0   0    76  1.8  usb_finish_set_address
-0    118   1   4   591  8.6  usb_copy_desc_seg_to_ep
+0    136   1   4   591  8.6  usb_copy_desc_seg_to_ep
 0    112   1   0   477  6.1  usb_isr_tok_out_cdc_control_dne
-0    180   1   0  1121  8.3  usb_isr_tkn_cdc
+0    188   1   0  1121  8.3  usb_isr_tkn_cdc
 0     28   0   0   174  3.6  usb_isr_tok_out_cdc_data_dne
 0     10   0   0    30  1.5  usb_isr_tok_in_cdc_data_dne
 0     34   0   0    86  2.1  usb_cdc_flush_out_buffer
@@ -122,10 +122,10 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     56   0   4   220  4.5  _usb_cdc_putc_fast_noflush
 0     54   0   1    63  1.6  usb_cdc_putc_fast
 0     60   0   1   115  3.3  usb_cdc_putc
-0     36   0   0   143  2.8  COM_init
-0     28   0   0   113  2.6  COM_sense
+0     44   0   0   154  2.9  COM_init
+0     36   0   0   124  2.7  COM_sense
 0     32   0   2    48  1.9  COM_printf
-0     38   0   2   129  4.6  @PSTRINGR_241
+0     38   0   2    88  3.2  @PSTRINGR_416
 0    352   2   3   497  2.4  ds1307_init
 0    220   1   8   531  2.7  ds1307_set_date_time
  Inline        5   437  3.1  ds1307_get_date
@@ -134,23 +134,23 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     42   0   3   155  4.7  ds1307_bcd2bin
 
 Program metrics:
-    Functions               84
-    Statements              887
-    Comments                210
-    Volume (V)              57140
-    Difficilty (D)          324.3
-    Effort to implement (E) 18530086
-    Time to implement (T)   285 hours, 57 minutes
-    Est Delivered Bugs (B)  23
-    Cyclomatic Complexity   133
-    Maintainability (MI)    130
+    Functions               86
+    Statements              1263
+    Comments                230
+    Volume (V)              59954
+    Difficilty (D)          334.5
+    Effort to implement (E) 20052721
+    Time to implement (T)   309 hours, 27 minutes
+    Est Delivered Bugs (B)  25
+    Cyclomatic Complexity   134
+    Maintainability (MI)    122
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
 00004-00006     4  0  
 00008-000AC   166  0  
-000AE-07FFE  9144  23450  
+000AE-07FFE  9458  23136  
 
 
 

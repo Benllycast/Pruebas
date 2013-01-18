@@ -8,6 +8,7 @@ CCP_2_HIGH
 PSP_DATA
 C1OUT
 C2OUT
+_Randseed
 USB_stack_status
 usb_ep_tx_type
 usb_ep_rx_type
@@ -83,6 +84,7 @@ Project Files:
     I:\Archivos de programa\PICC\Drivers\string.h
     I:\Archivos de programa\PICC\Drivers\stddef.h
     I:\Archivos de programa\PICC\Drivers\ctype.h
+    I:\Archivos de programa\PICC\Drivers\stdlib.h
     comunicacion.h
     usb_desc_cdc.h
     I:\Archivos de programa\PICC\Drivers\usb.h

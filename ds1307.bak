@@ -1,7 +1,7 @@
 #include "Nucleo.h"
 #include "ds1307.h"
 
-#use i2c(master, sda=RTC_SDA, scl=RTC_SCL)
+//#use i2c(master, sda=RTC_SDA, scl=RTC_SCL)
 
 char days_of_week[7][11]={"Lunes\0","Martes\0","Miércoles\0","Jueves\0","Viernes\0","Sábado\0","Domingo\0"};
 

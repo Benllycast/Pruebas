@@ -20,7 +20,7 @@
 //extern unsigned int32 tiempo_inicial, tiempo_final;
 
 byte hr = 0, min = 0, sec = 0, dia = 0, mes = 0, anio = 0, dow = 0;
-int16 valor_16b;
+int16 valor_16b = 0;
 //int32 valor_32b;
 char mensaje[40];
 enum modulos {ACC,VEL,REV,ACCM,SENP,CCP1,CCP2};
@@ -54,7 +54,7 @@ void setup_devices(){
    
    /*========================= configuracion del Reloj Digital ===============*/
    ds1307_init(DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
-   ds1307_set_date_time(0x0c, 0x0a, 0x0c, 0x01, 0x0a, 0x28, 0x00);
+   //ds1307_set_date_time(0x0d, 0x01, 0x0d, 0x00, 0x0a, 0x2a, 0x00);
    
    /*========================= configuracion del USB =========================*/
    error = COM_init();
@@ -73,6 +73,7 @@ void setup_devices(){
    
    /*===================para los indicadores========================*/
    set_tris_e(0x00);
+   set_tris_b(0x00);
    output_bit(INDICADOR_AZUL, 0);
    output_bit(INDICADOR_ROJO, 1);
    output_bit(INDICADOR_AMARILLO, 1);
@@ -88,7 +89,7 @@ void _debug_usb(void){
          output_bit(INDICADOR_ROJO, 0);
          COM_printf(mensaje);
       }else{
-      	printf("no conectado :(\n\r");
+      	//printf("no conectado :(\n\r");
          output_bit(INDICADOR_AZUL, 0);
          output_bit(INDICADOR_ROJO, 1);
       }
@@ -105,21 +106,26 @@ void main(void)
    	leer_aceleracion();
    	leer_velocidad();
    	leer_revoluciones();
+   	delay_ms(1000);
    }
 }
 
 
 //=============================================================
 void leer_aceleracion(void){
+	hr = min = sec = 0;
+	dia = mes = anio = 0;
    ds1307_get_time(hr, min, sec);
    ds1307_get_date(dia, mes, anio, dow);
    AD_leer_canal(CANAL_ACCELERACION , &valor_16b);
-   sprintf(mensaje,"%u/%u/%u %u:%u:%u mod:%s val:%Ld",dia, mes, anio, hr, min, sec, mod_to_str[ACC], valor_16b);
+   sprintf(mensaje,"%d/%d/%d %d:%d:%d mod:%s val:%Ld",dia, mes, anio, hr, min, sec, mod_to_str[ACC], valor_16b);
    if(COM_READY)COM_printf(mensaje);
    return;
 }
 
 void leer_velocidad(void){
+	hr = min = sec = 0;
+	dia = mes = anio = 0;
    ds1307_get_time(hr, min, sec);
    ds1307_get_date(dia, mes, anio, dow);
    AD_leer_canal(CANAL_VELOCIDAD , &valor_16b);
@@ -129,6 +135,8 @@ void leer_velocidad(void){
 }
 
 void leer_revoluciones(void){
+	hr = min = sec = 0;
+	dia = mes = anio = 0;
    ds1307_get_time(hr, min, sec);
    ds1307_get_date(dia, mes, anio, dow);
    AD_leer_canal(CANAL_REVOLUCIONES , &valor_16b);

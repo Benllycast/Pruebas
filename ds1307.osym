@@ -8,6 +8,7 @@ CCP_2_HIGH
 PSP_DATA
 C1OUT
 C2OUT
+_Randseed
 days_of_week
 @sprintf_string
 
@@ -22,6 +23,7 @@ Project Files:
     I:\Archivos de programa\PICC\Drivers\string.h
     I:\Archivos de programa\PICC\Drivers\stddef.h
     I:\Archivos de programa\PICC\Drivers\ctype.h
+    I:\Archivos de programa\PICC\Drivers\stdlib.h
     ds1307.h
 
 Units:

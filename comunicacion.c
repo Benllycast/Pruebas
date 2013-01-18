@@ -1,6 +1,6 @@
 #include "Nucleo.h"
 #include "comunicacion.h"
-//#define USB_CON_SENSE_PIN PIN_B2
+#define USB_CON_SENSE_PIN PIN_B2
 #include "usb_desc_cdc.h"
 #include <usb_cdc.h>
 

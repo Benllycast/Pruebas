@@ -7,6 +7,7 @@
 
 unsigned int i = 0;
 int COM_init(){
+	usb_cdc_init();
    usb_init_cs();
    usb_task();
    if(usb_attached()){
