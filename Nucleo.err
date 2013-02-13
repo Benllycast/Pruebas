@@ -1,11 +1,7 @@
->>> Warning 203 "ds1307.c" Line 181(1,1): Condition always TRUE
-G:\Project\pic\CCS\Pruebas\ds1307.o ===>  0 Errors,  1 Warnings.
-G:\Project\pic\CCS\Pruebas\comunicacion.o ===>  0 Errors,  0 Warnings.
-G:\Project\pic\CCS\Pruebas\analogo_digital.o ===>  0 Errors,  0 Warnings.
->>> Warning 203 "Nucleo.c" Line 104(1,1): Condition always TRUE
+>>> Warning 203 "Nucleo.c" Line 105(1,1): Condition always TRUE
 G:\Project\pic\CCS\Pruebas\Nucleo.o ===>  0 Errors,  1 Warnings.
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_tbe)
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_flush_out_buffer)
-      Memory usage:   ROM=29%      RAM=23% - 25%
+      Memory usage:   ROM=16%      RAM=23% - 25%
       0 Errors,  3 Warnings.

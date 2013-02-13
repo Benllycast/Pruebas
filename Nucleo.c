@@ -27,6 +27,7 @@ enum modulos {ACC,VEL,REV,ACCM,SENP,CCP1,CCP2};
 const char mod_to_str [][*] = {"ACC","VEL","REV","ACCM","SENP","CCP1","CCP2"};
 
 /*==========================funcriones de prueba==============================*/
+void test1(void);
 void leer_aceleracion(void);
 void leer_velocidad(void);
 void leer_revoluciones(void);
@@ -47,14 +48,14 @@ void setup_devices(){
    //error = MEMORIA_init();
    
    /*========================= conversor analogo/digital =====================*/
-   error = AD_init_adc();
+   //error = AD_init_adc();
    
    /*========================= modulo CPP ====================================*/
    //error = CP_init_ccp();
    
    /*========================= configuracion del Reloj Digital ===============*/
-   ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
-   ds1307_set_date_time(0x0d, 0x01, 0x0d, 0x00, 0x0a, 0x2a, 0x00);
+   //ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
+   //ds1307_set_date_time(0x0d, 0x01, 0x0d, 0x00, 0x0a, 0x2a, 0x00);
    
    /*========================= configuracion del USB =========================*/
    error = COM_init();
@@ -103,15 +104,21 @@ void main(void)
    setup_devices();   
    while(1){
    	_debug_usb();
-   	leer_aceleracion();
-   	leer_velocidad();
-   	leer_revoluciones();
+   	//test1();
    	delay_ms(1000);
    }
 }
 
 
 //=============================================================
+
+void test1(void){
+	leer_aceleracion();
+   leer_velocidad();
+   leer_revoluciones();
+	return;
+}
+
 void leer_aceleracion(void){
 	hr = min = sec = 0;
 	dia = mes = anio = 0;

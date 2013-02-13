@@ -9,7 +9,7 @@ short timeout_error = FALSE;
 int MEM_proceso = INI_HW;
 unsigned int i = 0;
 unsigned int car = 0;
-unsigned long time_delay = 50000;
+unsigned long time_delay = 5000;
 
 unsigned int32 tamano = 0;
 char MEM_info[5] = {0x00,0x00,0x00,0x00,0x00};
@@ -318,7 +318,7 @@ char MEMORIA_getc(void){
    long timeout;
    timeout_error=FALSE;
    timeout=0;
-   while(!kbhit()&&(++timeout < time_delay)) // 1/2
+   while( (!kbhit()) && (++timeout < time_delay) ) // 1/2
       delay_us(time_delay);
 
    if(kbhit())
