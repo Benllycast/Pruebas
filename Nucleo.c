@@ -1,7 +1,5 @@
 #include "Nucleo.h"
 #include "comunicacion.h"
-
-
 //#include "accelerometro.h"
 #include "analogo_digital.h"
 //#include "captura_frecuencia.h"
@@ -19,15 +17,21 @@
 //extern CONFIG_MMA7455 CONFIG;
 //extern unsigned int32 tiempo_inicial, tiempo_final;
 
+
+
 byte hr = 0, min = 0, sec = 0, dia = 0, mes = 0, anio = 0, dow = 0;
 int16 valor_16b = 0;
-//int32 valor_32b;
-char mensaje[40];
+int32 valor_32b;
+char mensaje[MAX];
+char testfile[] = "testfile.txt";
 enum modulos {ACC,VEL,REV,ACCM,SENP,CCP1,CCP2};
 const char mod_to_str [][*] = {"ACC","VEL","REV","ACCM","SENP","CCP1","CCP2"};
 
+
+
 /*==========================funcriones de prueba==============================*/
 void test1(void);
+void test2(void);
 void leer_aceleracion(void);
 void leer_velocidad(void);
 void leer_revoluciones(void);
@@ -42,10 +46,12 @@ void leer_sensor_puertas(void);
 
 /*======================= configuracon de dispositivos =======================*/
 void setup_devices(){
-   int error = -1;
-   
+	int myerror = 0;
+   /*========================= configuracion del USB =========================*/
+   myerror += COM_init();
    /*========================= configuracion del MMA7455 =====================*/
-   //error = MEMORIA_init();
+   //myerror += MEMORIA_init_hw();
+   //myerror += MEMORIA_init();
    
    /*========================= conversor analogo/digital =====================*/
    //error = AD_init_adc();
@@ -57,8 +63,7 @@ void setup_devices(){
    //ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
    //ds1307_set_date_time(0x0d, 0x01, 0x0d, 0x00, 0x0a, 0x2a, 0x00);
    
-   /*========================= configuracion del USB =========================*/
-   error = COM_init();
+   
    
    /*-------------------------------------------------------------------------*/
    setup_psp(PSP_DISABLED);
@@ -82,42 +87,84 @@ void setup_devices(){
    /*===============================================================*/
    return;
 }
+/*===============================funciones de debug===========================*/
 
-void _debug_usb(void){
+int1 _debug_usb(void){
 	if(COM_sense() == USB_OK){
-			sprintf(mensaje,"USB Conectado!!!");
-         output_bit(INDICADOR_AZUL, 1);
-         output_bit(INDICADOR_ROJO, 0);
-         COM_printf(mensaje);
-      }else{
-      	//printf("no conectado :(\n\r");
-         output_bit(INDICADOR_AZUL, 0);
-         output_bit(INDICADOR_ROJO, 1);
-      }
+		sprintf(mensaje,"USB Conectado!!!");
+      output_bit(INDICADOR_AZUL, 1);
+      output_bit(INDICADOR_ROJO, 0);
+      COM_printf(mensaje);
+      return (1);
+	}else{
+		//printf("no conectado :(\n\r");
+		output_bit(INDICADOR_AZUL, 0);
+		output_bit(INDICADOR_ROJO, 1);
+		return (0);
+	}
 }
+
 /*===========================================================================
 ||										 MAIN 													||
 =============================================================================*/
-void main(void)
-{
-   //char* mensaje = "hola mundo";
-   setup_devices();   
+void main(void) {
+   setup_devices();
+   /*sprintf(mensaje,"setup error: %d", myerror);
+   COM_printf(mensaje);*/
    while(1){
-   	_debug_usb();
    	//test1();
+   	if(_debug_usb()){
+   		test2();
+   	}
    	delay_ms(1000);
    }
 }
 
-
 //=============================================================
-
+/*
 void test1(void){
 	leer_aceleracion();
    leer_velocidad();
    leer_revoluciones();
 	return;
 }
+*/
+void test2(void){
+	char c = 0x00;
+	unsigned int cant = 0;
+	do{
+		printf(usb_cdc_putc,"\n\rop: ");
+		c = usb_cdc_getc();
+		if(c == 13) 
+			continue;
+		else
+			usb_cdc_putc(c);
+		
+		switch(c){
+			case 'a':
+				printf(usb_cdc_putc,"\n\rmsg: ");
+				get_string_usb(mensaje, MAX);
+				cant = strlen(mensaje);
+				printf(usb_cdc_putc,"\n\rnw msg: %s", mensaje);
+				break;
+			case 'b':
+				printf(usb_cdc_putc,"\n\rls msg: %s", mensaje);
+				break;
+			/*case 'w':
+				myerror += MEMORIA_open(testfile,'w');
+				myerror += MEMORIA_write(cant);
+				myerror += MEMORIA_set_data(mensaje, cant);
+				myerror += MEMORIA_close();
+				sprintf(mensaje,"MEM error: %d", myerror);
+   			COM_printf(mensaje);
+				break;*/
+			default:
+				c = 'x';
+		}
+	}while(c != 'x');
+	return;
+}
+//=============================================================
 
 void leer_aceleracion(void){
 	hr = min = sec = 0;

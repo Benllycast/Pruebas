@@ -8,6 +8,7 @@ CCP_2_HIGH
 PSP_DATA
 C1OUT
 C2OUT
+_Randseed
 MEMORIA_OK
 MEMORIA_HW
 timeout_error
@@ -24,20 +25,22 @@ MEM_performance
 MEM_RESPONSE
 
 Project Directory:
-    G:\Project\pic\CCS\MMA7455l\
+    G:\Project\pic\CCS\Pruebas\
 
 Project Files:
     memoria.c
     Nucleo.h
-    I:\Archivos de programa\PICC\devices\18F4550.h
-    I:\Archivos de programa\PICC\drivers\stdio.h
-    I:\Archivos de programa\PICC\drivers\string.h
-    I:\Archivos de programa\PICC\drivers\stddef.h
-    I:\Archivos de programa\PICC\drivers\ctype.h
+    I:\Archivos de programa\PICC\Devices\18F4550.h
+    I:\Archivos de programa\PICC\Drivers\stdio.h
+    I:\Archivos de programa\PICC\Drivers\string.h
+    I:\Archivos de programa\PICC\Drivers\stddef.h
+    I:\Archivos de programa\PICC\Drivers\ctype.h
+    I:\Archivos de programa\PICC\Drivers\stdlib.h
     memoria.h
+    comunicacion.h
 
 Units:
-    G:\Project\pic\CCS\MMA7455l\memoria (main)
+    G:\Project\pic\CCS\Pruebas\memoria (main)
 
 Compiler Settings:
     Processor:      PIC18F4550

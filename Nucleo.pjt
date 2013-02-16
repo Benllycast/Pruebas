@@ -16,17 +16,17 @@ AdditionalOptionString=
 [Windows]
 0=0000 %S 0 0 796 451 3 0
 [Opened Files]
-1=Nucleo.c
-2=comunicacion.c
-3=comunicacion.h
-4=ds1307.c
-5=analogo_digital.c
-6=ds1307.h
-7=Nucleo.h
-8=I:\Archivos de programa\PICC\Devices\18F4550.h
+1=comunicacion.c
+2=Nucleo.h
+3=I:\Archivos de programa\PICC\Devices\18F4550.h
+4=comunicacion.h
+5=Nucleo.c
+6=memoria.h
+7=memoria.c
+8=
 9=
-10=
-11=
+10=memoria.c
+11=I:\Archivos de programa\PICC\Drivers\usb_cdc.h
 12=
 [Target Data]
 OptionString=+FH
@@ -105,9 +105,10 @@ BuildTool=
 OptionString=
 AdditionalOptionString=
 [Units]
-Count=4
+Count=5
 1=Nucleo.o
 2=analogo_digital.o
 3=comunicacion.o
 4=ds1307.o
+5=memoria.o
 Link=1

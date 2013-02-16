@@ -17,7 +17,9 @@ mes
 anio
 dow
 valor_16b
+valor_32b
 mensaje
+testfile
 mod_to_str
 
 Project Directory:

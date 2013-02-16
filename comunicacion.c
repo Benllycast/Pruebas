@@ -50,7 +50,7 @@ int8 COM_recive(char* buffer, unsigned int8 leng){
    if(!COM_READY) return (-1);
    while(i < leng){
       if(usb_cdc_kbhit()){
-         buffer[i] = usb_cdc_getc();    
+         buffer[i] = usb_cdc_getc();
          i++;
       }
    }
