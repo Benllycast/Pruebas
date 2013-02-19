@@ -9,6 +9,7 @@ PSP_DATA
 C1OUT
 C2OUT
 _Randseed
+myerror
 hr
 min
 sec
@@ -17,7 +18,6 @@ mes
 anio
 dow
 valor_16b
-valor_32b
 mensaje
 testfile
 mod_to_str
@@ -35,8 +35,7 @@ Project Files:
     I:\Archivos de programa\PICC\Drivers\ctype.h
     I:\Archivos de programa\PICC\Drivers\stdlib.h
     comunicacion.h
-    analogo_digital.h
-    ds1307.h
+    memoria.h
 
 Units:
     G:\Project\pic\CCS\Pruebas\Nucleo (main)

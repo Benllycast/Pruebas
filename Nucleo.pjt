@@ -16,14 +16,14 @@ AdditionalOptionString=
 [Windows]
 0=0000 %S 0 0 796 451 3 0
 [Opened Files]
-1=comunicacion.c
-2=Nucleo.h
-3=I:\Archivos de programa\PICC\Devices\18F4550.h
-4=comunicacion.h
-5=Nucleo.c
-6=memoria.h
+1=Nucleo.h
+2=I:\Archivos de programa\PICC\Devices\18F4550.h
+3=Nucleo.c
+4=memoria.h
+5=memoria.c
+6=
 7=memoria.c
-8=
+8=ds1307.c
 9=
 10=memoria.c
 11=I:\Archivos de programa\PICC\Drivers\usb_cdc.h

@@ -3,13 +3,21 @@ G:\Project\pic\CCS\Pruebas\memoria.o ===>  0 Errors,  0 Warnings.
 G:\Project\pic\CCS\Pruebas\ds1307.o ===>  0 Errors,  1 Warnings.
 G:\Project\pic\CCS\Pruebas\comunicacion.o ===>  0 Errors,  0 Warnings.
 G:\Project\pic\CCS\Pruebas\analogo_digital.o ===>  0 Errors,  0 Warnings.
->>> Warning 203 "Nucleo.c" Line 114(1,1): Condition always TRUE
->>> Warning 202 "Nucleo.c" Line 24(7,16): Variable never used:   valor_32b
->>> Warning 202 "Nucleo.c" Line 26(6,14): Variable never used:   testfile
-G:\Project\pic\CCS\Pruebas\Nucleo.o ===>  0 Errors,  3 Warnings.
+>>> Warning 203 "Nucleo.c" Line 115(1,1): Condition always TRUE
+>>> Warning 202 "Nucleo.c" Line 21(9,11): Variable never used:   hr
+>>> Warning 202 "Nucleo.c" Line 21(18,21): Variable never used:   min
+>>> Warning 202 "Nucleo.c" Line 21(27,30): Variable never used:   sec
+>>> Warning 202 "Nucleo.c" Line 21(36,39): Variable never used:   dia
+>>> Warning 202 "Nucleo.c" Line 21(45,48): Variable never used:   mes
+>>> Warning 202 "Nucleo.c" Line 21(55,59): Variable never used:   anio
+>>> Warning 202 "Nucleo.c" Line 21(64,67): Variable never used:   dow
+>>> Warning 202 "Nucleo.c" Line 22(17,26): Variable never used:   valor_16b
+>>> Warning 202 "Nucleo.c" Line 25(6,14): Variable never used:   testfile
+>>> Warning 202 "Nucleo.c" Line 27(23,33): Variable never used:   mod_to_str
+G:\Project\pic\CCS\Pruebas\Nucleo.o ===>  0 Errors,  11 Warnings.
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_tbe)
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_flush_out_buffer)
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_get_discard)
-      Memory usage:   ROM=19%      RAM=25% - 27%
+      Memory usage:   ROM=21%      RAM=25% - 27%
       0 Errors,  4 Warnings.

@@ -1,10 +1,10 @@
 #include "Nucleo.h"
 #include "comunicacion.h"
 //#include "accelerometro.h"
-#include "analogo_digital.h"
+//#include "analogo_digital.h"
 //#include "captura_frecuencia.h"
-//#include "memoria.h"
-#include "ds1307.h"
+#include "memoria.h"
+//#include "ds1307.h"
 //#include "utilidades.h"
 
 
@@ -17,19 +17,19 @@
 //extern CONFIG_MMA7455 CONFIG;
 //extern unsigned int32 tiempo_inicial, tiempo_final;
 
-
-
+int myerror = 0;
 byte hr = 0, min = 0, sec = 0, dia = 0, mes = 0, anio = 0, dow = 0;
 int16 valor_16b = 0;
-int32 valor_32b;
+//int32 valor_32b;
 char mensaje[MAX];
-char testfile[] = "testfile.txt";
+char testfile[] = "test.txt";
 enum modulos {ACC,VEL,REV,ACCM,SENP,CCP1,CCP2};
 const char mod_to_str [][*] = {"ACC","VEL","REV","ACCM","SENP","CCP1","CCP2"};
 
 
 
 /*==========================funcriones de prueba==============================*/
+/*
 void test1(void);
 void test2(void);
 void leer_aceleracion(void);
@@ -46,9 +46,9 @@ void leer_sensor_puertas(void);
 
 /*======================= configuracon de dispositivos =======================*/
 void setup_devices(){
-	int myerror = 0;
+	//int myerror = 0;
    /*========================= configuracion del USB =========================*/
-   myerror += COM_init();
+   myerror = COM_init();
    /*========================= configuracion del MMA7455 =====================*/
    //myerror += MEMORIA_init_hw();
    //myerror += MEMORIA_init();
@@ -91,10 +91,10 @@ void setup_devices(){
 
 int1 _debug_usb(void){
 	if(COM_sense() == USB_OK){
-		sprintf(mensaje,"USB Conectado!!!");
+		//sprintf(mensaje,"USB Conectado!!!");
       output_bit(INDICADOR_AZUL, 1);
       output_bit(INDICADOR_ROJO, 0);
-      COM_printf(mensaje);
+      //COM_printf(mensaje);
       return (1);
 	}else{
 		//printf("no conectado :(\n\r");
@@ -108,15 +108,24 @@ int1 _debug_usb(void){
 ||										 MAIN 													||
 =============================================================================*/
 void main(void) {
+	char c = 0x00;
    setup_devices();
-   /*sprintf(mensaje,"setup error: %d", myerror);
-   COM_printf(mensaje);*/
+   myerror = 0;
+   //_debug_usb();
    while(1){
-   	//test1();
+   	while(!_debug_usb());
+   	delay_ms(5000);                   
    	if(_debug_usb()){
-   		test2();
+   		MEMORIA_reset();
+   		myerror = MEMORIA_init();
+   		sprintf(mensaje,"\n\r***: %d", myerror);
+   		COM_printf(mensaje);
+   		printf(usb_cdc_putc,"\n\r>");
+   		c = usb_cdc_getc();
+   		usb_cdc_putc(c);			
+			if(c != 'r') delay_ms(10000);
    	}
-   	delay_ms(1000);
+
    }
 }
 
@@ -129,6 +138,7 @@ void test1(void){
 	return;
 }
 */
+/*
 void test2(void){
 	char c = 0x00;
 	unsigned int cant = 0;
@@ -150,14 +160,14 @@ void test2(void){
 			case 'b':
 				printf(usb_cdc_putc,"\n\rls msg: %s", mensaje);
 				break;
-			/*case 'w':
+			case 'w':
 				myerror += MEMORIA_open(testfile,'w');
+				sprintf(mensaje,"MEM open: %d", myerror);
+   			COM_printf(mensaje);
 				myerror += MEMORIA_write(cant);
 				myerror += MEMORIA_set_data(mensaje, cant);
 				myerror += MEMORIA_close();
-				sprintf(mensaje,"MEM error: %d", myerror);
-   			COM_printf(mensaje);
-				break;*/
+				break;
 			default:
 				c = 'x';
 		}
