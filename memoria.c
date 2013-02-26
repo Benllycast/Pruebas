@@ -4,11 +4,11 @@
 
 #define debug_memoria 1
 
-#define MEM_TX PIN_D6
+
 #define MEM_RX PIN_D7
-#use rs232(stream=MEMORIA,baud=9600,xmit=MEM_TX,rcv=MEM_RX ,bits=8,parity=N /*,DISABLE_INTS,FORCE_SW*/)
-#use fixed_io(d_outputs=PIN_D6)
+#define MEM_TX PIN_D6	
 #define MEMORIA_PIN_RESET PIN_D5
+#use rs232(stream=MEMORIA,BAUD=9600,xmit=PIN_D6,rcv=PIN_D7,BITS=8,PARITY=N)
 #define time_delay 1000
 
 short MEMORIA_OK = FALSE;
@@ -33,39 +33,48 @@ void update_proceso(int8 proceso){
 }
 #endif
 
-///////////////////////////////////////////////////////////
-//
-///////////////////////////////////////////////////////////
+/*	======================================
+	FUNCIONES PARA EL INICIO DEL MODULO DE MEMORIA
+	======================================
+*/
+/*==================== reset de memoria ======================*/
 int MEMORIA_reset(void){
+	
+	#ifdef debug_memoria
+	usb_cdc_putc('r');
+	#endif
+	output_float(PIN_D6);
+   //output_low(MEMORIA_PIN_RESET);
+   delay_ms(3000);
+   //output_high(MEMORIA_PIN_RESET);
+   delay_ms(10000);
+   delay_ms(10000);
+   return (0);
+}
+
+/*==================== autobaudrate ======================*/
+int MEMORIA_init_hw(void){
 	#ifdef debug_memoria
 	update_proceso(INI_HW);
 	#endif
-	output_high(MEM_TX);  
-   output_low(MEMORIA_PIN_RESET);
-   delay_ms(5000);
-   output_high(MEMORIA_PIN_RESET);
-   delay_ms(5000);
-   return (MEMORIA_init_hw());
-}
-
-///////////////////////////////////////////////////////////
-//
-///////////////////////////////////////////////////////////
-int MEMORIA_init_hw(void){
-
-	fputc(MEMORIA_CMD_AUTOBAUD,MEMORIA);
-   MEM_RESPONSE = MEMORIA_getc();
+	
+	//MEMORIA_putc(MEMORIA_CMD_AUTOBAUD);
+	#ifdef debug_memoria
+	printf(usb_cdc_putc, "\n\r>%X", MEMORIA_CMD_AUTOBAUD);
+	#endif
+   fputc(MEMORIA_CMD_AUTOBAUD, MEMORIA);
+	while(!kbhit(MEMORIA));
+   MEM_RESPONSE = fgetc(MEMORIA);
+   #ifdef debug_memoria
+	printf(usb_cdc_putc, "\n\r<%X", MEM_RESPONSE);
+	#endif
    if(MEM_RESPONSE != MEMORIA_ACK){
       return (1);
    }
    
    MEMORIA_HW = TRUE;
    MEMORIA_OK = FALSE;
-   MEM_info[0] = 0x00;
-   MEM_info[1] = 0x00;
-   MEM_info[2] = 0x00;
-   MEM_info[3] = 0x00;
-   MEM_info[4] = 0x00;
+   
    
    #ifdef debug_memoria
 	update_proceso(INI_SW);
@@ -76,30 +85,17 @@ int MEMORIA_init_hw(void){
    return (0);
 }
 
-///////////////////////////////////////////////////////////
-//
-///////////////////////////////////////////////////////////
+/*==================== iniciar memoria ======================*/
 int MEMORIA_init(void){
 
-   if(!MEMORIA_HW || (MEM_proceso != INI_SW)) return (-1);
-
-	/*
-	fputc(MEMORIA_CMD_VER_INFO, MEMORIA);
-   MEM_info[0] = MEMORIA_getc();
-   MEM_info[1] = MEMORIA_getc();
-   MEM_info[2] = MEMORIA_getc();
-   MEM_info[3] = MEMORIA_getc();
-   MEM_info[4] = MEMORIA_getc();
-   */
+   if(!MEMORIA_HW) return (1);
+	MEMORIA_putc(MEMORIA_EXT_CMD);
+   MEMORIA_putc(MEMORIA_CMD_INITIALIZE);
    
-	fputc(MEMORIA_EXT_CMD,MEMORIA);
-   fputc(MEMORIA_CMD_INITIALIZE,MEMORIA);
    MEM_RESPONSE = MEMORIA_getc();
-   if(MEM_RESPONSE != MEMORIA_ACK){
-      return (2);
-   }else{
-      MEMORIA_OK = TRUE;
-   }
+   
+   if(MEM_RESPONSE != MEMORIA_ACK) return (2);
+   else MEMORIA_OK = TRUE;
    
    #ifdef debug_memoria
 	update_proceso(OPEN);
@@ -109,15 +105,31 @@ int MEMORIA_init(void){
    return (0);
 }
 
-///////////////////////////////////////////////////////////
-//
-///////////////////////////////////////////////////////////
+/*====================get info======================*/
+void MEMORIA_getinfo(){
+
+	MEMORIA_putc(MEMORIA_CMD_VER_INFO);
+   MEM_info[0] = MEMORIA_getc();
+   MEM_info[1] = MEMORIA_getc();
+   MEM_info[2] = MEMORIA_getc();
+   MEM_info[3] = MEMORIA_getc();
+   MEM_info[4] = MEMORIA_getc();
+   return;
+}
+
+
+
+/*	======================================
+	FUNCIONES PARA EL MANEJO DE ARCHIVOS
+	======================================
+*/
+
+/*====================abrir archivo======================*/
+/*
 int MEMORIA_open(char *filename, char modo){
    unsigned int ncar =0;
 
-   if(!MEMORIA_OK || MEM_proceso != OPEN){
-      return(-1);
-   }
+   if(!MEMORIA_OK) return(1);
 
    if(modo == 'r')
 	   #ifdef debug_memoria
@@ -132,21 +144,22 @@ int MEMORIA_open(char *filename, char modo){
 		MEM_proceso = WR;
 		#endif
    else
-      return(1);
+      return(2);
    
    ncar = strlen(filename);
-   car = (ncar <= MEMORIA_NAME_LENG_LIMIT)? ncar : MEMORIA_NAME_LENG_LIMIT;
+   if(ncar > MEMORIA_NAME_LENG_LIMIT) return(3);
+   
    strncpy(MEM_file_name, filename, car);
+   
    i = 0;
    timeout_error = FALSE;
    MEM_handshaking = MEMORIA_DEFAULT_HANDSHAKING;
    MEM_RESPONSE = MEMORIA_NOACK;
    return (0);
 }
-
-///////////////////////////////////////////////////////////
-//
-///////////////////////////////////////////////////////////
+*/
+/*==================== cancelar proceso ======================*/
+/*
 int MEMORIA_cancel(void){
 
    if((MEM_proceso != GET) || (MEM_proceso != SET)){
@@ -174,10 +187,9 @@ int MEMORIA_cancel(void){
    MEM_handshaking = MEMORIA_DEFAULT_HANDSHAKING;
    return (0);
 }
-
-///////////////////////////////////////////////////////////
-//
-///////////////////////////////////////////////////////////
+*/
+/*==================== enviar comando de escritura ======================*/
+/*
 int MEMORIA_write(unsigned int size){
    
    if(!MEMORIA_OK || MEM_proceso != WR)
@@ -217,10 +229,9 @@ int MEMORIA_write(unsigned int size){
 	#endif
    return (0);
 }
-
-///////////////////////////////////////////////////////////
-//
-///////////////////////////////////////////////////////////
+*/
+/*==================== enviar datos de escritura ======================*/
+/*
 int MEMORIA_set_data(char *data, unsigned int size){
 
    if(!MEMORIA_OK || (MEM_proceso != SET) || (tamano <= 0))
@@ -246,21 +257,9 @@ int MEMORIA_set_data(char *data, unsigned int size){
    }
    return (i);
 }
-
-///////////////////////////////////////////////////////////
-//
-///////////////////////////////////////////////////////////
-char MEMORIA_putc(char c){
-   fputc(c, MEMORIA);
-   if(MEM_handshaking == MEMORIA_DEFAULT_HANDSHAKING){
-      return (MEMORIA_getc());   
-   }
-   return (0);   
-}
-
-///////////////////////////////////////////////////////////
-//
-///////////////////////////////////////////////////////////
+*/
+/*==================== enviar comando de lectura ======================*/
+/*
 unsigned int32 MEMORIA_read(unsigned int num_bytes){
    char Umsb = 0, Ulsb = 0, Lmsb = 0,Llsb = 0;
 
@@ -300,11 +299,10 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
 	#endif
    return (tamano);                                              
 }
+*/
 
-
-///////////////////////////////////////////////////////////
-//funcion general para recivir datos desde la memoria
-///////////////////////////////////////////////////////////
+/*==================== obtener datos de la lectura ======================*/
+/*
 int MEMORIA_get_data(char *buffer){   
    char c;
    
@@ -313,7 +311,7 @@ int MEMORIA_get_data(char *buffer){
 
    i = 0;
    fputc(MEMORIA_ACK, MEMORIA);                                                  //envia un ACK para recivir nuevos datos
-   while((i < MEM_handshaking) && (tamano > 0 /*hay mas datos*/)){
+   while((i < MEM_handshaking) && (tamano > 0 )){
       c = MEMORIA_getc();
       
       if(!c && timeout_error)
@@ -338,10 +336,9 @@ int MEMORIA_get_data(char *buffer){
    }
    return (i);   
 }
-
-///////////////////////////////////////////////////////////
-//funcion general cerrar el actual archivo de trabajo
-///////////////////////////////////////////////////////////
+*/
+/*==================== cerrar el archivo abierto ======================*/
+/*
 int MEMORIA_close(void){
 
    if(!MEMORIA_OK || (MEM_proceso != CLOSE))
@@ -360,44 +357,45 @@ int MEMORIA_close(void){
 	#endif
    return(0);
 }
+*/
+/*	======================================
+	FUNCIONES FUNCIONES DE CONTROL Y BAJO NIVEL
+	======================================
+*/
 
-///////////////////////////////////////////////////////////
-//funcion general para configurar las opciones de la memoria
-///////////////////////////////////////////////////////////
-int MEMORIA_set_param(unsigned int param, char *value, unsigned int size){return (0);}
-
-
-///////////////////////////////////////////////////////////
-//funcion general para saber si la mmeoria esta actualmente en un proceso de trabajo
-///////////////////////////////////////////////////////////
+/*==================== memoria ocupada =======================*/
+/*comprueba que no se este realizando un porceso anterior en la memoria*/
 int MEMORIA_is_busy(void){
    return ((MEM_proceso == OPEN )? 0 : 1);
 } 
 
-///////////////////////////////////////////////////////////
-//funcion general obtener un caracter trasmitido desde la memoria
-///////////////////////////////////////////////////////////
+/*==================== colocar un caracter en el bus======================*/
+void MEMORIA_putc(char c){
+	
+	/*
+   #ifdef debug_memoria
+	printf(usb_cdc_putc, "\n\r>%X", c);
+	#endif*/
+   fputc(c, MEMORIA);
+ 
+   return;   
+}
+
+/*==================== obtiene un caracter del bus======================*/
 char MEMORIA_getc(void){
 	char c = 0x00;
-   unsigned int8 timeout;
    timeout_error=FALSE;
-   timeout = 0;
-   
-   while(!kbhit(MEMORIA) && (timeout < 10)){
-   	delay_ms(time_delay);
-   	timeout++;
-   	#ifdef debug_memoria
-   	printf(usb_cdc_putc,"\n\rt: %u", timeout);
-   	#endif
-   }
 
-   if(kbhit(MEMORIA))
+   //while(!kbhit(MEMORIA));
+
+   if(kbhit(MEMORIA)){
       c = fgetc(MEMORIA);
-   else {
+   } else {
       timeout_error=TRUE;
    }
+/*
    #ifdef debug_memoria
-   printf(usb_cdc_putc,"\n\rm: %x", c);
-   #endif
+   printf(usb_cdc_putc,"\n\r<%x", c);
+   #endif*/
    return(c);
 }

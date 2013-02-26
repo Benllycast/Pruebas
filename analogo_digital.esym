@@ -1,7 +1,7 @@
 D G "__PCH__" 0 64 ""4.105""
 D G "__DEVICE__" 0 64 "4550"
-D G "__DATE__" 0 64 ""19-Feb-13""
-D G "__TIME__" 0 64 ""08:21:16"" "=========================Configuracion del Hardware=========================="
+D G "__DATE__" 0 64 ""25-Feb-13""
+D G "__TIME__" 0 64 ""18:01:03"" "=========================Configuracion del Hardware=========================="
 D G "NUCLEO_H" 1 10 ""
 d G "PIN_A0" 2 28 "31744"
 d G "PIN_A1" 2 29 "31745"
@@ -845,13 +845,6 @@ F B "spi_data_is_in2" 0 0
 F B "brownout_enable" 1 0
 F B "delay_ms" 1 0
 F B "delay_us" 1 0
-F B "putchar" 1 2
-F B "puts" 1 2
-F B "getch" 0 1
-F B "gets" 1 3
-F B "kbhit" 0 1
-F B "set_uart_speed" 1 3
-F B "setup_uart" 1 3
 F B "i2c_read" 0 2
 F B "i2c_write" 1 2
 F B "i2c_start" 0 2

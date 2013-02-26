@@ -9,18 +9,9 @@ PSP_DATA
 C1OUT
 C2OUT
 _Randseed
+MEM_info
 myerror
-hr
-min
-sec
-dia
-mes
-anio
-dow
-valor_16b
 mensaje
-testfile
-mod_to_str
 
 Project Directory:
     G:\Project\pic\CCS\Pruebas\

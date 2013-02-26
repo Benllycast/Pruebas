@@ -17,7 +17,7 @@
 #define MEMORIA_CMD_FAT_PROTECT	0x59
 #define MEMORIA_CMD_INITIALIZE	0x69
 
-#define MEMORIA_EXT_CMD			0x40
+#define MEMORIA_EXT_CMD	0x40
 #define MEMORIA_CMD_READ_FILE	0x61
 #define MEMORIA_CMD_WRITE_FILE	0x74
 
@@ -42,17 +42,17 @@
 
 #define MEMORIA_HIGH_PERFORMANCE 	0x00
 #define MEMORIA_LOW_PERFORMANCE 	0x40
-//#define MEMORIA_OUT_TIME	65535	//modificar para colocar tiempos mas largos
-//#define MEMORIA_COMPROBAR_ARCHIVO
 
+extern char MEM_info[5];
 int MEMORIA_reset(void);
 int MEMORIA_init_hw(void);
+void MEMORIA_getinfo(void);
 int MEMORIA_init(void);
 int MEMORIA_open(char *filename, char modo);
 int MEMORIA_cancel(void);
 int MEMORIA_write(unsigned int size);
 int MEMORIA_set_data(char *data, unsigned int size);
-char MEMORIA_putc(char c);
+void MEMORIA_putc(char c);
 unsigned int32 MEMORIA_read(unsigned int num_bytes);
 int MEMORIA_get_data(char *buffer);
 int MEMORIA_close(void);

@@ -9,6 +9,7 @@ PSP_DATA
 C1OUT
 C2OUT
 _Randseed
+MEM_info
 MEMORIA_OK
 MEMORIA_HW
 timeout_error
@@ -16,7 +17,6 @@ MEM_proceso
 i
 car
 tamano
-MEM_info
 MEM_file_name
 MEM_handshaking
 MEM_append
