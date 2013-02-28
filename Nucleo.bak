@@ -23,11 +23,12 @@ byte hr = 0, min = 0, sec = 0, dia = 0, mes = 0, anio = 0, dow = 0;
 int16 valor_16b = 0;
 //int32 valor_32b;
 
-char testfile[] = "test.txt";
+
 enum modulos {ACC,VEL,REV,ACCM,SENP,CCP1,CCP2};
 const char mod_to_str [][*] = {"ACC","VEL","REV","ACCM","SENP","CCP1","CCP2"};
 */
-char mensaje[MAX];
+char testfile[] = "test.txt";
+char mensaje[] = "prueba de escritura\n\r";
 
 
 /*==========================funcriones de prueba==============================*/
@@ -111,9 +112,10 @@ int1 _debug_usb(void){
 ||										 MAIN 													||
 =============================================================================*/
 void main(void) {
-	unsigned int8 aux = 0;
+	unsigned int8 aux = 0, size = 0;
 	char op = 0;
    setup_devices();
+   size = strlen(mensaje);
    while(1){
 		if(_debug_usb()){
 			aux++;
@@ -123,13 +125,32 @@ void main(void) {
 				case 'r':
 					MEMORIA_reset();
 					break;
-				case 'i':
+				case 'h':
 					myerror = MEMORIA_init_hw();
+					break;
+				case 's':
+					myerror = MEMORIA_init();
 					break;
 				case 'f':
 					MEMORIA_getinfo();
 					break;
-				default;
+				case 'o':
+					myerror = MEMORIA_open(testfile, 1);
+					break;
+				case 'w':
+					myerror = MEMORIA_write(size);
+					if(myerror == 0)
+						myerror = MEMORIA_set_data(mensaje,size);
+					else
+						MEMORIA_close();
+					break;
+				/*case 'r':
+					MEMORIA_getinfo();
+					break;
+				case 'c':
+					MEMORIA_getinfo();
+					break;*/
+				default:
 					delay_ms(5000);
 			}
 			printf(usb_cdc_putc_fast,"\n\rE%d", myerror);

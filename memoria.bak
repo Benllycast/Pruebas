@@ -22,7 +22,7 @@ char MEM_info[5] = {0x00,0x00,0x00,0x00,0x00};
 char MEM_file_name[MEMORIA_NAME_LENG_LIMIT];
 char MEM_handshaking = MEMORIA_DEFAULT_HANDSHAKING;
 char MEM_append = MEMORIA_APPEND;
-char MEM_performance = MEMORIA_HIGH_PERFORMANCE;
+char MEM_performance = MEMORIA_LOW_PERFORMANCE;
 char MEM_RESPONSE = MEMORIA_NOACK;
 
 #ifdef debug_memoria
@@ -39,7 +39,6 @@ void update_proceso(int8 proceso){
 */
 /*==================== reset de memoria ======================*/
 int MEMORIA_reset(void){
-	char c = 0, cont = 0;
 	#ifdef debug_memoria
 	usb_cdc_putc('r');
 	#endif
@@ -55,7 +54,10 @@ int MEMORIA_reset(void){
 int MEMORIA_init_hw(void){
 	#ifdef debug_memoria
 	update_proceso(INI_HW);
+	#else
+	MEM_proceso = INI_HW;
 	#endif
+	
 	MEMORIA_putc(MEMORIA_CMD_AUTOBAUD);
 	MEM_RESPONSE = MEMORIA_getc();	                                       
 	if(MEM_RESPONSE != MEMORIA_ACK)
@@ -76,7 +78,8 @@ int MEMORIA_init_hw(void){
 /*==================== iniciar memoria ======================*/
 int MEMORIA_init(void){
 
-   //if(!MEMORIA_HW) return (1);
+   if(!MEMORIA_HW || (MEM_proceso != INI_SW)) return (1);
+	
 	MEMORIA_putc(MEMORIA_EXT_CMD);
    MEMORIA_putc(MEMORIA_CMD_INITIALIZE);
    
@@ -116,30 +119,27 @@ void MEMORIA_getinfo(){
 */
 
 /*====================abrir archivo======================*/
-/*
-int MEMORIA_open(char *filename, char modo){
-   unsigned int ncar =0;
+
+int MEMORIA_open(char* filename, short modo){
 
    if(!MEMORIA_OK) return(1);
 
-   if(modo == 'r')
-	   #ifdef debug_memoria
-		update_proceso(RD);
-		#else
-		MEM_proceso = RD;
-		#endif
-   else if(modo == 'w')
+   if(modo){
       #ifdef debug_memoria
 		update_proceso(WR);
 		#else
 		MEM_proceso = WR;
 		#endif
-   else
-      return(2);
+   }else{
+		#ifdef debug_memoria
+		update_proceso(RD);
+		#else
+		MEM_proceso = RD;
+		#endif
+   }
    
-   ncar = strlen(filename);
-   if(ncar > MEMORIA_NAME_LENG_LIMIT) return(3);
-   
+   car = strlen(filename);
+   car = (car <= MEMORIA_NAME_LENG_LIMIT)? car : MEMORIA_NAME_LENG_LIMIT; 
    strncpy(MEM_file_name, filename, car);
    
    i = 0;
@@ -148,7 +148,7 @@ int MEMORIA_open(char *filename, char modo){
    MEM_RESPONSE = MEMORIA_NOACK;
    return (0);
 }
-*/
+
 /*==================== cancelar proceso ======================*/
 /*
 int MEMORIA_cancel(void){
@@ -180,36 +180,36 @@ int MEMORIA_cancel(void){
 }
 */
 /*==================== enviar comando de escritura ======================*/
-/*
+
 int MEMORIA_write(unsigned int size){
    
-   if(!MEMORIA_OK || MEM_proceso != WR)
-      return(1);
+   if(!MEMORIA_OK)return(1);
+   if(MEM_proceso != WR)return(2);
+      
    
    //buffer maximo de 100 bytes
    if((size > 0) && (size <= MAX_BUFFER))
       MEM_handshaking = MEMORIA_NO_HANDSHAKING;
    else
-      return (2);
+      return (3);
    
    tamano = (unsigned int32)size;
-   fputc(MEMORIA_EXT_CMD,MEMORIA);
-   fputc(MEMORIA_CMD_WRITE_FILE,MEMORIA);
-   fputc((MEM_handshaking|MEM_append|MEM_performance),MEMORIA);
+   MEMORIA_putc(MEMORIA_EXT_CMD);
+   MEMORIA_putc(MEMORIA_CMD_WRITE_FILE);
+   MEMORIA_putc((MEM_handshaking|MEM_append|MEM_performance));
    
-   for(i =0; (i < MEMORIA_NAME_LENG_LIMIT) && (i < car);i++)
-      fputc(MEM_file_name[i],MEMORIA);
+   for(i = 0; i < car; i++)
+      MEMORIA_putc(MEM_file_name[i]);
 
-   fputc(0x00,MEMORIA);
+   MEMORIA_putc(0x00);
 
-   fputc(make8(tamano,3),MEMORIA);
-   fputc(make8(tamano,2),MEMORIA);
-   fputc(make8(tamano,1),MEMORIA);
-   fputc(make8(tamano,0),MEMORIA);
+   MEMORIA_putc(make8(tamano,3));
+   MEMORIA_putc(make8(tamano,2));
+   MEMORIA_putc(make8(tamano,1));
+   MEMORIA_putc(make8(tamano,0));
 
    MEM_RESPONSE = MEMORIA_getc();
-   if((MEM_RESPONSE == 0) && timeout_error)
-      return (3);
+   
    if(MEM_RESPONSE != MEMORIA_ACK){
       return (4);
    }
@@ -220,25 +220,27 @@ int MEMORIA_write(unsigned int size){
 	#endif
    return (0);
 }
-*/
+
 /*==================== enviar datos de escritura ======================*/
-/*
+
 int MEMORIA_set_data(char *data, unsigned int size){
 
-   if(!MEMORIA_OK || (MEM_proceso != SET) || (tamano <= 0))
-      return(-1);
+   if(!MEMORIA_OK)return(-1);
+   if(MEM_proceso != SET) return(-2);
+   if(tamano <= 0)return(-3);
 
    i = 0;
    while((tamano > 0)&&(i < size)){
-      fputc(data[i],MEMORIA);
+      MEMORIA_putc(data[i]);
       i++;
       tamano--;
    }
+   
    //si no hay mas datos
    if(tamano <= 0){
       MEM_RESPONSE = MEMORIA_getc();
-      if(((MEM_RESPONSE == 0) && timeout_error)||(MEM_RESPONSE != MEMORIA_ACK)){
-         return (2);
+      if(MEM_RESPONSE != MEMORIA_ACK){
+         return (-4);
       }
       #ifdef debug_memoria
 		update_proceso(CLOSE);
@@ -248,7 +250,7 @@ int MEMORIA_set_data(char *data, unsigned int size){
    }
    return (i);
 }
-*/
+
 /*==================== enviar comando de lectura ======================*/
 /*
 unsigned int32 MEMORIA_read(unsigned int num_bytes){
@@ -264,14 +266,14 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
       return (2);
    
    
-   fputc(MEMORIA_EXT_CMD,MEMORIA);
-   fputc(MEMORIA_CMD_READ_FILE,MEMORIA);
-   fputc(MEM_handshaking,MEMORIA);
+   MEMORIA_putc(MEMORIA_EXT_CMD,MEMORIA);
+   MEMORIA_putc(MEMORIA_CMD_READ_FILE,MEMORIA);
+   MEMORIA_putc(MEM_handshaking,MEMORIA);
    
    for(i =0; (i < MEMORIA_NAME_LENG_LIMIT) && (i < car); ++i)
-      fputc(MEM_file_name[i],MEMORIA);
+      MEMORIA_putc(MEM_file_name[i],MEMORIA);
 
-   fputc(0x00,MEMORIA);
+   MEMORIA_putc(0x00,MEMORIA);
 
    Umsb = MEMORIA_getc();
    if(!Umsb && timeout_error) return (0);
@@ -301,7 +303,7 @@ int MEMORIA_get_data(char *buffer){
       return(-1);
 
    i = 0;
-   fputc(MEMORIA_ACK, MEMORIA);                                                  //envia un ACK para recivir nuevos datos
+   MEMORIA_putc(MEMORIA_ACK, MEMORIA);                                                  //envia un ACK para recivir nuevos datos
    while((i < MEM_handshaking) && (tamano > 0 )){
       c = MEMORIA_getc();
       
@@ -329,12 +331,16 @@ int MEMORIA_get_data(char *buffer){
 }
 */
 /*==================== cerrar el archivo abierto ======================*/
-/*
+
 int MEMORIA_close(void){
-
-   if(!MEMORIA_OK || (MEM_proceso != CLOSE))
-      return (-1);
-
+	/*
+	* hay un bug en esta funcion que no contempla limpiar
+	* la configuracion cuando no ha iniciado el hardware o
+	* despues de un reset
+	*/
+   if(!MEMORIA_OK)return (1);
+   if(MEM_proceso != CLOSE) return(2);
+   
    strcpy (MEM_file_name,"");
    i = 0;
    car = 0;
@@ -348,7 +354,7 @@ int MEMORIA_close(void){
 	#endif
    return(0);
 }
-*/
+
 /*	======================================
 	FUNCIONES FUNCIONES DE CONTROL Y BAJO NIVEL
 	======================================
@@ -366,6 +372,9 @@ void MEMORIA_putc(char c){
 	printf(usb_cdc_putc, "\n\r>%X", c);
 	#endif
    fputc(c, MEMORIA);
+   #ifdef debug_memoria
+	printf(usb_cdc_putc, " e%X", rs232_errors);
+	#endif
    return;
 }
 
@@ -379,10 +388,10 @@ char MEMORIA_getc(void){
    	cont--;
    }
    
-   c = fgetc(MEMORIA);
+   if(!c) c = fgetc(MEMORIA);
    
    #ifdef debug_memoria
-   printf(usb_cdc_putc,"\n\r<%x", c);
+   printf(usb_cdc_putc,"\n\r<%x e%x", c, rs232_errors);
    #endif
    return(c);
 }
