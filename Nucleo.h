@@ -56,7 +56,7 @@ frecuencia de la CPU:24 Mhz; el FUSE CPIDIV3 para dividir los 96Mhz hasta 24MHz 
 #define PIN_RCV	PIN_C7
 
 /*=================== CONFIGURACION DEL RELOJ DE TRABAJO =====================*/
-#use delay(clock=16000000, restart_WDT)	//cambiar el valor del clock si se cambia la frecuencia de la CPU
+#use delay(clock=16000000)	//cambiar el valor del clock si se cambia la frecuencia de la CPU
 
 /*=================== CONFIGURACION LIBRERIAS DE COMUNICACION ================*/
 //#use rs232(baud=9600,parity=N,xmit=PIN_XMIT,rcv=PIN_RCV,bits=8)

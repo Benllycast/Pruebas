@@ -12,15 +12,15 @@ BuildTool=
 OptionString=
 AdditionalOptionString=
 [mru-list]
-1=Nucleo.c
+1=memoria.c
 [Windows]
 0=0000 %S 0 0 796 451 3 0
 [Opened Files]
-1=Nucleo.h
-2=I:\Archivos de programa\PICC\Devices\18F4550.h
-3=Nucleo.c
-4=memoria.h
-5=memoria.c
+1=I:\Archivos de programa\PICC\Devices\18F4550.h
+2=Nucleo.c
+3=memoria.h
+4=memoria.c
+5=Nucleo.h
 6=
 7=
 8=ds1307.c
@@ -104,11 +104,16 @@ FileList=
 BuildTool=
 OptionString=
 AdditionalOptionString=
+[memoria.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
 [Units]
-Count=5
-1=Nucleo.o
-2=analogo_digital.o
-3=comunicacion.o
-4=ds1307.o
-5=memoria.o
+Count=3
+1=memoria.o
+2=comunicacion.o
+3=Nucleo.o
 Link=1

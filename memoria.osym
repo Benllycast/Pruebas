@@ -10,6 +10,7 @@ C1OUT
 C2OUT
 _Randseed
 MEM_info
+rs232_errors
 MEMORIA_OK
 MEMORIA_HW
 timeout_error

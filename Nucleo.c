@@ -82,6 +82,7 @@ void setup_devices(){
    /*===================para los indicadores========================*/
    set_tris_e(0x00);
    set_tris_b(0x00);
+   set_tris_d(0x80);		//configuracion para el modulo de memoria					
    output_bit(INDICADOR_AZUL, 0);
    output_bit(INDICADOR_ROJO, 1);
    output_bit(INDICADOR_AMARILLO, 1);
@@ -111,17 +112,28 @@ int1 _debug_usb(void){
 =============================================================================*/
 void main(void) {
 	unsigned int8 aux = 0;
+	char op = 0;
    setup_devices();
    while(1){
 		if(_debug_usb()){
-			delay_ms(5000);
 			aux++;
 			printf(usb_cdc_putc,"\n\rtest %u", aux);
-			delay_ms(5000);
-			//output_float(PIN_D6)
-			myerror = MEMORIA_init_hw();
-   		printf(usb_cdc_putc_fast,"\n\rE%d", myerror);
-   		while(!usb_cdc_getc());   		
+			while(!(op = usb_cdc_getc()));
+			switch(op){
+				case 'r':
+					MEMORIA_reset();
+					break;
+				case 'i':
+					myerror = MEMORIA_init_hw();
+					break;
+				case 'f':
+					MEMORIA_getinfo();
+					break;
+				default:
+					delay_ms(5000);
+			}
+			printf(usb_cdc_putc_fast,"\n\rE%d", myerror);
+			myerror = 0;
 		}
   	}
 }

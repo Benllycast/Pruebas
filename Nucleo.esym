@@ -1,6 +1,6 @@
-D G "__PCH__" 0 230 ""4.105""
-D G "__DEVICE__" 0 230 "4550"
-D G "__DATE__" 0 230 ""25-Feb-13""
+D G "__PCH__" 0 390 ""4.105""
+D G "__DEVICE__" 0 390 "4550"
+D G "__DATE__" 0 390 ""28-Feb-13""
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 1
@@ -143,3 +143,5 @@ F B "puts" 1 2
 F B "getch" 0 1
 F B "gets" 1 3
 F B "kbhit" 0 1
+F B "set_uart_speed" 1 3
+F B "setup_uart" 1 3

@@ -1,3 +1,10 @@
+>>> Warning 203 "Nucleo.c" Line 117(1,1): Condition always TRUE
+>>> Warning 201 "Nucleo.c" Line 121(1,1): Assignment inside relational expression
+>>> Warning 202 "G:\Project\pic\CCS\Pruebas\memoria.h" Line 46(13,21): Variable never used:   MEM_info
+>>> Warning 202 "Nucleo.c" Line 30(6,13): Variable never used:   mensaje
+G:\Project\pic\CCS\Pruebas\Nucleo.o ===>  0 Errors,  4 Warnings.
+G:\Project\pic\CCS\Pruebas\comunicacion.o ===>  0 Errors,  0 Warnings.
+>>> Warning 202 "memoria.c" Line 11(5,8): Variable never used:   rs232_errors
 >>> Warning 202 "memoria.c" Line 18(16,17): Variable never used:   i
 >>> Warning 202 "memoria.c" Line 19(18,21): Variable never used:   car
 >>> Warning 202 "memoria.c" Line 20(23,29): Variable never used:   tamano
@@ -5,18 +12,12 @@
 >>> Warning 202 "memoria.c" Line 23(22,37): Variable never used:   MEM_handshaking
 >>> Warning 202 "memoria.c" Line 24(17,27): Variable never used:   MEM_append
 >>> Warning 202 "memoria.c" Line 25(22,37): Variable never used:   MEM_performance
-G:\Project\pic\CCS\Pruebas\memoria.o ===>  0 Errors,  7 Warnings.
->>> Warning 203 "ds1307.c" Line 181(1,1): Condition always TRUE
-G:\Project\pic\CCS\Pruebas\ds1307.o ===>  0 Errors,  1 Warnings.
-G:\Project\pic\CCS\Pruebas\comunicacion.o ===>  0 Errors,  0 Warnings.
-G:\Project\pic\CCS\Pruebas\analogo_digital.o ===>  0 Errors,  0 Warnings.
->>> Warning 203 "Nucleo.c" Line 115(1,1): Condition always TRUE
->>> Warning 202 "G:\Project\pic\CCS\Pruebas\memoria.h" Line 46(13,21): Variable never used:   MEM_info
->>> Warning 202 "Nucleo.c" Line 30(6,13): Variable never used:   mensaje
-G:\Project\pic\CCS\Pruebas\Nucleo.o ===>  0 Errors,  3 Warnings.
+>>> Warning 202 "memoria.c" Line 42(8,9): Variable never used:   c
+>>> Warning 202 "memoria.c" Line 42(18,22): Variable never used:   cont
+G:\Project\pic\CCS\Pruebas\memoria.o ===>  0 Errors,  10 Warnings.
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_tbe)
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_flush_out_buffer)
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_get_discard)
-      Memory usage:   ROM=19%      RAM=24% - 26%
+      Memory usage:   ROM=18%      RAM=19% - 22%
       0 Errors,  4 Warnings.
