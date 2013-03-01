@@ -29,6 +29,7 @@ const char mod_to_str [][*] = {"ACC","VEL","REV","ACCM","SENP","CCP1","CCP2"};
 */
 char testfile[] = "test.txt";
 char mensaje[] = "prueba de escritura\n\r";
+char buffer[MAX];
 
 
 /*==========================funcriones de prueba==============================*/
@@ -113,48 +114,61 @@ int1 _debug_usb(void){
 =============================================================================*/
 void main(void) {
 	unsigned int8 aux = 0, size = 0;
+	unsigned int32 tamano = 0;
 	char op = 0;
    setup_devices();
    size = strlen(mensaje);
+   memset(buffer, 0, MAX);
    while(1){
 		if(_debug_usb()){
 			aux++;
 			printf(usb_cdc_putc,"\n\rtest %u", aux);
 			while(!(op = usb_cdc_getc()));
 			switch(op){
-				case 'r':
+				case '0':
 					MEMORIA_reset();
 					break;
-				case 'h':
+				case '1':
 					myerror = MEMORIA_init_hw();
 					break;
-				case 's':
+				case '2':
 					myerror = MEMORIA_init();
 					break;
-				case 'f':
+				case 'i':
 					MEMORIA_getinfo();
 					break;
-				case 'o':
-					myerror = MEMORIA_open(testfile, 1);
+				case 'e':
+					myerror = MEMORIA_open(testfile, FILE_WR);
 					break;
 				case 'w':
 					myerror = MEMORIA_write(size);
-					if(myerror == 0)
-						myerror = MEMORIA_set_data(mensaje,size);
-					else
-						MEMORIA_close();
 					break;
-				/*case 'r':
-					MEMORIA_getinfo();
+				case 's':
+					myerror = MEMORIA_set_data(mensaje,size);
+					break;
+				case 'l':
+					myerror = MEMORIA_open(testfile, FILE_RD);
+					break;
+				case 'r':
+					tamano = MEMORIA_read(size);
+					printf(usb_cdc_putc_fast,"\n\rt%Lu", tamano);
+					break;
+				case 'g':
+					myerror = MEMORIA_get_data(buffer);
+					printf(usb_cdc_putc_fast,"\n\r%d %s", myerror, buffer);
 					break;
 				case 'c':
-					MEMORIA_getinfo();
-					break;*/
+					myerror = MEMORIA_cancel();
+					break;
+				case 'x':
+					myerror = MEMORIA_close();
+					break;
 				default:
 					delay_ms(5000);
 			}
 			printf(usb_cdc_putc_fast,"\n\rE%d", myerror);
 			myerror = 0;
+			tamano = 0;
 		}
   	}
 }

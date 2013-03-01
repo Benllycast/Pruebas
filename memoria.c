@@ -22,7 +22,7 @@ char MEM_info[5] = {0x00,0x00,0x00,0x00,0x00};
 char MEM_file_name[MEMORIA_NAME_LENG_LIMIT];
 char MEM_handshaking = MEMORIA_DEFAULT_HANDSHAKING;
 char MEM_append = MEMORIA_APPEND;
-char MEM_performance = MEMORIA_LOW_PERFORMANCE;
+char MEM_performance = MEMORIA_HIGH_PERFORMANCE;
 char MEM_RESPONSE = MEMORIA_NOACK;
 
 #ifdef debug_memoria
@@ -150,13 +150,13 @@ int MEMORIA_open(char* filename, short modo){
 }
 
 /*==================== cancelar proceso ======================*/
-/*
-int MEMORIA_cancel(void){
 
+int MEMORIA_cancel(void){
+/*
    if((MEM_proceso != GET) || (MEM_proceso != SET)){
       return(-1);
    }
-
+*/
    if(MEM_proceso == GET){
       fputc(MEMORIA_NOACK, MEMORIA);
       MEM_RESPONSE = MEMORIA_getc();
@@ -178,9 +178,12 @@ int MEMORIA_cancel(void){
    MEM_handshaking = MEMORIA_DEFAULT_HANDSHAKING;
    return (0);
 }
-*/
-/*==================== enviar comando de escritura ======================*/
 
+/*==================== enviar comando de escritura ======================*/
+/*
+ *BUG: puede retornar un 0 en la primera escritura del archivo
+ *TODO: corregir para primera escritura 
+*/
 int MEMORIA_write(unsigned int size){
    
    if(!MEMORIA_OK)return(-1);
@@ -222,13 +225,15 @@ int MEMORIA_write(unsigned int size){
 }
 
 /*==================== enviar datos de escritura ======================*/
-
+/*
+ * corrwgir deacuerdo a MEMORIA_write()
+ */
 int MEMORIA_set_data(char *data, unsigned int size){
-
+/*
    if(!MEMORIA_OK)return(-5);
    if(MEM_proceso != SET) return(-6);
    if(tamano <= 0)return(-7);
-
+*/
    i = 0;
    while((tamano > 0)&&(i < size)){
       MEMORIA_putc(data[i]);
@@ -252,37 +257,32 @@ int MEMORIA_set_data(char *data, unsigned int size){
 }
 
 /*==================== enviar comando de lectura ======================*/
-/*
+
 unsigned int32 MEMORIA_read(unsigned int num_bytes){
    char Umsb = 0, Ulsb = 0, Lmsb = 0,Llsb = 0;
-
-   if(!MEMORIA_OK || (MEM_proceso != RD)){
-      return(0);
-   }
-
+/*
+   if(!MEMORIA_OK)return(-1);
+   if(MEM_proceso != RD)return(-2);
+*/
    if((num_bytes > 0) && (num_bytes <= MAX_BUFFER))
-      MEM_handshaking = (char)num_bytes;
+      MEM_handshaking = num_bytes;
    else
-      return (2);
+      return (-3);
    
    
-   MEMORIA_putc(MEMORIA_EXT_CMD,MEMORIA);
-   MEMORIA_putc(MEMORIA_CMD_READ_FILE,MEMORIA);
-   MEMORIA_putc(MEM_handshaking,MEMORIA);
+   MEMORIA_putc(MEMORIA_EXT_CMD);
+   MEMORIA_putc(MEMORIA_CMD_READ_FILE);
+   MEMORIA_putc(MEM_handshaking);
    
    for(i =0; (i < MEMORIA_NAME_LENG_LIMIT) && (i < car); ++i)
-      MEMORIA_putc(MEM_file_name[i],MEMORIA);
+      MEMORIA_putc(MEM_file_name[i]);
 
-   MEMORIA_putc(0x00,MEMORIA);
+   MEMORIA_putc(0x00);
 
    Umsb = MEMORIA_getc();
-   if(!Umsb && timeout_error) return (0);
    Ulsb = MEMORIA_getc();
-   if(!Ulsb && timeout_error) return (0);
    Lmsb = MEMORIA_getc();
-   if(!Lmsb && timeout_error) return (0);
    Llsb = MEMORIA_getc();
-   if(!Llsb && timeout_error) return (0);
 
    tamano = make32(Umsb,Ulsb,Lmsb,Llsb);
    #ifdef debug_memoria
@@ -292,24 +292,22 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
 	#endif
    return (tamano);                                              
 }
-*/
+
 
 /*==================== obtener datos de la lectura ======================*/
-/*
+
 int MEMORIA_get_data(char *buffer){   
-   char c;
-   
-   if(!MEMORIA_OK || (MEM_proceso != GET) || (tamano <= 0))
-      return(-1);
+   char c = 0x00;
+/*
+   if(!MEMORIA_OK) return(-1);
+   if(MEM_proceso != GET) return(-2);
+   if(tamano <= 0) return(-3);
+*/
 
    i = 0;
-   MEMORIA_putc(MEMORIA_ACK, MEMORIA);                                                  //envia un ACK para recivir nuevos datos
+   MEMORIA_putc(MEMORIA_ACK);//envia un ACK para recivir nuevos datos
    while((i < MEM_handshaking) && (tamano > 0 )){
       c = MEMORIA_getc();
-      
-      if(!c && timeout_error)
-         return (-1);
-      
       buffer[i] = c;
       i++;
       tamano--;
@@ -318,8 +316,8 @@ int MEMORIA_get_data(char *buffer){
    //si alcanzo el total de datos
    if(tamano == 0){
       MEM_RESPONSE = MEMORIA_getc();
-      if(((MEM_RESPONSE == 0) && timeout_error)||(MEM_RESPONSE != MEMORIA_ACK)){
-         return (-1);
+      if(MEM_RESPONSE != MEMORIA_ACK){
+         return (-4);
       }
       #ifdef debug_memoria
 		update_proceso(CLOSE);
@@ -329,7 +327,7 @@ int MEMORIA_get_data(char *buffer){
    }
    return (i);   
 }
-*/
+
 /*==================== cerrar el archivo abierto ======================*/
 
 int MEMORIA_close(void){
@@ -338,9 +336,10 @@ int MEMORIA_close(void){
 	* la configuracion cuando no ha iniciado el hardware o
 	* despues de un reset
 	*/
+	/*
    if(!MEMORIA_OK)return (1);
    if(MEM_proceso != CLOSE) return(2);
-   
+   */
    strcpy (MEM_file_name,"");
    i = 0;
    car = 0;

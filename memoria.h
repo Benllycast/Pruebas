@@ -43,6 +43,9 @@
 #define MEMORIA_HIGH_PERFORMANCE 	0x00
 #define MEMORIA_LOW_PERFORMANCE 	0x40
 
+#define FILE_WR 1
+#define FILE_RD 0
+
 extern char MEM_info[5];
 int MEMORIA_reset(void);
 int MEMORIA_init_hw(void);
