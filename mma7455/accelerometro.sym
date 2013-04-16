@@ -1,0 +1,60 @@
+000     @SCRATCH
+001     @SCRATCH
+002     @SCRATCH
+003     @SCRATCH
+F83     PSP_DATA
+FB4.6   C1OUT
+FB4.7   C2OUT
+FBB     CCP_2
+FBB     CCP_2_LOW
+FBC     CCP_2_HIGH
+FBE     CCP_1_LOW
+FBE     CCP_1
+FBF     CCP_1_HIGH
+FE1-FE2 @WRITE_PACKED_MEMORY.P1
+FE1-FE2 @READ_PACKED_MEMORY.P2
+FE9-FEA @WRITE_PACKED_MEMORY.P1
+FE9-FEA @READ_PROGRAM_MEMORY.P2
+FE9-FEA @WRITE_PROGRAM_MEMORY.P3
+FE9-FEA @READ_PACKED_MEMORY.P4
+FF6-FF8 @READ_PROGRAM_MEMORY.P1
+FF6-FF8 @WRITE_PROGRAM_MEMORY.P2
+
+ROM Allocation:
+0136  StrtoulGO
+0136  StrtolGO
+
+
+User Memory space: 
+
+User Memory space: 
+
+Project Directory:
+    G:\Project\pic\CCS\Pruebas\mma7455\
+
+Project Files:
+    accelerometro.c
+    ACCspi.h
+    I:\Archivos de programa\PICC\Devices\18F4550.h
+    I:\Archivos de programa\PICC\Drivers\stdio.h
+    I:\Archivos de programa\PICC\Drivers\string.h
+    I:\Archivos de programa\PICC\Drivers\stddef.h
+    I:\Archivos de programa\PICC\Drivers\ctype.h
+    I:\Archivos de programa\PICC\Drivers\stdlib.h
+    accelerometro.h
+
+Units:
+    G:\Project\pic\CCS\Pruebas\mma7455\accelerometro (main)
+
+Compiler Settings:
+    Processor:      PIC18F4550
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      ACCspi.err
+    Ext Symbols: accelerometro.esym
+    Symbols:     accelerometro.sym

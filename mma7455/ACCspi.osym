@@ -1,0 +1,43 @@
+_RETURN_
+CCP_1
+CCP_1_LOW
+CCP_1_HIGH
+CCP_2
+CCP_2_LOW
+CCP_2_HIGH
+PSP_DATA
+C1OUT
+C2OUT
+_Randseed
+
+Project Directory:
+    G:\Project\pic\CCS\Pruebas\mma7455\
+
+Project Files:
+    ACCspi.c
+    ACCspi.h
+    I:\Archivos de programa\PICC\Devices\18F4550.h
+    I:\Archivos de programa\PICC\Drivers\stdio.h
+    I:\Archivos de programa\PICC\Drivers\string.h
+    I:\Archivos de programa\PICC\Drivers\stddef.h
+    I:\Archivos de programa\PICC\Drivers\ctype.h
+    I:\Archivos de programa\PICC\Drivers\stdlib.h
+    accelerometro.h
+
+Units:
+    G:\Project\pic\CCS\Pruebas\mma7455\ACCspi (main)
+
+Compiler Settings:
+    Processor:      PIC18F4550
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+    Output file:    Relocatable
+
+Output Files:
+    Errors:      ACCspi.err
+    Ext Symbols: ACCspi.esym
+    Object:      ACCspi.o
+    Symbols:     ACCspi.osym

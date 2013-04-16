@@ -274,7 +274,7 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
    MEMORIA_putc(MEMORIA_CMD_READ_FILE);
    MEMORIA_putc(MEM_handshaking);
    
-   for(i =0; (i < MEMORIA_NAME_LENG_LIMIT) && (i < car); ++i)
+   for(i = 0; i < car; i++)
       MEMORIA_putc(MEM_file_name[i]);
 
    MEMORIA_putc(0x00);
@@ -290,7 +290,7 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
 	#else
 	MEM_proceso = GET;
 	#endif
-   return (tamano);                                              
+   return (tamano);
 }
 
 
@@ -383,7 +383,9 @@ char MEMORIA_getc(void){
    timeout_error=FALSE;
    while(!kbhit(MEMORIA) && cont > 0 && !c){
    	c = fgetc(MEMORIA);
+   	#ifdef debug_memoria
    	usb_cdc_putc('*');
+   	#endif
    	cont--;
    }
    

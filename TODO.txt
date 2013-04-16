@@ -1,0 +1,28 @@
+cambios a realizar:
+	memoria.c
+		mantener procesos de lectura y escritura por aparte
+		colocar el fputc dentro de una funcion que reciba el caracter ha enviar
+		analizar el read y el write para enviar maximo 100 bytes de datos
+		
+para hacer:
+	MODULO DE MEMORIA:
+		pasar el RESET del pin RD5 al pin RD2
+		corregir bug de la lectura de meoria
+	
+	MODULO TIEMPO:
+		tratar de conectar el DS1307 en otros pines diferentes a los del modulod i2c del pic para implementarlo por software.
+		test del modulo de tiepo despues de realizado el cambio
+		
+	MODULO COMUNICACION
+		pasar el USB_COM_SENSE del pin RB2 al pin RD3
+		testear la configuracion
+		
+	MODULO ACCELEROMETRO:
+		seleccionar los pines de comunicacion para el modulo. dependiendo de esto la comunicaion se realizara por software o por hardware
+		corregir el archivo "accelerometro.c", implementa la comunicacion por I2c, hay que pasarlo a SPI
+		realizar pruebas del archivo "accelerometro.c" en el proteus
+		realizar montaje en la protoboard
+			conectar el MMA7455 al traductor de voltage
+			conectar conectar el traductor de voltaje al MICROCONTROLADOR
+		probar comunicaion con el microcontrolador
+		

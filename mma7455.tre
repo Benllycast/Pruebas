@@ -1,8 +1,0 @@
-青mma7455
-   青MAIN  0/341  Ram=1
-      団??0??
-      団@PSTRINGC7_9600_62_63  0/74  Ram=3
-      団@PRINTF_X_9600_62_63  0/35  Ram=2
-      青read_data  (Inline)  Ram=2
-         団@PSTRINGCN7_9600_62_63  (Inline)  Ram=4
-         青@PRINTF_X_9600_62_63  0/35  Ram=2

@@ -1,0 +1,122 @@
+000     @SCRATCH
+001     @SCRATCH
+001     _RETURN_
+002     @SCRATCH
+003     @SCRATCH
+004-005 strtok.save
+006-009 _Randseed
+00A-00B strtok.save
+00C-00F _Randseed
+010-018 CONFIG
+019     test2.i
+019     MAIN.@SCRATCH1
+019     @PSTRINGC_9600_31766_31767.@SCRATCH1
+01A     test2.value
+01A     @PSTRINGC_9600_31766_31767.@SCRATCH2
+01B     @PSTRINGCN_9600_31766_31767.P1
+01B     @PRINTF_X_9600_31766_31767.P2
+01B     read_MMA.address
+01B     @PRINTF_D_9600_31766_31767.P1
+01C     @PRINTF_D_9600_31766_31767.P1
+01C-01D read_MMA.value
+01C     @PRINTF_X_9600_31766_31767.P1
+01C     @PSTRINGCN_9600_31766_31767.@SCRATCH1
+01D     @PSTRINGCN_9600_31766_31767.@SCRATCH2
+01D     @PRINTF_D_9600_31766_31767.@SCRATCH1
+01E     @delay_ms1.P1
+01E     @PRINTF_D_9600_31766_31767.@SCRATCH2
+01E     read_MMA.@SCRATCH1
+01F     @PRINTF_D_9600_31766_31767.@SCRATCH3
+01F     read_MMA.@SCRATCH2
+020     @SPI_XFER_1.P1
+020     @PRINTF_D_9600_31766_31767.@SCRATCH4
+021     @SPI_XFER_1.P1
+021     @DIV88.P2
+022     @DIV88.P1
+022     @SPI_XFER_1.@SCRATCH1
+023     @SPI_XFER_1.@SCRATCH2
+023     @DIV88.@SCRATCH1
+F83     PSP_DATA
+FB4.6   C1OUT
+FB4.7   C2OUT
+FBB     CCP_2
+FBB     CCP_2_LOW
+FBC     CCP_2_HIGH
+FBE     CCP_1
+FBE     CCP_1_LOW
+FBF     CCP_1_HIGH
+FE1-FE2 @READ_PACKED_MEMORY.P1
+FE1-FE2 @WRITE_PACKED_MEMORY.P2
+FE9-FEA @READ_PACKED_MEMORY.P1
+FE9-FEA @WRITE_PROGRAM_MEMORY.P2
+FE9-FEA @READ_PROGRAM_MEMORY.P3
+FE9-FEA @WRITE_PACKED_MEMORY.P4
+FF6-FF8 @READ_PROGRAM_MEMORY.P1
+FF6-FF8 @WRITE_PROGRAM_MEMORY.P2
+
+ROM Allocation:
+00C8  @delay_ms1
+007A  @SPI_XFER_1
+0004  @const392
+0134  @PSTRINGCN_9600_31766_31767
+0154  @DIV88
+017C  @PRINTF_D_9600_31766_31767
+024E  @PRINTF_X_9600_31766_31767
+0290  test2
+0022  @const407
+030A  MAIN
+003E  @const410
+0056  @PSTRINGC_9600_31766_31767
+00F6  read_MMA
+030A  @cinit
+0136  StrtoulGO
+0136  StrtolGO
+0136  StrtoulGO
+0136  StrtolGO
+
+
+User Memory space: 
+
+User Memory space: 
+
+User Memory space: 
+
+User Memory space: 
+
+Project Directory:
+    G:\Project\pic\CCS\Pruebas\mma7455\
+
+Project Files:
+    ACCspi.c
+    ACCspi.h (link)
+    I:\Archivos de programa\PICC\Devices\18F4550.h (link)
+    I:\Archivos de programa\PICC\Drivers\stdio.h (link)
+    I:\Archivos de programa\PICC\Drivers\string.h (link)
+    I:\Archivos de programa\PICC\Drivers\stddef.h (link)
+    I:\Archivos de programa\PICC\Drivers\ctype.h (link)
+    I:\Archivos de programa\PICC\Drivers\stdlib.h (link)
+    accelerometro.h (link)
+    accelerometro.c (link)
+
+Units:
+    G:\Project\pic\CCS\Pruebas\mma7455\ACCspi.o
+    G:\Project\pic\CCS\Pruebas\mma7455\accelerometro.o
+
+Compiler Settings:
+    Processor:      PIC18F4550
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      ACCspi.err
+    Ext Symbols: ACCspi.esym
+    INHX32:      ACCspi.hex
+    Symbols:     ACCspi.sym
+    List:        ACCspi.lst
+    Debug/COFF:  ACCspi.cof
+    Project:     ACCspi.PJT
+    Call Tree:   ACCspi.tre
+    Statistics:  ACCspi.sta

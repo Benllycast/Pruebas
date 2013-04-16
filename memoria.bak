@@ -150,13 +150,13 @@ int MEMORIA_open(char* filename, short modo){
 }
 
 /*==================== cancelar proceso ======================*/
-/*
-int MEMORIA_cancel(void){
 
+int MEMORIA_cancel(void){
+/*
    if((MEM_proceso != GET) || (MEM_proceso != SET)){
       return(-1);
    }
-
+*/
    if(MEM_proceso == GET){
       fputc(MEMORIA_NOACK, MEMORIA);
       MEM_RESPONSE = MEMORIA_getc();
@@ -178,7 +178,7 @@ int MEMORIA_cancel(void){
    MEM_handshaking = MEMORIA_DEFAULT_HANDSHAKING;
    return (0);
 }
-*/
+
 /*==================== enviar comando de escritura ======================*/
 /*
  *BUG: puede retornar un 0 en la primera escritura del archivo
@@ -274,7 +274,7 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
    MEMORIA_putc(MEMORIA_CMD_READ_FILE);
    MEMORIA_putc(MEM_handshaking);
    
-   for(i =0; (i < MEMORIA_NAME_LENG_LIMIT) && (i < car); ++i)
+   for(i = 0; i < car; i++)
       MEMORIA_putc(MEM_file_name[i]);
 
    MEMORIA_putc(0x00);
@@ -383,7 +383,9 @@ char MEMORIA_getc(void){
    timeout_error=FALSE;
    while(!kbhit(MEMORIA) && cont > 0 && !c){
    	c = fgetc(MEMORIA);
+   	#ifdef debug_memoria
    	usb_cdc_putc('*');
+   	#endif
    	cont--;
    }
    
