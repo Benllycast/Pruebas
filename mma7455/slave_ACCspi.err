@@ -1,3 +1,4 @@
->>> Warning 203 "slave_ACCspi.c" Line 48(1,1): Condition always TRUE
-      Memory usage:   ROM=5%      RAM=12% - 13%
-      0 Errors,  1 Warnings.
+>>> Warning 203 "slave_ACCspi.c" Line 45(1,1): Condition always TRUE
+>>> Warning 202 "slave_ACCspi.c" Line 14(37,38): Variable never used:   w
+      Memory usage:   ROM=4%      RAM=12% - 13%
+      0 Errors,  2 Warnings.

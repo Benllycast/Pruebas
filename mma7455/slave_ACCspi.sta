@@ -1,9 +1,9 @@
 
-ROM used: 376 (5%)
-          376 (5%) including unused fragments
+ROM used: 366 (4%)
+          366 (4%) including unused fragments
 
           1 Average locations per line
-          11 Average locations per statement
+          12 Average locations per statement
 
 RAM used: 45 (12%) at main() level
           48 (13%) worst case
@@ -12,36 +12,36 @@ Stack used: 1 worst case (out of 8 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   50    33 100  slave_ACCspi.c
+   47    31 100  slave_ACCspi.c
    19     0   0  slave_ACCspi.h
   326     0   0  I:\Archivos de programa\PICC\Devices\16F877A.h
 ----- -----
-  395    33 Total
+  392    31 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
-0    236  63   7  1233  8.7  main
+0    226  62   7  1185  8.7  main
 0     10   3   0             @const78
 0     81  22   4             @PSTRINGCN7_9600_62_63
-0     35   9   2             @PRINTF_X_9600_62_63
+0     35  10   2             @PRINTF_X_9600_62_63
 0     10   3   0             @const84
 
 Program metrics:
     Functions               1
-    Statements              33
+    Statements              31
     Comments                79
-    Volume (V)              1244
-    Difficilty (D)          8.3
-    Effort to implement (E) 10271
-    Time to implement (T)   10 minutes
+    Volume (V)              1196
+    Difficilty (D)          8.2
+    Effort to implement (E) 9844
+    Time to implement (T)   9 minutes
     Est Delivered Bugs (B)  0
     Cyclomatic Complexity   4
-    Maintainability (MI)    123
+    Maintainability (MI)    124
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00003     4  0  
-00004-007FF   372  1672  
+00004-007FF   362  1682  
 00800-00FFF     0  2048  
 01000-017FF     0  2048  
 01800-01FFF     0  2048  

@@ -8,7 +8,7 @@
   #define SPI_SCL   PIN_D6
   #define SPI_SS   PIN_D7
 #endif
-#use spi(MASTER, MODE=0, DI=SPI_MISO, DO=SPI_MOSI, CLK=SPI_SCL, ENABLE=SPI_SS, BITS=8, BAUD=9600)
+#use spi(MASTER, MODE=2, DI=SPI_MISO, DO=SPI_MOSI, CLK=SPI_SCL, ENABLE=SPI_SS, BITS=8, BAUD=9600)
 
 //definiciones para las direcciones de los registros
 #define MMA7455_XOUTL 0x00      // Read only, Output Value X LSB
@@ -171,17 +171,14 @@ void set_config(*CONFIG_MMA7455);
 int xyz_MMA( int *pX, int *pY, int *pZ);
 
 //Lectura de datosd desde el MMA7455
-int read_MMA(unsigned char address, int8 *value);
-int read_MMA(unsigned char start_address, int8 *buffer,int size);
+int read_MMA(char address, int8 *value);
+int read_MMA(unsigned char start_address, int8 *buffer,unsigned int size);
 
 //Escritura de datos en el MMA7455
-int write_MMA(unsigned char address, int8 *value);
-int write_MMA(unsigned char start_address, int8 *pData, int size);
+int write_MMA(char address, int8 *value);
+int write_MMA(char start_address, int8 *pData, unsigned int size);
 
-//#define testmma
-#ifdef testmma
-int1 ext_eeprom_ready();
-#endif
+#define testmma
 #endif
 
 /*

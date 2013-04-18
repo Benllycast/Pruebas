@@ -152,36 +152,55 @@ returna:
       2 error de peticion de datos,
       -11 error en la lectura desde el MMA 
 */
-int read_MMA(unsigned char address, unsigned int8 *value){
+int read_MMA(char address, unsigned int8 *value){
   address = ((address & 0x3f)<<1);
+  
+  #ifdef testmma
   spi_xfer(address);
-  delay_ms(100);
+  delay_ms(20);
   *value = spi_xfer(0);
+  delay_ms(20);
+  #endif
   return (0);
 }
 
-int read_MMA(unsigned char start_address, unsigned int8 *buffer,int size){
-  int i = 0;  
+int read_MMA(char start_address, unsigned int8 *buffer,unsigned int size){
+  unsigned int i = 0;  
   do{
-    read_MMA((start_address+i), buffer[i]);
+    read_MMA((start_address+i), &buffer[i]);
+    #ifdef testmma
+    printf("\n\rR:%x dt:%x",(start_address+i), buffer[i]);
+    #endif
     i++;
   }while(i < size);  
   return (0);   //retorna 0 si succed
 } //leer datos desde el mma
 
 
-int write_MMA(unsigned char address, int8 *value){
+int write_MMA(char address, int8 *value){
     address = (((address & 0x3f)<<1) | 0x80);
+    #ifdef testmma
+    spi_xfer(address);
+    delay_ms(20);
+    spi_xfer(*value);
+    delay_ms(20);
+    #else
     spi_xfer(address);
     spi_xfer(*value);
+    #endif
   return 0;
 }
 
 
-int write_MMA(unsigned char start_address, int8 *pData, int size){
-  int i = 0;
+int write_MMA(char start_address, int8 *pData, unsigned int size){
+  unsigned int i = 0;
   do{
-    write_MMA((start_address+i),pData[i]);
+    #ifdef testmma
+    write_MMA((start_address+i),&pData[i]);
+    printf("\n\rW:%x dt:%x",(start_address+i),pData[i]);
+    #else
+    write_MMA((start_address+i),&pData[i]);
+    #endif
     i++;
   }while(i < size);
   return 0;

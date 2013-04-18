@@ -15,7 +15,7 @@ void main()
    setup_adc_ports(AN0_AN1_AN3);
    setup_adc(ADC_CLOCK_DIV_2);
    setup_psp(PSP_DISABLED);
-   setup_spi(SPI_SLAVE|SPI_MODE_1);
+   setup_spi(SPI_SLAVE|SPI_MODE_3);
    setup_timer_0(RTCC_INTERNAL|RTCC_DIV_1);
    setup_timer_1(T1_DISABLED);
    setup_timer_2(T2_DISABLED,0,1);
@@ -29,16 +29,13 @@ void main()
    do{
    	if(spi_data_is_in()){
    		in = spi_read();
-         w = (in & 0x80);
          addres = ((in >> 1) & 0x3F);
-         if(w){
+         if((in & 0x80)){
             while(!spi_data_is_in());
             data = spi_read();
-            printf("\n\rW: ad: %x dt: %x",addres,data);
             memoria_mma[addres] = data;
-            spi_write(0);   
+            printf("\n\rW: ad: %x dt: %x",addres,data);
          }else{
-            
             spi_write(memoria_mma[addres]);
             printf("\n\rR: ad: %x dt: %x",addres,memoria_mma[addres]);
             while(!spi_data_is_in());

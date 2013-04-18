@@ -9,6 +9,9 @@ PSP_DATA
 C1OUT
 C2OUT
 _Randseed
+i
+value
+buffer
 
 Project Directory:
     G:\Project\pic\CCS\Pruebas\mma7455\

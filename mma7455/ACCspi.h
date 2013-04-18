@@ -72,7 +72,7 @@ frecuencia de la CPU:24 Mhz; el FUSE CPIDIV3 para dividir los 96Mhz hasta 24MHz 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#use rs232(uart1, baud=9600)
 
 
 

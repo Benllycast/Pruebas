@@ -9,26 +9,52 @@
 #define SPI_SS   PIN_D7
 */
 //#use spi(MASTER, MODE=0, DI=SPI_MISO, DO=SPI_MOSI, CLK=SPI_SCL, ENABLE=SPI_SS, BITS=8, BAUD=9600)
-#use rs232(uart1, baud=9600)
 
+unsigned int i, 
+				value = 1,
+				buffer[]={0xaa,0xaa,0xaa,0xaa,0xaa};
 void test1(){
 	//test para comprobar la escritura
-	unsigned int i, value = 1;
+	
 	for(i = 0; i < 32;++i){
 		printf("escritura %d- ad: %x dt: %x\n\r",i,i, i);
 		write_MMA(i, &i);
+		//delay_ms(1000);
 	}
 	return;
 }
 
 void test2(){
-	unsigned int i, value = 1;
+	//test para probrar la lectura
 	for(i = 0; i < 32;++i){
 		read_MMA(i, &value);
 		printf("lectura %d- ad: %x dt: %x\n\r",i,i, value);
 		value = 0;
+		//delay_ms(1000);
 	}
 	return;
+}
+
+void test3(){
+	//test para probrar la escritura multibyte
+	printf("\n\rescribiendo buffer");
+	write_MMA(0, buffer,sizeof(buffer));
+	memset(buffer,0,sizeof(buffer));
+	return;
+}
+
+void test4(){
+	//test para probrar la lectura multibyte
+	printf("\n\rLeyendo buffer");
+	read_MMA(0, buffer,sizeof(buffer));
+	for(i = 0; i < sizeof(buffer); i++){
+		if(buffer[i] == 0xaa)
+			printf("\n\r%d OK",i);
+		else 
+			printf("\n\r%d ERROR",i);
+	}
+	return;
+	
 }
 void main()
 {
@@ -49,10 +75,15 @@ void main()
    // TODO: USER CODE!!
    
 	do{
-		/*printf("=== Test Escritura ===\n\r");
-		test1();*/
-		printf("=== Test Lectura ===\n\r");
+		printf("\n\r=== Test Escritura ===");
+		test1();
+		printf("\n\r=== Test Lectura ===\n\r");
 		test2();
+		printf("\n\r=== Test Escritura ===");
+		test3();
+		printf("\n\r=== Test Lectura ===\n\r");
+		test4();
+		
 		delay_ms(10000);
 	}while(1);
 }

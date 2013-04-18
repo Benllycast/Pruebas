@@ -1,8 +1,8 @@
-CCS PCM C Compiler, Version 4.105, 13255               16-Abr-13 18:00
+CCS PCM C Compiler, Version 4.105, 13255               17-Abr-13 10:16
 
                Filename: G:\Project\pic\CCS\Pruebas\mma7455\slave_ACCspi.lst
 
-               ROM used: 376 words (5%)
+               ROM used: 366 words (4%)
                          Largest free fragment is 2048
                RAM used: 45 (12%) at main() level
                          48 (13%) worst case
@@ -96,7 +96,7 @@ CCS PCM C Compiler, Version 4.105, 13255               16-Abr-13 18:00
 ....................    setup_psp(PSP_DISABLED); 
 00B4:  BSF    03.5
 00B5:  BCF    09.4
-....................    setup_spi(SPI_SLAVE|SPI_MODE_1); 
+....................    setup_spi(SPI_SLAVE|SPI_MODE_3); 
 00B6:  BCF    03.5
 00B7:  BCF    14.5
 00B8:  BCF    40.5
@@ -114,7 +114,7 @@ CCS PCM C Compiler, Version 4.105, 13255               16-Abr-13 18:00
 00C4:  MOVF   40,W
 00C5:  BSF    03.5
 00C6:  MOVWF  07
-00C7:  MOVLW  24
+00C7:  MOVLW  34
 00C8:  BCF    03.5
 00C9:  MOVWF  14
 00CA:  MOVLW  00
@@ -185,143 +185,130 @@ CCS PCM C Compiler, Version 4.105, 13255               16-Abr-13 18:00
 ....................    	if(spi_data_is_in()){ 
 0100:  BSF    03.5
 0101:  BTFSS  14.0
-0102:  GOTO   176
+0102:  GOTO   16B
 ....................    		in = spi_read(); 
 0103:  BCF    03.5
 0104:  MOVF   13,W
 0105:  MOVWF  43
-....................          w = (in & 0x80); 
-0106:  MOVF   43,W
-0107:  ANDLW  80
-0108:  MOVWF  44
 ....................          addres = ((in >> 1) & 0x3F); 
-0109:  BCF    03.0
-010A:  RRF    43,W
-010B:  ANDLW  3F
-010C:  MOVWF  41
-....................          if(w){ 
-010D:  MOVF   44,F
-010E:  BTFSC  03.2
-010F:  GOTO   142
+0106:  BCF    03.0
+0107:  RRF    43,W
+0108:  ANDLW  3F
+0109:  MOVWF  41
+....................          if((in & 0x80)){ 
+010A:  BTFSS  43.7
+010B:  GOTO   137
 ....................             while(!spi_data_is_in()); 
-0110:  BSF    03.5
-0111:  BTFSS  14.0
-0112:  GOTO   111
+010C:  BSF    03.5
+010D:  BTFSS  14.0
+010E:  GOTO   10D
 ....................             data = spi_read(); 
-0113:  BCF    03.5
-0114:  MOVF   13,W
-0115:  MOVWF  42
-....................             printf("\n\rW: ad: %x dt: %x",addres,data); 
-0116:  MOVLW  04
-0117:  BSF    03.6
-0118:  MOVWF  0D
-0119:  MOVLW  00
-011A:  MOVWF  0F
-011B:  BCF    03.0
-011C:  MOVLW  09
-011D:  BCF    03.6
-011E:  MOVWF  47
-011F:  CALL   018
-0120:  MOVF   41,W
-0121:  MOVWF  47
-0122:  MOVLW  57
-0123:  MOVWF  48
-0124:  CALL   069
-0125:  MOVLW  09
-0126:  BSF    03.6
-0127:  MOVWF  0D
-0128:  MOVLW  00
-0129:  MOVWF  0F
-012A:  BSF    03.0
-012B:  MOVLW  05
-012C:  BCF    03.6
-012D:  MOVWF  47
-012E:  CALL   018
-012F:  MOVF   42,W
-0130:  MOVWF  47
-0131:  MOVLW  57
-0132:  MOVWF  48
-0133:  CALL   069
+010F:  BCF    03.5
+0110:  MOVF   13,W
+0111:  MOVWF  42
 ....................             memoria_mma[addres] = data; 
-0134:  MOVLW  20
-0135:  ADDWF  41,W
-0136:  MOVWF  04
-0137:  BCF    03.7
-0138:  MOVF   42,W
-0139:  MOVWF  00
-....................             spi_write(0);    
-013A:  MOVF   13,W
-013B:  CLRF   13
-013C:  BSF    03.5
-013D:  RRF    14,W
-013E:  BTFSS  03.0
-013F:  GOTO   13D
+0112:  MOVLW  20
+0113:  ADDWF  41,W
+0114:  MOVWF  04
+0115:  BCF    03.7
+0116:  MOVF   42,W
+0117:  MOVWF  00
+....................             printf("\n\rW: ad: %x dt: %x",addres,data); 
+0118:  MOVLW  04
+0119:  BSF    03.6
+011A:  MOVWF  0D
+011B:  MOVLW  00
+011C:  MOVWF  0F
+011D:  BCF    03.0
+011E:  MOVLW  09
+011F:  BCF    03.6
+0120:  MOVWF  47
+0121:  CALL   018
+0122:  MOVF   41,W
+0123:  MOVWF  47
+0124:  MOVLW  57
+0125:  MOVWF  48
+0126:  CALL   069
+0127:  MOVLW  09
+0128:  BSF    03.6
+0129:  MOVWF  0D
+012A:  MOVLW  00
+012B:  MOVWF  0F
+012C:  BSF    03.0
+012D:  MOVLW  05
+012E:  BCF    03.6
+012F:  MOVWF  47
+0130:  CALL   018
+0131:  MOVF   42,W
+0132:  MOVWF  47
+0133:  MOVLW  57
+0134:  MOVWF  48
+0135:  CALL   069
 ....................          }else{ 
-0140:  GOTO   176
-0141:  BCF    03.5
-....................              
+0136:  GOTO   16C
 ....................             spi_write(memoria_mma[addres]); 
-0142:  MOVLW  20
-0143:  ADDWF  41,W
-0144:  MOVWF  04
-0145:  BCF    03.7
-0146:  MOVF   00,W
-0147:  MOVWF  46
-0148:  MOVF   46,W
-0149:  MOVWF  13
-014A:  BSF    03.5
-014B:  RRF    14,W
-014C:  BTFSS  03.0
-014D:  GOTO   14B
+0137:  MOVLW  20
+0138:  ADDWF  41,W
+0139:  MOVWF  04
+013A:  BCF    03.7
+013B:  MOVF   00,W
+013C:  MOVWF  46
+013D:  MOVF   46,W
+013E:  MOVWF  13
+013F:  BSF    03.5
+0140:  RRF    14,W
+0141:  BTFSS  03.0
+0142:  GOTO   140
 ....................             printf("\n\rR: ad: %x dt: %x",addres,memoria_mma[addres]); 
-014E:  MOVLW  20
-014F:  BCF    03.5
-0150:  ADDWF  41,W
-0151:  MOVWF  04
-0152:  BCF    03.7
-0153:  MOVF   00,W
-0154:  MOVWF  46
-0155:  MOVLW  0E
-0156:  BSF    03.6
-0157:  MOVWF  0D
-0158:  MOVLW  00
-0159:  MOVWF  0F
-015A:  BCF    03.0
-015B:  MOVLW  09
-015C:  BCF    03.6
-015D:  MOVWF  47
-015E:  CALL   018
-015F:  MOVF   41,W
-0160:  MOVWF  47
-0161:  MOVLW  57
-0162:  MOVWF  48
-0163:  CALL   069
-0164:  MOVLW  13
-0165:  BSF    03.6
-0166:  MOVWF  0D
-0167:  MOVLW  00
-0168:  MOVWF  0F
-0169:  BSF    03.0
-016A:  MOVLW  05
-016B:  BCF    03.6
-016C:  MOVWF  47
-016D:  CALL   018
-016E:  MOVF   46,W
-016F:  MOVWF  47
-0170:  MOVLW  57
-0171:  MOVWF  48
-0172:  CALL   069
+0143:  MOVLW  20
+0144:  BCF    03.5
+0145:  ADDWF  41,W
+0146:  MOVWF  04
+0147:  BCF    03.7
+0148:  MOVF   00,W
+0149:  MOVWF  46
+014A:  MOVLW  0E
+014B:  BSF    03.6
+014C:  MOVWF  0D
+014D:  MOVLW  00
+014E:  MOVWF  0F
+014F:  BCF    03.0
+0150:  MOVLW  09
+0151:  BCF    03.6
+0152:  MOVWF  47
+0153:  CALL   018
+0154:  MOVF   41,W
+0155:  MOVWF  47
+0156:  MOVLW  57
+0157:  MOVWF  48
+0158:  CALL   069
+0159:  MOVLW  13
+015A:  BSF    03.6
+015B:  MOVWF  0D
+015C:  MOVLW  00
+015D:  MOVWF  0F
+015E:  BSF    03.0
+015F:  MOVLW  05
+0160:  BCF    03.6
+0161:  MOVWF  47
+0162:  CALL   018
+0163:  MOVF   46,W
+0164:  MOVWF  47
+0165:  MOVLW  57
+0166:  MOVWF  48
+0167:  CALL   069
 ....................             while(!spi_data_is_in()); 
-0173:  BSF    03.5
-0174:  BTFSS  14.0
-0175:  GOTO   174
+0168:  BSF    03.5
+0169:  BTFSS  14.0
+016A:  GOTO   169
+016B:  BCF    03.5
 ....................          } 
 ....................    		//printf("\n\rrc: %x tr:%x",r,p); 
 ....................    	} 
 ....................    }while(1); 
 .................... } 
-0176:  GOTO   101
-0177:  SLEEP
+016C:  GOTO   100
+016D:  SLEEP
 
 Configuration Fuses:
    Word  1: 3F3A   HS NOWDT NOPUT NODEBUG NOPROTECT NOBROWNOUT NOLVP NOCPD NOWRT

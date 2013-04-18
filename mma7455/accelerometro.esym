@@ -1,8 +1,8 @@
-D G "__TIME__" 0 190 ""18:17:17""
+D G "__TIME__" 0 207 ""11:57:47""
 D G "__PCH__" 0 1 ""4.105""
 D G "__DEVICE__" 0 1 "4550"
-D G "__DATE__" 0 1 ""16-Abr-13""
-D G "__TIME__" 0 1 ""18:18:25"" "#include "Nucleo.h""
+D G "__DATE__" 0 1 ""17-Abr-13""
+D G "__TIME__" 0 1 ""12:00:21"" "#include "Nucleo.h""
 D G "NUCLEO_H" 1 10 ""
 d G "PIN_A0" 2 28 "31744"
 d G "PIN_A1" 2 29 "31745"
@@ -802,7 +802,8 @@ V L "value" 8 178 "*int8"
 F G "write_MMA" 8 179 "int8()"
 V L "start_address" 8 179 "int8"
 V L "pData" 8 179 "*int8"
-V L "size" 8 179 "int8" "#define testmma"
+V L "size" 8 179 "int8"
+D G "testmma" 8 181 ""
 C L "write_MMA" 8 13 22 "FUNCTION"
 V G "CONFIG" 0 5 "CONFIG_MMA7455"
 C L "write_MMA" 0 6 1 "FUNCTION"
@@ -855,21 +856,21 @@ C L "read_MMA" 0 6 11 "FUNCTION"
 F G "read_MMA" 0 155 "int8(int8 )"
 V L "address" 0 155 "int8"
 V L "value" 0 155 "*int8"
-F G "read_MMA" 0 163 "int8(int8 address,*int8 value,int8 ,int8 )"
-V L "start_address" 0 163 "int8"
-V L "buffer" 0 163 "*int8"
-V L "size" 0 163 "int8"
-V L "i" 0 164 "int8"
+F G "read_MMA" 0 167 "int8(int8 address,*int8 value)"
+V L "start_address" 0 167 "int8"
+V L "buffer" 0 167 "*int8"
+V L "size" 0 167 "int8"
+V L "i" 0 168 "int8"
 C L "read_MMA" 0 6 1 "FUNCTION"
 C L "write_MMA" 0 6 1 "FUNCTION"
-F G "write_MMA" 0 173 "int8(*int8 buffer,int8 size,int8 )"
-V L "address" 0 173 "int8"
-V L "value" 0 173 "*int8"
-F G "write_MMA" 0 181 "int8(int8 address,*int8 value,int8 )"
-V L "start_address" 0 181 "int8"
-V L "pData" 0 181 "*int8"
-V L "size" 0 181 "int8"
-V L "i" 0 182 "int8"
+F G "write_MMA" 0 180 "int8(int16 ,int8 ,int16 )"
+V L "address" 0 180 "int8"
+V L "value" 0 180 "*int8"
+F G "write_MMA" 0 195 "int8(int8 address,*int8 value,int16 )"
+V L "start_address" 0 195 "int8"
+V L "pData" 0 195 "*int8"
+V L "size" 0 195 "int8"
+V L "i" 0 196 "int8"
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 1
@@ -1002,4 +1003,11 @@ F B "spi_data_is_in2" 0 0
 F B "brownout_enable" 1 0
 F B "delay_ms" 1 0
 F B "delay_us" 1 0
+F B "putchar" 1 2
+F B "puts" 1 2
+F B "getch" 0 1
+F B "gets" 1 3
+F B "kbhit" 0 1
+F B "set_uart_speed" 1 3
+F B "setup_uart" 1 3
 F B "spi_xfer" 0 3
