@@ -1,15 +1,15 @@
-CCS PCH C Compiler, Version 4.105, 13255               17-Abr-13 12:00
+CCS PCH C Compiler, Version 4.105, 13255               18-Abr-13 11:08
 
                Filename: G:\Project\pic\CCS\Pruebas\mma7455\ACCspi.lst
 
-               ROM used: 1852 bytes (6%)
-                         Largest free fragment is 30916
+               ROM used: 1328 bytes (4%)
+                         Largest free fragment is 31440
                RAM used: 33 (2%) at main() level
-                         49 (2%) worst case
+                         59 (3%) worst case
                Stack:    4 locations
 
 *
-0000:  GOTO   0634
+0000:  GOTO   044C
 ....................  
 .................... #include "ACCspi.h" 
 .................... /*=========================Configuracion del Hardware========================== 
@@ -80,29 +80,29 @@ CCS PCH C Compiler, Version 4.105, 13255               17-Abr-13 12:00
 ....................  
 .................... #use delay(clock=4000000,restart_wdt) 
 *
-02C0:  CLRF   FEA
-02C2:  MOVLW  2B
-02C4:  MOVWF  FE9
-02C6:  MOVF   FEF,W
-02C8:  BZ    02EC
-02CA:  MOVLW  01
-02CC:  MOVWF  01
-02CE:  MOVLW  BF
-02D0:  MOVWF  00
-02D2:  CLRWDT
-02D4:  DECFSZ 00,F
-02D6:  BRA    02D2
-02D8:  DECFSZ 01,F
-02DA:  BRA    02CE
-02DC:  MOVLW  4A
-02DE:  MOVWF  00
-02E0:  DECFSZ 00,F
-02E2:  BRA    02E0
-02E4:  NOP   
-02E6:  CLRWDT
-02E8:  DECFSZ FEF,F
-02EA:  BRA    02CA
-02EC:  RETLW  00
+022E:  CLRF   FEA
+0230:  MOVLW  36
+0232:  MOVWF  FE9
+0234:  MOVF   FEF,W
+0236:  BZ    025A
+0238:  MOVLW  01
+023A:  MOVWF  01
+023C:  MOVLW  BF
+023E:  MOVWF  00
+0240:  CLRWDT
+0242:  DECFSZ 00,F
+0244:  BRA    0240
+0246:  DECFSZ 01,F
+0248:  BRA    023C
+024A:  MOVLW  4A
+024C:  MOVWF  00
+024E:  DECFSZ 00,F
+0250:  BRA    024E
+0252:  NOP   
+0254:  CLRWDT
+0256:  DECFSZ FEF,F
+0258:  BRA    0238
+025A:  RETLW  00
 ....................  
 .................... /*=================== CONFIGURACION LIBRERIAS DE COMUNICACION ================*/ 
 .................... //#use rs232(baud=9600,parity=N,xmit=PIN_XMIT,rcv=PIN_RCV,bits=8) 
@@ -2781,44 +2781,44 @@ CCS PCH C Compiler, Version 4.105, 13255               17-Abr-13 12:00
 .................... #endif 
 .................... #use spi(MASTER, MODE=2, DI=SPI_MISO, DO=SPI_MOSI, CLK=SPI_SCL, ENABLE=SPI_SS, BITS=8, BAUD=9600) 
 *
-0272:  MOVF   2E,W
-0274:  SUBLW  08
-0276:  BZ    0280
-0278:  MOVWF  2F
-027A:  RLCF   2D,F
-027C:  DECFSZ 2F,F
-027E:  BRA    027A
-0280:  BSF    F95.4
-0282:  BCF    F95.5
-0284:  BCF    F95.6
-0286:  BSF    F8C.6
-0288:  BCF    F95.7
-028A:  BCF    F8C.7
-028C:  MOVFF  2E,2F
-0290:  BTFSS  2D.7
-0292:  BCF    F8C.5
-0294:  BTFSC  2D.7
-0296:  BSF    F8C.5
-0298:  RLCF   2D,F
-029A:  BCF    F8C.6
-029C:  MOVLW  10
-029E:  MOVWF  30
-02A0:  DECFSZ 30,F
-02A2:  BRA    02A0
-02A4:  RLCF   01,F
-02A6:  BTFSS  F83.4
-02A8:  BCF    01.0
-02AA:  BTFSC  F83.4
-02AC:  BSF    01.0
-02AE:  BSF    F8C.6
-02B0:  MOVLW  0F
-02B2:  MOVWF  30
-02B4:  DECFSZ 30,F
-02B6:  BRA    02B4
-02B8:  DECFSZ 2F,F
-02BA:  BRA    0290
-02BC:  BSF    F8C.7
-02BE:  RETLW  00
+01E0:  MOVF   38,W
+01E2:  SUBLW  08
+01E4:  BZ    01EE
+01E6:  MOVWF  39
+01E8:  RLCF   37,F
+01EA:  DECFSZ 39,F
+01EC:  BRA    01E8
+01EE:  BSF    F95.4
+01F0:  BCF    F95.5
+01F2:  BCF    F95.6
+01F4:  BSF    F8C.6
+01F6:  BCF    F95.7
+01F8:  BCF    F8C.7
+01FA:  MOVFF  38,39
+01FE:  BTFSS  37.7
+0200:  BCF    F8C.5
+0202:  BTFSC  37.7
+0204:  BSF    F8C.5
+0206:  RLCF   37,F
+0208:  BCF    F8C.6
+020A:  MOVLW  10
+020C:  MOVWF  3A
+020E:  DECFSZ 3A,F
+0210:  BRA    020E
+0212:  RLCF   01,F
+0214:  BTFSS  F83.4
+0216:  BCF    01.0
+0218:  BTFSC  F83.4
+021A:  BSF    01.0
+021C:  BSF    F8C.6
+021E:  MOVLW  0F
+0220:  MOVWF  3A
+0222:  DECFSZ 3A,F
+0224:  BRA    0222
+0226:  DECFSZ 39,F
+0228:  BRA    01FE
+022A:  BSF    F8C.7
+022C:  RETLW  00
 ....................  
 .................... //definiciones para las direcciones de los registros 
 .................... #define MMA7455_XOUTL 0x00      // Read only, Output Value X LSB 
@@ -2882,6 +2882,15 @@ CCS PCH C Compiler, Version 4.105, 13255               17-Abr-13 12:00
 .................... #define MMA7455_STON MMA7455_D4 
 .................... #define MMA7455_SPI3W MMA7455_D5 
 .................... #define MMA7455_DRPD MMA7455_D6 
+....................  
+.................... #define MMA7455_8g 0x00 
+.................... #define MMA7455_2g 0x04 
+.................... #define MMA7455_4g 0x08 
+....................  
+.................... #define MMA7455_STANDBY 0x00 
+.................... #define MMA7455_MEASURE 0x01 
+.................... #define MMA7455_LEVEL 0x02 
+.................... #define MMA7455_PULSE 0x03 
 ....................  
 .................... // Control 1 Register 
 .................... #define MMA7455_INTPIN MMA7455_D0 
@@ -4342,7 +4351,7 @@ CCS PCH C Compiler, Version 4.105, 13255               17-Abr-13 12:00
 .................... #define SPI_SS   PIN_D7 
 .................... */ 
 .................... //#use spi(MASTER, MODE=0, DI=SPI_MISO, DO=SPI_MOSI, CLK=SPI_SCL, ENABLE=SPI_SS, BITS=8, BAUD=9600) 
-....................  
+.................... extern CONFIG_MMA7455 CONFIG; 
 .................... unsigned int i,  
 .................... 				value = 1, 
 .................... 				buffer[]={0xaa,0xaa,0xaa,0xaa,0xaa}; 
@@ -4350,416 +4359,187 @@ CCS PCH C Compiler, Version 4.105, 13255               17-Abr-13 12:00
 .................... 	//test para comprobar la escritura 
 .................... 	 
 .................... 	for(i = 0; i < 32;++i){ 
-*
-0334:  CLRF   0A
-0336:  MOVF   0A,W
-0338:  SUBLW  1F
-033A:  BNC   03A4
 .................... 		printf("escritura %d- ad: %x dt: %x\n\r",i,i, i); 
-033C:  MOVLW  04
-033E:  MOVWF  FF6
-0340:  MOVLW  00
-0342:  MOVWF  FF7
-0344:  MOVLW  0A
-0346:  MOVWF  27
-0348:  RCALL  0118
-034A:  MOVFF  0A,20
-034E:  MOVLW  1F
-0350:  MOVWF  21
-0352:  RCALL  0160
-0354:  MOVLW  10
-0356:  MOVWF  FF6
-0358:  MOVLW  00
-035A:  MOVWF  FF7
-035C:  MOVLW  06
-035E:  MOVWF  27
-0360:  RCALL  0118
-0362:  MOVFF  0A,27
-0366:  MOVLW  57
-0368:  MOVWF  28
-036A:  RCALL  0230
-036C:  MOVLW  18
-036E:  MOVWF  FF6
-0370:  MOVLW  00
-0372:  MOVWF  FF7
-0374:  MOVLW  05
-0376:  MOVWF  27
-0378:  RCALL  0118
-037A:  MOVFF  0A,27
-037E:  MOVLW  57
-0380:  MOVWF  28
-0382:  RCALL  0230
-0384:  MOVLW  0A
-0386:  BTFSS  F9E.4
-0388:  BRA    0386
-038A:  MOVWF  FAD
-038C:  MOVLW  0D
-038E:  BTFSS  F9E.4
-0390:  BRA    038E
-0392:  MOVWF  FAD
 .................... 		write_MMA(i, &i); 
-0394:  MOVFF  0A,28
-0398:  CLRF   2A
-039A:  MOVLW  0A
-039C:  MOVWF  29
-039E:  RCALL  02EE
 .................... 		//delay_ms(1000); 
 .................... 	} 
-03A0:  INCF   0A,F
-03A2:  BRA    0336
 .................... 	return; 
 .................... } 
-03A4:  GOTO   0706 (RETURN)
 ....................  
 .................... void test2(){ 
 .................... 	//test para probrar la lectura 
 .................... 	for(i = 0; i < 32;++i){ 
-*
-03EA:  CLRF   0A
-03EC:  MOVF   0A,W
-03EE:  SUBLW  1F
-03F0:  BNC   045C
 .................... 		read_MMA(i, &value); 
-03F2:  MOVFF  0A,28
-03F6:  CLRF   2A
-03F8:  MOVLW  0B
-03FA:  MOVWF  29
-03FC:  RCALL  03A8
 .................... 		printf("lectura %d- ad: %x dt: %x\n\r",i,i, value); 
-03FE:  MOVLW  22
-0400:  MOVWF  FF6
-0402:  MOVLW  00
-0404:  MOVWF  FF7
-0406:  MOVLW  08
-0408:  MOVWF  27
-040A:  RCALL  0118
-040C:  MOVFF  0A,20
-0410:  MOVLW  1F
-0412:  MOVWF  21
-0414:  RCALL  0160
-0416:  MOVLW  2C
-0418:  MOVWF  FF6
-041A:  MOVLW  00
-041C:  MOVWF  FF7
-041E:  MOVLW  06
-0420:  MOVWF  27
-0422:  RCALL  0118
-0424:  MOVFF  0A,27
-0428:  MOVLW  57
-042A:  MOVWF  28
-042C:  RCALL  0230
-042E:  MOVLW  34
-0430:  MOVWF  FF6
-0432:  MOVLW  00
-0434:  MOVWF  FF7
-0436:  MOVLW  05
-0438:  MOVWF  27
-043A:  RCALL  0118
-043C:  MOVFF  0B,27
-0440:  MOVLW  57
-0442:  MOVWF  28
-0444:  RCALL  0230
-0446:  MOVLW  0A
-0448:  BTFSS  F9E.4
-044A:  BRA    0448
-044C:  MOVWF  FAD
-044E:  MOVLW  0D
-0450:  BTFSS  F9E.4
-0452:  BRA    0450
-0454:  MOVWF  FAD
 .................... 		value = 0; 
-0456:  CLRF   0B
 .................... 		//delay_ms(1000); 
 .................... 	} 
-0458:  INCF   0A,F
-045A:  BRA    03EC
 .................... 	return; 
 .................... } 
-045C:  GOTO   0712 (RETURN)
 ....................  
 .................... void test3(){ 
 .................... 	//test para probrar la escritura multibyte 
 .................... 	printf("\n\rescribiendo buffer"); 
-*
-04F6:  MOVLW  3E
-04F8:  MOVWF  FF6
-04FA:  MOVLW  00
-04FC:  MOVWF  FF7
-04FE:  RCALL  00F6
 .................... 	write_MMA(0, buffer,sizeof(buffer)); 
-0500:  CLRF   20
-0502:  CLRF   22
-0504:  MOVLW  0C
-0506:  MOVWF  21
-0508:  MOVLW  05
-050A:  MOVWF  23
-050C:  BRA    0460
 .................... 	memset(buffer,0,sizeof(buffer)); 
-050E:  CLRF   FEA
-0510:  MOVLW  0C
-0512:  MOVWF  FE9
-0514:  CLRF   20
-0516:  CLRF   22
-0518:  MOVLW  05
-051A:  MOVWF  21
-051C:  BRA    04DA
 .................... 	return; 
 .................... } 
-051E:  GOTO   071E (RETURN)
 ....................  
 .................... void test4(){ 
 .................... 	//test para probrar la lectura multibyte 
 .................... 	printf("\n\rLeyendo buffer"); 
-*
-059C:  MOVLW  54
-059E:  MOVWF  FF6
-05A0:  MOVLW  00
-05A2:  MOVWF  FF7
-05A4:  RCALL  00F6
 .................... 	read_MMA(0, buffer,sizeof(buffer)); 
-05A6:  CLRF   20
-05A8:  CLRF   22
-05AA:  MOVLW  0C
-05AC:  MOVWF  21
-05AE:  MOVLW  05
-05B0:  MOVWF  23
-05B2:  BRA    0522
 .................... 	for(i = 0; i < sizeof(buffer); i++){ 
-05B4:  CLRF   0A
-05B6:  MOVF   0A,W
-05B8:  SUBLW  04
-05BA:  BNC   0630
 .................... 		if(buffer[i] == 0xaa) 
-05BC:  CLRF   03
-05BE:  MOVF   0A,W
-05C0:  ADDLW  0C
-05C2:  MOVWF  FE9
-05C4:  MOVLW  00
-05C6:  ADDWFC 03,W
-05C8:  MOVWF  FEA
-05CA:  MOVF   FEF,W
-05CC:  SUBLW  AA
-05CE:  BNZ   0604
 .................... 			printf("\n\r%d OK",i); 
-05D0:  MOVLW  0A
-05D2:  BTFSS  F9E.4
-05D4:  BRA    05D2
-05D6:  MOVWF  FAD
-05D8:  MOVLW  0D
-05DA:  BTFSS  F9E.4
-05DC:  BRA    05DA
-05DE:  MOVWF  FAD
-05E0:  MOVFF  0A,20
-05E4:  MOVLW  1F
-05E6:  MOVWF  21
-05E8:  RCALL  0160
-05EA:  MOVLW  20
-05EC:  BTFSS  F9E.4
-05EE:  BRA    05EC
-05F0:  MOVWF  FAD
-05F2:  MOVLW  4F
-05F4:  BTFSS  F9E.4
-05F6:  BRA    05F4
-05F8:  MOVWF  FAD
-05FA:  MOVLW  4B
-05FC:  BTFSS  F9E.4
-05FE:  BRA    05FC
-0600:  MOVWF  FAD
 .................... 		else  
-0602:  BRA    062C
 .................... 			printf("\n\r%d ERROR",i); 
-0604:  MOVLW  0A
-0606:  BTFSS  F9E.4
-0608:  BRA    0606
-060A:  MOVWF  FAD
-060C:  MOVLW  0D
-060E:  BTFSS  F9E.4
-0610:  BRA    060E
-0612:  MOVWF  FAD
-0614:  MOVFF  0A,20
-0618:  MOVLW  1F
-061A:  MOVWF  21
-061C:  RCALL  0160
-061E:  MOVLW  6A
-0620:  MOVWF  FF6
-0622:  MOVLW  00
-0624:  MOVWF  FF7
-0626:  MOVLW  06
-0628:  MOVWF  27
-062A:  RCALL  0118
 .................... 	} 
-062C:  INCF   0A,F
-062E:  BRA    05B6
 .................... 	return; 
 .................... 	 
 .................... } 
-0630:  GOTO   072A (RETURN)
 .................... void main() 
 .................... { 
-0634:  CLRF   FF8
-0636:  BCF    FD0.7
-0638:  CLRF   FEA
-063A:  CLRF   FE9
-063C:  BCF    FB8.3
-063E:  MOVLW  19
-0640:  MOVWF  FAF
-0642:  MOVLW  A6
-0644:  MOVWF  FAC
-0646:  MOVLW  90
-0648:  MOVWF  FAB
-064A:  BSF    F95.4
-064C:  BCF    F95.5
-064E:  BCF    F95.6
-0650:  BSF    F8C.6
-0652:  BCF    F95.7
-0654:  BCF    F8C.7
-0656:  MOVLW  01
-0658:  MOVWF  0B
-065A:  BCF    FB8.3
-065C:  MOVLW  19
-065E:  MOVWF  FAF
-0660:  MOVLW  A6
-0662:  MOVWF  FAC
-0664:  MOVLW  90
-0666:  MOVWF  FAB
-0668:  MOVF   FC1,W
-066A:  ANDLW  C0
-066C:  IORLW  0F
-066E:  MOVWF  FC1
-0670:  MOVLW  07
-0672:  MOVWF  FB4
-0674:  CLRF   04
-0676:  CLRF   05
-0678:  MOVLW  AA
-067A:  MOVWF  0C
-067C:  MOVWF  0D
-067E:  MOVWF  0E
-0680:  MOVWF  0F
-0682:  MOVWF  10
-0684:  CLRF   11
-0686:  CLRF   12
-0688:  MOVLW  01
-068A:  MOVWF  17
-068C:  MOVLW  02
-068E:  MOVWF  18
-0690:  MOVLW  03
-0692:  MOVWF  19
-0694:  MOVLW  80
-0696:  MOVWF  1A
-0698:  MOVWF  1B
-069A:  MOVWF  1C
-069C:  MOVWF  1D
-069E:  MOVWF  1E
-06A0:  MOVWF  1F
+*
+044C:  CLRF   FF8
+044E:  BCF    FD0.7
+0450:  CLRF   FEA
+0452:  CLRF   FE9
+0454:  BCF    FB8.3
+0456:  MOVLW  19
+0458:  MOVWF  FAF
+045A:  MOVLW  A6
+045C:  MOVWF  FAC
+045E:  MOVLW  90
+0460:  MOVWF  FAB
+0462:  BSF    F95.4
+0464:  BCF    F95.5
+0466:  BCF    F95.6
+0468:  BSF    F8C.6
+046A:  BCF    F95.7
+046C:  BCF    F8C.7
+046E:  MOVLW  01
+0470:  MOVWF  0B
+0472:  BCF    FB8.3
+0474:  MOVLW  19
+0476:  MOVWF  FAF
+0478:  MOVLW  A6
+047A:  MOVWF  FAC
+047C:  MOVLW  90
+047E:  MOVWF  FAB
+0480:  MOVF   FC1,W
+0482:  ANDLW  C0
+0484:  IORLW  0F
+0486:  MOVWF  FC1
+0488:  MOVLW  07
+048A:  MOVWF  FB4
+048C:  CLRF   04
+048E:  CLRF   05
+0490:  MOVLW  AA
+0492:  MOVWF  0C
+0494:  MOVWF  0D
+0496:  MOVWF  0E
+0498:  MOVWF  0F
+049A:  MOVWF  10
+049C:  CLRF   11
+049E:  CLRF   12
+04A0:  MOVLW  01
+04A2:  MOVWF  17
+04A4:  MOVLW  02
+04A6:  MOVWF  18
+04A8:  MOVLW  03
+04AA:  MOVWF  19
+04AC:  MOVLW  80
+04AE:  MOVWF  1A
+04B0:  MOVWF  1B
+04B2:  MOVWF  1C
+04B4:  MOVWF  1D
+04B6:  MOVWF  1E
+04B8:  MOVWF  1F
 ....................    setup_adc_ports(AN0_TO_AN2|VSS_VDD); 
-06A2:  MOVF   FC1,W
-06A4:  ANDLW  C0
-06A6:  IORLW  0C
-06A8:  MOVWF  FC1
+04BA:  MOVF   FC1,W
+04BC:  ANDLW  C0
+04BE:  IORLW  0C
+04C0:  MOVWF  FC1
 ....................    setup_adc(ADC_CLOCK_DIV_2); 
-06AA:  BCF    FC0.0
-06AC:  BCF    FC0.1
-06AE:  BCF    FC0.2
-06B0:  BSF    FC0.7
-06B2:  BSF    FC2.0
+04C2:  BCF    FC0.0
+04C4:  BCF    FC0.1
+04C6:  BCF    FC0.2
+04C8:  BSF    FC0.7
+04CA:  BSF    FC2.0
 ....................    setup_psp(PSP_DISABLED); 
-06B4:  BCF    F96.4
+04CC:  BCF    F96.4
 ....................    setup_spi(SPI_SS_DISABLED); 
-06B6:  BCF    FC6.5
-06B8:  BCF    F94.7
-06BA:  BSF    F93.0
-06BC:  BCF    F93.1
-06BE:  MOVLW  01
-06C0:  MOVWF  FC6
-06C2:  MOVLW  00
-06C4:  MOVWF  FC7
+04CE:  BCF    FC6.5
+04D0:  BCF    F94.7
+04D2:  BSF    F93.0
+04D4:  BCF    F93.1
+04D6:  MOVLW  01
+04D8:  MOVWF  FC6
+04DA:  MOVLW  00
+04DC:  MOVWF  FC7
 ....................    setup_wdt(WDT_ON); 
-06C6:  BSF    FD1.0
+04DE:  BSF    FD1.0
 ....................    setup_timer_0(RTCC_INTERNAL); 
-06C8:  MOVLW  80
-06CA:  MOVWF  FD5
+04E0:  MOVLW  80
+04E2:  MOVWF  FD5
 ....................    setup_timer_1(T1_DISABLED); 
-06CC:  CLRF   FCD
+04E4:  CLRF   FCD
 ....................    setup_timer_2(T2_DISABLED,0,1); 
-06CE:  MOVLW  00
-06D0:  MOVWF  FCA
-06D2:  MOVLW  00
-06D4:  MOVWF  FCB
+04E6:  MOVLW  00
+04E8:  MOVWF  FCA
+04EA:  MOVLW  00
+04EC:  MOVWF  FCB
 ....................    setup_timer_3(T3_DISABLED|T3_DIV_BY_1); 
-06D6:  CLRF   FB1
+04EE:  CLRF   FB1
 ....................    setup_ccp1(CCP_OFF); 
-06D8:  BSF    F94.2
-06DA:  CLRF   FBD
-06DC:  CLRF   FB7
-06DE:  CLRF   FB6
+04F0:  BSF    F94.2
+04F2:  CLRF   FBD
+04F4:  CLRF   FB7
+04F6:  CLRF   FB6
 ....................    setup_comparator(NC_NC_NC_NC); 
-06E0:  MOVLW  07
-06E2:  MOVWF  FB4
-06E4:  MOVF   F92,W
-06E6:  MOVWF  F92
-06E8:  CLRWDT
-06EA:  MOVLW  02
-06EC:  MOVWF  00
-06EE:  DECFSZ 00,F
-06F0:  BRA    06EE
-06F2:  BRA    06F4
-06F4:  MOVF   FB4,W
-06F6:  BCF    FA1.6
+04F8:  MOVLW  07
+04FA:  MOVWF  FB4
+04FC:  MOVF   F92,W
+04FE:  MOVWF  F92
+0500:  CLRWDT
+0502:  MOVLW  02
+0504:  MOVWF  00
+0506:  DECFSZ 00,F
+0508:  BRA    0506
+050A:  BRA    050C
+050C:  MOVF   FB4,W
+050E:  BCF    FA1.6
 ....................    setup_vref(FALSE); 
-06F8:  CLRF   FB5
+0510:  CLRF   FB5
 .................... //Setup_Oscillator parameter not selected from Intr Oscillator Config tab 
 ....................  
 ....................    // TODO: USER CODE!! 
 ....................     
 .................... 	do{ 
-.................... 		printf("\n\r=== Test Escritura ==="); 
-06FA:  MOVLW  72
-06FC:  MOVWF  FF6
-06FE:  MOVLW  00
-0700:  MOVWF  FF7
-0702:  RCALL  00F6
-.................... 		test1(); 
-0704:  BRA    0334
-.................... 		printf("\n\r=== Test Lectura ===\n\r"); 
-0706:  MOVLW  8C
-0708:  MOVWF  FF6
-070A:  MOVLW  00
-070C:  MOVWF  FF7
-070E:  RCALL  00F6
-.................... 		test2(); 
-0710:  BRA    03EA
-.................... 		printf("\n\r=== Test Escritura ==="); 
-0712:  MOVLW  A6
-0714:  MOVWF  FF6
-0716:  MOVLW  00
-0718:  MOVWF  FF7
-071A:  RCALL  00F6
-.................... 		test3(); 
-071C:  BRA    04F6
-.................... 		printf("\n\r=== Test Lectura ===\n\r"); 
-071E:  MOVLW  C0
-0720:  MOVWF  FF6
-0722:  MOVLW  00
-0724:  MOVWF  FF7
-0726:  RCALL  00F6
-.................... 		test4(); 
-0728:  BRA    059C
-.................... 		 
+.................... 		printf("\n\r====Test InitMMA====="); 
+0512:  MOVLW  7A
+0514:  MOVWF  FF6
+0516:  MOVLW  00
+0518:  MOVWF  FF7
+051A:  BRA    00C6
+.................... 		init_MMA();           
+051C:  BRA    0360
 .................... 		delay_ms(10000); 
-072A:  MOVLW  28
-072C:  MOVWF  20
-072E:  MOVLW  FA
-0730:  MOVWF  2B
-0732:  RCALL  02C0
-0734:  DECFSZ 20,F
-0736:  BRA    072E
+051E:  MOVLW  28
+0520:  MOVWF  20
+0522:  MOVLW  FA
+0524:  MOVWF  36
+0526:  RCALL  022E
+0528:  DECFSZ 20,F
+052A:  BRA    0522
 .................... 	}while(1); 
 .................... } 
-0738:  BRA    06FA
+052C:  BRA    0512
 ....................  
 .................... //#include "Nucleo.h" 
 .................... #include "ACCspi.h" 
-073A:  SLEEP 
+052E:  SLEEP 
 .................... /*=========================Configuracion del Hardware========================== 
 ....................  
 .................... oscilador: 20Mhz. con PLL:activo para dividir por 5 y obtener 4Mhz, aumentandolo a 96Mhz-> div:2 a 48Mhz para la frecuencia del modulo USB; 
@@ -7568,6 +7348,15 @@ CCS PCH C Compiler, Version 4.105, 13255               17-Abr-13 12:00
 .................... #define MMA7455_SPI3W MMA7455_D5 
 .................... #define MMA7455_DRPD MMA7455_D6 
 ....................  
+.................... #define MMA7455_8g 0x00 
+.................... #define MMA7455_2g 0x04 
+.................... #define MMA7455_4g 0x08 
+....................  
+.................... #define MMA7455_STANDBY 0x00 
+.................... #define MMA7455_MEASURE 0x01 
+.................... #define MMA7455_LEVEL 0x02 
+.................... #define MMA7455_PULSE 0x03 
+....................  
 .................... // Control 1 Register 
 .................... #define MMA7455_INTPIN MMA7455_D0 
 .................... #define MMA7455_INTREG0 MMA7455_D1 
@@ -7712,36 +7501,144 @@ CCS PCH C Compiler, Version 4.105, 13255               17-Abr-13 12:00
 .................... CONFIG_MMA7455 CONFIG = {1,2,3,128,128,128,128,128,128}; 
 .................... //configuracion inicial del MMA7455 
 .................... int init_MMA(void){ 
+*
+0360:  CLRF   20
+0362:  CLRF   27
+0364:  CLRF   28
 ....................   int error = 0; 
 ....................   xyz_union xyz; 
 ....................   unsigned int8 c1 = 0, c2 = 0; 
 ....................    
 ....................   //mode: measurement; sensitivity: 4g 
-....................   c1 = MMA7455_GLVL1 | MMA7455_MODE0; 
+....................   c1 = MMA7455_DRPD|MMA7455_2g|MMA7455_MEASURE; 
+0366:  MOVLW  45
+0368:  MOVWF  27
+....................   #ifdef testmma 
+....................   printf("\n\rc1: %x %u",c1,c1); 
+036A:  MOVLW  92
+036C:  MOVWF  FF6
+036E:  MOVLW  00
+0370:  MOVWF  FF7
+0372:  MOVLW  06
+0374:  MOVWF  32
+0376:  RCALL  00EA
+0378:  MOVFF  27,32
+037C:  MOVLW  57
+037E:  MOVWF  33
+0380:  RCALL  010A
+0382:  MOVLW  20
+0384:  BTFSS  F9E.4
+0386:  BRA    0384
+0388:  MOVWF  FAD
+038A:  MOVFF  27,29
+038E:  MOVLW  1B
+0390:  MOVWF  2A
+0392:  RCALL  0174
+....................   #endif 
 ....................   error = write_MMA(MMA7455_MCTL, &c1);       //escribe la configuracion deseada en el accelerometro 
+0394:  MOVLW  16
+0396:  MOVWF  33
+0398:  CLRF   35
+039A:  MOVLW  27
+039C:  MOVWF  34
+039E:  RCALL  025C
+03A0:  MOVFF  01,20
 ....................   if (error != 0) 
-....................     return (error); 
+03A4:  MOVF   20,F
+03A6:  BZ    03AE
+....................     return (-1); 
+03A8:  MOVLW  FF
+03AA:  MOVWF  01
+03AC:  BRA    0448
 ....................    
 ....................   //lee la configuracion del accelerometro para comprobar el envio 
 ....................   error = read_MMA(MMA7455_MCTL, &c2); 
+03AE:  MOVLW  16
+03B0:  MOVWF  29
+03B2:  CLRF   2B
+03B4:  MOVLW  28
+03B6:  MOVWF  2A
+03B8:  BRA    02A2
+03BA:  MOVFF  01,20
 ....................   if (error != 0) 
-....................     return (error); 
+03BE:  MOVF   20,F
+03C0:  BZ    03C8
+....................     return (-2); 
+03C2:  MOVLW  FE
+03C4:  MOVWF  01
+03C6:  BRA    0448
+....................   #ifdef testmma 
+....................   printf("\n\rc1: %x %u",c2,c2); 
+03C8:  MOVLW  9E
+03CA:  MOVWF  FF6
+03CC:  MOVLW  00
+03CE:  MOVWF  FF7
+03D0:  MOVLW  06
+03D2:  MOVWF  32
+03D4:  RCALL  00EA
+03D6:  MOVFF  28,32
+03DA:  MOVLW  57
+03DC:  MOVWF  33
+03DE:  RCALL  010A
+03E0:  MOVLW  20
+03E2:  BTFSS  F9E.4
+03E4:  BRA    03E2
+03E6:  MOVWF  FAD
+03E8:  MOVFF  28,29
+03EC:  MOVLW  1B
+03EE:  MOVWF  2A
+03F0:  RCALL  0174
+....................   #endif 
 ....................    
-....................   //se comprueban la conincidencia entre lo enviado y lo recivido 
 ....................   if (c1 != c2) 
-....................     return (-99);                 //retorna -99 si no cinciden 
+03F2:  MOVF   28,W
+03F4:  SUBWF  27,W
+03F6:  BZ    0400
+....................     return (-3); 
+03F8:  MOVLW  FD
+03FA:  MOVWF  01
+03FC:  BRA    0448
 ....................   else 
-....................     CONFIG.MODE_CONTROL =  c2;    //se respalda la configuracion en el micro 
+03FE:  BRA    0404
+....................     CONFIG.MODE_CONTROL =  c2; 
+0400:  MOVFF  28,17
 ....................  
-....................   //se configura el offset de los ejes a 0 
 ....................   xyz.value.x = xyz.value.y = xyz.value.z = 0; 
+0404:  CLRF   26
+0406:  CLRF   25
+0408:  MOVFF  26,24
+040C:  MOVFF  25,23
+0410:  MOVFF  24,22
+0414:  MOVFF  23,21
 ....................   error = write_MMA(MMA7455_XOFFL, (unsigned int8 *) &xyz, 6); 
+0418:  CLRF   01
+041A:  MOVLW  21
+041C:  MOVWF  00
+041E:  MOVLW  10
+0420:  MOVWF  2B
+0422:  MOVFF  01,2D
+0426:  MOVFF  00,2C
+042A:  MOVLW  06
+042C:  MOVWF  2E
+042E:  BRA    02E6
+0430:  MOVFF  01,20
 ....................   if (error != 0) 
-....................     return (error); 
+0434:  MOVF   20,F
+0436:  BZ    043E
+....................     return (-4); 
+0438:  MOVLW  FC
+043A:  MOVWF  01
+043C:  BRA    0448
 ....................    
 ....................   delay_ms(100);                  //espera 100 mls para hasta se hayan escrito todos lso datos 
+043E:  MOVLW  64
+0440:  MOVWF  36
+0442:  RCALL  022E
 ....................   return 0; 
+0444:  MOVLW  00
+0446:  MOVWF  01
 .................... } 
+0448:  GOTO   051E (RETURN)
 ....................  
 .................... /** 
 .................... para la calibracion de los ejes se supone que este 
@@ -7862,227 +7759,171 @@ CCS PCH C Compiler, Version 4.105, 13255               17-Abr-13 12:00
 .................... int read_MMA(char address, unsigned int8 *value){ 
 ....................   address = ((address & 0x3f)<<1); 
 *
-03A8:  MOVF   28,W
-03AA:  ANDLW  3F
-03AC:  MOVWF  00
-03AE:  BCF    FD8.0
-03B0:  RLCF   00,W
-03B2:  MOVWF  28
+02A2:  MOVF   29,W
+02A4:  ANDLW  3F
+02A6:  MOVWF  00
+02A8:  BCF    FD8.0
+02AA:  RLCF   00,W
+02AC:  MOVWF  29
 ....................    
 ....................   #ifdef testmma 
 ....................   spi_xfer(address); 
-03B4:  MOVFF  28,2D
-03B8:  MOVLW  08
-03BA:  MOVWF  2E
-03BC:  RCALL  0272
+02AE:  MOVFF  29,37
+02B2:  MOVLW  08
+02B4:  MOVWF  38
+02B6:  RCALL  01E0
 ....................   delay_ms(20); 
-03BE:  MOVLW  14
-03C0:  MOVWF  2B
-03C2:  RCALL  02C0
+02B8:  MOVLW  14
+02BA:  MOVWF  36
+02BC:  RCALL  022E
 ....................   *value = spi_xfer(0); 
-03C4:  MOVFF  2A,03
-03C8:  MOVFF  29,FE9
-03CC:  MOVFF  2A,FEA
-03D0:  CLRF   2D
-03D2:  MOVLW  08
-03D4:  MOVWF  2E
-03D6:  RCALL  0272
-03D8:  MOVF   01,W
-03DA:  MOVFF  01,FEF
+02BE:  MOVFF  2B,03
+02C2:  MOVFF  2A,FE9
+02C6:  MOVFF  2B,FEA
+02CA:  CLRF   37
+02CC:  MOVLW  08
+02CE:  MOVWF  38
+02D0:  RCALL  01E0
+02D2:  MOVF   01,W
+02D4:  MOVFF  01,FEF
 ....................   delay_ms(20); 
-03DE:  MOVLW  14
-03E0:  MOVWF  2B
-03E2:  RCALL  02C0
+02D8:  MOVLW  14
+02DA:  MOVWF  36
+02DC:  RCALL  022E
 ....................   #endif 
 ....................   return (0); 
-03E4:  MOVLW  00
-03E6:  MOVWF  01
+02DE:  MOVLW  00
+02E0:  MOVWF  01
 .................... } 
-03E8:  RETLW  00
+02E2:  GOTO   03BA (RETURN)
 ....................  
 .................... int read_MMA(char start_address, unsigned int8 *buffer,unsigned int size){ 
-*
-0522:  CLRF   24
 ....................   unsigned int i = 0;   
 ....................   do{ 
 ....................     read_MMA((start_address+i), &buffer[i]); 
-0524:  MOVF   24,W
-0526:  ADDWF  20,W
-0528:  MOVWF  25
-052A:  CLRF   03
-052C:  MOVF   24,W
-052E:  ADDWF  21,W
-0530:  MOVWF  26
-0532:  MOVF   22,W
-0534:  ADDWFC 03,W
-0536:  MOVWF  27
-0538:  MOVFF  25,28
-053C:  MOVWF  2A
-053E:  MOVFF  26,29
-0542:  RCALL  03A8
 ....................     #ifdef testmma 
 ....................     printf("\n\rR:%x dt:%x",(start_address+i), buffer[i]); 
-0544:  MOVF   24,W
-0546:  ADDWF  20,W
-0548:  MOVWF  25
-054A:  CLRF   03
-054C:  MOVF   24,W
-054E:  ADDWF  21,W
-0550:  MOVWF  FE9
-0552:  MOVF   22,W
-0554:  ADDWFC 03,W
-0556:  MOVWF  FEA
-0558:  MOVFF  FEF,26
-055C:  MOVLW  DA
-055E:  MOVWF  FF6
-0560:  MOVLW  00
-0562:  MOVWF  FF7
-0564:  MOVLW  04
-0566:  MOVWF  27
-0568:  RCALL  0118
-056A:  MOVFF  25,27
-056E:  MOVLW  57
-0570:  MOVWF  28
-0572:  RCALL  0230
-0574:  MOVLW  E0
-0576:  MOVWF  FF6
-0578:  MOVLW  00
-057A:  MOVWF  FF7
-057C:  MOVLW  04
-057E:  MOVWF  27
-0580:  RCALL  0118
-0582:  MOVFF  26,27
-0586:  MOVLW  57
-0588:  MOVWF  28
-058A:  RCALL  0230
 ....................     #endif 
 ....................     i++; 
-058C:  INCF   24,F
 ....................   }while(i < size);   
-058E:  MOVF   23,W
-0590:  SUBWF  24,W
-0592:  BNC   0524
 ....................   return (0);   //retorna 0 si succed 
-0594:  MOVLW  00
-0596:  MOVWF  01
 .................... } //leer datos desde el mma 
-0598:  GOTO   05B4 (RETURN)
 ....................  
 ....................  
 .................... int write_MMA(char address, int8 *value){ 
 ....................     address = (((address & 0x3f)<<1) | 0x80); 
 *
-02EE:  MOVF   28,W
-02F0:  ANDLW  3F
-02F2:  MOVWF  00
-02F4:  BCF    FD8.0
-02F6:  RLCF   00,F
-02F8:  MOVF   00,W
-02FA:  IORLW  80
-02FC:  MOVWF  28
+025C:  MOVF   33,W
+025E:  ANDLW  3F
+0260:  MOVWF  00
+0262:  BCF    FD8.0
+0264:  RLCF   00,F
+0266:  MOVF   00,W
+0268:  IORLW  80
+026A:  MOVWF  33
 ....................     #ifdef testmma 
 ....................     spi_xfer(address); 
-02FE:  MOVFF  28,2D
-0302:  MOVLW  08
-0304:  MOVWF  2E
-0306:  RCALL  0272
+026C:  MOVFF  33,37
+0270:  MOVLW  08
+0272:  MOVWF  38
+0274:  RCALL  01E0
 ....................     delay_ms(20); 
-0308:  MOVLW  14
-030A:  MOVWF  2B
-030C:  RCALL  02C0
+0276:  MOVLW  14
+0278:  MOVWF  36
+027A:  RCALL  022E
 ....................     spi_xfer(*value); 
-030E:  MOVFF  2A,03
-0312:  MOVFF  29,FE9
-0316:  MOVFF  2A,FEA
-031A:  MOVFF  FEF,2B
-031E:  MOVFF  2B,2D
-0322:  MOVLW  08
-0324:  MOVWF  2E
-0326:  RCALL  0272
+027C:  MOVFF  35,03
+0280:  MOVFF  34,FE9
+0284:  MOVFF  35,FEA
+0288:  MOVFF  FEF,36
+028C:  MOVFF  36,37
+0290:  MOVLW  08
+0292:  MOVWF  38
+0294:  RCALL  01E0
 ....................     delay_ms(20); 
-0328:  MOVLW  14
-032A:  MOVWF  2B
-032C:  RCALL  02C0
+0296:  MOVLW  14
+0298:  MOVWF  36
+029A:  RCALL  022E
 ....................     #else 
 ....................     spi_xfer(address); 
 ....................     spi_xfer(*value); 
 ....................     #endif 
 ....................   return 0; 
-032E:  MOVLW  00
-0330:  MOVWF  01
+029C:  MOVLW  00
+029E:  MOVWF  01
 .................... } 
-0332:  RETLW  00
+02A0:  RETLW  00
 ....................  
 ....................  
 .................... int write_MMA(char start_address, int8 *pData, unsigned int size){ 
 *
-0460:  CLRF   24
+02E6:  CLRF   2F
 ....................   unsigned int i = 0; 
 ....................   do{ 
 ....................     #ifdef testmma 
 ....................     write_MMA((start_address+i),&pData[i]); 
-0462:  MOVF   24,W
-0464:  ADDWF  20,W
-0466:  MOVWF  25
-0468:  CLRF   03
-046A:  MOVF   24,W
-046C:  ADDWF  21,W
-046E:  MOVWF  26
-0470:  MOVF   22,W
-0472:  ADDWFC 03,W
-0474:  MOVWF  27
-0476:  MOVFF  25,28
-047A:  MOVWF  2A
-047C:  MOVFF  26,29
-0480:  RCALL  02EE
+02E8:  MOVF   2F,W
+02EA:  ADDWF  2B,W
+02EC:  MOVWF  30
+02EE:  CLRF   03
+02F0:  MOVF   2F,W
+02F2:  ADDWF  2C,W
+02F4:  MOVWF  31
+02F6:  MOVF   2D,W
+02F8:  ADDWFC 03,W
+02FA:  MOVWF  32
+02FC:  MOVFF  30,33
+0300:  MOVWF  35
+0302:  MOVFF  31,34
+0306:  RCALL  025C
 ....................     printf("\n\rW:%x dt:%x",(start_address+i),pData[i]); 
-0482:  MOVF   24,W
-0484:  ADDWF  20,W
-0486:  MOVWF  25
-0488:  CLRF   03
-048A:  MOVF   24,W
-048C:  ADDWF  21,W
-048E:  MOVWF  FE9
-0490:  MOVF   22,W
-0492:  ADDWFC 03,W
-0494:  MOVWF  FEA
-0496:  MOVFF  FEF,26
-049A:  MOVLW  E8
-049C:  MOVWF  FF6
-049E:  MOVLW  00
-04A0:  MOVWF  FF7
-04A2:  MOVLW  04
-04A4:  MOVWF  27
-04A6:  RCALL  0118
-04A8:  MOVFF  25,27
-04AC:  MOVLW  57
-04AE:  MOVWF  28
-04B0:  RCALL  0230
-04B2:  MOVLW  EE
-04B4:  MOVWF  FF6
-04B6:  MOVLW  00
-04B8:  MOVWF  FF7
-04BA:  MOVLW  04
-04BC:  MOVWF  27
-04BE:  RCALL  0118
-04C0:  MOVFF  26,27
-04C4:  MOVLW  57
-04C6:  MOVWF  28
-04C8:  RCALL  0230
+0308:  MOVF   2F,W
+030A:  ADDWF  2B,W
+030C:  MOVWF  30
+030E:  CLRF   03
+0310:  MOVF   2F,W
+0312:  ADDWF  2C,W
+0314:  MOVWF  FE9
+0316:  MOVF   2D,W
+0318:  ADDWFC 03,W
+031A:  MOVWF  FEA
+031C:  MOVFF  FEF,31
+0320:  MOVLW  B8
+0322:  MOVWF  FF6
+0324:  MOVLW  00
+0326:  MOVWF  FF7
+0328:  MOVLW  04
+032A:  MOVWF  32
+032C:  RCALL  00EA
+032E:  MOVFF  30,32
+0332:  MOVLW  57
+0334:  MOVWF  33
+0336:  RCALL  010A
+0338:  MOVLW  BE
+033A:  MOVWF  FF6
+033C:  MOVLW  00
+033E:  MOVWF  FF7
+0340:  MOVLW  04
+0342:  MOVWF  32
+0344:  RCALL  00EA
+0346:  MOVFF  31,32
+034A:  MOVLW  57
+034C:  MOVWF  33
+034E:  RCALL  010A
 ....................     #else 
 ....................     write_MMA((start_address+i),&pData[i]); 
 ....................     #endif 
 ....................     i++; 
-04CA:  INCF   24,F
+0350:  INCF   2F,F
 ....................   }while(i < size); 
-04CC:  MOVF   23,W
-04CE:  SUBWF  24,W
-04D0:  BNC   0462
+0352:  MOVF   2E,W
+0354:  SUBWF  2F,W
+0356:  BNC   02E8
 ....................   return 0; 
-04D2:  MOVLW  00
-04D4:  MOVWF  01
+0358:  MOVLW  00
+035A:  MOVWF  01
 .................... } //escribir datos desde el mma 
-04D6:  GOTO   050E (RETURN)
+035C:  GOTO   0430 (RETURN)
 
 Configuration Fuses:
    Word  1: CE20   IESO FCMEN HSPLL PLL1 CPUDIV1 USBDIV

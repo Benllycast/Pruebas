@@ -10,27 +10,31 @@ int init_MMA(void){
   unsigned int8 c1 = 0, c2 = 0;
   
   //mode: measurement; sensitivity: 4g
-  c1 = MMA7455_GLVL1 | MMA7455_MODE0;
+  c1 = MMA7455_DRPD|MMA7455_2g|MMA7455_MEASURE;
+  #ifdef testmma
+  printf("\n\rc1: %x %u",c1,c1);
+  #endif
   error = write_MMA(MMA7455_MCTL, &c1);       //escribe la configuracion deseada en el accelerometro
   if (error != 0)
-    return (error);
+    return (-1);
   
   //lee la configuracion del accelerometro para comprobar el envio
   error = read_MMA(MMA7455_MCTL, &c2);
   if (error != 0)
-    return (error);
+    return (-2);
+  #ifdef testmma
+  printf("\n\rc1: %x %u",c2,c2);
+  #endif
   
-  //se comprueban la conincidencia entre lo enviado y lo recivido
   if (c1 != c2)
-    return (-99);                 //retorna -99 si no cinciden
+    return (-3);
   else
-    CONFIG.MODE_CONTROL =  c2;    //se respalda la configuracion en el micro
+    CONFIG.MODE_CONTROL =  c2;
 
-  //se configura el offset de los ejes a 0
   xyz.value.x = xyz.value.y = xyz.value.z = 0;
   error = write_MMA(MMA7455_XOFFL, (unsigned int8 *) &xyz, 6);
   if (error != 0)
-    return (error);
+    return (-4);
   
   delay_ms(100);                  //espera 100 mls para hasta se hayan escrito todos lso datos
   return 0;
@@ -110,7 +114,6 @@ int xyz_MMA( int *pX, int *pY, int *pZ){
   unsigned int8 c;
 
   do{
-
     error = read_MMA(MMA7455_STATUS,&c);
   }while(!bit_test(c, 0) && error == 0);
   

@@ -1,18 +1,18 @@
 
-ROM used: 1852 (6%)
-          1852 (6%) including unused fragments
+ROM used: 1328 (4%)
+          1328 (4%) including unused fragments
 
-          1 Average locations per line
+          0 Average locations per line
           9 Average locations per statement
 
 RAM used: 33 (2%) at main() level
-          49 (2%) worst case
+          59 (3%) worst case
 
 Stack used: 4 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-  208   100  50  ACCspi.c
+   83    40  28  ACCspi.c
    79     0   0  ACCspi.h
   457     0   0  I:\Archivos de programa\PICC\Devices\18F4550.h
    37     0   0  I:\Archivos de programa\PICC\Drivers\stdio.h
@@ -20,58 +20,53 @@ Lines Stmts  %   Files
    28     0   0  I:\Archivos de programa\PICC\Drivers\stddef.h
    28     0   0  I:\Archivos de programa\PICC\Drivers\ctype.h
  1273     0   0  I:\Archivos de programa\PICC\Drivers\stdlib.h
-  215     0   0  accelerometro.h
-  208   100  50  accelerometro.c
+  224     0   0  accelerometro.h
+  212   102  72  accelerometro.c
 ----- -----
- 2942   200 Total
+ 2830   142 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
-0     46   1   1             @delay_ms1
-0     78   2   5   806  7.1  @SPI_XFER_1
-0    116   3   0   160  4.1  test1
-0     30   1   0  2441  7.8  @const393
+0     46   2   1             @delay_ms1
+0     78   3   5   806  7.1  @SPI_XFER_1
+0     30   1   0  2441  7.8  @const394
 0     32   1   3    17  1.3  @PSTRINGCN_9600_31766_31767
-0     40   1   3  1047  9.0  @DIV88
-0    208   6   6   185  3.8  @PRINTF_D_9600_31766_31767
-0     66   2   2   225  7.2  @PRINTF_X_9600_31766_31767
-0    118   3   0   183  4.2  test2
-0     28   1   0   298  6.3  @const406
-0     44   1   0   119  2.3  test3
-0     22   1   0             @const408
-0     34   1   2             @PSTRINGC_9600_31766_31767
-0     28   1   0             @MEMSET
-0    152   4   1   276  6.1  test4
-0     18   0   0             @const415
-0     12   0   0             @const417
-0    264   7   1   550  3.3  MAIN
-0     26   1   0             @const420
-0     26   1   0             @const421
-0     26   1   0             @const422
-0     26   1   0             @const423
-0     66   2   5   208  3.9  read_MMA
-0    122   3   8   316  7.0  read_MMA
-0     14   0   0   183  4.2  @const795
-0     70   2   4   203  4.3  write_MMA
-0    122   3   8   305  6.7  write_MMA
-0     14   0   0             @const802
+0     40   2   3  1047  9.0  @DIV88
+0     66   2   2  2441  7.8  @PRINTF_X_9600_31766_31767
+0     28   1   0  1047  9.0  @const407
+0     22   1   0   316  7.0  @const409
+0     36   1   2             @PSTRINGC_9600_31766_31767
+0     18   1   0             @const416
+0      8   0   0             @const806
+0     12   0   0             @const418
+0    228   9   1   409  3.2  MAIN
+0     24   1   0             @const421
+0    236   9   9   969  6.8  init_MMA
+0     12   0   0  2441  7.8  @const782
+0    108   4   2  2441  7.8  @PRINTF_U_9600_31766_31767
+0     12   0   0   183  4.2  @const794
+0     68   3   5   208  3.9  read_MMA
+0     14   1   0   276  6.1  @const806
+0     70   3   4   203  4.3  write_MMA
+0    122   5   8   305  6.7  write_MMA
+0     14   1   0             @const808
 
 Program metrics:
-    Functions               17
-    Statements              200
-    Comments                93
-    Volume (V)              12075
-    Difficilty (D)          90.2
-    Effort to implement (E) 1089442
-    Time to implement (T)   16 hours, 49 minutes
-    Est Delivered Bugs (B)  4
-    Cyclomatic Complexity   28
-    Maintainability (MI)    73
+    Functions               16
+    Statements              142
+    Comments                60
+    Volume (V)              23778
+    Difficilty (D)          102.8
+    Effort to implement (E) 2444464
+    Time to implement (T)   37 hours, 43 minutes
+    Est Delivered Bugs (B)  6
+    Cyclomatic Complexity   58
+    Maintainability (MI)    104
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
-00004-07FFE  1848  30916  
+00004-07FFE  1324  31440  
 
 
 

@@ -9,7 +9,7 @@
 #define SPI_SS   PIN_D7
 */
 //#use spi(MASTER, MODE=0, DI=SPI_MISO, DO=SPI_MOSI, CLK=SPI_SCL, ENABLE=SPI_SS, BITS=8, BAUD=9600)
-
+extern CONFIG_MMA7455 CONFIG;
 unsigned int i, 
 				value = 1,
 				buffer[]={0xaa,0xaa,0xaa,0xaa,0xaa};
@@ -75,15 +75,8 @@ void main()
    // TODO: USER CODE!!
    
 	do{
-		printf("\n\r=== Test Escritura ===");
-		test1();
-		printf("\n\r=== Test Lectura ===\n\r");
-		test2();
-		printf("\n\r=== Test Escritura ===");
-		test3();
-		printf("\n\r=== Test Lectura ===\n\r");
-		test4();
-		
+		printf("\n\r====Test InitMMA=====");
+		init_MMA();          
 		delay_ms(10000);
 	}while(1);
 }

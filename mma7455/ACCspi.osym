@@ -9,6 +9,7 @@ PSP_DATA
 C1OUT
 C2OUT
 _Randseed
+CONFIG
 i
 value
 buffer
