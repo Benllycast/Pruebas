@@ -9,12 +9,13 @@ PSP_DATA
 C1OUT
 C2OUT
 _Randseed
+CONFIG
 
 Project Directory:
     G:\Project\pic\CCS\Pruebas\
 
 Project Files:
-    analogo_digital.c
+    accelerometroSPI.c
     Nucleo.h
     I:\Archivos de programa\PICC\Devices\18F4550.h
     I:\Archivos de programa\PICC\Drivers\stdio.h
@@ -23,10 +24,10 @@ Project Files:
     I:\Archivos de programa\PICC\Drivers\ctype.h
     I:\Archivos de programa\PICC\Drivers\stdlib.h
     comunicacion.h
-    analogo_digital.h
+    accelerometroSPI.h
 
 Units:
-    G:\Project\pic\CCS\Pruebas\analogo_digital (main)
+    G:\Project\pic\CCS\Pruebas\accelerometroSPI (main)
 
 Compiler Settings:
     Processor:      PIC18F4550
@@ -39,6 +40,6 @@ Compiler Settings:
 
 Output Files:
     Errors:      Nucleo.err
-    Ext Symbols: analogo_digital.esym
-    Object:      analogo_digital.o
-    Symbols:     analogo_digital.osym
+    Ext Symbols: accelerometroSPI.esym
+    Object:      accelerometroSPI.o
+    Symbols:     accelerometroSPI.osym

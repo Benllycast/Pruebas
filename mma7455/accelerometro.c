@@ -163,6 +163,9 @@ int read_MMA(char address, unsigned int8 *value){
   delay_ms(20);
   *value = spi_xfer(0);
   delay_ms(20);
+  #else
+  spi_xfer(address);
+  *value = spi_xfer(0);
   #endif
   return (0);
 }

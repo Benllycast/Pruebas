@@ -86,6 +86,7 @@ Project Files:
     I:\Archivos de programa\PICC\Drivers\ctype.h
     I:\Archivos de programa\PICC\Drivers\stdlib.h
     comunicacion.h
+    analogo_digital.h
     usb_desc_cdc.h
     I:\Archivos de programa\PICC\Drivers\usb.h
     I:\Archivos de programa\PICC\Drivers\usb_cdc.h

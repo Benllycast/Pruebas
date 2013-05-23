@@ -1,8 +1,8 @@
 #include "Nucleo.h"
 #include "analogo_digital.h"
 
-#define ADC_TAD_MUL_2      0x08
-#define ADC_INPUT_PORT		0x07
+#define ADC_TAD_MUL_4      0x10
+#define ADC_INPUT_PORT		0x2F
 
 int AD_init_adc(){
 //corregir despues
@@ -16,14 +16,14 @@ int AD_init_adc(){
 #elif (getenv("CLOCK") == 20000000)
 	setup_adc(ADC_CLOCK_DIV_64|ADC_TAD_MUL_2);
 #else
-	setup_adc(ADC_CLOCK_DIV_32|ADC_TAD_MUL_2);
+	setup_adc(ADC_CLOCK_DIV_32|ADC_TAD_MUL_2); // default
 #endif
 */	
 	output_a(0x00);
-	set_tris_a(ADC_INPUT_PORT);		//RA0 a RA2 entradas
-	setup_adc_ports(AN0_TO_AN2);
-	setup_adc(ADC_CLOCK_DIV_64|ADC_TAD_MUL_2|VSS_VDD);	
-	return 0;
+	set_tris_a(ADC_INPUT_PORT);		//RA0 a RA4 entradas
+	setup_adc_ports(AN0_TO_AN4);
+	setup_adc(ADC_CLOCK_DIV_32|ADC_TAD_MUL_4|VSS_VDD);	
+	return (0);
 }
 
 int AD_leer_canal(int canal, int16 *buffer){
@@ -36,6 +36,6 @@ int AD_leer_canal(int canal, int16 *buffer){
 		done = adc_done();
 	}while(!done);
 	*buffer = read_adc(ADC_READ_ONLY);
-	delay_us(3);
-	return 0;
+	delay_us(20);
+	return (0);
 }

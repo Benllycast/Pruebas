@@ -9,11 +9,7 @@ PSP_DATA
 C1OUT
 C2OUT
 _Randseed
-MEM_info
 myerror
-testfile
-mensaje
-buffer
 
 Project Directory:
     G:\Project\pic\CCS\Pruebas\
@@ -28,7 +24,7 @@ Project Files:
     I:\Archivos de programa\PICC\Drivers\ctype.h
     I:\Archivos de programa\PICC\Drivers\stdlib.h
     comunicacion.h
-    memoria.h
+    analogo_digital.h
 
 Units:
     G:\Project\pic\CCS\Pruebas\Nucleo (main)

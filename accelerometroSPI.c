@@ -1,6 +1,6 @@
-//#include "Nucleo.h"
-#include "ACCspi.h"
-#include "accelerometro.h" 
+#include "Nucleo.h"
+//#include "ACCspi.h"
+#include "accelerometroSPI.h" 
 
 CONFIG_MMA7455 CONFIG = {1,2,3,128,128,128,128,128,128};
 //configuracion inicial del MMA7455
@@ -12,7 +12,7 @@ int init_MMA(void){
   //mode: measurement; sensitivity: 4g
   c1 = MMA7455_DRPD|MMA7455_2g|MMA7455_MEASURE;
   #ifdef testmma
-  printf("\n\rc1: %x %u",c1,c1);
+  printf(usb_cdc_putc,"\n\rc1: %x %u",c1,c1);
   #endif
   error = write_MMA(MMA7455_MCTL, &c1);       //escribe la configuracion deseada en el accelerometro
   if (error != 0)
@@ -23,7 +23,7 @@ int init_MMA(void){
   if (error != 0)
     return (-2);
   #ifdef testmma
-  printf("\n\rc1: %x %u",c2,c2);
+  printf(usb_cdc_putc,"\n\rc1: %x %u",c2,c2);
   #endif
   
   if (c1 != c2)
@@ -163,6 +163,9 @@ int read_MMA(char address, unsigned int8 *value){
   delay_ms(20);
   *value = spi_xfer(0);
   delay_ms(20);
+  #else
+  spi_xfer(address);
+  *value = spi_xfer(0);
   #endif
   return (0);
 }
@@ -172,7 +175,7 @@ int read_MMA(char start_address, unsigned int8 *buffer,unsigned int size){
   do{
     read_MMA((start_address+i), &buffer[i]);
     #ifdef testmma
-    printf("\n\rR:%x dt:%x",(start_address+i), buffer[i]);
+    printf(usb_cdc_putc,"\n\rR:%x dt:%x",(start_address+i), buffer[i]);
     #endif
     i++;
   }while(i < size);  
@@ -200,7 +203,7 @@ int write_MMA(char start_address, int8 *pData, unsigned int size){
   do{
     #ifdef testmma
     write_MMA((start_address+i),&pData[i]);
-    printf("\n\rW:%x dt:%x",(start_address+i),pData[i]);
+    printf(usb_cdc_putc,"\n\rW:%x dt:%x",(start_address+i),pData[i]);
     #else
     write_MMA((start_address+i),&pData[i]);
     #endif

@@ -12,17 +12,17 @@ BuildTool=
 OptionString=
 AdditionalOptionString=
 [mru-list]
-1=memoria.c
+1=analogo_digital.c
 [Windows]
 0=0000 %S 0 0 796 451 3 0
 [Opened Files]
 1=Nucleo.c
-2=accelerometro.h
-3=
+2=analogo_digital.h
+3=analogo_digital.c
 4=Nucleo.h
-5=accelerometro.h
+5=I:\Archivos de programa\PICC\Devices\18F4550.h
 6=comunicacion.h
-7=comunicacion.c
+7=
 8=
 9=
 10=memoria.c
@@ -113,7 +113,7 @@ OptionString=
 AdditionalOptionString=
 [Units]
 Count=3
-1=memoria.o
+1=analogo_digital.o
 2=comunicacion.o
 3=Nucleo.o
 Link=1

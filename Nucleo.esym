@@ -1,6 +1,6 @@
-D G "__PCH__" 0 398 ""4.105""
-D G "__DEVICE__" 0 398 "4550"
-D G "__DATE__" 0 398 ""01-Mar-13""
+D G "__PCH__" 0 43 ""4.105""
+D G "__DEVICE__" 0 43 "4550"
+D G "__DATE__" 0 43 ""23-May-13""
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 1
@@ -133,11 +133,6 @@ F B "spi_data_is_in2" 0 0
 F B "brownout_enable" 1 0
 F B "delay_ms" 1 0
 F B "delay_us" 1 0
-F B "i2c_read" 0 2
-F B "i2c_write" 1 2
-F B "i2c_start" 0 2
-F B "i2c_stop" 0 1
-F B "i2c_isr_state" 0 1
 F B "putchar" 1 2
 F B "puts" 1 2
 F B "getch" 0 1
@@ -145,3 +140,8 @@ F B "gets" 1 3
 F B "kbhit" 0 1
 F B "set_uart_speed" 1 3
 F B "setup_uart" 1 3
+F B "i2c_read" 0 2
+F B "i2c_write" 1 2
+F B "i2c_start" 0 2
+F B "i2c_stop" 0 1
+F B "i2c_isr_state" 0 1
