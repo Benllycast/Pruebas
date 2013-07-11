@@ -23,8 +23,7 @@ Project Files:
     I:\Archivos de programa\PICC\Drivers\stddef.h
     I:\Archivos de programa\PICC\Drivers\ctype.h
     I:\Archivos de programa\PICC\Drivers\stdlib.h
-    comunicacion.h
-    analogo_digital.h
+    captura_frecuencia.h
 
 Units:
     G:\Project\pic\CCS\Pruebas\Nucleo (main)

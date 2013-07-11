@@ -12,16 +12,16 @@ BuildTool=
 OptionString=
 AdditionalOptionString=
 [mru-list]
-1=analogo_digital.c
+1=captura_frecuencia.c
 [Windows]
 0=0000 %S 0 0 796 451 3 0
 [Opened Files]
 1=Nucleo.c
-2=analogo_digital.h
-3=analogo_digital.c
-4=Nucleo.h
-5=I:\Archivos de programa\PICC\Devices\18F4550.h
-6=comunicacion.h
+2=Nucleo.h
+3=I:\Archivos de programa\PICC\Devices\18F4550.h
+4=captura_frecuencia.h
+5=captura_frecuencia.c
+6=
 7=
 8=
 9=
@@ -111,9 +111,15 @@ FileList=
 BuildTool=
 OptionString=
 AdditionalOptionString=
+[captura_frecuencia.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
 [Units]
-Count=3
-1=analogo_digital.o
-2=comunicacion.o
-3=Nucleo.o
+Count=2
+1=captura_frecuencia.o
+2=Nucleo.o
 Link=1

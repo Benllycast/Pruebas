@@ -1,12 +1,13 @@
 #include "Nucleo.h"
-//#include "comunicacion.h"
-//#include "accelerometro.h"
-//#include "captura_frecuencia.h"
-//#include "memoria.h"
-//#include "ds1307.h"
-//#include "utilidades.h"
+// #include "analogo_digital.h"
+// #include "comunicacion.h"
+// #include "accelerometro.h"
+#include "captura_frecuencia.h"
+// #include "memoria.h"
+// #include "ds1307.h"
+// #include "utilidades.h"
 
-//////////////////////////////////////////
+
 #define acc_eje_x		0
 #define acc_eje_y		1
 #define acc_eje_z		2
@@ -19,7 +20,7 @@
 //#define test_proteus 1
 
 int myerror = 0;
-#ifndef test_proteus
+#ifndef SIMULACION
 void test_real(void);
 #endif
 
@@ -27,16 +28,16 @@ void test_real(void);
 void setup_devices(){
 	//int myerror = 0;
    /*========================= configuracion del USB =========================*/
-   myerror = COM_init();
+   // myerror = COM_init();
    /*========================= configuracion del MMA7455 =====================*/
    //myerror += MEMORIA_init_hw();
    //myerror += MEMORIA_init();
    
    /*========================= conversor analogo/digital =====================*/
-   myerror = AD_init_adc();
+   // myerror = AD_init_adc();
    
    /*========================= modulo CPP ====================================*/
-   //error = CP_init_ccp();
+   myerror = CP_init_ccp();
    
    /*========================= configuracion del Reloj Digital ===============*/
    //ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
@@ -50,8 +51,8 @@ void setup_devices(){
    setup_timer_0(RTCC_INTERNAL);
    setup_timer_1(T1_DISABLED);
    setup_timer_2(T2_DISABLED,0,1);
-   setup_timer_3(T3_DISABLED|T3_DIV_BY_1);
-   setup_ccp1(CCP_OFF);
+   //setup_timer_3(T3_DISABLED|T3_DIV_BY_1);
+   //setup_ccp1(CCP_OFF);
    setup_comparator(NC_NC_NC_NC);
    setup_vref(FALSE);
    /*-------------------------------------------------------------------------*/
@@ -74,7 +75,7 @@ void setup_devices(){
    return;
 }
 /*===============================funciones de debug===========================*/
-#ifndef test_proteus
+#ifndef SIMULACION
 int1 _debug_usb(void){
 	if(COM_sense() == USB_OK){
       output_bit(INDICADOR_USB, 1);
@@ -90,14 +91,18 @@ int1 _debug_usb(void){
 ||										 MAIN 													||
 =============================================================================*/
 void main(void) {
+	int32 buffer = 0;
 	setup_devices();
    while(1){
-   	test_real();   	
+   	// test_real();
+   	CP_leer_ccp(1, &buffer);
+   	printf("\n\rbuffer: %Lu", buffer);
+   	delay_ms(500);
   	}
 }
 
 //=============================================================
-#ifndef test_proteus
+#ifndef SIMULACION
 void test_real(void){
 	int16 ejex = 0, ejey = 0, ejez = 0, vel = 0, rev = 0;
 	if(_debug_usb()){

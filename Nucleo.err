@@ -1,9 +1,5 @@
->>> Warning 203 "Nucleo.c" Line 94(1,1): Condition always TRUE
+>>> Warning 203 "Nucleo.c" Line 96(1,1): Condition always TRUE
 G:\Project\pic\CCS\Pruebas\Nucleo.o ===>  0 Errors,  1 Warnings.
-G:\Project\pic\CCS\Pruebas\comunicacion.o ===>  0 Errors,  0 Warnings.
-G:\Project\pic\CCS\Pruebas\analogo_digital.o ===>  0 Errors,  0 Warnings.
->>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
->>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_tbe)
->>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_flush_out_buffer)
-      Memory usage:   ROM=15%      RAM=16% - 18%
-      0 Errors,  3 Warnings.
+G:\Project\pic\CCS\Pruebas\captura_frecuencia.o ===>  0 Errors,  0 Warnings.
+      Memory usage:   ROM=4%      RAM=3% - 4%
+      0 Errors,  0 Warnings.

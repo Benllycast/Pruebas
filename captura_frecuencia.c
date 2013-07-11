@@ -9,7 +9,7 @@
    con divicion de frecuencia por 1
    TIMER3 para ambos modulos CCP1 y CCP2
 */
-int MODO_TIMER_CCP = T3_INTERNAL|T3_DIV_BY_1|T3_CCP1_TO_2;
+int MODO_TIMER_CCP = T3_INTERNAL|T3_DIV_BY_8|T3_CCP1_TO_2;
 
 //tipos de capturas de los modulos CCP
 int MODO_CCP1 = CCP_CAPTURE_RE;
@@ -82,7 +82,7 @@ int CP_leer_ccp(int canal, int32 *buffer){
    }else if(canal == CANAL_2){
       enable_interrupts(INT_CCP2);   //si es el canal 2 se habilita la interrupcion del modulo CCP2
    }else{return (1);}*/
-   (canal == CANAL_1)? enable_interrupts(INT_CCP1) : enable_interrupts(INT_CCP2);
+   (canal == CCP_CANAL_1)? enable_interrupts(INT_CCP1) : enable_interrupts(INT_CCP2);
    while(Q_CCP != 2){;}             //espera a que se carguen los valores de los tiempos
    disable_interrupts(INT_CCP1);
    disable_interrupts(INT_CCP2);

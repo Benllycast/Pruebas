@@ -8,6 +8,7 @@ CCP_2_HIGH
 PSP_DATA
 C1OUT
 C2OUT
+_Randseed
 TOSU
 TOS
 STKPTR
@@ -48,7 +49,7 @@ STATUS
 TMR0
 T0CON
 OSCCON
-HLVDCON
+LVDCON
 WDTCON
 RCON
 TMR1
@@ -70,8 +71,8 @@ CCP1CON
 CCPR2
 CCP2CON
 BAUDCON
-ECCP1DEL
-ECCP1AS
+PWM1CON
+ECCPAS1
 CVRCON
 CMCON
 TMR3
@@ -82,6 +83,7 @@ RCREG
 TXREG
 TXSTA
 RCSTA
+EEADRH
 EEADR
 EEDATA
 EECON2
@@ -108,36 +110,6 @@ PORTD
 PORTC
 PORTB
 PORTA
-UEP15
-UEP14
-UEP13
-UEP12
-UEP11
-UEP10
-UEP9
-UEP8
-UEP7
-UEP6
-UEP5
-UEP4
-UEP3
-UEP2
-UEP1
-UEP0
-UCFG
-UADDR
-UCON
-USTAT
-UEIE
-UEIR
-UIE
-UIR
-UFRMH
-UFRML
-SPPCON
-SPPEPS
-SPPCFG
-SPPDATA
 MODO_TIMER_CCP
 MODO_CCP1
 MODO_CCP2
@@ -147,21 +119,22 @@ tiempo_inicial
 tiempo_final
 
 Project Directory:
-    G:\Project\pic\CCS\MMA7455l\
+    G:\Project\pic\CCS\Pruebas\
 
 Project Files:
     captura_frecuencia.c
     Nucleo.h
-    I:\Archivos de programa\PICC\devices\18F4550.h
-    PIC18F4550.h
-    I:\Archivos de programa\PICC\drivers\stdio.h
-    I:\Archivos de programa\PICC\drivers\string.h
-    I:\Archivos de programa\PICC\drivers\stddef.h
-    I:\Archivos de programa\PICC\drivers\ctype.h
+    I:\Archivos de programa\PICC\Devices\18F4550.h
+    I:\Archivos de programa\PICC\Drivers\stdio.h
+    I:\Archivos de programa\PICC\Drivers\string.h
+    I:\Archivos de programa\PICC\Drivers\stddef.h
+    I:\Archivos de programa\PICC\Drivers\ctype.h
+    I:\Archivos de programa\PICC\Drivers\stdlib.h
     captura_frecuencia.h
+    registros.h
 
 Units:
-    G:\Project\pic\CCS\MMA7455l\captura_frecuencia (main)
+    G:\Project\pic\CCS\Pruebas\captura_frecuencia (main)
 
 Compiler Settings:
     Processor:      PIC18F4550
