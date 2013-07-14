@@ -5,10 +5,10 @@
 #define debug_memoria 1
 
 
-#define MEM_RX PIN_D7
-#define MEM_TX PIN_D6	
+// #define MEM_RX PIN_D7
+// #define MEM_TX PIN_D6	
 #define MEMORIA_PIN_RESET PIN_D5
-#use rs232(uart1,stream=MEMORIA,BAUD=9600,TIMEOUT=1000)
+#use rs232(uart1, stream=MEMORIA, BAUD=9600, TIMEOUT=1000)
 #define time_delay 1000
 
 short MEMORIA_OK = FALSE;
@@ -59,7 +59,7 @@ int MEMORIA_init_hw(void){
 	#endif
 	
 	MEMORIA_putc(MEMORIA_CMD_AUTOBAUD);
-	MEM_RESPONSE = MEMORIA_getc();	                                       
+	MEM_RESPONSE = MEMORIA_getc();
 	if(MEM_RESPONSE != MEMORIA_ACK)
    	return (1);
    

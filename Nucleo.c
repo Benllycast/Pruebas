@@ -2,10 +2,11 @@
 // #include "analogo_digital.h"
 // #include "comunicacion.h"
 // #include "accelerometro.h"
-#include "captura_frecuencia.h"
+// #include "captura_frecuencia.h"
 // #include "memoria.h"
 // #include "ds1307.h"
 // #include "utilidades.h"
+ #include "test.c"	// comentar esto en la aplicacion final
 
 
 #define acc_eje_x		0
@@ -15,8 +16,9 @@
 #define revolucion	4
 
 
-#define INDICADOR_USB PIN_E1
-#define INDICADOR_AMARILLO   PIN_E0
+
+#define INDICADOR_AMARILLO	PIN_E0
+#define INDICADOR_USB		PIN_E1
 //#define test_proteus 1
 
 int myerror = 0;
@@ -28,7 +30,7 @@ void test_real(void);
 void setup_devices(){
 	//int myerror = 0;
    /*========================= configuracion del USB =========================*/
-   // myerror = COM_init();
+   myerror = COM_init();
    /*========================= configuracion del MMA7455 =====================*/
    //myerror += MEMORIA_init_hw();
    //myerror += MEMORIA_init();
@@ -37,7 +39,7 @@ void setup_devices(){
    // myerror = AD_init_adc();
    
    /*========================= modulo CPP ====================================*/
-   myerror = CP_init_ccp();
+   //myerror = CP_init_ccp();
    
    /*========================= configuracion del Reloj Digital ===============*/
    //ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
@@ -51,10 +53,14 @@ void setup_devices(){
    setup_timer_0(RTCC_INTERNAL);
    setup_timer_1(T1_DISABLED);
    setup_timer_2(T2_DISABLED,0,1);
-   //setup_timer_3(T3_DISABLED|T3_DIV_BY_1);
-   //setup_ccp1(CCP_OFF);
    setup_comparator(NC_NC_NC_NC);
    setup_vref(FALSE);
+   
+   #ifndef CAPTURA_FRECUENCIA_H
+	setup_timer_3(T3_DISABLED|T3_DIV_BY_1);
+	setup_ccp1(CCP_OFF);
+   #endif
+   
    /*-------------------------------------------------------------------------*/
    
    /*===================para los indicadores========================*/
@@ -70,7 +76,7 @@ void setup_devices(){
    output_low(SPI_MOSI);
    output_high(SPI_MISO);
    ////////////////////////////////
-   delay_ms(3000);
+   //delay_ms(3000);
    /*===============================================================*/
    return;
 }
@@ -85,36 +91,23 @@ int1 _debug_usb(void){
 		return (0);
 	}
 }
-
 #endif
 /*===========================================================================
 ||										 MAIN 													||
 =============================================================================*/
 void main(void) {
-	int32 buffer = 0;
+	short execute = 0;
 	setup_devices();
    while(1){
-   	// test_real();
-   	CP_leer_ccp(1, &buffer);
-   	printf("\n\rbuffer: %Lu", buffer);
-   	delay_ms(500);
+		if(_debug_usb()){
+			test_comunicacion();
+		}else{
+			output_bit(INDICADOR_AMARILLO, execute);
+			execute = !execute;
+			delay_ms(333);
+		}
   	}
 }
 
 //=============================================================
-#ifndef SIMULACION
-void test_real(void){
-	int16 ejex = 0, ejey = 0, ejez = 0, vel = 0, rev = 0;
-	if(_debug_usb()){
-		//place your code here
-		AD_leer_canal(acc_eje_x, &ejex);
-		AD_leer_canal(acc_eje_y, &ejey);
-		AD_leer_canal(acc_eje_z, &ejez);
-		AD_leer_canal(velocidad, &vel);
-		AD_leer_canal(revolucion, &rev);
-		printf(usb_cdc_putc_fast,"\n\rx:%LX\t\ty:%LX\t\tz:%LX\t\tv:%LX\t\tr:%LX",ejex, ejey, ejez, vel, rev);
-		delay_ms(333);
-	}
-	return;
-}
-#endif
+

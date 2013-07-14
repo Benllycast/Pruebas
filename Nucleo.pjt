@@ -12,20 +12,20 @@ BuildTool=
 OptionString=
 AdditionalOptionString=
 [mru-list]
-1=captura_frecuencia.c
+1=comunicacion.c
 [Windows]
 0=0000 %S 0 0 796 451 3 0
 [Opened Files]
 1=Nucleo.c
 2=Nucleo.h
 3=I:\Archivos de programa\PICC\Devices\18F4550.h
-4=captura_frecuencia.h
-5=captura_frecuencia.c
-6=
-7=
+4=test.c
+5=memoria.h
+6=memoria.c
+7=comunicacion.h
 8=
-9=
-10=memoria.c
+9=comunicacion.h
+10=
 11=I:\Archivos de programa\PICC\Drivers\usb_cdc.h
 12=
 [Target Data]
@@ -120,6 +120,6 @@ OptionString=
 AdditionalOptionString=
 [Units]
 Count=2
-1=captura_frecuencia.o
+1=comunicacion.o
 2=Nucleo.o
 Link=1
