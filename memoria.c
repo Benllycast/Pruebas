@@ -52,7 +52,7 @@ int MEMORIA_reset(void){
 
 /*==================== autobaudrate ======================*/
 int MEMORIA_init_hw(void){
-	int8 envios = 10;
+	int8 envios = 5;
 	#ifdef debug_memoria
 	update_proceso(INI_HW);
 	#else
@@ -63,8 +63,8 @@ int MEMORIA_init_hw(void){
 		MEMORIA_putc(MEMORIA_CMD_AUTOBAUD);
 		MEM_RESPONSE = MEMORIA_getc();
 		envios --;
-		delay_ms(20);
-	}while((envios > 0) && (MEM_RESPONSE != MEMORIA_ACK) )
+		delay_ms(120);
+	}while((envios > 0) && (MEM_RESPONSE != MEMORIA_ACK) );                                                       
    
    if(MEM_RESPONSE != MEMORIA_ACK){                                
 		return (1);
@@ -285,7 +285,6 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
       MEMORIA_putc(MEM_file_name[i]);
 
    /*MEMORIA_putc(0x00);
-
    Umsb = MEMORIA_getc();
    Ulsb = MEMORIA_getc();
    Lmsb = MEMORIA_getc();
@@ -392,7 +391,7 @@ void MEMORIA_putc(char c){
 
 /*==================== obtiene un caracter del bus======================*/
 char MEMORIA_getc(void){
-	char c = 0x00, cont = 10;
+	char c = 0x00, cont = 3;
    timeout_error=FALSE;
    while(!kbhit(MEMORIA) && cont > 0 && !c){
    	c = fgetc(MEMORIA);
