@@ -36,8 +36,8 @@ Project Files:
     I:\Archivos de programa\PICC\Drivers\stddef.h
     I:\Archivos de programa\PICC\Drivers\ctype.h
     I:\Archivos de programa\PICC\Drivers\stdlib.h
-    memoria.h
     comunicacion.h
+    memoria.h
 
 Units:
     G:\Project\pic\CCS\Pruebas\memoria (main)

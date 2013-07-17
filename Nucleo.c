@@ -3,11 +3,9 @@
 // #include "comunicacion.h"
 // #include "accelerometro.h"
 // #include "captura_frecuencia.h"
-// #include "memoria.h"
+#include "memoria.h"
 // #include "ds1307.h"
 // #include "utilidades.h"
- #include "test.c"	// comentar esto en la aplicacion final
-
 
 #define acc_eje_x		0
 #define acc_eje_y		1
@@ -15,11 +13,24 @@
 #define velocidad 	3
 #define revolucion	4
 
-
-
 #define INDICADOR_AMARILLO	PIN_E0
 #define INDICADOR_USB		PIN_E1
-//#define test_proteus 1
+
+/*===============================funciones de debug===========================*/
+#ifndef SIMULACION
+int1 _debug_usb(void){
+	if(COM_sense() == USB_OK){
+      output_bit(INDICADOR_USB, 1);
+      return (1);
+	}else{
+		output_bit(INDICADOR_USB, 0);
+		return (0);
+	}
+}
+#endif
+
+#include "test.c"	// comentar esto en la aplicacion final
+
 
 int myerror = 0;
 #ifndef SIMULACION
@@ -80,18 +91,7 @@ void setup_devices(){
    /*===============================================================*/
    return;
 }
-/*===============================funciones de debug===========================*/
-#ifndef SIMULACION
-int1 _debug_usb(void){
-	if(COM_sense() == USB_OK){
-      output_bit(INDICADOR_USB, 1);
-      return (1);
-	}else{
-		output_bit(INDICADOR_USB, 0);
-		return (0);
-	}
-}
-#endif
+
 /*===========================================================================
 ||										 MAIN 													||
 =============================================================================*/
@@ -101,6 +101,7 @@ void main(void) {
    while(1){
 		if(_debug_usb()){
 			test_comunicacion();
+			test_memoria();
 		}else{
 			output_bit(INDICADOR_AMARILLO, execute);
 			execute = !execute;

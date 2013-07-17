@@ -60,8 +60,9 @@ int MEMORIA_init_hw(void){
 	
 	MEMORIA_putc(MEMORIA_CMD_AUTOBAUD);
 	MEM_RESPONSE = MEMORIA_getc();
-	if(MEM_RESPONSE != MEMORIA_ACK)
+	if(MEM_RESPONSE != MEMORIA_ACK){                                
    	return (1);
+	}
    
    MEMORIA_HW = TRUE;
    MEMORIA_OK = FALSE;
@@ -106,7 +107,7 @@ void MEMORIA_getinfo(){
    MEM_info[3] = MEMORIA_getc();
    MEM_info[4] = MEMORIA_getc();
    #ifdef debug_memoria
-   printf(usb_cdc_putc,"\n\r%x %x %x %x %x", MEM_info[0],MEM_info[1],MEM_info[2],MEM_info[3],MEM_info[4]);
+   printf(usb_cdc_putc,"\n\rMemInf: %x %x %x %x %x", MEM_info[0],MEM_info[1],MEM_info[2],MEM_info[3],MEM_info[4]);
    #endif
    return;
 }
