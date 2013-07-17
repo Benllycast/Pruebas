@@ -52,16 +52,22 @@ int MEMORIA_reset(void){
 
 /*==================== autobaudrate ======================*/
 int MEMORIA_init_hw(void){
+	int8 envios = 10;
 	#ifdef debug_memoria
 	update_proceso(INI_HW);
 	#else
 	MEM_proceso = INI_HW;
 	#endif
 	
-	MEMORIA_putc(MEMORIA_CMD_AUTOBAUD);
-	MEM_RESPONSE = MEMORIA_getc();
-	if(MEM_RESPONSE != MEMORIA_ACK){                                
-   	return (1);
+	do{
+		MEMORIA_putc(MEMORIA_CMD_AUTOBAUD);
+		MEM_RESPONSE = MEMORIA_getc();
+		envios --;
+		delay_ms(20);
+	}while((envios > 0) && (MEM_RESPONSE != MEMORIA_ACK) )
+   
+   if(MEM_RESPONSE != MEMORIA_ACK){                                
+		return (1);
 	}
    
    MEMORIA_HW = TRUE;
@@ -278,15 +284,21 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
    for(i = 0; i < car; i++)
       MEMORIA_putc(MEM_file_name[i]);
 
-   MEMORIA_putc(0x00);
+   /*MEMORIA_putc(0x00);
 
    Umsb = MEMORIA_getc();
    Ulsb = MEMORIA_getc();
    Lmsb = MEMORIA_getc();
    Llsb = MEMORIA_getc();
-
+	*/
+	fputc(0x00, MEMORIA);
+	Umsb = fgetc(MEMORIA);
+   Ulsb = fgetc(MEMORIA);
+   Lmsb = fgetc(MEMORIA);
+   Llsb = fgetc(MEMORIA);
    tamano = make32(Umsb,Ulsb,Lmsb,Llsb);
    #ifdef debug_memoria
+   printf(usb_cdc_putc,"\n\r==%x %x %x %x", Umsb, Ulsb,Lmsb,Llsb);
 	update_proceso(GET);
 	#else
 	MEM_proceso = GET;

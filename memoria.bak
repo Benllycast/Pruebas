@@ -52,16 +52,22 @@ int MEMORIA_reset(void){
 
 /*==================== autobaudrate ======================*/
 int MEMORIA_init_hw(void){
+	int8 envios = 10;
 	#ifdef debug_memoria
 	update_proceso(INI_HW);
 	#else
 	MEM_proceso = INI_HW;
 	#endif
 	
-	MEMORIA_putc(MEMORIA_CMD_AUTOBAUD);
-	MEM_RESPONSE = MEMORIA_getc();
-	if(MEM_RESPONSE != MEMORIA_ACK){                                
-   	return (1);
+	do{
+		MEMORIA_putc(MEMORIA_CMD_AUTOBAUD);
+		MEM_RESPONSE = MEMORIA_getc();
+		envios --;
+		delay_ms(20);
+	}while((envios > 0) && (MEM_RESPONSE != MEMORIA_ACK) )
+   
+   if(MEM_RESPONSE != MEMORIA_ACK){                                
+		return (1);
 	}
    
    MEMORIA_HW = TRUE;
@@ -107,7 +113,7 @@ void MEMORIA_getinfo(){
    MEM_info[3] = MEMORIA_getc();
    MEM_info[4] = MEMORIA_getc();
    #ifdef debug_memoria
-   printf(usb_cdc_putc,"\n\r%x %x %x %x %x", MEM_info[0],MEM_info[1],MEM_info[2],MEM_info[3],MEM_info[4]);
+   printf(usb_cdc_putc,"\n\rMemInf: %x %x %x %x %x", MEM_info[0],MEM_info[1],MEM_info[2],MEM_info[3],MEM_info[4]);
    #endif
    return;
 }
