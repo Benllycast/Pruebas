@@ -63,7 +63,7 @@ int MEMORIA_init_hw(void){
 		MEMORIA_putc(MEMORIA_CMD_AUTOBAUD);
 		MEM_RESPONSE = MEMORIA_getc();
 		envios --;
-		delay_ms(100);
+		delay_ms(200);
 	}while((envios > 0) && (MEM_RESPONSE != MEMORIA_ACK) );                                                       
    
    if(MEM_RESPONSE != MEMORIA_ACK){                                
