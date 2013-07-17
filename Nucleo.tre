@@ -4510,7 +4510,7 @@
    ³  ³  ³  ³                    ÀÄusb_tbe  0/68  Ram=3
    ³  ³  ³  ÃÄstrlen  0/50  Ram=5
    ³  ³  ³  ÀÄstrncpy  0/124  Ram=10
-   ³  ³  ÃÄMEMORIA_read  0/240  Ram=6
+   ³  ³  ÃÄMEMORIA_read  0/254  Ram=7
    ³  ³  ³  ÃÄMEMORIA_putc  0/56  Ram=1
    ³  ³  ³  ³  ÃÄusb_cdc_putc  0/56  Ram=1
    ³  ³  ³  ³  ³  ÃÄusb_tbe  0/68  Ram=3
@@ -5068,6 +5068,10 @@
    ³  ³  ³  ³                 ÀÄusb_flush_in  0/220  Ram=7
    ³  ³  ³  ³                    ÀÄusb_tbe  0/68  Ram=3
    ³  ³  ³  ÃÄ@PUTCHARI_BIU_2  0/8  Ram=0
+   ³  ³  ³  ÃÄ@GETCH_BIU_2  0/58  Ram=3
+   ³  ³  ³  ³  ÀÄ@delay_us1  0/28  Ram=1
+   ³  ³  ³  ÃÄ@GETCH_BIU_2  0/58  Ram=3
+   ³  ³  ³  ³  ÀÄ@delay_us1  0/28  Ram=1
    ³  ³  ³  ÃÄ@GETCH_BIU_2  0/58  Ram=3
    ³  ³  ³  ³  ÀÄ@delay_us1  0/28  Ram=1
    ³  ³  ³  ÃÄ@GETCH_BIU_2  0/58  Ram=3
@@ -6219,7 +6223,7 @@
    ³  ³  ³                    ÀÄusb_flush_in  0/220  Ram=7
    ³  ³  ³                       ÀÄusb_tbe  0/68  Ram=3
    ³  ³  ÃÄMEMORIA_close  0/52  Ram=2
-   ³  ³  ³  ÃÄ@const1113  0/18  Ram=0
+   ³  ³  ³  ÃÄ@const1114  0/18  Ram=0
    ³  ³  ³  ÀÄupdate_proceso  0/30  Ram=1
    ³  ³  ³     ÃÄ@PSTRINGCN_359  0/30  Ram=3
    ³  ³  ³     ³  ÀÄusb_cdc_putc  0/56  Ram=1
@@ -6340,7 +6344,7 @@
          ³  ³  ÃÄusb_request_send_response  0/6  Ram=1
          ³  ³  ÃÄusb_Get_Descriptor  0/154  Ram=0
          ³  ³  ³  ÃÄ@const426  0/68  Ram=0
-         ³  ³  ³  ÃÄ@const1505  0/32  Ram=0
+         ³  ³  ³  ÃÄ@const1506  0/32  Ram=0
          ³  ³  ³  ÃÄ@const415  0/84  Ram=0
          ³  ³  ³  ÃÄusb_request_stall  0/6  Ram=0
          ³  ³  ³  ÃÄusb_request_stall  0/6  Ram=0

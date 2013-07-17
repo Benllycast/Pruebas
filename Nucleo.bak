@@ -29,11 +29,8 @@ int1 _debug_usb(void){
 }
 #endif
 
- #include "test.c"	// comentar esto en la aplicacion final
+#include "test.c"	// comentar esto en la aplicacion final
 
-
-
-//#define test_proteus 1
 
 int myerror = 0;
 #ifndef SIMULACION
@@ -104,7 +101,7 @@ void main(void) {
    while(1){
 		if(_debug_usb()){
 			test_comunicacion();
-			test_memoria();
+			//test_memoria();
 		}else{
 			output_bit(INDICADOR_AMARILLO, execute);
 			execute = !execute;

@@ -63,7 +63,7 @@ int MEMORIA_init_hw(void){
 		MEMORIA_putc(MEMORIA_CMD_AUTOBAUD);
 		MEM_RESPONSE = MEMORIA_getc();
 		envios --;
-		delay_ms(120);
+		delay_ms(100);
 	}while((envios > 0) && (MEM_RESPONSE != MEMORIA_ACK) );                                                       
    
    if(MEM_RESPONSE != MEMORIA_ACK){                                
@@ -266,7 +266,7 @@ int MEMORIA_set_data(char *data, unsigned int size){
 /*==================== enviar comando de lectura ======================*/
 
 unsigned int32 MEMORIA_read(unsigned int num_bytes){
-   char Umsb = 0, Ulsb = 0, Lmsb = 0,Llsb = 0;
+   char Umsb = 0, Ulsb = 0, Lmsb = 0,Llsb = 0, dummy= 0;
 /*
    if(!MEMORIA_OK)return(-1);
    if(MEM_proceso != RD)return(-2);
@@ -291,6 +291,8 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
    Llsb = MEMORIA_getc();
 	*/
 	fputc(0x00, MEMORIA);
+	dummy = fgetc(MEMORIA);
+	dummy = fgetc(MEMORIA);
 	Umsb = fgetc(MEMORIA);
    Ulsb = fgetc(MEMORIA);
    Lmsb = fgetc(MEMORIA);
@@ -391,7 +393,7 @@ void MEMORIA_putc(char c){
 
 /*==================== obtiene un caracter del bus======================*/
 char MEMORIA_getc(void){
-	char c = 0x00, cont = 10;
+	char c = 0x00, cont = 3;
    timeout_error=FALSE;
    while(!kbhit(MEMORIA) && cont > 0 && !c){
    	c = fgetc(MEMORIA);
