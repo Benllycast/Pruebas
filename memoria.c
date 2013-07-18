@@ -14,6 +14,7 @@
 short MEMORIA_OK = FALSE;
 short MEMORIA_HW = FALSE;
 short timeout_error = FALSE;
+short read_flag = 0; //utilizada por un bug en dispositivo de memoria
 int8 MEM_proceso = INI_HW;
 unsigned int i = 0;
 unsigned int car = 0;
@@ -28,7 +29,7 @@ char MEM_RESPONSE = MEMORIA_NOACK;
 #ifdef debug_memoria
 void update_proceso(int8 proceso){
 	MEM_proceso = proceso;
-	printf(usb_cdc_putc,"\n\rMp>%d", MEM_proceso);
+	printf(usb_cdc_putc_fast,"\n\rMp>%d", MEM_proceso);
 	return;
 }
 #endif
@@ -40,11 +41,12 @@ void update_proceso(int8 proceso){
 /*==================== reset de memoria ======================*/
 int MEMORIA_reset(void){
 	#ifdef debug_memoria
-	usb_cdc_putc('r');
+	usb_cdc_putc_fast('r');
 	#endif
 	output_float(PIN_D6);
    output_low(MEMORIA_PIN_RESET);
    delay_ms(1000);
+   read_flag = 0;
    output_high(MEMORIA_PIN_RESET);
    delay_ms(3000);
    return(0);
@@ -72,7 +74,7 @@ int MEMORIA_init_hw(void){
    
    MEMORIA_HW = TRUE;
    MEMORIA_OK = FALSE;
-   
+   read_flag = 0;
    #ifdef debug_memoria
 	update_proceso(INI_SW);
 	#else
@@ -95,6 +97,7 @@ int MEMORIA_init(void){
    if(MEM_RESPONSE != MEMORIA_ACK) return(2);
    else MEMORIA_OK = TRUE;
    
+   read_flag = 0;
    #ifdef debug_memoria
 	update_proceso(OPEN);
 	#else
@@ -113,7 +116,7 @@ void MEMORIA_getinfo(){
    MEM_info[3] = MEMORIA_getc();
    MEM_info[4] = MEMORIA_getc();
    #ifdef debug_memoria
-   printf(usb_cdc_putc,"\n\rMemInf: %x %x %x %x %x", MEM_info[0],MEM_info[1],MEM_info[2],MEM_info[3],MEM_info[4]);
+   printf(usb_cdc_putc_fast,"\n\rMemInf: %x %x %x %x %x", MEM_info[0],MEM_info[1],MEM_info[2],MEM_info[3],MEM_info[4]);
    #endif
    return;
 }
@@ -292,9 +295,12 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
 	*/
 	fputc(0x00, MEMORIA);
 	// hay un bug al leer por primera vez un archivo
-	// genera 2 ACK en el tamaño del archivo
-	dummy = fgetc(MEMORIA);
-	dummy = fgetc(MEMORIA);
+	// genera 2 ACK antes del tamaño del archivo
+	if(read_flag == 0){
+		dummy = fgetc(MEMORIA);
+		dummy = fgetc(MEMORIA);
+		read_flag = 1;
+	}
 	//bug de comunicacion
 	
 	Umsb = fgetc(MEMORIA);
@@ -303,7 +309,7 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
    Llsb = fgetc(MEMORIA);
    tamano = make32(Umsb,Ulsb,Lmsb,Llsb);
    #ifdef debug_memoria
-   printf(usb_cdc_putc,"\n\r==%x %x %x %x", Umsb, Ulsb,Lmsb,Llsb);
+   printf(usb_cdc_putc_fast,"\n\r==%x %x %x %x", Umsb, Ulsb,Lmsb,Llsb);
 	update_proceso(GET);
 	#else
 	MEM_proceso = GET;
@@ -386,11 +392,11 @@ int MEMORIA_is_busy(void){
 /*==================== colocar un caracter en el bus======================*/
 void MEMORIA_putc(char c){
    #ifdef debug_memoria
-	printf(usb_cdc_putc, "\n\r>%X", c);
+	printf(usb_cdc_putc_fast, "\n\r>%X", c);
 	#endif
    fputc(c, MEMORIA);
    #ifdef debug_memoria
-	printf(usb_cdc_putc, " e%X", rs232_errors);
+	printf(usb_cdc_putc_fast, " e%X", rs232_errors);
 	#endif
    return;
 }
@@ -402,7 +408,7 @@ char MEMORIA_getc(void){
    while(!kbhit(MEMORIA) && cont > 0 && !c){
    	c = fgetc(MEMORIA);
    	#ifdef debug_memoria
-   	usb_cdc_putc('*');
+   	usb_cdc_putc_fast('*');
    	#endif
    	cont--;
    }
@@ -410,7 +416,7 @@ char MEMORIA_getc(void){
    if(!c) c = fgetc(MEMORIA);
    
    #ifdef debug_memoria
-   printf(usb_cdc_putc,"\n\r<%x e%x", c, rs232_errors);
+   printf(usb_cdc_putc_fast,"\n\r<%x e%x", c, rs232_errors);
    #endif
    return(c);
 }
