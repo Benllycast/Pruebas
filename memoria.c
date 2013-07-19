@@ -191,7 +191,7 @@ int MEMORIA_cancel(void){
 
 /*==================== enviar comando de escritura ======================*/
 /*
- *BUG: puede retornar un 0 en la primera escritura del archivo
+ *BUG: puede retornar 1 0 en la primera escritura del archivo
  *TODO: corregir para primera escritura 
 */
 int MEMORIA_write(unsigned int size){

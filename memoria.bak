@@ -295,13 +295,12 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
 	*/
 	fputc(0x00, MEMORIA);
 	// hay un bug al leer por primera vez un archivo
-	// genera 2 ACK en el tamaño del archivo
+	// genera 2 ACK antes del tamaño del archivo
 	if(read_flag == 0){
 		dummy = fgetc(MEMORIA);
 		dummy = fgetc(MEMORIA);
 		read_flag = 1;
 	}
-	
 	//bug de comunicacion
 	
 	Umsb = fgetc(MEMORIA);
