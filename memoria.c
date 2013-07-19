@@ -23,7 +23,7 @@ char MEM_info[5] = {0x00,0x00,0x00,0x00,0x00};
 char MEM_file_name[MEMORIA_NAME_LENG_LIMIT];
 char MEM_handshaking = MEMORIA_DEFAULT_HANDSHAKING;
 char MEM_append = MEMORIA_APPEND;
-char MEM_performance = MEMORIA_HIGH_PERFORMANCE;
+char MEM_performance = MEMORIA_HIGH_PERFORMANCE;	//cambiar a low performance
 char MEM_RESPONSE = MEMORIA_NOACK;
 
 #ifdef debug_memoria
@@ -364,7 +364,7 @@ int MEMORIA_close(void){
    if(!MEMORIA_OK)return (1);
    if(MEM_proceso != CLOSE) return(2);
    */
-   strcpy (MEM_file_name,"");
+   strcpy (MEM_file_name,"");	//cambiar para inicializar a 0
    i = 0;
    car = 0;
    timeout_error = FALSE;

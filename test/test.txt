@@ -1,0 +1,12 @@
+// antes de iniciar limpiar cada archivo
+texto = "0123456789"
+archivo1 = "test.txt"
+	
+test 1:
+	prueba: escritura y lectura del archivo
+	inicio: 
+		archivo vacio
+	hacer:
+		escribir $texto 10 veces en $archivo1
+	salida:
+		debe haber 10 veces $texto

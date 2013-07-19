@@ -70,6 +70,10 @@ void test_memoria(void){
    memset(buffer, 0, MAX);
    while(_debug_usb()){
 			aux++;
+			printf(usb_cdc_putc_fast,"\n\rE %d", myerror);
+			memset(buffer, 0, MAX);
+			myerror = 0;
+			tamano = 0;
 			printf(usb_cdc_putc,"\n\rtest %u", aux);
 			while(!(op = usb_cdc_getc()));
 			switch(op){
@@ -115,9 +119,7 @@ void test_memoria(void){
 					printf(usb_cdc_putc_fast,"\n\r DESCONECTAR...");
 					delay_ms(5000);
 			}
-			memset(buffer, 0, MAX);
-			myerror = 0;
-			tamano = 0;  	
+			  	
 	}
 	return;
 }

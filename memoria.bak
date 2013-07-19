@@ -23,7 +23,7 @@ char MEM_info[5] = {0x00,0x00,0x00,0x00,0x00};
 char MEM_file_name[MEMORIA_NAME_LENG_LIMIT];
 char MEM_handshaking = MEMORIA_DEFAULT_HANDSHAKING;
 char MEM_append = MEMORIA_APPEND;
-char MEM_performance = MEMORIA_HIGH_PERFORMANCE;
+char MEM_performance = MEMORIA_HIGH_PERFORMANCE;	//cambiar a low performance
 char MEM_RESPONSE = MEMORIA_NOACK;
 
 #ifdef debug_memoria
@@ -191,7 +191,7 @@ int MEMORIA_cancel(void){
 
 /*==================== enviar comando de escritura ======================*/
 /*
- *BUG: puede retornar un 0 en la primera escritura del archivo
+ *BUG: puede retornar 1 0 en la primera escritura del archivo
  *TODO: corregir para primera escritura 
 */
 int MEMORIA_write(unsigned int size){
