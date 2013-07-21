@@ -163,11 +163,11 @@ int MEMORIA_open(char* filename, short modo){
 /*==================== cancelar proceso ======================*/
 
 int MEMORIA_cancel(void){
-/*
+
    if((MEM_proceso != GET) || (MEM_proceso != SET)){
       return(-1);
    }
-*/
+   
    if(MEM_proceso == GET){
       fputc(MEMORIA_NOACK, MEMORIA);
       MEM_RESPONSE = MEMORIA_getc();
@@ -207,8 +207,8 @@ int MEMORIA_write(unsigned int size){
    else
       return (-3);
    
-   //tamano = (unsigned int32)size;
-   tamano = (int32)size;
+   tamano = (unsigned int32)size;
+   //tamano = (int32)size;
    MEMORIA_putc(MEMORIA_EXT_CMD);
    MEMORIA_putc(MEMORIA_CMD_WRITE_FILE);
    MEMORIA_putc((MEM_handshaking | MEM_append | MEM_performance));
@@ -245,11 +245,11 @@ int MEMORIA_write(unsigned int size){
  * corrwgir deacuerdo a MEMORIA_write()
  */
 int MEMORIA_set_data(char *data, unsigned int size){
-/*
+
    if(!MEMORIA_OK)return(-5);
    if(MEM_proceso != SET) return(-6);
    if(tamano <= 0)return(-7);
-*/
+
    i = 0;
    while((tamano > 0)&&(i < size)){
       MEMORIA_putc(data[i]);
@@ -276,10 +276,10 @@ int MEMORIA_set_data(char *data, unsigned int size){
 
 unsigned int32 MEMORIA_read(unsigned int num_bytes){
    char Umsb = 0, Ulsb = 0, Lmsb = 0,Llsb = 0, dummy= 0;
-/*
+
    if(!MEMORIA_OK)return(-1);
    if(MEM_proceso != RD)return(-2);
-*/
+
    if((num_bytes > 0) && (num_bytes <= MAX_BUFFER))
       MEM_handshaking = num_bytes;
    else
@@ -292,13 +292,7 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
    
    for(i = 0; i < car; i++)
       MEMORIA_putc(MEM_file_name[i]);
-
-   /*MEMORIA_putc(0x00);
-   Umsb = MEMORIA_getc();
-   Ulsb = MEMORIA_getc();
-   Lmsb = MEMORIA_getc();
-   Llsb = MEMORIA_getc();
-	*/
+	
 	fputc(0x00, MEMORIA);
 	// hay un bug al leer por primera vez un archivo
 	// genera 2 ACK antes del tamaño del archivo
@@ -313,6 +307,7 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
    Ulsb = fgetc(MEMORIA);
    Lmsb = fgetc(MEMORIA);
    Llsb = fgetc(MEMORIA);
+   
    tamano = make32(Umsb,Ulsb,Lmsb,Llsb);
    #ifdef debug_memoria
    printf(usb_cdc_putc_fast,"\n\r==%x %x %x %x", Umsb, Ulsb,Lmsb,Llsb);
@@ -328,11 +323,10 @@ unsigned int32 MEMORIA_read(unsigned int num_bytes){
 
 int MEMORIA_get_data(char *buffer){   
    char c = 0x00;
-/*
+
    if(!MEMORIA_OK) return(-1);
    if(MEM_proceso != GET) return(-2);
    if(tamano <= 0) return(-3);
-*/
 
    i = 0;
    MEMORIA_putc(MEMORIA_ACK);//envia un ACK para recivir nuevos datos

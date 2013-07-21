@@ -8,5 +8,5 @@ G:\Project\pic\CCS\Pruebas\comunicacion.o ===>  0 Errors,  0 Warnings.
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_tbe)
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_flush_out_buffer)
 >>> Warning 216 "Nucleo.c" Line 1(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_get_discard)
-      Memory usage:   ROM=25%      RAM=17% - 23%
+      Memory usage:   ROM=26%      RAM=17% - 23%
       0 Errors,  4 Warnings.

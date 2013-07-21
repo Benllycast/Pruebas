@@ -1,6 +1,6 @@
 
-ROM used: 8246 (25%)
-          8246 (25%) including unused fragments
+ROM used: 8398 (26%)
+          8398 (26%) including unused fragments
 
           1 Average locations per line
           6 Average locations per statement
@@ -20,7 +20,7 @@ Lines Stmts  %   Files
   409     0   0  I:\Archivos de programa\PICC\Drivers\string.h
    28     0   0  I:\Archivos de programa\PICC\Drivers\stddef.h
    28    99   7  I:\Archivos de programa\PICC\Drivers\ctype.h
- 1273   359  25  I:\Archivos de programa\PICC\Drivers\stdlib.h
+ 1273   359  24  I:\Archivos de programa\PICC\Drivers\stdlib.h
    30     0   0  comunicacion.h
   298     0   0  usb_desc_cdc.h
  1063     0   0  I:\Archivos de programa\PICC\Drivers\usb.h
@@ -30,11 +30,11 @@ Lines Stmts  %   Files
   279     0   0  I:\Archivos de programa\PICC\Drivers\usb_desc_cdc.h
   808   237  16  I:\Archivos de programa\PICC\Drivers\usb.c
  1281   320  22  I:\Archivos de programa\PICC\Drivers\pic18_usb.c
-  429   176  12  memoria.c
+  423   195  13  memoria.c
    65     0   0  memoria.h
   128    52   4  test.c
 ----- -----
- 7953  1462 Total
+ 7947  1481 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
@@ -62,7 +62,7 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     72   0   4   258  4.6  usb_unstall_ep
 0     90   1   5   360  5.8  usb_endpoint_stalled
 0     26   0   1    88  2.7  usb_set_address
-0    416   3  10  1722  9.8  usb_set_configured
+0    416   2  10  1722  9.8  usb_set_configured
 0     84   1   3   192  3.2  usb_disable_endpoint
 0     30   0   1    93  2.9  usb_disable_endpoints
 0      4   0   0    39  2.0  usb_clear_trn
@@ -117,13 +117,13 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     26   0   0             @const1104
 0     62   0   2             @PRINTF_X_356
 0     94   1   3   421  5.8  MEMORIA_open
-0     86   1   0   297  4.9  MEMORIA_cancel
-0    198   1   2  1012  9.6  MEMORIA_write
-0    116   1   4   372  8.1  MEMORIA_set_data
-0    260   2   7  1076  8.1  MEMORIA_read
+0    106   1   0   406  6.3  MEMORIA_cancel
+0    198   1   2  1018  9.7  MEMORIA_write
+0    160   1   4   558  8.7  MEMORIA_set_data
+0    296   2   7  1219  9.1  MEMORIA_read
 0     16   0   0             @const1113
-0    124   1   5   432  8.0  MEMORIA_get_data
-0     52   0   2   176  2.4  MEMORIA_close
+0    168   1   5   624  9.0  MEMORIA_get_data
+0     54   0   2   176  2.4  MEMORIA_close
 0     18   0   0   204  4.0  @const1115
 0     56   0   1   125  1.9  MEMORIA_putc
 0    102   1   2   370  5.1  MEMORIA_getc
@@ -131,40 +131,40 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     50   0   5   129  4.6  strlen
 0     30   0   1   143  3.1  _debug_usb
 0     28   0   1    60  1.4  test_comunicacion
-0     14   0   0    72  2.4  @const1483
+0     14   0   0             @const1483
 0     34   0   2             @PSTRINGC_359
-0    546   3  59  1892  7.6  test_memoria
+0    552   3  59  1892  7.6  test_memoria
 0     26   0   0             @MEMSET
 0      8   0   0             @const1498
-0     10   0   0   370  3.1  @const1507
+0     10   0   0             @const1507
 0     32   0   3             @PSTRINGCN_359
 0    104   1   2             @PRINTF_U_359
-0    172   1  13   297  4.9  @DIV3232
-0    178   1  12   935  9.2  @PRINTF_L32U_356
-0     40   0   2  1076  8.1  @PSTRINGR_356
+0    172   1  13             @DIV3232
+0    178   1  12             @PRINTF_L32U_356
+0     40   0   2             @PSTRINGR_356
 0     18   0   0             @const1521
-0     36   0   2   432  8.0  @PSTRINGC_356
+0     36   0   2             @PSTRINGC_356
 0     98   1   0   547  3.4  setup_devices
 0    216   1   2   204  4.0  MAIN
 
 Program metrics:
-    Functions               91
-    Statements              1462
+    Functions               85
+    Statements              1481
     Comments                175
-    Volume (V)              73657
-    Difficilty (D)          406.9
-    Effort to implement (E) 29972150
-    Time to implement (T)   462 hours, 32 minutes
-    Est Delivered Bugs (B)  32
-    Cyclomatic Complexity   209
-    Maintainability (MI)    133
+    Volume (V)              67827
+    Difficilty (D)          374.4
+    Effort to implement (E) 25392880
+    Time to implement (T)   391 hours, 52 minutes
+    Est Delivered Bugs (B)  29
+    Cyclomatic Complexity   206
+    Maintainability (MI)    129
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
 00004-00006     4  0  
 00008-000AC   166  0  
-000AE-07FFE  8072  24522  
+000AE-07FFE  8224  24370  
 
 
 
