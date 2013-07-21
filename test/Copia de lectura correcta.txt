@@ -1,0 +1,102 @@
+lestura de archivo sin datos. retorna el tamaño en ceros y hay que recuperar el utlimo ack
+//////////////////////////////
+r
+E 0
+test 2
+Mp>0
+>55 e00
+<00 e96
+>55 e96
+<00 e94
+>55 e94
+<00 e96
+>55 e96
+<00 e96
+>55 e96
+<00 e96
+E 1
+test 3
+Mp>0
+>55 e96
+<00 e96
+>55 e96
+<00 e96
+>55 e96
+<00 e96
+>55 e96
+<00 e96
+>55 e96
+<00 e96
+E 1
+test 4r
+E 0
+test 5
+Mp>0
+>55 e96
+<00 e96
+>55 e96
+<00 e94
+>55 e94
+<06 e90
+Mp>1
+E 0
+test 6
+>40 e90
+>69 e90
+<06 e90
+Mp>2
+E 0
+test 7
+Mp>3
+E 0
+test 8
+>40 e90
+>61 e90
+>0A e90
+>70 e90
+>72 e90
+>75 e90
+>65 e90
+>62 e90
+>61 e90
+==00 00 00 00
+Mp>4
+t0
+E 0
+test 9
+>06 e90*
+<06 e90
+Mp>7
+0
+E 0
+test 10
+Mp>2
+E 0
+test 11
+Mp>3
+E 0
+test 12
+>40 e90
+>61 e90
+>0A e90
+>70 e90
+>72 e90
+>75 e90
+>65 e90
+>62 e90
+>61 e90
+==00 00 00 00
+Mp>4
+t0
+E 0
+test 13
+>06 e90*
+<06 e90
+Mp>7
+0
+E 0
+test 14
+Mp>2
+E 0
+test 15
+ DESCONECTAR...

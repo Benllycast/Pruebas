@@ -1,12 +1,58 @@
 // antes de iniciar limpiar cada archivo
 texto = "0123456789"
-archivo1 = "test.txt"
-	
+archivo = "PRUEBA"
+======== test de escrituta ===========
 test 1:
-	prueba: escritura y lectura del archivo
-	inicio: 
-		archivo vacio
-	hacer:
-		escribir $texto 10 veces en $archivo1
-	salida:
-		debe haber 10 veces $texto
+	prueba: escritura y lectura del archivo vacio
+	inicio:	archivo creado y sin contenido en la memoria
+	hacer: escribir $texto 1 veces en $archivo1
+	salida:	debe haber 1 veces $texto
+	estado:	ERROR -> NO SE PUEDE ESCRIBIR CON UN ARCHIVO DE VACIO
+
+test 2:
+	prueba de escritura con archivo lleno
+	incio:archivo con 1 $texto 
+	hacer: escribir el archivo 1 ves la palabra de prueba $texto
+	salida: 2 veces la palabra $texto
+	estado:
+		OK -> se comprubaron las palabras correctas
+
+test3:
+	prueba de escritura sin archivo creado
+	incio: la memeoria esta vacia
+	hacer: crear el archivo y escribir 1 vez la plabra $texto
+	salida: archivo con el nombre $archivo y el contenido $texto
+	estado: OK -> SE CREA AL ARCHIVO CON EL CONTENIDO
+	
+======== test de lectura ===========
+
+test1:
+	prueba: lectura de archivo sin contenido
+	inicio: el $archivo esta en la memoria pero sin datos
+	hacer: iniciar memoria y leer archivo
+	salida: tamaño de archivo 0 y esperar un NACK despues de pedir datos
+	estado: OK -> el archivo envia 0 datos pero espera pedri archivo para el eviar un ack de fin de proceso.
+	
+test2:
+	prueba: lectura de archivo con datos
+	inicio: $archivo con la cadena "hola mundo"
+	hacer: iniciar memoria  y leer $archivo
+	salida: en pantalla debe salir tamaño de archivo = 10 y la palabra "HOLA MUNDO"
+	estado: OK -> se recibio 10 en el tamaño y la cadena "HOLA MUNDO"
+
+======== test de Escritura - lectura ===========
+test3:
+	prueba: escritura y lectura en el mismo archvo
+	inicio: archivo con la cadena "HOLA MUNDO"
+	hacer: 
+		inciar memoria
+		escribir $texto en archivo
+		cerrar archivo
+		leer archivo
+	salida: debe aparecer en patalla:
+		tamaño archvo = 20
+		cadena = "HOLA MUNDO0123456789"
+	estado: OK -> se recibieron
+		tamaño de archivo = 0x14 (20)
+		2 cadenas con "HOLA MUNDO"+"0123456789"
+		confirmado en computador.
