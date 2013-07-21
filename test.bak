@@ -59,7 +59,7 @@ void test_comunicacion(void){
 #ifdef MEMORIA_H
 #define MAX 32
 void test_memoria(void){
-	char testfile[] = "test.txt";
+	char testfile[] = "test.txt";  //el nombre es mejor dejarlo sin punto                              
 	char mensaje[] = "0123456789";
 	char buffer[MAX];
 	unsigned int8 aux = 0, size = 0, myerror = 0;

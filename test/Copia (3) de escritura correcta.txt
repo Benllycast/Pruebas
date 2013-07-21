@@ -1,0 +1,98 @@
+reparando bug en la escritura del archivo que retorna 0 en el primer envio de escritura
+/////////////////
+r
+E 0
+test 2
+Mp>0
+>55 e00
+<00 e96
+>55 e96
+<00 e94
+>55 e94
+<06 e90
+Mp>1
+E 0
+test 3
+>40 e90
+>69 e90
+<06 e90
+Mp>2
+E 0
+test 4
+Mp>5
+E 0
+test 5
+>40 e90
+>74 e90
+>C0 e90
+>70 e90
+>72 e90
+>75 e90
+>65 e90
+>62 e90
+>61 e90
+>00 e90
+>00 e90
+>00 e90
+>00 e90
+>0A e90
+<06 e90
+Mp>6
+E 0
+test 6
+>30 e90
+>31 e90
+>32 e90
+>33 e90
+>34 e90
+>35 e90
+>36 e90
+>37 e90
+>38 e90
+>39 e90
+<06 e90
+Mp>7
+E 10
+test 7
+Mp>2
+E 0
+test 8
+Mp>5
+E 0
+test 9
+>40 e90
+>74 e90
+>C0 e90
+>70 e90
+>72 e90
+>75 e90
+>65 e90
+>62 e90
+>61 e90
+>00 e90
+>00 e90
+>00 e90
+>00 e90
+>0A e90
+<06 e90
+Mp>6
+E 0
+test 10
+>30 e90
+>31 e90
+>32 e90
+>33 e90
+>34 e90
+>35 e90
+>36 e90
+>37 e90
+>38 e90
+>39 e90
+<06 e90
+Mp>7
+E 10
+test 11
+Mp>2
+E 0
+test 12
+ DESCONECTAR...

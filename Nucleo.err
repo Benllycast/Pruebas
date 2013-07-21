@@ -1,4 +1,4 @@
->>> Warning 201 "G:\Project\pic\CCS\Pruebas\test.c" Line 78(1,1): Assignment inside relational expression
+>>> Warning 201 "G:\Project\pic\CCS\Pruebas\test.c" Line 79(1,1): Assignment inside relational expression
 >>> Warning 203 "Nucleo.c" Line 101(1,1): Condition always TRUE
 >>> Warning 202 "G:\Project\pic\CCS\Pruebas\memoria.h" Line 49(13,21): Variable never used:   MEM_info
 G:\Project\pic\CCS\Pruebas\Nucleo.o ===>  0 Errors,  3 Warnings.

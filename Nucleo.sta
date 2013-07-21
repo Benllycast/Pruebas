@@ -1,12 +1,12 @@
 
-ROM used: 8214 (25%)
-          8214 (25%) including unused fragments
+ROM used: 8246 (25%)
+          8246 (25%) including unused fragments
 
           1 Average locations per line
           6 Average locations per statement
 
 RAM used: 356 (17%) at main() level
-          465 (23%) worst case
+          463 (23%) worst case
 
 Stack used: 18 worst case (out of 31 total available)
 
@@ -30,11 +30,11 @@ Lines Stmts  %   Files
   279     0   0  I:\Archivos de programa\PICC\Drivers\usb_desc_cdc.h
   808   237  16  I:\Archivos de programa\PICC\Drivers\usb.c
  1281   320  22  I:\Archivos de programa\PICC\Drivers\pic18_usb.c
-  423   173  12  memoria.c
+  429   176  12  memoria.c
    65     0   0  memoria.h
-  127    52   4  test.c
+  128    52   4  test.c
 ----- -----
- 7946  1459 Total
+ 7953  1462 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
@@ -118,7 +118,7 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     62   0   2             @PRINTF_X_356
 0     94   1   3   421  5.8  MEMORIA_open
 0     86   1   0   297  4.9  MEMORIA_cancel
-0    188   1   2   935  9.2  MEMORIA_write
+0    198   1   2  1012  9.6  MEMORIA_write
 0    116   1   4   372  8.1  MEMORIA_set_data
 0    260   2   7  1076  8.1  MEMORIA_read
 0     16   0   0             @const1113
@@ -131,40 +131,40 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     50   0   5   129  4.6  strlen
 0     30   0   1   143  3.1  _debug_usb
 0     28   0   1    60  1.4  test_comunicacion
-0     14   0   0             @const1483
+0     14   0   0    72  2.4  @const1483
 0     34   0   2             @PSTRINGC_359
-0    554   3  61  1892  7.6  test_memoria
+0    546   3  59  1892  7.6  test_memoria
 0     26   0   0             @MEMSET
 0      8   0   0             @const1498
-0     10   0   0             @const1507
+0     10   0   0   370  3.1  @const1507
 0     32   0   3             @PSTRINGCN_359
 0    104   1   2             @PRINTF_U_359
-0    144   1  13             @DIV3232
-0    178   1  12             @PRINTF_L32U_356
-0     40   0   2             @PSTRINGR_356
+0    172   1  13   297  4.9  @DIV3232
+0    178   1  12   935  9.2  @PRINTF_L32U_356
+0     40   0   2  1076  8.1  @PSTRINGR_356
 0     18   0   0             @const1521
-0     36   0   2             @PSTRINGC_356
+0     36   0   2   432  8.0  @PSTRINGC_356
 0     98   1   0   547  3.4  setup_devices
-0    214   1   2   204  4.0  MAIN
+0    216   1   2   204  4.0  MAIN
 
 Program metrics:
-    Functions               85
-    Statements              1459
+    Functions               91
+    Statements              1462
     Comments                175
-    Volume (V)              66501
-    Difficilty (D)          369.9
-    Effort to implement (E) 24596079
-    Time to implement (T)   379 hours, 34 minutes
-    Est Delivered Bugs (B)  28
-    Cyclomatic Complexity   196
-    Maintainability (MI)    130
+    Volume (V)              73657
+    Difficilty (D)          406.9
+    Effort to implement (E) 29972150
+    Time to implement (T)   462 hours, 32 minutes
+    Est Delivered Bugs (B)  32
+    Cyclomatic Complexity   209
+    Maintainability (MI)    133
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
 00004-00006     4  0  
 00008-000AC   166  0  
-000AE-07FFE  8040  24554  
+000AE-07FFE  8072  24522  
 
 
 
