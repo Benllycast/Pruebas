@@ -1,4 +1,4 @@
-CCS PCH C Compiler, Version 4.105, 13255               21-Jul-13 12:51
+CCS PCH C Compiler, Version 4.105, 13255               31-Jul-13 17:01
 
                Filename: G:\Project\pic\CCS\Pruebas\Nucleo.lst
 
@@ -18697,7 +18697,7 @@ CCS PCH C Compiler, Version 4.105, 13255               21-Jul-13 12:51
 .................... // #include "analogo_digital.h" 
 .................... // #include "comunicacion.h" 
 .................... // #include "accelerometro.h" 
-.................... // #include "captura_frecuencia.h" 
+.................... //#include "captura_frecuencia.h" 
 .................... #include "memoria.h" 
 .................... #ifndef MEMORIA_H 
 .................... #define MEMORIA_H 
@@ -18803,6 +18803,8 @@ CCS PCH C Compiler, Version 4.105, 13255               21-Jul-13 12:51
 .................... 	} 
 .................... } 
 11C4:  RETLW  00
+.................... #else 
+.................... 	#define _debug_usb() 1 
 .................... #endif 
 ....................  
 .................... #include "test.c"	// comentar esto en la aplicacion final 
@@ -19388,6 +19390,7 @@ CCS PCH C Compiler, Version 4.105, 13255               21-Jul-13 12:51
 20A4:  GOTO   12A8
 .................... 			test_memoria(); 
 20A8:  BRA    1DCE
+.................... 			//test_ccp(); 
 .................... 		}else{ 
 20AA:  BRA    20CA
 .................... 			output_bit(INDICADOR_AMARILLO, execute); 

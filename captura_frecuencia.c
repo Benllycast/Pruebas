@@ -66,7 +66,7 @@ int CP_init_ccp(){
    set_timer3(0);
    setup_ccp1(MODO_CCP1);
    setup_ccp2(MODO_CCP2);
-   TRISC.TRISC1 = TRISC.TRISC2 = 1  ;                       
+   TRISC.TRISC1 = TRISC.TRISC2 = 1;                       
    return 0;
 }
 

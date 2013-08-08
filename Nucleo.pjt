@@ -18,9 +18,9 @@ AdditionalOptionString=
 [Opened Files]
 1=Nucleo.c
 2=Nucleo.h
-3=I:\Archivos de programa\PICC\Devices\18F4550.h
-4=test.c
-5=memoria.h
+3=test.c
+4=
+5=
 6=memoria.c
 7=comunicacion.h
 8=

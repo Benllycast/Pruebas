@@ -2,7 +2,7 @@
 // #include "analogo_digital.h"
 // #include "comunicacion.h"
 // #include "accelerometro.h"
-// #include "captura_frecuencia.h"
+//#include "captura_frecuencia.h"
 #include "memoria.h"
 // #include "ds1307.h"
 // #include "utilidades.h"
@@ -27,6 +27,8 @@ int1 _debug_usb(void){
 		return (0);
 	}
 }
+#else
+	#define _debug_usb() 1
 #endif
 
 #include "test.c"	// comentar esto en la aplicacion final
@@ -102,6 +104,7 @@ void main(void) {
 		if(_debug_usb()){
 			test_comunicacion();
 			test_memoria();
+			//test_ccp();
 		}else{
 			output_bit(INDICADOR_AMARILLO, execute);
 			execute = !execute;
