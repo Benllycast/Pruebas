@@ -1,4 +1,8 @@
-import sys, os, threading, struct, time
+import sys 
+import os
+import threading
+import struct
+import time
 import argparse
 import serial
 
@@ -69,9 +73,7 @@ class Simulador(object):
                 else:
                     respuesta = '\n\rack '+ data
                     self.serial.write(respuesta)
-                    data = ''
-                
-                    
+                    data = ''        
         except serial.SerialException, e:
             self.alive = False
             raise
@@ -147,10 +149,12 @@ class Simulador(object):
             self.log_writer(respuesta)
             self.log_writer('\x06')
 
-
-
     def escribir_memoria(self):
-        handshakin = self.log_reader(1)
+        datos = ''
+        opciones = ord(self.log_reader(1))
+        handshking = opciones & 0x3f
+        append = (opciones & 0x80) >> 7
+        performance = (opciones & 0x40) >> 6
         nombre = ''
         c = ''
         while True:
@@ -160,9 +164,15 @@ class Simulador(object):
             else:
                 nombre = nombre + c
         tamano = self.log_reader(4)
-        tamano = int(struct.unpack('!I',tamano )[0])
-        sys.stdout.write('\nEscritura: File: %s TM: %d HS: %x\n' % (nombre,tamano, handshakin) )
-        self.log_writer('\x15')
+        tamano = int(struct.unpack('!I',tamano)[0])
+        sys.stdout.write('\nEscritura: FL: %s TM: %d HS: %d AP: %d PER: %d\n' % (nombre, tamano, handshking, append, performance))
+        # self.log_writer('\x15')
+        self.log_writer('\x06')
+        while tamano > 0:
+            datos = datos + self.log_reader(1)
+            tamano -= 1
+        sys.stdout.write('\nDatos: %s' % datos)
+        self.log_writer('\x06')
 
     def inciar_memoria(self):
         pass
