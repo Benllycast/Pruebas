@@ -1,9 +1,6 @@
 //#include "Nucleo.h"
 #include "memoria.h"
-//#include "comunicacion.h"
-
-#define debug_memoria 1
-
+#include "comunicacion.h"
 
 // #define MEM_RX PIN_D7
 // #define MEM_TX PIN_D6	

@@ -1,7 +1,13 @@
 >>> Warning 203 "G:\Project\pic\CCS\Pruebas\ds1307.c" Line 181(1,1): Condition always TRUE
->>> Warning 216 "Nucleo.c" Line 137(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_get_discard)
->>> Warning 216 "Nucleo.c" Line 137(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_tbe)
->>> Warning 216 "Nucleo.c" Line 137(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_flush_out_buffer)
->>> Warning 216 "Nucleo.c" Line 137(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
-      Memory usage:   ROM=18%      RAM=22% - 24%
-      0 Errors,  5 Warnings.
+>>> Warning 216 "Nucleo.c" Line 100(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
+>>> Warning 216 "Nucleo.c" Line 100(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_tbe)
+>>> Warning 216 "Nucleo.c" Line 100(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_flush_out_buffer)
+>>> Warning 202 "G:\Project\pic\CCS\Pruebas\ds1307.h" Line 71(13,19): Variable never used:   DS_dia
+>>> Warning 202 "G:\Project\pic\CCS\Pruebas\ds1307.h" Line 72(13,19): Variable never used:   DS_mes
+>>> Warning 202 "G:\Project\pic\CCS\Pruebas\ds1307.h" Line 73(14,21): Variable never used:   DS_anio
+>>> Warning 202 "G:\Project\pic\CCS\Pruebas\ds1307.h" Line 74(13,19): Variable never used:   DS_vic
+>>> Warning 202 "G:\Project\pic\CCS\Pruebas\ds1307.h" Line 75(13,19): Variable never used:   DS_hor
+>>> Warning 202 "G:\Project\pic\CCS\Pruebas\ds1307.h" Line 76(13,19): Variable never used:   DS_min
+>>> Warning 202 "G:\Project\pic\CCS\Pruebas\ds1307.h" Line 77(13,19): Variable never used:   DS_sec
+      Memory usage:   ROM=19%      RAM=23% - 25%
+      0 Errors,  11 Warnings.

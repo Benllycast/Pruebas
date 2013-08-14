@@ -12,26 +12,26 @@
 #define SET		6
 #define CLOSE	7
 
-#define MEMORIA_CMD_AUTOBAUD	0x55
-#define MEMORIA_CMD_VER_INFO	0x56
+#define MEMORIA_CMD_AUTOBAUD		0x55
+#define MEMORIA_CMD_VER_INFO		0x56
 #define MEMORIA_CMD_FAT_PROTECT	0x59
 #define MEMORIA_CMD_INITIALIZE	0x69
 
-#define MEMORIA_EXT_CMD	0x40
-#define MEMORIA_CMD_READ_FILE	0x61
+#define MEMORIA_EXT_CMD				0x40
+#define MEMORIA_CMD_READ_FILE		0x61
 #define MEMORIA_CMD_WRITE_FILE	0x74
 
 #define MEMORIA_FAT_VALUE	0x08
 
-#define MEMORIA_ACK 		0x06
+#define MEMORIA_ACK			0x06
 #define MEMORIA_NOACK		0x15
 
-#define MEMORIA_ON 			0x01
-#define MEMORIA_OFF 		0x00
+#define MEMORIA_ON		0x01
+#define MEMORIA_OFF		0x00
 
-#define MEMORIA_NAME_LENG_LIMIT	12
-#define MEMORIA_NAME_TERMINATOR 0x00
-#define MEMORIA_DELIMITADOR 	0x0a
+#define MEMORIA_NAME_LENG_LIMIT		12
+#define MEMORIA_NAME_TERMINATOR		0x00
+#define MEMORIA_DELIMITADOR			0x0a
 
 #define MEMORIA_NO_APPEND 	0X00
 #define MEMORIA_APPEND 		0X80
@@ -40,8 +40,8 @@
 #define MEMORIA_DEFAULT_HANDSHAKING 0X01
 #define MEMORIA_MAX_HANDSHAKING		0x32
 
-#define MEMORIA_HIGH_PERFORMANCE 	0x00
-#define MEMORIA_LOW_PERFORMANCE 	0x40
+#define MEMORIA_HIGH_PERFORMANCE		0x00
+#define MEMORIA_LOW_PERFORMANCE		0x40
 
 #define FILE_WR 1
 #define FILE_RD 0
@@ -61,4 +61,8 @@ int MEMORIA_get_data(char* buffer);
 int MEMORIA_close(void);
 int MEMORIA_is_busy(void);
 char MEMORIA_getc(void);
+
+//borrar para quitar el debug de memoria
+#define debug_memoria 1	
+
 #endif

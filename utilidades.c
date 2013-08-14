@@ -1,4 +1,4 @@
-#include "Nucleo.h"
+//#include "Nucleo.h"
 #include "utilidades.h"
 
 /*
@@ -17,7 +17,6 @@ int16 crc_1021(int16 old_crc, int8 data)
   return crc; 
 }
 
-
 int16 calc_CRC(char *buffer, unsigned int8 leng){
 	unsigned int8 i; 
    int16 MyCRC;
@@ -28,3 +27,16 @@ int16 calc_CRC(char *buffer, unsigned int8 leng){
    }
    return (MyCRC);
 }
+
+#ifndef SIMULACION
+int1 _debug_usb(void){
+	if(COM_sense() == USB_OK){
+      output_bit(INDICADOR_USB, 1);
+      return (1);
+	}else{
+		output_bit(INDICADOR_USB, 0);
+		return (0);
+	}
+}
+#endif
+

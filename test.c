@@ -20,11 +20,11 @@ void test_ccp(){
 #ifdef SIMULACION
 void test_ADC(void){
 	int16 ejex = 0, ejey = 0, ejez = 0, vel = 0, rev = 0;
-	AD_leer_canal(acc_eje_x, &ejex);
-	AD_leer_canal(acc_eje_y, &ejey);
-	AD_leer_canal(acc_eje_z, &ejez);
-	AD_leer_canal(velocidad, &vel);
-	AD_leer_canal(revolucion, &rev);
+	AD_leer_canal(ACC_x, &ejex);
+	AD_leer_canal(ACC_y, &ejey);
+	AD_leer_canal(ACC_z, &ejez);
+	AD_leer_canal(AD_VEL, &vel);
+	AD_leer_canal(AD_REV, &rev);
 	printf("\n\rx:%LX\t\ty:%LX\t\tz:%LX\t\tv:%LX\t\tr:%LX",ejex, ejey, ejez, vel, rev);
 	delay_ms(333);
 	return;
@@ -35,11 +35,11 @@ void test_ADC(void){
 	int16 ejex = 0, ejey = 0, ejez = 0, vel = 0, rev = 0;
 	if(_debug_usb()){
 		//place your code here
-		AD_leer_canal(acc_eje_x, &ejex);
-		AD_leer_canal(acc_eje_y, &ejey);
-		AD_leer_canal(acc_eje_z, &ejez);
-		AD_leer_canal(velocidad, &vel);
-		AD_leer_canal(revolucion, &rev);
+		AD_leer_canal(ACC_x, &ejex);
+	AD_leer_canal(ACC_y, &ejey);
+	AD_leer_canal(ACC_z, &ejez);
+	AD_leer_canal(AD_VEL, &vel);
+	AD_leer_canal(AD_REV, &rev);
 		printf(usb_cdc_putc_fast,"\n\rx:%LX\t\ty:%LX\t\tz:%LX\t\tv:%LX\t\tr:%LX",ejex, ejey, ejez, vel, rev);
 		delay_ms(333);
 	}
@@ -58,6 +58,7 @@ void test_comunicacion(void){
 
 #ifdef MEMORIA_H
 #define MAX 32
+/*
 void test_memoria(void){
 	//char testfile[] = "test.txt";  //el nombre es mejor dejarlo sin punto                              
 	char testfile[] = "prueba";
@@ -123,5 +124,5 @@ void test_memoria(void){
 			  	
 	}
 	return;
-}
+}*/
 #endif

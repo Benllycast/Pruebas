@@ -16,18 +16,22 @@ AdditionalOptionString=
 [Windows]
 0=0000 %S 0 0 796 451 3 0
 [Opened Files]
-1=analogo_digital.c
-2=registros.h
-3=Nucleo.c
-4=memoria.h
-5=captura_frecuencia.c
+1=Nucleo.c
+2=utilidades.c
+3=Nucleo.h
+4=utilidades.h
+5=
 6=Nucleo.h
 7=comunicacion.c
 8=memoria.c
-9=
-10=
-11=
-12=
+9=analogo_digital.h
+10=utilidades.h
+11=utilidades.c
+12=comunicacion.h
+13=ds1307.c
+14=test.c
+15=I:\Archivos de programa\PICC\Drivers\usb.h
+16=
 [Target Data]
 OptionString=+FH
 FileList=G:\Project\pic\CCS\Pruebas\Nucleo.c
