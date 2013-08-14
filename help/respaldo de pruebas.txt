@@ -183,3 +183,20 @@ void leer_ccp2(void){
    printf("%s\n\r", mensaje);
 }
 */
+////////////////implemntacion de RTOS ////////////////////////////
+
+void main(void) {
+	short execute = 0;
+	setup_devices();
+   while(1){
+		if(_debug_usb()){
+			//test_comunicacion();
+			//test_memoria();
+			//test_ccp();
+		}else{
+			output_bit(INDICADOR_AMARILLO, execute);
+			execute = !execute;
+			delay_ms(333);
+		}
+  	}
+}

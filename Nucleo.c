@@ -1,11 +1,18 @@
 #include "Nucleo.h"
-// #include "analogo_digital.h"
-// #include "comunicacion.h"
-// #include "accelerometro.h"
-//#include "captura_frecuencia.h"
+#use RTOS(timer=0, minor_cycle=10ms, statistics )
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#ifndef SIMULACION
+	#include "comunicacion.h"
+#endif
+/*#include "analogo_digital.h"
+#include "ds1307.h"
 #include "memoria.h"
-// #include "ds1307.h"
+#include "captura_frecuencia.h"
+*/
 // #include "utilidades.h"
+// #include "accelerometro.h"
 
 #define acc_eje_x		0
 #define acc_eje_y		1
@@ -15,6 +22,10 @@
 
 #define INDICADOR_AMARILLO	PIN_E0
 #define INDICADOR_USB		PIN_E1
+
+/*======================= declaracion de tareas=======================*/
+#task (rate=200ms, max=10ms) //Ejecutar cada 1 segundo y consumir como máximo 10ms
+void Tarea1();
 
 /*===============================funciones de debug===========================*/
 #ifndef SIMULACION
@@ -31,13 +42,14 @@ int1 _debug_usb(void){
 	#define _debug_usb() 1
 #endif
 
-#include "test.c"	// comentar esto en la aplicacion final
+//#include "test.c"	// comentar esto en la aplicacion final
 
 
 int myerror = 0;
 #ifndef SIMULACION
 void test_real(void);
 #endif
+
 
 /*======================= configuracon de dispositivos =======================*/
 void setup_devices(){
@@ -49,7 +61,7 @@ void setup_devices(){
    //myerror += MEMORIA_init();
    
    /*========================= conversor analogo/digital =====================*/
-   // myerror = AD_init_adc();
+   //myerror = AD_init_adc();
    
    /*========================= modulo CPP ====================================*/
    //myerror = CP_init_ccp();
@@ -63,16 +75,19 @@ void setup_devices(){
    /*-------------------------------------------------------------------------*/
    setup_psp(PSP_DISABLED);
    setup_wdt(WDT_OFF);
-   setup_timer_0(RTCC_INTERNAL);
-   setup_timer_1(T1_DISABLED);
-   setup_timer_2(T2_DISABLED,0,1);
-   setup_comparator(NC_NC_NC_NC);
-   setup_vref(FALSE);
+   setup_spi(SPI_SS_DISABLED);
    
+   setup_timer_0(RTCC_INTERNAL);
+   setup_timer_0(RTCC_INTERNAL|RTCC_DIV_1);
+   setup_timer_2(T2_DISABLED,0,1);
+     
    #ifndef CAPTURA_FRECUENCIA_H
 	setup_timer_3(T3_DISABLED|T3_DIV_BY_1);
 	setup_ccp1(CCP_OFF);
    #endif
+   
+   setup_comparator(NC_NC_NC_NC);
+   setup_vref(FALSE);
    
    /*-------------------------------------------------------------------------*/
    
@@ -98,20 +113,23 @@ void setup_devices(){
 ||										 MAIN 													||
 =============================================================================*/
 void main(void) {
-	short execute = 0;
 	setup_devices();
-   while(1){
-		if(_debug_usb()){
-			test_comunicacion();
-			test_memoria();
-			//test_ccp();
-		}else{
-			output_bit(INDICADOR_AMARILLO, execute);
-			execute = !execute;
-			delay_ms(333);
-		}
-  	}
+   rtos_run(); //A partir de aquí comenzará la ejecución de las tareas
 }
 
 //=============================================================
+#include "comunicacion.c"
 
+#include "analogo_digital.c"
+#include "ds1307.c"
+#include "captura_frecuencia.c"
+#include "memoria.c"
+
+
+/*======================= implementacion de tareas =======================*/
+void Tarea1()
+{
+	//_debug_usb();                        
+	printf("tarea 1:");
+	//rtos_yield();
+}

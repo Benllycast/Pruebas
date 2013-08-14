@@ -37,7 +37,6 @@ struct TBLPTRU {
 
 #word PROD = 0xFF4
 
-/*
 struct INTCON {
    unsigned int RBIF:1;
    unsigned int INT0IF:1;
@@ -49,7 +48,6 @@ struct INTCON {
    unsigned int GIE:1;
 } INTCON;
 #byte INTCON = 0xFF2
-*/
 
 struct INTCON2 {
    unsigned int RBIP:1;
@@ -397,7 +395,7 @@ struct EEADRH {
 
 #byte EECON2 = 0xFA7
 
-/*struct EECON1 {
+struct EECON1 {
    unsigned int RD:1;
    unsigned int WR:1;
    unsigned int WREN:1;
@@ -408,7 +406,7 @@ struct EEADRH {
    unsigned int EEPGD:1;
 } EECON1;
 #byte EECON1 = 0xFA6
-*/
+
 struct IPR2 {
    unsigned int CCP2IP:1;
    unsigned int TMR3IP:1;

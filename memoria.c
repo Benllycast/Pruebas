@@ -1,6 +1,6 @@
-#include "Nucleo.h"
+//#include "Nucleo.h"
 #include "memoria.h"
-#include "comunicacion.h"
+//#include "comunicacion.h"
 
 #define debug_memoria 1
 

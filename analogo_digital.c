@@ -1,4 +1,4 @@
-#include "Nucleo.h"
+//#include "Nucleo.h"
 #include "analogo_digital.h"
 
 #define ADC_TAD_MUL_4      0x10

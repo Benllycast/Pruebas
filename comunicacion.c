@@ -1,11 +1,11 @@
-#include "Nucleo.h"
+//#include "Nucleo.h"
 #include "comunicacion.h"
 #define USB_CON_SENSE_PIN PIN_D3
 #include "usb_desc_cdc.h"
 #include <usb_cdc.h>
 
 
-unsigned int i = 0;
+unsigned int indice = 0;
 int COM_init(){
 	usb_cdc_init();
    usb_init_cs();
@@ -33,28 +33,28 @@ int8 COM_sense(){
 }
 
 int8 COM_send(char* buffer, unsigned int8 leng, unsigned short wait = 1){
-   i = 0;
+   indice = 0;
    if(!COM_READY) return(-1);
-   while(i < leng){
+   while(indice < leng){
       if(wait == 1)
-         usb_cdc_putc(buffer[i]);
+         usb_cdc_putc(buffer[indice]);
       else
-         usb_cdc_putc_fast(buffer[i]);
-      i++;
+         usb_cdc_putc_fast(buffer[indice]);
+      indice++;
    }
-   return (i);
+   return (indice);
 }
 
 int8 COM_recive(char* buffer, unsigned int8 leng){
-   i = 0;
+   indice = 0;
    if(!COM_READY) return (-1);
-   while(i < leng){
+   while(indice < leng){
       if(usb_cdc_kbhit()){
-         buffer[i] = usb_cdc_getc();
-         i++;
+         buffer[indice] = usb_cdc_getc();
+         indice++;
       }
    }
-   return(i);
+   return(indice);
 }
 
 void COM_printf(char* message){

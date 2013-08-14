@@ -72,10 +72,5 @@ frecuencia de la CPU:24 Mhz; el FUSE CPIDIV3 para dividir los 96Mhz hasta 24MHz 
 //#use fixed_io(b_outputs=PIN_B0, PIN_B1)
 //#use i2c(master, FORCE_HW)
 /*=================== LIBRERIAS ESTANDAR PARA EL MANEJO DE DATOS =============*/
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#ifndef SIMULACION
-	#include "comunicacion.h"
-#endif
+
 #endif	//ifndef NUCLEO_H

@@ -29,13 +29,13 @@ int AD_init_adc(){
 int AD_leer_canal(int canal, int16 *buffer){
 	int1 done;
 	set_adc_channel(canal);
-	//delay_us(10);
+	delay_us(10);
 	read_adc(ADC_START_ONLY);
 	
 	do {
 		done = adc_done();
 	}while(!done);
 	*buffer = read_adc(ADC_READ_ONLY);
-	delay_us(3);
+	delay_us(20);
 	return (0);
 }

@@ -46,7 +46,7 @@
 #define FILE_WR 1
 #define FILE_RD 0
 
-extern char MEM_info[5];
+//extern char MEM_info[5];
 int MEMORIA_reset(void);
 int MEMORIA_init_hw(void);
 void MEMORIA_getinfo(void);

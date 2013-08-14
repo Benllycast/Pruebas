@@ -37,7 +37,7 @@ struct TBLPTRU {
 
 #word PROD = 0xFF4
 
-/*
+#ifndef INTCON
 struct INTCON {
    unsigned int RBIF:1;
    unsigned int INT0IF:1;
@@ -49,7 +49,7 @@ struct INTCON {
    unsigned int GIE:1;
 } INTCON;
 #byte INTCON = 0xFF2
-*/
+#endif
 
 struct INTCON2 {
    unsigned int RBIP:1;

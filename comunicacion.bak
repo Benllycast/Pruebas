@@ -1,30 +1,62 @@
-#ifndef COMUNICACION_H
-#define COMUNICACION_H
+#include "Nucleo.h"
+#include "comunicacion.h"
+#define USB_CON_SENSE_PIN PIN_D3
+#include "usb_desc_cdc.h"
+#include <usb_cdc.h>
 
-#define USB_OK	1
-#define USB_NO_ENUMERATED 0
-#define USB_NO_ATTACHED -1
 
-int8 COM_init();
-int8 COM_sense();
-int8 COM_send(char* buffer, unsigned int8 leng, unsigned short wait = 1);
-int8 COM_send(char* buffer, unsigned int8 leng);
-int8 COM_recive(char* buffer, unsigned int8 leng);
-void COM_printf(char* message);
+unsigned int indice = 0;
+int COM_init(){
+	usb_cdc_init();
+   usb_init_cs();
+   usb_task();
+   if(usb_attached()){
+      if(usb_enumerated()){
+         return (USB_OK);
+      }else{
+         return(USB_NO_ENUMERATED);
+      }
+   }
+   return (USB_NO_ATTACHED);
+}
 
-extern usb_cdc_kbhit();
-extern void usb_cdc_putc_fast(char c);
-extern char usb_cdc_getc(void);
-extern void usb_cdc_putc(char c);
-extern void usb_cdc_get_discard(void);
+int8 COM_sense(){
+   usb_task();
+   if(usb_attached()){
+      if(usb_enumerated()){
+         return (USB_OK);
+      }else{
+         return(USB_NO_ENUMERATED);
+      }
+   }   
+   return(USB_NO_ATTACHED);
+}
 
-//input.c ported to use CDC:
-extern float get_float_usb();
-extern signed long get_long_usb();
-extern signed int get_int_usb();
-extern void get_string_usb(char* s, unsigned int max);
-extern BYTE gethex_usb();
-extern BYTE gethex1_usb();
+int8 COM_send(char* buffer, unsigned int8 leng, unsigned short wait = 1){
+   indice = 0;
+   if(!COM_READY) return(-1);
+   while(indice < leng){
+      if(wait == 1)
+         usb_cdc_putc(buffer[indice]);
+      else
+         usb_cdc_putc_fast(buffer[indice]);
+      indice++;
+   }
+   return (indice);
+}
 
-#define COM_READY (COM_sense() == USB_OK)
-#endif
+int8 COM_recive(char* buffer, unsigned int8 leng){
+   indice = 0;
+   if(!COM_READY) return (-1);
+   while(indice < leng){
+      if(usb_cdc_kbhit()){
+         buffer[indice] = usb_cdc_getc();
+         indice++;
+      }
+   }
+   return(indice);
+}
+
+void COM_printf(char* message){
+	printf(usb_cdc_putc,"%s\n\r",message);
+}

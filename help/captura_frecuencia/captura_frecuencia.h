@@ -6,9 +6,5 @@
 
 int CP_init_ccp();
 int CP_leer_ccp(int canal, int32 *buffer);
-void CP_activar_captura(int canal);
-void CP_desativar_captura();
-int CP_ocupado();
-int32 CP_obtener_resultado();
 
 #endif
