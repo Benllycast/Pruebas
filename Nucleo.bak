@@ -14,26 +14,78 @@
 
 int1 salida = 0;
 int myerror = 0;
-int numeros = 0;
+unsigned int numeros = 0;
+int16 lectura = 0;
+int32 resultado = 0;
 
+void save(int8 sensor, int8 no_data, int32 value){
+	/*if(_debug_usb()){
+		//printf(usb_cdc_putc,"\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
+		printf("\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
+			DS_dia, DS_mes,DS_anio,
+			DS_hor,DS_min,DS_sec, sensor, no_data, value);
+	}  */  
+	printf("\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
+			DS_dia, DS_mes,DS_anio,
+			DS_hor,DS_min,DS_sec, sensor, no_data, value);
+}
 /*======================= declaracion de tareas =======================*/
-#task (rate=200ms, max=10ms) //Ejecutar cada 1 segundo y consumir como máximo 10ms
+/*
+#task (rate=120ms, max=10ms) //Ejecutar cada 1 segundo y consumir como máximo 10ms
 void Tarea1()
 {
-	if(_debug_usb()){
-		printf(usb_cdc_putc,"\n\rRTOS %u", numeros);
-		numeros++;
+	AD_leer_canal(0,&lectura);
+	save(1, (numeros++), lectura);
+	rtos_yield();
+}
+
+#task (rate=130ms, max=10ms) //Ejecutar cada 1 segundo y consumir como máximo 10ms
+void Tarea2()
+{
+	AD_leer_canal(1,&lectura);
+	save(2, (numeros++), lectura);
+	rtos_yield();
+}
+
+#task (rate=130ms, max=10ms) //Ejecutar cada 1 segundo y consumir como máximo 10ms
+void Tarea3()
+{
+	AD_leer_canal(2,&lectura);
+	save(3, (numeros++), lectura);
+	rtos_yield();
+}
+*/
+#task (rate=40, max=10ms)
+void rpm(){
+	if(semaforo_ccp == 0){
+		CP_activar_captura(CCP_CANAL_1);
 	}
+	//rtos_await(Q_CCP == 2);                       
+	if(Q_CCP != 2){
+		rtos_yield();	
+	}
+	resultado = CP_obtener_resultado();
+	CP_desativar_captura();
+	save(4, (numeros++), resultado);                                
 	rtos_yield();
 }
 
 #task (rate=1s, max=10ms) //Ejecutar cada 1 segundo y consumir como máximo 10ms
-void Tarea2()
+void Indicador()
 {	
    output_bit(INDICADOR_AMARILLO, salida);
    salida = !(salida);
    rtos_yield();
 }
+
+#task (rate=1s, max=10ms) //Ejecutar cada 1 segundo y consumir como máximo 10ms
+void reloj(){
+	ds1307_get_date(DS_dia, DS_mes, DS_anio, DS_vic);
+	ds1307_get_time(DS_hor,DS_min,DS_sec);
+	//printf("%u/%u/%u - %u:%u:%u\n\r",dia, mes, anio, hor, min, sec);
+	rtos_yield();
+}
+
 
 //#include "test.c"	// comentar esto en la aplicacion final
 
@@ -42,9 +94,9 @@ void setup_devices(){
    myerror = COM_init();
    //myerror += MEMORIA_init_hw();
    //myerror += MEMORIA_init();
-   //myerror = AD_init_adc();
-   //myerror = CP_init_ccp();
-   //ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
+   myerror = AD_init_adc();
+   myerror = CP_init_ccp();
+   ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
    //ds1307_set_date_time(0x0d, 0x01, 0x0d, 0x00, 0x0a, 0x2a, 0x00);
    
    /*=================== modulos hw no usados ========================*/
