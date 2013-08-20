@@ -62,7 +62,4 @@ int MEMORIA_close(void);
 int MEMORIA_is_busy(void);
 char MEMORIA_getc(void);
 
-//borrar para quitar el debug de memoria
-#define debug_memoria 1	
-
 #endif

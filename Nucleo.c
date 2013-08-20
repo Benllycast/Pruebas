@@ -12,13 +12,27 @@
 #include "captura_frecuencia.h"
 #include "utilidades.h"
 
+char testfile[] = "prueba";
 int1 salida = 0;
 int myerror = 0;
-unsigned int numeros = 0;
 int16 lectura = 0;
-int32 resultado = 0;
+//int32 resultado = 0;
+struct Log {
+	byte dia;
+	byte mes;
+	byte anio;
+	byte hor;
+	byte min;
+	byte seg;
+	int8 sensor;
+	int8 no_data;
+	int32 value;
+	int16 crc;
+} data;
 
-void save(int8 sensor, int8 no_data, int32 value){
+void save(){
+	char * bData;
+	int nBytes = 0, escritos = 0;
 	/*if(_debug_usb()){
 		//printf(usb_cdc_putc,"\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
 		printf("\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
@@ -26,35 +40,59 @@ void save(int8 sensor, int8 no_data, int32 value){
 			DS_hor,DS_min,DS_sec, sensor, no_data, value);
 	}  */  
 	printf("\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
-			DS_dia, DS_mes,DS_anio,
-			DS_hor,DS_min,DS_sec, sensor, no_data, value);
+			data.dia, data.mes, data.anio,
+			data.hor, data.min, data.seg,
+			data.sensor, data.no_data, data.value);
+	bData = (char *)&data;
+	nBytes = sizeof(data);
+	if((myerror = MEMORIA_open(testfile, FILE_WR)) != 0){
+		printf("\n\rE%u", myerror);
+	}else{
+		if( (myerror = MEMORIA_write(nBytes)) != 0 ){
+			printf("\n\rE%u", myerror);
+		}else{
+			MEMORIA_set_data(bData, nBytes);
+			printf("\n\rW%u", escritos);
+			MEMORIA_close();
+		}
+	}
 }
 /*======================= declaracion de tareas =======================*/
 
-#task (rate=120ms, max=10ms) //Ejecutar cada 1 segundo y consumir como máximo 10ms
+#task (rate=120ms, max=10ms) 
 void Tarea1()
 {
 	AD_leer_canal(0,&lectura);
-	save(1, (numeros++), lectura);
+	data.sensor = 0;
+	data.value = lectura;
+	++data.no_data;
+	save();
 	rtos_yield();
 }
 
-#task (rate=130ms, max=10ms) //Ejecutar cada 1 segundo y consumir como máximo 10ms
+#task (rate=130ms, max=10ms)
 void Tarea2()
 {
 	AD_leer_canal(1,&lectura);
-	save(2, (numeros++), lectura);
+	data.sensor = 1;
+	data.value = lectura;
+	++data.no_data;
+	save();
 	rtos_yield();
 }
 
-#task (rate=130ms, max=10ms) //Ejecutar cada 1 segundo y consumir como máximo 10ms
+#task (rate=130ms, max=10ms)
 void Tarea3()
 {
 	AD_leer_canal(2,&lectura);
-	save(3, (numeros++), lectura);
+	data.sensor = 2;
+	data.value = lectura;
+	++data.no_data;
+	save();
 	rtos_yield();
 }
 
+/*
 #task (rate=40, max=10ms)
 void rpm(){
 	if(semaforo_ccp == 0){
@@ -68,9 +106,9 @@ void rpm(){
 	CP_desativar_captura();
 	save(4, (numeros++), resultado);                                
 	rtos_yield();
-}
+}*/
 
-#task (rate=1s, max=10ms) //Ejecutar cada 1 segundo y consumir como máximo 10ms
+#task (rate=1s, max=10ms)
 void Indicador()
 {	
    output_bit(INDICADOR_AMARILLO, salida);
@@ -78,11 +116,10 @@ void Indicador()
    rtos_yield();
 }
 
-#task (rate=1s, max=10ms) //Ejecutar cada 1 segundo y consumir como máximo 10ms
+#task (rate=500ms, max=10ms)
 void reloj(){
-	ds1307_get_date(DS_dia, DS_mes, DS_anio, DS_vic);
-	ds1307_get_time(DS_hor,DS_min,DS_sec);
-	//printf("%u/%u/%u - %u:%u:%u\n\r",dia, mes, anio, hor, min, sec);
+	ds1307_get_date(data.dia, data.mes, data.anio, DS_vic);
+	ds1307_get_time(data.hor, data.min, data.seg);
 	rtos_yield();
 }
 
@@ -92,10 +129,10 @@ void reloj(){
 /*======================= configuracon de dispositivos =======================*/
 void setup_devices(){
    myerror = COM_init();
-   //myerror += MEMORIA_init_hw();
-   //myerror += MEMORIA_init();
+   myerror = MEMORIA_init_hw();
+   myerror = MEMORIA_init();
    myerror = AD_init_adc();
-   myerror = CP_init_ccp();
+   //myerror = CP_init_ccp();
    ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
    //ds1307_set_date_time(0x0d, 0x01, 0x0d, 0x00, 0x0a, 0x2a, 0x00);
    
@@ -113,7 +150,7 @@ void setup_devices(){
    #endif
    
    setup_comparator(NC_NC_NC_NC);
-   setup_vref(FALSE);   
+   setup_vref(FALSE);
    
    /*===================para los indicadores========================*/
    set_tris_e(0x00);
@@ -127,6 +164,9 @@ void setup_devices(){
    output_low(SPI_MOSI);
    output_high(SPI_MISO);
    //delay_ms(3000);
+   data.dia = data.mes = data.anio = 0;
+   data.hor = data.min = data.seg = 0;
+   data.value = data.sensor = data.no_data = 0;   
    return;
 }
 
