@@ -1,9 +1,5 @@
 //#include "Nucleo.h"
 #include "comunicacion.h"
-#define USB_CON_SENSE_PIN PIN_D3
-#include "usb_desc_cdc.h"
-#include <usb_cdc.h>
-
 
 unsigned int indice = 0;
 int COM_init(){

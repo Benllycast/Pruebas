@@ -3,7 +3,8 @@
 #include "comunicacion.h"
 
 //borrar para quitar el debug de memoria
-//efine debug_memoria 1	
+#define debug_memoria 1	
+
 // #define MEM_RX PIN_D7
 // #define MEM_TX PIN_D6	
 #define MEMORIA_PIN_RESET PIN_D5

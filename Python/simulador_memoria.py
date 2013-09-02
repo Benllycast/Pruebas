@@ -81,14 +81,15 @@ class Simulador(object):
     def log_reader(self, caracteres = 1):
         c = self.serial.read(caracteres)
         sys.stdout.write('\n>%s ' % str(c))
-        sys.stdout.flush()
+        #sys.stdout.flush()
+
         return c
 
     def log_writer(self, caracteres):
         for c in caracteres:
             sys.stdout.write('\n<%s (%s)' % (str(c), ord(c)))
             self.serial.write(c)
-            time.sleep(0.2)
+            #time.sleep(0.2)
         sys.stdout.flush()
         
     def reader(self):
@@ -166,13 +167,16 @@ class Simulador(object):
         tamano = self.log_reader(4)
         tamano = int(struct.unpack('!I',tamano)[0])
         sys.stdout.write('\nEscritura: FL: %s TM: %d HS: %d AP: %d PER: %d\n' % (nombre, tamano, handshking, append, performance))
-        # self.log_writer('\x15')
+        self.log_writer('\x15')
+        #time.sleep(0.2)
+        """
         self.log_writer('\x06')
         while tamano > 0:
             datos = datos + self.log_reader(1)
             tamano -= 1
         sys.stdout.write('\nDatos: %s' % datos)
         self.log_writer('\x06')
+        """
 
     def inciar_memoria(self):
         pass

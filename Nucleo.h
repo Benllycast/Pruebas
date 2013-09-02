@@ -69,9 +69,9 @@ frecuencia de la CPU:24 Mhz; el FUSE CPIDIV3 para dividir los 96Mhz hasta 24MHz 
 #use delay(clock=16000000)	//cambiar el valor del clock si se cambia la frecuencia de la CPU
 
 /*=================== CONFIGURACION LIBRERIAS DE COMUNICACION ================*/
-#use rs232(baud=9600,parity=N,xmit=PIN_XMIT,rcv=PIN_RCV,bits=8)
+//#use rs232(baud=9600,parity=N,xmit=PIN_XMIT,rcv=PIN_RCV,bits=8)
 //directiva de compilador para el uso del bus I2C del microcontrolador
-#use i2c(master, sda=PIN_B0, scl=PIN_B1)
+//#use i2c(master, sda=PIN_B0, scl=PIN_B1)
 //#use fixed_io(b_outputs=PIN_B0, PIN_B1)
 //#use i2c(master, FORCE_HW)
 /*=================== LIBRERIAS ESTANDAR PARA EL MANEJO DE DATOS =============*/

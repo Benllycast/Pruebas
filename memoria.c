@@ -3,7 +3,7 @@
 #include "comunicacion.h"
 
 //borrar para quitar el debug de memoria
-//define debug_memoria 1	
+#define debug_memoria 1	
 
 // #define MEM_RX PIN_D7
 // #define MEM_TX PIN_D6	
@@ -55,7 +55,7 @@ int MEMORIA_reset(void){
 
 /*==================== autobaudrate ======================*/
 int MEMORIA_init_hw(void){
-	int8 envios = 5;
+	int8 envios = 10;
 	#ifdef debug_memoria
 	update_proceso(INI_HW);
 	#else
