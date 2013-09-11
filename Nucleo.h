@@ -59,12 +59,16 @@ frecuencia de la CPU:24 Mhz; el FUSE CPIDIV3 para dividir los 96Mhz hasta 24MHz 
 #define PIN_XMIT	PIN_D0
 #define PIN_RCV	PIN_D1
 
+#define PIN_LOG	PIN_D2
+
 #define SPI_SS		PIN_D7
 #define SPI_MISO	PIN_D6
 #define SPI_MOSI	PIN_D5
 #define SPI_SCL	PIN_D4
 
-
+//#define CONFIG_PORT_D	0x4A
+#define CONFIG_PORT_D	0x4E		//v2
+#define LOG_ENABLE	1
 /*=================== CONFIGURACION DEL RELOJ DE TRABAJO =====================*/
 #use delay(clock=16000000)	//cambiar el valor del clock si se cambia la frecuencia de la CPU
 

@@ -39,10 +39,5 @@ int1 _debug_usb(void){
 	}
 }
 
-void debug_print(...){
-	if(_debug_usb()){
-		printf(usb_cdc_putc, ...);
-	}
-}
 #endif
 
