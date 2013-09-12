@@ -1,8 +1,10 @@
 
-#include "captura_frecuencia.h"
+//#include "captura_frecuencia.h"
+/*
 #ifndef REGISTROS_H
    #include "registros.h"
 #endif
+*/
 
 #INT_TIMER3
 void timer3_isr(void){
@@ -64,9 +66,10 @@ void CP_activar_captura(int canal){
 }
 
 void CP_desativar_captura(){
-	//disable_interrupts(INT_CCP1);
-   //disable_interrupts(INT_CCP2);
-   disable_interrupts(GLOBAL);
+	disable_interrupts(INT_CCP1);
+   disable_interrupts(INT_CCP2);
+   disable_interrupts(INT_TIMER3);
+   //disable_interrupts(GLOBAL);
    setup_ccp2(MODO_CCP1);
    setup_ccp2(MODO_CCP2);
    Q_CCP = -1;                     //regreso al estado inicial para la proxima lectura

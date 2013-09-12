@@ -1,5 +1,8 @@
 #ifndef CAPTURA_FRECUENCIA_H
 #define CAPTURA_FRECUENCIA_H
+#ifndef REGISTROS_H
+   #include "registros.h"
+#endif
 //canales de lectura
 #define CCP_CANAL_1 1
 #define CCP_CANAL_2 2
