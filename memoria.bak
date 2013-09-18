@@ -55,7 +55,7 @@ int MEMORIA_reset(void){
 
 /*==================== autobaudrate ======================*/
 int MEMORIA_init_hw(void){
-	int8 envios = 5;
+	int8 envios = 10;
 	#ifdef debug_memoria
 	update_proceso(INI_HW);
 	#else
@@ -131,7 +131,7 @@ void MEMORIA_getinfo(){
 
 /*====================abrir archivo======================*/
 
-int MEMORIA_open(char* filename, short modo){
+int MEMORIA_open(const char* filename, short modo){
 
    if(!MEMORIA_OK) return(1);
 

@@ -1,5 +1,5 @@
 //#include "Nucleo.h"
-#include "analogo_digital.h"
+//#include "analogo_digital.h"
 
 #define ADC_TAD_MUL_4      0x10
 #define ADC_INPUT_PORT		0x2F

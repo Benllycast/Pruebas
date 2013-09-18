@@ -58,7 +58,7 @@ void test_comunicacion(void){
 
 #ifdef MEMORIA_H
 #define MAX 32
-/*
+
 void test_memoria(void){
 	//char testfile[] = "test.txt";  //el nombre es mejor dejarlo sin punto                              
 	char testfile[] = "prueba";
@@ -124,5 +124,5 @@ void test_memoria(void){
 			  	
 	}
 	return;
-}*/
+}
 #endif

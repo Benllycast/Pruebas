@@ -16,13 +16,13 @@ AdditionalOptionString=
 [Windows]
 0=0000 %S 0 0 796 451 3 0
 [Opened Files]
-1=Nucleo.c
-2=Nucleo.h
-3=utilidades.c
-4=utilidades.h
-5=captura_frecuencia.c
-6=
-7=
+1=Nucleo.h
+2=Nucleo.c
+3=
+4=Nucleo.c
+5=test.c
+6=memoria.h
+7=memoria.c
 8=
 9=memoria.h
 10=
