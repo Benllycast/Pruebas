@@ -37,29 +37,33 @@ struct Log {
 } data;
 
 void guardar(){
-	unsigned int nBytes = (sizeof(noLOg)-1), escritos = 0;
+	unsigned int nBytes = 0, escritos = 0;
 	if(_debug_usb()){
 		if(input(PIN_LOG) == LOG_ENABLE){
-			/*if((myerror = MEMORIA_open(testfile, FILE_WR)) != 0){
+			sprintf(buffer_log,LOG_LINE,
+				data.dia, data.mes, data.anio,
+				data.hor, data.min, data.seg,
+				data.sensor, data.no_data, data.value, data.crc
+				);
+			
+			nBytes = strlen(buffer_log);
+			if((myerror = MEMORIA_open(testfile, FILE_WR)) != 0){
 				printf(usb_cdc_putc_fast,"\n\rMO%d",myerror);
 			}else{
 				if( (myerror = MEMORIA_write(nBytes)) != 0 ){
 					printf(usb_cdc_putc_fast,"\n\rMW%d",myerror);
 				}else{
-					escritos = MEMORIA_set_data(noLOg, nBytes);
-					printf(usb_cdc_putc,"\n\rMS%d", escritos);
+					escritos = MEMORIA_set_data(buffer_log, nBytes);
+					printf(usb_cdc_putc_fast,"\n\rMS%d", escritos);
 					MEMORIA_close();
 				}
-			}*/
+			}
 			/*printf(usb_cdc_putc,"\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
 				data.dia, data.mes, data.anio,
 				data.hor, data.min, data.seg,
 				data.sensor, data.no_data, data.value);*/
-			sprintf(buffer_log,LOG_LINE,
-				data.dia, data.mes, data.anio,
-				data.hor, data.min, data.seg,
-				data.sensor, data.no_data, data.value, data.crc);
-			printf(usb_cdc_putc,"%s",buffer_log);
+			
+			printf(usb_cdc_putc_fast,"%s %u",buffer_log, nBytes);
 		}else{
 			printf(usb_cdc_putc,noLog);
 		}
@@ -161,9 +165,9 @@ void guardar(){
 void setup_devices(){
    myerror = COM_init();
    //printf("\n\rusb E%d", myerror);
-   //MEMORIA_reset();
-   //myerror = MEMORIA_init_hw();
-   //myerror = MEMORIA_init();
+   MEMORIA_reset();
+   myerror = MEMORIA_init_hw();
+   myerror = MEMORIA_init();
    //printf("\n\rmem E%d", myerror);
    //myerror = AD_init_adc();
    //myerror = CP_init_ccp();

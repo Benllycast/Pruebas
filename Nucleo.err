@@ -1,10 +1,9 @@
+>>> Warning 201 "Nucleo.c" Line 50(1,1): Assignment inside relational expression
+>>> Warning 201 "Nucleo.c" Line 53(1,1): Assignment inside relational expression
 >>> Warning 203 "G:\Project\pic\CCS\Pruebas\ds1307.c" Line 181(1,1): Condition always TRUE
->>> Warning 216 "Nucleo.c" Line 241(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
->>> Warning 216 "Nucleo.c" Line 241(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_tbe)
->>> Warning 216 "Nucleo.c" Line 241(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_flush_out_buffer)
+>>> Warning 216 "Nucleo.c" Line 245(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
+>>> Warning 216 "Nucleo.c" Line 245(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_tbe)
+>>> Warning 216 "Nucleo.c" Line 245(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_flush_out_buffer)
 >>> Warning 202 "Nucleo.c" Line 21(15,22): Variable never used:   lectura
->>> Warning 202 "Nucleo.c" Line 23(6,14): Variable never used:   testfile
->>> Warning 202 "Nucleo.c" Line 40(21,27): Variable never used:   nBytes
->>> Warning 202 "Nucleo.c" Line 40(51,59): Variable never used:   escritos
-      Memory usage:   ROM=24%      RAM=27% - 31%
-      0 Errors,  8 Warnings.
+      Memory usage:   ROM=32%      RAM=27% - 32%
+      0 Errors,  7 Warnings.
