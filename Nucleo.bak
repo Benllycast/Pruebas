@@ -1,5 +1,5 @@
 #include "Nucleo.h"
-#define use_rtos
+//#define use_rtos
 #ifdef use_rtos
 	#use RTOS(timer=0, minor_cycle=50ms, statistics)
 #endif
@@ -54,7 +54,7 @@ void guardar(){
 					printf(usb_cdc_putc_fast,"\n\rMW%d",myerror);
 				}else{
 					escritos = MEMORIA_set_data(buffer_log, nBytes);
-					printf(usb_cdc_putc,"\n\rMS%d", escritos);
+					printf(usb_cdc_putc_fast,"\n\rMS%d", escritos);
 					MEMORIA_close();
 				}
 			}
@@ -63,7 +63,7 @@ void guardar(){
 				data.hor, data.min, data.seg,
 				data.sensor, data.no_data, data.value);*/
 			
-			printf(usb_cdc_putc,"%s %u",buffer_log, nBytes);
+			printf(usb_cdc_putc_fast,"%s %u",buffer_log, nBytes);
 		}else{
 			printf(usb_cdc_putc,noLog);
 		}
@@ -159,20 +159,20 @@ void guardar(){
 	#endif
 #endif
 
-//#include "test.c"	// comentar esto en la aplicacion final
+#include "test.c"	// comentar esto en la aplicacion final
 
 /*======================= configuracon de dispositivos =======================*/
 void setup_devices(){
    myerror = COM_init();
    //printf("\n\rusb E%d", myerror);
-   MEMORIA_reset();
-   myerror = MEMORIA_init_hw();
-   myerror = MEMORIA_init();
+   //MEMORIA_reset();
+   //myerror = MEMORIA_init_hw();
+   //myerror = MEMORIA_init();
    //printf("\n\rmem E%d", myerror);
    //myerror = AD_init_adc();
    //myerror = CP_init_ccp();
-   ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
-   ds1307_set_date_time(0x0d, 0x01, 0x0d, 0x00, 0x0a, 0x2a, 0x00);
+   //ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
+   //ds1307_set_date_time(0x0d, 0x01, 0x0d, 0x00, 0x0a, 0x2a, 0x00);
    
    /*=================== modulos hw no usados ========================*/
    setup_psp(PSP_DISABLED);
@@ -221,7 +221,8 @@ void main(void) {
    while(1){
 		if(_debug_usb()){
 			test_comunicacion();
-			test_memoria();
+			test_reloj();
+			//test_memoria();
 			//test_ccp();
 		}else{
 			salida = (salida)? 0 : 1;

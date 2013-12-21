@@ -1,5 +1,5 @@
 #include "Nucleo.h"
-#define use_rtos
+//#define use_rtos
 #ifdef use_rtos
 	#use RTOS(timer=0, minor_cycle=50ms, statistics)
 #endif
@@ -159,15 +159,15 @@ void guardar(){
 	#endif
 #endif
 
-//#include "test.c"	// comentar esto en la aplicacion final
+#include "test.c"	// comentar esto en la aplicacion final
 
 /*======================= configuracon de dispositivos =======================*/
 void setup_devices(){
    myerror = COM_init();
    //printf("\n\rusb E%d", myerror);
-   MEMORIA_reset();
-   myerror = MEMORIA_init_hw();
-   myerror = MEMORIA_init();
+   //MEMORIA_reset();
+   //myerror = MEMORIA_init_hw();
+   //myerror = MEMORIA_init();
    //printf("\n\rmem E%d", myerror);
    //myerror = AD_init_adc();
    //myerror = CP_init_ccp();
@@ -221,7 +221,8 @@ void main(void) {
    while(1){
 		if(_debug_usb()){
 			test_comunicacion();
-			test_memoria();
+			test_reloj();
+			//test_memoria();
 			//test_ccp();
 		}else{
 			salida = (salida)? 0 : 1;

@@ -18,10 +18,10 @@ AdditionalOptionString=
 [Opened Files]
 1=Nucleo.h
 2=Nucleo.c
-3=
-4=Nucleo.c
-5=test.c
-6=memoria.h
+3=captura_frecuencia.c
+4=test.c
+5=ds1307.h
+6=
 7=memoria.c
 8=
 9=memoria.h

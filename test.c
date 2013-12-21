@@ -126,3 +126,13 @@ void test_memoria(void){
 	return;
 }
 #endif
+
+#ifdef DS1307_H
+void test_reloj(){
+	byte dia = 0, mes = 0, anio = 0;
+   byte hor = 0, min = 0, seg = 0;
+	ds1307_get_date(dia, mes, anio, DS_vic);
+	ds1307_get_time(hor, min, seg);
+	printf(usb_cdc_putc_fast,"\n\rH %d/%d/%d %d:%d:%d",dia, mes, anio, hor, min, seg);
+}
+#endif
