@@ -10,8 +10,8 @@
 #include "comunicacion.h"
 #include "memoria.h"
 #include "ds1307.h"
-//#include "analogo_digital.h"
-//#include "captura_frecuencia.h"
+#include "analogo_digital.h"
+#include "captura_frecuencia.h"
 #include "utilidades.h"
 //#use rs232(baud=9600,parity=N,xmit=PIN_XMIT,rcv=PIN_RCV,bits=8)
 
@@ -36,6 +36,8 @@ struct Log {
 	int16 crc;
 } data;
 
+#ifdef use_rtos
+
 void guardar(){
 	unsigned int nBytes = 0, escritos = 0;
 	if(_debug_usb()){
@@ -58,19 +60,19 @@ void guardar(){
 					MEMORIA_close();
 				}
 			}
-			/*printf(usb_cdc_putc,"\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
-				data.dia, data.mes, data.anio,
-				data.hor, data.min, data.seg,
-				data.sensor, data.no_data, data.value);*/
-			
+						
 			printf(usb_cdc_putc_fast,"%s %u",buffer_log, nBytes);
 		}else{
+			printf(usb_cdc_putc,"\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
+				data.dia, data.mes, data.anio,
+				data.hor, data.min, data.seg,
+				data.sensor, data.no_data, data.value);
 			printf(usb_cdc_putc,noLog);
 		}
 	}
 }
 
-#ifdef use_rtos
+
 	#task (rate=250ms, max=50ms)
 	void proceso2()
 	{	
@@ -170,7 +172,7 @@ void setup_devices(){
    //myerror = MEMORIA_init();
    //printf("\n\rmem E%d", myerror);
    //myerror = AD_init_adc();
-   //myerror = CP_init_ccp();
+   myerror = CP_init_ccp();
    ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
    ds1307_set_date_time(0x0d, 0x01, 0x0d, 0x00, 0x0a, 0x2a, 0x00);
    
@@ -220,10 +222,11 @@ void main(void) {
    #else
    while(1){
 		if(_debug_usb()){
-			test_comunicacion();
+			//test_comunicacion();
 			test_reloj();
+			//test_ADC();
 			//test_memoria();
-			//test_ccp();
+			test_ccp();
 		}else{
 			salida = (salida)? 0 : 1;
 			if(salida) output_bit(INDICADOR_RUN, 1);
@@ -236,9 +239,9 @@ void main(void) {
 
 /*======================= implementacion de tareas =======================*/
 #include "comunicacion.c"
-//#include "analogo_digital.c"
+#include "analogo_digital.c"
 #include "ds1307.c"
-//#include "captura_frecuencia.c"
+#include "captura_frecuencia.c"
 #include "memoria.c"
 #include "utilidades.c"
 

@@ -1,48 +1,53 @@
 
-ROM used: 7322 (22%)
-          7322 (22%) including unused fragments
+ROM used: 8280 (25%)
+          8280 (25%) including unused fragments
 
           1 Average locations per line
           4 Average locations per statement
 
-RAM used: 507 (25%) at main() level
-          555 (27%) worst case
+RAM used: 521 (25%) at main() level
+          574 (28%) worst case
 
-Stack used: 17 worst case (out of 31 total available)
+Stack used: 16 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-  245    57   3  Nucleo.c
+  248    36   2  Nucleo.c
    85     0   0  Nucleo.h
   457     0   0  I:\Archivos de programa\PICC\Devices\18F4550.h
    37     0   0  I:\Archivos de programa\PICC\Drivers\stdio.h
   409     0   0  I:\Archivos de programa\PICC\Drivers\string.h
    28     0   0  I:\Archivos de programa\PICC\Drivers\stddef.h
    28    99   5  I:\Archivos de programa\PICC\Drivers\ctype.h
- 1273   359  17  I:\Archivos de programa\PICC\Drivers\stdlib.h
-   33    57   3  comunicacion.h
+ 1273   359  18  I:\Archivos de programa\PICC\Drivers\stdlib.h
+   33    36   2  comunicacion.h
   298     0   0  usb_desc_cdc.h
  1063     0   0  I:\Archivos de programa\PICC\Drivers\usb.h
   582   137   7  I:\Archivos de programa\PICC\Drivers\usb_cdc.h
   222     0   0  I:\Archivos de programa\PICC\Drivers\pic18_usb.h
   328     0   0  I:\Archivos de programa\PICC\Drivers\usb_hw_layer.h
   279     0   0  I:\Archivos de programa\PICC\Drivers\usb_desc_cdc.h
-  808   237  11  I:\Archivos de programa\PICC\Drivers\usb.c
- 1281   320  15  I:\Archivos de programa\PICC\Drivers\pic18_usb.c
-   66    57   3  memoria.h
-   81    57   3  ds1307.h
-   16    57   3  utilidades.h
-  139    68   3  test.c
-   59    98   5  comunicacion.c
-  405   150   7  ds1307.c
-  423   252  12  memoria.c
-   44    74   4  utilidades.c
+  808   237  12  I:\Archivos de programa\PICC\Drivers\usb.c
+ 1281   320  16  I:\Archivos de programa\PICC\Drivers\pic18_usb.c
+   66    36   2  memoria.h
+   81    36   2  ds1307.h
+   14     0   0  analogo_digital.h
+   40     0   0  captura_frecuencia.h
+  670     0   0  registros.h
+   16    36   2  utilidades.h
+  158    67   3  test.c
+   59    77   4  comunicacion.c
+   42    50   2  analogo_digital.c
+  405   129   6  ds1307.c
+  107   105   5  captura_frecuencia.c
+  423   231  11  memoria.c
+   44    53   3  utilidades.c
 ----- -----
- 8689  2079 Total
+ 9584  2044 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
-0     42   0   1             @delay_ms1
+0     44   0   1             @delay_ms1
 0     32   0   0             @const369
 0     32   0   0             @const371
 0     48   0   0             @const373
@@ -57,11 +62,11 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     34   0   0   136  2.2  usb_attach
 0      6   0   0    16  1.0  usb_init_cs
 0     48   0   1   359  4.6  usb_task
-0    220   2   7  1083  5.4  usb_flush_in
+0    220   1   7  1083  5.4  usb_flush_in
 0    146   1  10   320  5.5  usb_put_packet
 0    192   1   7   899  4.9  usb_flush_out
 0     50   0   3    61  2.6  usb_rx_packet_size
-0     74   1   4   251  4.6  usb_stall_ep
+0     74   0   4   251  4.6  usb_stall_ep
 0     72   0   4   258  4.6  usb_unstall_ep
 0     90   1   5   360  5.8  usb_endpoint_stalled
 0     26   0   1    88  2.7  usb_set_address
@@ -80,10 +85,10 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0      6   0   1    30  1.7  usb_request_send_response
 0      6   0   0    22  1.2  usb_request_get_data
 0      6   0   0    22  1.2  usb_request_stall
-0    378   3   5  2031  7.9  usb_isr_tok_dne
+0    378   2   5  2031  7.9  usb_isr_tok_dne
 0      6   0   0    29  1.9  usb_enumerated
 0     44   0   3   248  4.0  usb_token_reset
-0     80   1   3   267  5.9  usb_endpoint_is_valid
+0     80   0   3   267  5.9  usb_endpoint_is_valid
 0     50   0   1   204  3.1  usb_isr_tok_in_dne
 0     30   0   1   108  2.5  usb_isr_tok_out_dne
 0     52   0   0   336  5.5  usb_isr_tok_setup_dne
@@ -102,56 +107,64 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     18   0   0    59  2.3  usb_cdc_get_discard
 0     56   0   4   220  4.5  _usb_cdc_putc_fast_noflush
 0     52   0   1    63  1.6  usb_cdc_putc_fast
-0     62   0   1   115  3.3  usb_cdc_putc
 0    106   1   3             @I2C_READ_1
 0    118   1   1             @I2C_WRITE_1
-0      8   0   0             @const788
-0     42   0   3             @PSTRINGCN_390
+0    120   1   5   277  3.8  test_ccp
+0     10   0   0             @const1278
+0     40   0   3             @PSTRINGCN_390
+0    128   1  13             @DIV3232
+0    196   1  12             @PRINTF_L32U_390
+0     36   0   0             @const1292
+0     14   0   0             @const1297
+0      8   0   0             @const1312
 0     44   0   3             @DIV88
-0    222   2   6             @PRINTF_D_390
-0      8   0   0             @const797
-0      8   0   0             @const798
-0     36   0   1    60  1.4  test_comunicacion
-0     14   0   0             @const806
-0     34   0   2             @PSTRINGC_393
-0      8   0   0   341  2.3  @const821
-0     10   0   0             @const822
-0     18   0   0             @const835
-0    628   4   6   338  2.4  test_reloj
-0     22   0   0             @const844
-0    178   1   0  1009  3.9  setup_devices
-0    560   4   1   260  4.3  MAIN
+0    222   1   6             @PRINTF_D_390
+0     10   0   0             @const1319
+0     18   0   0             @const1328
+0    626   4   6   338  2.4  test_reloj
+0     22   0   0             @const1337
+0    174   1   0   972  3.8  setup_devices
+0    598   4   1   260  4.3  MAIN
 0     42   0   0   154  2.9  COM_init
 0     36   0   0   124  2.7  COM_sense
 0    352   2   3   497  2.4  ds1307_init
-0    220   2   8   531  2.7  ds1307_set_date_time
+0    220   1   8   531  2.7  ds1307_set_date_time
  Inline        5   437  3.1  ds1307_get_date
  Inline        4   367  3.0  ds1307_get_time
 0     40   0   3   240  6.0  ds1307_bin2bcd
-0     42   0   3   163  3.6  ds1307_bcd2bin
-0      8   0   0             @const888
-0     26   0   0             @const890
-0     16   0   0             @const899
-0     32   0   1   141  3.4  _debug_usb
+0     42   0   3   155  4.7  ds1307_bcd2bin
+0      8   0   0    17  1.3  timer3_isr
+0    164   1   4   349  4.7  ccp1_isr
+0    164   1   4   349  4.7  ccp2_isr
+0     54   0   0   172  2.7  CP_init_ccp
+0     58   0   1   225  3.7  CP_activar_captura
+0     48   0   0   195  2.7  CP_desativar_captura
+0     16   0   0    25  1.3  CP_ocupado
+0     18   0   0    25  1.3  CP_done
+0     28   0   0    24  1.7  CP_obtener_resultado
+0      8   0   0             @const1389
+0     26   0   0             @const1391
+0     16   0   0             @const1397
+0     30   0   1   141  3.4  _debug_usb
 
 Program metrics:
-    Functions               65
-    Statements              2079
-    Comments                4557
-    Volume (V)              46303
-    Difficilty (D)          260.8
-    Effort to implement (E) 12077570
-    Time to implement (T)   186 hours, 23 minutes
-    Est Delivered Bugs (B)  18
-    Cyclomatic Complexity   129
-    Maintainability (MI)    100
+    Functions               72
+    Statements              2044
+    Comments                4621
+    Volume (V)              49247
+    Difficilty (D)          284.1
+    Effort to implement (E) 13988644
+    Time to implement (T)   215 hours, 52 minutes
+    Est Delivered Bugs (B)  19
+    Cyclomatic Complexity   137
+    Maintainability (MI)    75
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
 00004-00006     4  0  
-00008-000AC   166  0  
-000AE-07FFE  7148  25446  
+00008-000D0   202  0  
+000D2-07FFE  8070  24488  
 
 
 

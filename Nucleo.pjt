@@ -18,11 +18,11 @@ AdditionalOptionString=
 [Opened Files]
 1=Nucleo.h
 2=Nucleo.c
-3=captura_frecuencia.c
-4=test.c
-5=ds1307.h
-6=
-7=memoria.c
+3=test.c
+4=captura_frecuencia.c
+5=captura_frecuencia.h
+6=analogo_digital.c
+7=
 8=
 9=memoria.h
 10=

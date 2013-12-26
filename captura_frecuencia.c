@@ -79,6 +79,7 @@ void CP_desativar_captura(){
 }
 
 int CP_ocupado(){ return (semaforo_ccp != 0);}
+int CP_done(){ return (Q_CCP == 2);}
 
 int32 CP_obtener_resultado(){
 	return (tiempo_final - tiempo_inicial);
