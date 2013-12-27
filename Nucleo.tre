@@ -1,5 +1,5 @@
 ÀÄNucleo
-   ÃÄMAIN  0/598  Ram=1
+   ÃÄMAIN  0/620  Ram=1
    ³  ÃÄ??0??
    ³  ÃÄsetup_devices  0/174  Ram=0
    ³  ³  ÃÄCOM_init  0/42  Ram=0
@@ -339,7 +339,7 @@
    ³  ³              ÃÄusb_tbe  0/68  Ram=3
    ³  ³              ÀÄusb_flush_in  0/220  Ram=7
    ³  ³                 ÀÄusb_tbe  0/68  Ram=3
-   ³  ÃÄtest_ccp  0/120  Ram=5
+   ³  ÃÄtest_ccp  0/118  Ram=5
    ³  ³  ÃÄ_debug_usb  0/30  Ram=1
    ³  ³  ³  ÀÄCOM_sense  0/36  Ram=0
    ³  ³  ³     ÃÄusb_task  0/48  Ram=1
@@ -350,9 +350,9 @@
    ³  ³  ³     ³     ÀÄusb_token_reset  0/44  Ram=3
    ³  ³  ³     ³        ÀÄusb_cdc_init  0/34  Ram=0
    ³  ³  ³     ÀÄusb_enumerated  0/6  Ram=0
-   ³  ³  ÃÄCP_ocupado  0/16  Ram=0
    ³  ³  ÃÄCP_activar_captura  0/58  Ram=1
-   ³  ³  ÃÄCP_done  0/18  Ram=0
+   ³  ³  ÃÄCP_done  0/16  Ram=0
+   ³  ³  ÃÄCP_done  0/16  Ram=0
    ³  ³  ÃÄCP_obtener_resultado  0/28  Ram=0
    ³  ³  ÃÄCP_desativar_captura  0/48  Ram=0
    ³  ³  ÃÄ@PSTRINGCN_390  0/40  Ram=3
@@ -375,7 +375,8 @@
    ³  ³     ³        ÀÄusb_flush_in  0/220  Ram=7
    ³  ³     ³           ÀÄusb_tbe  0/68  Ram=3
    ³  ³     ÀÄ@DIV3232  0/128  Ram=13
-   ³  ÀÄ@delay_ms1  0/44  Ram=1
+   ³  ÃÄ@delay_ms1  0/42  Ram=1
+   ³  ÀÄ@delay_ms1  0/42  Ram=1
    ÃÄusb_isr  0/136  Ram=2
    ³  ÃÄusb_isr_activity  0/16  Ram=0
    ³  ÃÄusb_isr_stall  0/14  Ram=0

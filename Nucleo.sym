@@ -386,7 +386,7 @@ FFE     TOS
 FFF     TOSU
 
 ROM Allocation:
-1DD6  @delay_ms1
+1DC2  @delay_ms1
 00D2  usb_ep_tx_type
 00F2  usb_ep_rx_type
 0112  usb_ep_tx_size
@@ -448,11 +448,11 @@ ROM Allocation:
 179A  usb_cdc_putc_fast
 137A  @I2C_READ_1
 1304  @I2C_WRITE_1
-1D5E  test_ccp
+1D4C  test_ccp
 1028  @const1278
 17CE  @PSTRINGCN_390
-1C1A  @DIV3232
-1C9A  @PRINTF_L32U_390
+1C08  @DIV3232
+1C88  @PRINTF_L32U_390
 1032  @const1292
 1056  @const1297
 1064  @const1312
@@ -463,7 +463,7 @@ ROM Allocation:
 1900  test_reloj
 1088  @const1337
 1672  setup_devices
-1E02  MAIN
+1DEC  MAIN
 12A4  COM_init
 1720  COM_sense
 1436  ds1307_init
@@ -476,16 +476,15 @@ ROM Allocation:
 10A6  ccp1_isr
 114A  ccp2_isr
 12CE  CP_init_ccp
-1B82  CP_activar_captura
-1BEA  CP_desativar_captura
-1B72  CP_ocupado
-1BBC  CP_done
-1BCE  CP_obtener_resultado
+1B72  CP_activar_captura
+1BD8  CP_desativar_captura
+1BAC  CP_done
+1BBC  CP_obtener_resultado
 11EE  @const1389
 11F6  @const1391
 1210  @const1397
 1744  _debug_usb
-1E02  @cinit
+1DEC  @cinit
 0136  StrtoulGO
 0136  StrtolGO
 

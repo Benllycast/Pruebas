@@ -227,6 +227,7 @@ void main(void) {
 			//test_ADC();
 			//test_memoria();
 			test_ccp();
+			delay_ms(333);
 		}else{
 			salida = (salida)? 0 : 1;
 			if(salida) output_bit(INDICADOR_RUN, 1);

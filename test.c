@@ -21,12 +21,12 @@
 		int32 buffer = 0;
 		int done = 0;
 		if(_debug_usb()){
-			if(!CP_ocupado()){
-				CP_activar_captura(CCP_CANAL_1);
-			}
-			do{
+			CP_activar_captura(CCP_CANAL_1);
+			done = CP_done();
+			while(!done){
+				//printf(usb_cdc_putc_fast,"\n\rEsperando...");
 				done = CP_done();
-			}while(!done);
+			}
 			buffer = CP_obtener_resultado();
 			CP_desativar_captura();
 			printf(usb_cdc_putc_fast,"\n\rC1: %Lu", buffer);

@@ -12,15 +12,15 @@ Stack used: 16 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-  248    36   2  Nucleo.c
+  249    37   2  Nucleo.c
    85     0   0  Nucleo.h
   457     0   0  I:\Archivos de programa\PICC\Devices\18F4550.h
    37     0   0  I:\Archivos de programa\PICC\Drivers\stdio.h
   409     0   0  I:\Archivos de programa\PICC\Drivers\string.h
    28     0   0  I:\Archivos de programa\PICC\Drivers\stddef.h
    28    99   5  I:\Archivos de programa\PICC\Drivers\ctype.h
- 1273   359  18  I:\Archivos de programa\PICC\Drivers\stdlib.h
-   33    36   2  comunicacion.h
+ 1273   359  17  I:\Archivos de programa\PICC\Drivers\stdlib.h
+   33    37   2  comunicacion.h
   298     0   0  usb_desc_cdc.h
  1063     0   0  I:\Archivos de programa\PICC\Drivers\usb.h
   582   137   7  I:\Archivos de programa\PICC\Drivers\usb_cdc.h
@@ -29,25 +29,25 @@ Lines Stmts  %   Files
   279     0   0  I:\Archivos de programa\PICC\Drivers\usb_desc_cdc.h
   808   237  12  I:\Archivos de programa\PICC\Drivers\usb.c
  1281   320  16  I:\Archivos de programa\PICC\Drivers\pic18_usb.c
-   66    36   2  memoria.h
-   81    36   2  ds1307.h
+   66    37   2  memoria.h
+   81    37   2  ds1307.h
    14     0   0  analogo_digital.h
    40     0   0  captura_frecuencia.h
   670     0   0  registros.h
-   16    36   2  utilidades.h
-  158    67   3  test.c
-   59    77   4  comunicacion.c
-   42    50   2  analogo_digital.c
-  405   129   6  ds1307.c
-  107   105   5  captura_frecuencia.c
-  423   231  11  memoria.c
-   44    53   3  utilidades.c
+   16    37   2  utilidades.h
+  158    66   3  test.c
+   59    78   4  comunicacion.c
+   42    51   2  analogo_digital.c
+  405   130   6  ds1307.c
+  107   106   5  captura_frecuencia.c
+  423   232  11  memoria.c
+   44    54   3  utilidades.c
 ----- -----
- 9584  2044 Total
+ 9585  2054 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
-0     44   0   1             @delay_ms1
+0     42   0   1             @delay_ms1
 0     32   0   0             @const369
 0     32   0   0             @const371
 0     48   0   0             @const373
@@ -109,22 +109,22 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     52   0   1    63  1.6  usb_cdc_putc_fast
 0    106   1   3             @I2C_READ_1
 0    118   1   1             @I2C_WRITE_1
-0    120   1   5   277  3.8  test_ccp
+0    118   1   5   262  3.4  test_ccp
 0     10   0   0             @const1278
 0     40   0   3             @PSTRINGCN_390
 0    128   1  13             @DIV3232
 0    196   1  12             @PRINTF_L32U_390
 0     36   0   0             @const1292
 0     14   0   0             @const1297
-0      8   0   0             @const1312
+0      8   0   0  1895  7.5  @const1312
 0     44   0   3             @DIV88
 0    222   1   6             @PRINTF_D_390
 0     10   0   0             @const1319
 0     18   0   0             @const1328
 0    626   4   6   338  2.4  test_reloj
-0     22   0   0             @const1337
+0     22   0   0   338  2.4  @const1337
 0    174   1   0   972  3.8  setup_devices
-0    598   4   1   260  4.3  MAIN
+0    620   4   1   285  4.4  MAIN
 0     42   0   0   154  2.9  COM_init
 0     36   0   0   124  2.7  COM_sense
 0    352   2   3   497  2.4  ds1307_init
@@ -139,25 +139,24 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     54   0   0   172  2.7  CP_init_ccp
 0     58   0   1   225  3.7  CP_activar_captura
 0     48   0   0   195  2.7  CP_desativar_captura
-0     16   0   0    25  1.3  CP_ocupado
-0     18   0   0    25  1.3  CP_done
+0     16   0   0    25  1.3  CP_done
 0     28   0   0    24  1.7  CP_obtener_resultado
-0      8   0   0             @const1389
-0     26   0   0             @const1391
-0     16   0   0             @const1397
+0      8   0   0    72  2.4  @const1389
+0     26   0   0   370  3.1  @const1391
+0     16   0   0  1219  9.1  @const1397
 0     30   0   1   141  3.4  _debug_usb
 
 Program metrics:
-    Functions               72
-    Statements              2044
-    Comments                4621
-    Volume (V)              49247
-    Difficilty (D)          284.1
-    Effort to implement (E) 13988644
-    Time to implement (T)   215 hours, 52 minutes
-    Est Delivered Bugs (B)  19
-    Cyclomatic Complexity   137
-    Maintainability (MI)    75
+    Functions               76
+    Statements              2054
+    Comments                4622
+    Volume (V)              56840
+    Difficilty (D)          307.4
+    Effort to implement (E) 17475464
+    Time to implement (T)   269 hours, 41 minutes
+    Est Delivered Bugs (B)  22
+    Cyclomatic Complexity   153
+    Maintainability (MI)    59
 
  Segment     Used  Free
 -----------  ----  ----
