@@ -1,44 +1,27 @@
 // ====== test de captura frecuencia =====
 #ifdef CAPTURA_FRECUENCIA_H
-	#ifdef SIMULACION
 	void test_ccp(){
 		int32 buffer = 0;
 		int done = 0;
-		if(_debug_usb()){
-			if(!CP_ocupado()){
-				CP_activar_captura(CCP_CANAL_1);
-			}
-			do{
-				done = CP_done();
-			}while(!done);
-			buffer = CP_obtener_resultado();
-			CP_desativar_captura();
-			printf("\n\rC1: %Lu", buffer);
-		}
-	}
-	#else
-	void test_ccp(){
-		int32 buffer = 0;
-		int done = 0;
-		if(_debug_usb()){
-			CP_activar_captura(CCP_CANAL_1);
+		CP_activar_captura(CCP_CANAL_1);
+		done = CP_done();
+		while(!done){
+			//printf(usb_cdc_putc_fast,"\n\rEsperando...");
 			done = CP_done();
-			while(!done){
-				//printf(usb_cdc_putc_fast,"\n\rEsperando...");
-				done = CP_done();
-			}
-			buffer = CP_obtener_resultado();
-			CP_desativar_captura();
-			printf(usb_cdc_putc_fast,"\n\rC1: %Lu", buffer);
 		}
+		buffer = CP_obtener_resultado();
+		CP_desativar_captura();
+		#ifdef SIMULACION
+		printf("\n\rC1: %Lu", buffer);
+		#else
+		printf(usb_cdc_putc_fast,"\n\rC1: %Lu", buffer);
+		#endif      
 	}
-	#endif
 #endif
 
 
 // ====== test de Conversor Analogo Digital=====
 #ifdef ANALOGO_DIGITAL_H
-	#ifdef SIMULACION
 	void test_ADC(void){
 		int16 ejex = 0, ejey = 0, ejez = 0, vel = 0, rev = 0;
 		AD_leer_canal(ACC_x, &ejex);
@@ -46,27 +29,15 @@
 		AD_leer_canal(ACC_z, &ejez);
 		AD_leer_canal(AD_VEL, &vel);
 		AD_leer_canal(AD_REV, &rev);
+		#ifdef SIMULACION
 		printf("\n\rx:%LX\t\ty:%LX\t\tz:%LX\t\tv:%LX\t\tr:%LX",ejex, ejey, ejez, vel, rev);
+		#else
+		printf(usb_cdc_putc_fast,"\n\rx:%LX\t\ty:%LX\t\tz:%LX\t\tv:%LX\t\tr:%LX",ejex, ejey, ejez, vel, rev);
+		#endif
 		delay_ms(333);
 		return;
 	}
-	
-	#else
-	void test_ADC(void){
-		int16 ejex = 0, ejey = 0, ejez = 0, vel = 0, rev = 0;
-		if(_debug_usb()){
-			//place your code here
-			AD_leer_canal(ACC_x, &ejex);
-			AD_leer_canal(ACC_y, &ejey);
-			AD_leer_canal(ACC_z, &ejez);
-			AD_leer_canal(AD_VEL, &vel);
-			AD_leer_canal(AD_REV, &rev);
-			printf(usb_cdc_putc_fast,"\n\rx:%LX\t\ty:%LX\t\tz:%LX\t\tv:%LX\t\tr:%LX",ejex, ejey, ejez, vel, rev);
-		}
-		return;
-	}
-	#endif
-	#endif
+#endif
 
 #ifdef COMUNICACION_H
 void test_comunicacion(void){
@@ -97,7 +68,7 @@ void test_memoria(void){
 			tamano = 0;
 			printf(usb_cdc_putc,"\n\rtest %u", aux);
 			while(!(op = usb_cdc_getc()));
-			switch(op){
+			switch(op){                    
 				case '0':
 					MEMORIA_reset();
 					break;
@@ -152,6 +123,10 @@ void test_reloj(){
    byte hor = 0, min = 0, seg = 0;
 	ds1307_get_date(dia, mes, anio, DS_vic);
 	ds1307_get_time(hor, min, seg);
+	#ifdef SIMULACION
+	printf("\n\rH %d/%d/%d %d:%d:%d",dia, mes, anio, hor, min, seg);
+	#else
 	printf(usb_cdc_putc_fast,"\n\rH %d/%d/%d %d:%d:%d",dia, mes, anio, hor, min, seg);
+	#endif
 }
 #endif

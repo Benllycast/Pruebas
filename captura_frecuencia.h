@@ -19,6 +19,7 @@ int MODO_CCP1 = CCP_CAPTURE_RE;
 int MODO_CCP2 = CCP_CAPTURE_RE;
 
 /*
+	Q=-1:   ccp inabilitado
    Q=0 :   capturando el tiempo de flanco de subida
    Q=1 :   capturando el tiempo de flanco de bajada
    Q=2 :   relizando el calculo de ancho de pulso o periodo

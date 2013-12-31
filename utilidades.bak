@@ -1,48 +1,17 @@
-//#include "Nucleo.h"
-#include "utilidades.h"
+#ifndef UTILIDADES_H
+#define UTILIDADES_H
 
-/*
-#define MYDIM 64;
-char MyArray[MYDIM];
-*/
-
-int16 crc_1021(int16 old_crc, int8 data)
-{ 
-  int16 crc;
-  int16 x;
-  x = make8(old_crc,1) ^ data;  //x = ((old_crc>>8) ^ data) & 0xff; 
-  x ^= x>>4;
-  crc = (old_crc << 8) ^ (x << 12) ^ (x <<5) ^ x; 
-  crc &= 0xffff; 
-  return crc; 
-}
-
-int16 calc_CRC(char *buffer, unsigned int8 leng){
-	unsigned int8 i; 
-   int16 MyCRC;
-   
-   MyCRC = 0xFFFF; 
-   for(i=0 ; i<leng ; i++) { 
-      MyCRC = crc_1021(MyCRC,buffer[i]); 
-   }
-   return (MyCRC);
-}
+#define INDICADOR_AMARILLO	PIN_E0
+#define INDICADOR_USB		PIN_E1
+#define INDICADOR_RUN		PIN_E2
+int16 calc_CRC(char *buffer, unsigned int8 leng);
 
 #ifndef SIMULACION
-int1 _debug_usb(void){
-	if(COM_sense() == USB_OK){
-      output_bit(INDICADOR_USB, 1);
-      return (1);
-	}else{
-		output_bit(INDICADOR_USB, 0);
-		return (0);
-	}
-}
-
-void debug_print(...){
-	if(_debug_usb()){
-		printf(usb_cdc_putc, ...);
-	}
-}
+	int1 _debug_usb();
+	#define PUERTO usb_cdc_putc_fast
+#else
+	#define _debug_usb() 1
+	#use rs232(stream=PUERTO,baud=9600,parity=N,xmit=PIN_XMIT,rcv=PIN_RCV,bits=8) 
 #endif
 
+#endif

@@ -38,6 +38,5 @@ int1 _debug_usb(void){
 		return (0);
 	}
 }
-
 #endif
 
