@@ -10,7 +10,7 @@
 #include "comunicacion.h"
 //#include "memoria.h"
 #include "ds1307.h"
-//#include "analogo_digital.h"
+#include "analogo_digital.h"
 //#include "captura_frecuencia.h"
 #include "utilidades.h"
 //#use rs232(baud=9600,parity=N,xmit=PIN_XMIT,rcv=PIN_RCV,bits=8)
@@ -37,140 +37,182 @@ struct Log {
 } data;
 
 #ifdef use_rtos
+void activar_tareas();
+void desactivar_tareas();
 
+#ifdef MEMORIA_H
 void guardar(){
 	unsigned int nBytes = 0, escritos = 0;
-	if(_debug_usb()){
-		if(input(PIN_LOG) == LOG_ENABLE){
-			#ifdef MEMORIA_H
-			sprintf(buffer_log,LOG_LINE,
+	if(input(PIN_LOG) == LOG_ENABLE){
+		sprintf(buffer_log,LOG_LINE,
 				data.dia, data.mes, data.anio,
 				data.hor, data.min, data.seg,
 				data.sensor, data.no_data, data.value, data.crc
 				);
 			
-			nBytes = strlen(buffer_log);
-			if((myerror = MEMORIA_open(testfile, FILE_WR)) != 0){
-				printf(usb_cdc_putc_fast,"\n\rMO%d",myerror);
-			}else{
-				if( (myerror = MEMORIA_write(nBytes)) != 0 ){
-					printf(usb_cdc_putc_fast,"\n\rMW%d",myerror);
-				}else{
-					escritos = MEMORIA_set_data(buffer_log, nBytes);
-					printf(usb_cdc_putc_fast,"\n\rMS%d", escritos);
-					MEMORIA_close();
-				}
-			}
-			#endif			
-			printf(usb_cdc_putc_fast,"%s %u",buffer_log, nBytes);
+		nBytes = strlen(buffer_log);
+		if((myerror = MEMORIA_open(testfile, FILE_WR)) != 0){
+			printf(usb_cdc_putc_fast,"\n\rMO%d",myerror);
 		}else{
-			#ifdef SIMULACION
-			printf("\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
-				data.dia, data.mes, data.anio,
-				data.hor, data.min, data.seg,
-				data.sensor, data.no_data, data.value);
-			#else
-			printf(usb_cdc_putc_fast,"\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
-				data.dia, data.mes, data.anio,
-				data.hor, data.min, data.seg,
-				data.sensor, data.no_data, data.value);
-			#endif
+			if( (myerror = MEMORIA_write(nBytes)) != 0 ){
+				printf(usb_cdc_putc_fast,"\n\rMW%d",myerror);
+			}else{
+				escritos = MEMORIA_set_data(buffer_log, nBytes);
+				printf(usb_cdc_putc_fast,"\n\rMS%d", escritos);
+				MEMORIA_close();
+			}
 		}
+	}
+	if(_debug_usb()){printf(usb_cdc_putc_fast,"%s %u",buffer_log, nBytes);}
+}
+#else
+void guardar(){
+	if(_debug_usb()){
+		#ifdef SIMULACION
+		printf("\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
+			data.dia, data.mes, data.anio,
+			data.hor, data.min, data.seg,
+			data.sensor, data.no_data, data.value);
+		#else
+		printf(usb_cdc_putc_fast,"\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
+			data.dia, data.mes, data.anio,
+			data.hor, data.min, data.seg,
+			data.sensor, data.no_data, data.value);
+		#endif
 	}
 }
+#endif	//MEMORIA_H
 
-	#task (rate=500ms, max=50ms)
-	void proceso2()
-	{	
-		salida = (salida)? 0 : 1;
-		if(salida) output_bit(INDICADOR_RUN, 1);
-		else output_bit(INDICADOR_RUN, 0);
-		if(_debug_usb()){printf(usb_cdc_putc_fast,noLog);}
-	   rtos_yield();
-	}
-	/*
-	#task (rate=500ms, max=50ms)
-	void testMemoria(){
-		data.sensor = 255;
-		data.value = rand();
-		data.crc = rand();
+#task (rate=500ms, max=5ms)
+void proceso2()
+{	
+	salida = (salida)? 0 : 1;
+	if(salida) output_bit(INDICADOR_RUN, 1);
+	else output_bit(INDICADOR_RUN, 0);
+   //rtos_yield();
+}
+/*
+#task (rate=100ms, max=50ms)
+void testMemoria(){
+	data.sensor = 255;
+	data.value = rand();
+	data.crc = rand();
+	++data.no_data;
+	guardar();
+	rtos_yield();
+} 
+*/
+
+#ifdef DS1307_H
+#task (rate=500ms, max=50ms)
+void reloj(){
+	ds1307_get_date(data.dia, data.mes, data.anio, DS_vic);
+	ds1307_get_time(data.hor, data.min, data.seg);
+	#ifndef SIMULACION
+	if(_debug_usb()){printf(usb_cdc_putc_fast,noLog);}
+	#else
+	printf(nolog);
+	#endif
+	//rtos_yield();
+}
+#endif	//DS1307_H
+
+#ifdef ANALOGO_DIGITAL_H
+	#task (rate=200ms, max=20ms)
+	void Tarea1()
+	{
+		AD_leer_canal(ACC_x,&lectura);
+		data.sensor = ACC_x;
+		data.value = lectura;
 		++data.no_data;
 		guardar();
-		rtos_yield();
-	} 
-	*/
-	#ifdef ANALOGO_DIGITAL_H
-		#task (rate=150ms, max=50ms)
-		void Tarea1()
-		{
-			AD_leer_canal(0,&lectura);
-			data.sensor = 0;
-			data.value = lectura;
-			++data.no_data;
-			guardar();
-			rtos_yield();
-		}
-		
-		#task (rate=150ms, max=50ms)
-		void Tarea2(){
-			AD_leer_canal(1,&lectura);
-			data.sensor = 1;
-			data.value = lectura;
-			++data.no_data;
-			guardar();
-			rtos_yield();
-		}
-		
-		#task (rate=150ms, max=50ms)
-		void Tarea3(){
-			AD_leer_canal(2,&lectura);
-			data.sensor = 2;
-			data.value = lectura;
-			++data.no_data;
-			guardar();
-			rtos_yield();
-		}
-	#endif
+		//rtos_yield();
+	}
 	
-	#ifdef DS1307_H
-		#task (rate=200ms, max=50ms)
-		void reloj(){
-			ds1307_get_date(data.dia, data.mes, data.anio, DS_vic);
-			ds1307_get_time(data.hor, data.min, data.seg);
-			guardar();
-			rtos_yield();
-		}
-	#endif
+	#task (rate=200ms, max=20ms)
+	void Tarea2(){
+		AD_leer_canal(ACC_y,&lectura);
+		data.sensor = ACC_y;
+		data.value = lectura;
+		++data.no_data;
+		guardar();
+		//rtos_yield();
+	}
 	
-	#ifdef CAPTURA_FRECUENCIA_H
-		#task (rate=300ms, max=50ms)
-		void rpm(){
-			if(!CP_ocupado()){
-				//rtos_disable(reloj);
-				rtos_disable(proceso2);
-				//rtos_disable(Tarea1);
-				//rtos_disable(Tarea2);
-				//rtos_disable(Tarea3);
-				CP_activar_captura(CCP_CANAL_1);
-			}
-			//rtos_await(Q_CCP == 2);                       
-			if(!(Q_CCP == 2)){
-				rtos_yield();	
-			}  
-			data.value = CP_obtener_resultado();
-			CP_desativar_captura();
-			data.sensor = 4;
-			data.no_data++;
-			guardar();
-			//rtos_enable(reloj);
-			rtos_enable(proceso2);
-			//rtos_enable(Tarea1);
-			//rtos_enable(Tarea2);
-			//rtos_enable(Tarea3);
-			rtos_yield();
+	
+	#task (rate=200ms, max=20ms)
+	void Tarea3(){
+		AD_leer_canal(ACC_z,&lectura);
+		data.sensor = ACC_z;
+		data.value = lectura;
+		++data.no_data;
+		guardar();
+		//rtos_yield();
+	}
+	
+	#task (rate=200ms, max=20ms)
+	void leer_AD_VEL(){
+		AD_leer_canal(AD_VEL,&lectura);
+		data.sensor = AD_VEL;
+		data.value = lectura;
+		++data.no_data;
+		guardar();
+		//rtos_yield();
+	}
+	
+	#task (rate=200ms, max=20ms)
+	void leer_AD_REV(){
+		AD_leer_canal(AD_REV,&lectura);
+		data.sensor = AD_REV;
+		data.value = lectura;
+		++data.no_data;
+		guardar();
+		//rtos_yield();
+	}
+#endif	//ANALOGO_DIGITAL_H
+
+#ifdef CAPTURA_FRECUENCIA_H
+	#task (rate=400ms, max=50ms)
+	void rpm(){
+		if(!CP_ocupado()){
+			desactivar_tareas();
+			CP_activar_captura(CCP_CANAL_1);
 		}
-	#endif
-#endif
+		//rtos_await(Q_CCP == 2);                       
+		if(!CP_done()){
+			rtos_yield();
+		}  
+		data.value = CP_obtener_resultado();
+		CP_desativar_captura();
+		data.sensor = CCP_REV;
+		data.no_data++;
+		guardar();
+		activar_tareas();
+		//rtos_yield();
+	}
+#endif	//CAPTURA_FRECUENCIA_H
+
+void activar_tareas(){
+	rtos_enable(reloj);
+	rtos_enable(proceso2);
+	rtos_enable(Tarea1);
+	rtos_enable(Tarea2);
+	rtos_enable(Tarea3);
+	rtos_enable(leer_AD_REV);
+	rtos_enable(leer_AD_VEL);
+}
+
+void desactivar_tareas(){
+	rtos_disable(reloj);
+	rtos_disable(proceso2);
+	rtos_disable(Tarea1);
+	rtos_disable(Tarea2);
+	rtos_disable(Tarea3);
+	rtos_disable(leer_AD_REV);
+	rtos_disable(leer_AD_VEL);
+}
+
+#endif	//use_rtos
 
 //#include "test.c"	// comentar esto en la aplicacion final
 
@@ -271,9 +313,9 @@ void main(void) {
 
 /*======================= implementacion de tareas =======================*/
 #include "comunicacion.c"
-//#include "analogo_digital.c"
+#include "analogo_digital.c"
 #include "ds1307.c"
-//#include "captura_frecuencia.c"
-//#include "memoria.c"
+#include "captura_frecuencia.c"
+#include "memoria.c"
 #include "utilidades.c"
 

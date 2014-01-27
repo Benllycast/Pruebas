@@ -1,4 +1,4 @@
-
+#ifdef CAPTURA_FRECUENCIA_H
 //#include "captura_frecuencia.h"
 /*
 #ifndef REGISTROS_H
@@ -104,3 +104,4 @@ int CP_leer_ccp(int canal, int32 *buffer){
    *buffer = tiempo_final - tiempo_inicial;
    return (0);
 }
+#endif

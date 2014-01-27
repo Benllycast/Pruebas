@@ -11,7 +11,7 @@ frecuencia de la CPU:24 Mhz; el FUSE CPIDIV3 para dividir los 96Mhz hasta 24MHz 
 #include <18F4550.h>
 //#include "PIC18F4550.h"
 #device adc=10
-//#define SIMULACION 1	// comentar esto si se prueba en forma real
+#define SIMULACION 1	// comentar esto si se prueba en forma real
 
 /*====================fuses de configuracion del dispositivo==================*/
 #fuses HSPLL,NOWDT,NOPROTECT,NOLVP,NODEBUG,USBDIV,PLL5,CPUDIV4,VREGEN, NOPBADEN

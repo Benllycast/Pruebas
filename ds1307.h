@@ -59,6 +59,7 @@
 #define Start_user_address_nvram 0x08
 #define End_user_address_nvram 0x3f
 
+#define USE_INTERRUPTS 1
 
 void ds1307_init(int val);
 void ds1307_set_date_time(byte day, byte mth, byte year, byte dow, byte hr, byte min, byte sec);
