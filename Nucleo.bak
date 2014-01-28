@@ -10,13 +10,14 @@
 #include "comunicacion.h"
 //#include "memoria.h"
 #include "ds1307.h"
-#include "analogo_digital.h"
-//#include "captura_frecuencia.h"
+//#include "analogo_digital.h"
+#include "captura_frecuencia.h"
 #include "utilidades.h"
 //#use rs232(baud=9600,parity=N,xmit=PIN_XMIT,rcv=PIN_RCV,bits=8)
 
 #define LOG_LINE ("\n\r%X:%X:%X:%X:%X:%X:%X:%X:%LX:%LX")
 int1 salida = 0;
+int canal_ccp = 0;
 int myerror = 0;
 int16 lectura = 0;
 char noLog[] = "\n\rno se puede guardar";
@@ -172,10 +173,11 @@ void reloj(){
 #endif	//ANALOGO_DIGITAL_H
 
 #ifdef CAPTURA_FRECUENCIA_H
-	#task (rate=400ms, max=50ms)
+	#task (rate=300ms, max=50ms)
 	void rpm(){
 		if(!CP_ocupado()){
 			desactivar_tareas();
+			canal_ccp = (canal_ccp == CCP_CANAL_1)? CCP_CANAL_2: CCP_CANAL_1;
 			CP_activar_captura(CCP_CANAL_1);
 		}
 		//rtos_await(Q_CCP == 2);                       
@@ -184,7 +186,7 @@ void reloj(){
 		}  
 		data.value = CP_obtener_resultado();
 		CP_desativar_captura();
-		data.sensor = CCP_REV;
+		data.sensor = (canal_ccp == CCP_CANAL_1)? CCP_REV: CCP_VEL;
 		data.no_data++;
 		guardar();
 		activar_tareas();
@@ -195,21 +197,25 @@ void reloj(){
 void activar_tareas(){
 	rtos_enable(reloj);
 	rtos_enable(proceso2);
+	#ifdef ANALOGO_DIGITAL_H
 	rtos_enable(Tarea1);
 	rtos_enable(Tarea2);
 	rtos_enable(Tarea3);
 	rtos_enable(leer_AD_REV);
 	rtos_enable(leer_AD_VEL);
+	#endif	//ANALOGO_DIGITAL_H
 }
 
 void desactivar_tareas(){
 	rtos_disable(reloj);
 	rtos_disable(proceso2);
+	#ifdef ANALOGO_DIGITAL_H
 	rtos_disable(Tarea1);
 	rtos_disable(Tarea2);
 	rtos_disable(Tarea3);
 	rtos_disable(leer_AD_REV);
 	rtos_disable(leer_AD_VEL);
+	#endif	//ANALOGO_DIGITAL_H
 }
 
 #endif	//use_rtos
@@ -313,7 +319,7 @@ void main(void) {
 
 /*======================= implementacion de tareas =======================*/
 #include "comunicacion.c"
-#include "analogo_digital.c"
+//#include "analogo_digital.c"
 #include "ds1307.c"
 #include "captura_frecuencia.c"
 #include "memoria.c"

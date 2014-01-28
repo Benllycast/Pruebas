@@ -1,18 +1,18 @@
 
-ROM used: 9170 (28%)
-          9170 (28%) including unused fragments
+ROM used: 9184 (28%)
+          9184 (28%) including unused fragments
 
           1 Average locations per line
           4 Average locations per statement
 
-RAM used: 643 (31%) at main() level
-          831 (41%) worst case
+RAM used: 644 (31%) at main() level
+          832 (41%) worst case
 
 Stack used: 16 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-  322    90   4  Nucleo.c
+  328    91   4  Nucleo.c
    85     0   0  Nucleo.h
   457     0   0  I:\Archivos de programa\PICC\Devices\18F4550.h
    37     0   0  I:\Archivos de programa\PICC\Drivers\stdio.h
@@ -20,7 +20,7 @@ Lines Stmts  %   Files
    28     0   0  I:\Archivos de programa\PICC\Drivers\stddef.h
    28    99   4  I:\Archivos de programa\PICC\Drivers\ctype.h
  1273   359  14  I:\Archivos de programa\PICC\Drivers\stdlib.h
-   33    90   4  comunicacion.h
+   33    91   4  comunicacion.h
   298     0   0  usb_desc_cdc.h
  1063     0   0  I:\Archivos de programa\PICC\Drivers\usb.h
   582   137   5  I:\Archivos de programa\PICC\Drivers\usb_cdc.h
@@ -28,21 +28,21 @@ Lines Stmts  %   Files
   328     0   0  I:\Archivos de programa\PICC\Drivers\usb_hw_layer.h
   279     0   0  I:\Archivos de programa\PICC\Drivers\usb_desc_cdc.h
   808   237   9  I:\Archivos de programa\PICC\Drivers\usb.c
- 1281   320  13  I:\Archivos de programa\PICC\Drivers\pic18_usb.c
-   82    90   4  ds1307.h
+ 1281   320  12  I:\Archivos de programa\PICC\Drivers\pic18_usb.c
+   82    91   4  ds1307.h
    14     0   0  analogo_digital.h
    43     0   0  captura_frecuencia.h
   670     0   0  registros.h
-   18    90   4  utilidades.h
-   59   131   5  comunicacion.c
-   42   104   4  analogo_digital.c
-  405   171   7  ds1307.c
-  108   159   6  captura_frecuencia.c
-  423   285  11  memoria.c
-   66    90   4  memoria.h
-   43   100   4  utilidades.c
+   18    91   4  utilidades.h
+   59   132   5  comunicacion.c
+   42   105   4  analogo_digital.c
+  405   172   7  ds1307.c
+  108   160   6  captura_frecuencia.c
+  423   286  11  memoria.c
+   66    91   4  memoria.h
+   43   101   4  utilidades.c
 ----- -----
- 9506  2552 Total
+ 9512  2563 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
@@ -105,29 +105,29 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     18   0   0    59  2.3  usb_cdc_get_discard
 0    106   1   3             @I2C_READ_1
 0    118   1   1             @I2C_WRITE_1
-0     70   0   1   240  2.8  @PUTCHAR_1_
+0     70   0   1             @PUTCHAR_1_
 0    284   2   0   228  2.5  guardar
-0     38   0   0             @const1262
+0     38   0   0             @const1263
 0     44   0   3             @DIV88
 0    124   1   2             @PRINTF_U_1237
 0     42   0   3             @PSTRINGCN_1237
-0    128   1  13   122  3.5  @DIV3232
-0    196   1  12   204  2.7  @PRINTF_L32U_1237
+0    128   1  13             @DIV3232
+0    196   1  12             @PRINTF_L32U_1237
 0     42   0   0   122  3.5  proceso2
 0    456   2   0   167  2.1  reloj
-0     38   0   2   129  3.4  @PSTRINGR_1237
+0     38   0   2             @PSTRINGR_1237
 0     46   0   0   129  3.4  Tarea1
 0     50   0   0   129  3.4  Tarea2
 0     50   0   0   129  3.4  Tarea3
 0     50   0   0   129  3.4  leer_AD_VEL
 0     50   0   0   131  3.2  leer_AD_REV
-0     84   0   0   242  3.6  rpm
-0     22   0   0   125  1.4  activar_tareas
-0     22   0   0   125  1.4  desactivar_tareas
+0    104   1   0   362  5.1  rpm
+0     22   0   0   127  1.3  activar_tareas
+0     22   0   0   127  1.3  desactivar_tareas
 0     98   1   0   473  3.0  iniciar_perifericos
 0     88   0   0   436  2.8  setup_devices
-0   1180   6   0    38  0.8  MAIN
-0     32   0   0   154  2.9  @const1297
+0   1174   6   0    38  0.8  MAIN
+0     32   0   0    49  1.7  @const1298
 0     42   0   0   154  2.9  COM_init
 0     34   0   0   108  2.1  AD_init_adc
 0     82   0   6   254  4.4  AD_leer_canal
@@ -146,28 +146,28 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     16   0   0    25  1.3  CP_ocupado
 0     18   0   0    25  1.3  CP_done
 0     28   0   0    24  1.7  CP_obtener_resultado
-0      8   0   0  1018  9.7  @const1367
-0     26   0   0    53  2.5  @const1374
-0     16   0   0   241  5.3  @const1383
+0      8   0   0             @const1368
+0     26   0   0             @const1375
+0     16   0   0             @const1384
 
 Program metrics:
-    Functions               88
-    Statements              2552
-    Comments                4800
-    Volume (V)              56325
-    Difficilty (D)          336.1
-    Effort to implement (E) 18928565
-    Time to implement (T)   292 hours, 6 minutes
-    Est Delivered Bugs (B)  24
-    Cyclomatic Complexity   144
-    Maintainability (MI)    37
+    Functions               81
+    Statements              2563
+    Comments                4822
+    Volume (V)              51516
+    Difficilty (D)          304.3
+    Effort to implement (E) 15678382
+    Time to implement (T)   241 hours, 57 minutes
+    Est Delivered Bugs (B)  21
+    Cyclomatic Complexity   132
+    Maintainability (MI)    52
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
 00004-00006     4  0  
 00008-000D0   202  0  
-000D2-07FFE  8960  23598  
+000D2-07FFE  8974  23584  
 
 
 

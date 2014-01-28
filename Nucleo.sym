@@ -62,180 +62,181 @@
 090-093 tiempo_inicial
 094-097 tiempo_final
 098     semaforo_ccp
-099     myerror
-09A-09B lectura
-09C-0B1 noLog
-0B2-0B8 testfile
-0B9-0DF buffer_log
-0E0-0ED data
-0EE-0FC @TASKINFO1_2_2_8_0
-0FD-10B @TASKINFO2_2_2_8_0
-10C-11A @TASKINFO3_2_2_8_0
-11B-129 @TASKINFO4_2_2_8_0
-12A-138 @TASKINFO5_2_2_8_0
-139-147 @TASKINFO6_2_2_8_0
-148-156 @TASKINFO7_2_2_8_0
-157-165 @TASKINFO8_2_2_8_0
-166     indice
-167-1B3 days_of_week
-1B4-1B5 @sprintf_string
-1B6     rs232_errors
-1B7     MEM_proceso
-1B8     i
-1B9     car
-1BA-1BD tamano
-1BE-1C2 MEM_info
-1C3-1CE MEM_file_name
-1CF     MEM_handshaking
-1D0     MEM_append
-1D1     MEM_performance
-1D2     MEM_RESPONSE
-1D3     ds1307_init.val
-1D3     ds1307_set_date_time.day
-1D3     usb_detach.@SCRATCH1
-1D3     usb_task.@SCRATCH1
-1D4     ds1307_init.seconds
-1D4     ds1307_set_date_time.mth
-1D5     ds1307_set_date_time.year
-1D5     ds1307_init.@SCRATCH1
-1D6     ds1307_set_date_time.dow
-1D7     ds1307_set_date_time.hr
-1D8     ds1307_set_date_time.min
-1D9     ds1307_set_date_time.sec
-1DA     ds1307_bin2bcd.binary_value
-1DA     ds1307_set_date_time.@SCRATCH1
-1DB     ds1307_bin2bcd.temp
-1DC     ds1307_bin2bcd.retval
-1DD     @PSTRINGR_1237.@SCRATCH1
-1DD     ds1307_get_date.@SCRATCH1
-1DD     ds1307_get_time.@SCRATCH1
-1DE     @PSTRINGR_1237.@SCRATCH2
-1E1     @I2C_READ_1.P1
-1E1     @I2C_WRITE_1.P2
-1E2     ds1307_bcd2bin.bcd_value
-1E2     @I2C_READ_1.@SCRATCH1
-1E3     ds1307_bcd2bin.temp
-1E3     @I2C_READ_1.@SCRATCH2
-1E4     ds1307_bcd2bin.@SCRATCH1
-249     AD_leer_canal.canal
-24A-24B AD_leer_canal.buffer
-24C.0   AD_leer_canal.done
-24D     AD_leer_canal.@SCRATCH1
-24E     AD_leer_canal.@SCRATCH2
-262-265 @PRINTF_L32U_1237.P1
-262     CP_activar_captura.canal
-262     @PSTRINGCN_1237.P1
-262     @PRINTF_U_1237.P2
-263     @PRINTF_U_1237.P1
-263     @PSTRINGCN_1237.@SCRATCH1
-264     @DIV88.P1
-264     @PSTRINGCN_1237.@SCRATCH2
+099     canal_ccp
+09A     myerror
+09B-09C lectura
+09D-0B2 noLog
+0B3-0B9 testfile
+0BA-0E0 buffer_log
+0E1-0EE data
+0EF-0FD @TASKINFO1_2_2_8_0
+0FE-10C @TASKINFO2_2_2_8_0
+10D-11B @TASKINFO3_2_2_8_0
+11C-12A @TASKINFO4_2_2_8_0
+12B-139 @TASKINFO5_2_2_8_0
+13A-148 @TASKINFO6_2_2_8_0
+149-157 @TASKINFO7_2_2_8_0
+158-166 @TASKINFO8_2_2_8_0
+167     indice
+168-1B4 days_of_week
+1B5-1B6 @sprintf_string
+1B7     rs232_errors
+1B8     MEM_proceso
+1B9     i
+1BA     car
+1BB-1BE tamano
+1BF-1C3 MEM_info
+1C4-1CF MEM_file_name
+1D0     MEM_handshaking
+1D1     MEM_append
+1D2     MEM_performance
+1D3     MEM_RESPONSE
+1D4     ds1307_set_date_time.day
+1D4     ds1307_init.val
+1D4     usb_detach.@SCRATCH1
+1D4     usb_task.@SCRATCH1
+1D5     ds1307_set_date_time.mth
+1D5     ds1307_init.seconds
+1D6     ds1307_set_date_time.year
+1D6     ds1307_init.@SCRATCH1
+1D7     ds1307_set_date_time.dow
+1D8     ds1307_set_date_time.hr
+1D9     ds1307_set_date_time.min
+1DA     ds1307_set_date_time.sec
+1DB     ds1307_bin2bcd.binary_value
+1DB     ds1307_set_date_time.@SCRATCH1
+1DC     ds1307_bin2bcd.temp
+1DD     ds1307_bin2bcd.retval
+1DE     @PSTRINGR_1237.@SCRATCH1
+1DE     ds1307_get_date.@SCRATCH1
+1DE     ds1307_get_time.@SCRATCH1
+1DF     @PSTRINGR_1237.@SCRATCH2
+1E2     @I2C_WRITE_1.P1
+1E2     @I2C_READ_1.P2
+1E3     ds1307_bcd2bin.bcd_value
+1E3     @I2C_READ_1.@SCRATCH1
+1E4     ds1307_bcd2bin.temp
+1E4     @I2C_READ_1.@SCRATCH2
+1E5     ds1307_bcd2bin.@SCRATCH1
+24A     AD_leer_canal.canal
+24B-24C AD_leer_canal.buffer
+24D.0   AD_leer_canal.done
+24E     AD_leer_canal.@SCRATCH1
+24F     AD_leer_canal.@SCRATCH2
+263     CP_activar_captura.canal
+263     @PSTRINGCN_1237.P1
+263-266 @PRINTF_L32U_1237.P2
+263     @PRINTF_U_1237.P3
+264     @PRINTF_U_1237.P1
+264     @PSTRINGCN_1237.@SCRATCH1
 265     @DIV88.P1
-266     @DIV88.@SCRATCH1
-266     @PRINTF_L32U_1237.@SCRATCH1
-267     @PRINTF_L32U_1237.@SCRATCH2
-268     @PRINTF_L32U_1237.@SCRATCH3
-269     @PRINTF_L32U_1237.@SCRATCH4
-26A     @PRINTF_L32U_1237.@SCRATCH5
-26B     @PRINTF_L32U_1237.@SCRATCH6
-26C     @PRINTF_L32U_1237.@SCRATCH7
-26D     @PRINTF_L32U_1237.@SCRATCH8
-26E-271 @DIV3232.P1
-26E     @PUTCHAR_1_.P2
-272-275 @DIV3232.P1
-276     @DIV3232.@SCRATCH1
-277     @DIV3232.@SCRATCH2
-278     @DIV3232.@SCRATCH3
-279     @DIV3232.@SCRATCH4
-27A     @DIV3232.@SCRATCH5
-27B     usb_isr.TRNAttempts
-27B     ccp1_isr.@SCRATCH1
-27B     ccp2_isr.@SCRATCH1
-27C     usb_token_reset.i
-27C     usb_isr_tok_dne.en
-27C     usb_isr.@SCRATCH1
-27C     ccp1_isr.@SCRATCH2
-27C     ccp2_isr.@SCRATCH2
-27D     pidKey
-27D     usb_token_reset.@SCRATCH1
-27D     ccp1_isr.@SCRATCH3
-27D     ccp2_isr.@SCRATCH3
-27E     usb_isr_tok_out_dne.endpoint
-27E     usb_isr_tkn_setup_StandardInterface.curr_config
-27E     usb_isr_tok_in_dne.endpoint
-27E     usb_unstall_ep.endpoint
-27E     usb_stall_ep.endpoint
-27E     usb_endpoint_stalled.endpoint
-27E     usb_set_configured.config
-27E     usb_isr_tok_dne.@SCRATCH1
-27E     usb_token_reset.@SCRATCH2
-27E     ccp1_isr.@SCRATCH4
-27E     ccp2_isr.@SCRATCH4
-27F.0   usb_endpoint_stalled.direction
-27F.0   usb_unstall_ep.direction
-27F     usb_copy_desc_seg_to_ep.i
-27F     usb_set_configured.en
-27F     usb_rx_packet_size.endpoint
-27F     usb_put_packet.endpoint
-27F     usb_flush_out.endpoint
-27F.0   usb_stall_ep.direction
-27F     usb_set_address.address
-27F     usb_isr_tok_dne.@SCRATCH2
-27F     usb_isr_tkn_setup_StandardInterface.@SCRATCH1
-280     usb_endpoint_stalled.st
-280     usb_flush_out.tgl
-280-281 usb_put_packet.ptr
-280     usb_copy_desc_seg_to_ep.c
-280-281 usb_set_configured.addy
-280     usb_rx_packet_size.@SCRATCH1
-280     usb_stall_ep.@SCRATCH1
-280     usb_unstall_ep.@SCRATCH1
-280     usb_isr_tok_dne.@SCRATCH3
-280     usb_isr_tkn_setup_StandardInterface.@SCRATCH2
-281     usb_request_send_response.len
-281     usb_flush_out.i
-281     usb_rx_packet_size.@SCRATCH2
-281     usb_stall_ep.@SCRATCH2
-281     usb_unstall_ep.@SCRATCH2
-281     usb_endpoint_stalled.@SCRATCH1
-281     usb_isr_tok_dne.@SCRATCH4
-281     usb_copy_desc_seg_to_ep.@SCRATCH1
-282-283 usb_flush_out.len
-282-283 usb_put_packet.len
-282     usb_set_configured.new_uep
-282     usb_endpoint_stalled.@SCRATCH2
-282     usb_copy_desc_seg_to_ep.@SCRATCH2
-283-284 usb_set_configured.len
-284     usb_put_packet.tgl
-284     usb_flush_out.@SCRATCH1
-285-286 usb_put_packet.buff_add
-285     usb_set_configured.i
-285     usb_flush_out.@SCRATCH2
-286     usb_disable_endpoints.i
-286     usb_set_configured.@SCRATCH1
-287     usb_flush_in.endpoint
-287     usb_disable_endpoint.en
-287     usb_put_packet.@SCRATCH1
-287     usb_set_configured.@SCRATCH2
-288     usb_endpoint_is_valid.endpoint
-288-289 usb_flush_in.len
-288     usb_put_packet.@SCRATCH2
-288     usb_disable_endpoint.@SCRATCH1
-289.0   usb_endpoint_is_valid.direction
-289     usb_disable_endpoint.@SCRATCH2
-28A     usb_flush_in.tgl
-28A     usb_endpoint_is_valid.@SCRATCH1
-28B     usb_flush_in.i
-28C     usb_tbe.en
-28C     usb_flush_in.@SCRATCH1
-28D     usb_tbe.@SCRATCH1
-28D     usb_flush_in.@SCRATCH2
-28E     usb_tbe.@SCRATCH2
+265     @PSTRINGCN_1237.@SCRATCH2
+266     @DIV88.P1
+267     @DIV88.@SCRATCH1
+267     @PRINTF_L32U_1237.@SCRATCH1
+268     @PRINTF_L32U_1237.@SCRATCH2
+269     @PRINTF_L32U_1237.@SCRATCH3
+26A     @PRINTF_L32U_1237.@SCRATCH4
+26B     @PRINTF_L32U_1237.@SCRATCH5
+26C     @PRINTF_L32U_1237.@SCRATCH6
+26D     @PRINTF_L32U_1237.@SCRATCH7
+26E     @PRINTF_L32U_1237.@SCRATCH8
+26F     @PUTCHAR_1_.P1
+26F-272 @DIV3232.P2
+273-276 @DIV3232.P1
+277     @DIV3232.@SCRATCH1
+278     @DIV3232.@SCRATCH2
+279     @DIV3232.@SCRATCH3
+27A     @DIV3232.@SCRATCH4
+27B     @DIV3232.@SCRATCH5
+27C     usb_isr.TRNAttempts
+27C     ccp1_isr.@SCRATCH1
+27C     ccp2_isr.@SCRATCH1
+27D     usb_token_reset.i
+27D     usb_isr_tok_dne.en
+27D     usb_isr.@SCRATCH1
+27D     ccp1_isr.@SCRATCH2
+27D     ccp2_isr.@SCRATCH2
+27E     pidKey
+27E     usb_token_reset.@SCRATCH1
+27E     ccp1_isr.@SCRATCH3
+27E     ccp2_isr.@SCRATCH3
+27F     usb_unstall_ep.endpoint
+27F     usb_isr_tok_in_dne.endpoint
+27F     usb_set_configured.config
+27F     usb_isr_tkn_setup_StandardInterface.curr_config
+27F     usb_endpoint_stalled.endpoint
+27F     usb_isr_tok_out_dne.endpoint
+27F     usb_stall_ep.endpoint
+27F     usb_isr_tok_dne.@SCRATCH1
+27F     usb_token_reset.@SCRATCH2
+27F     ccp1_isr.@SCRATCH4
+27F     ccp2_isr.@SCRATCH4
+280     usb_put_packet.endpoint
+280     usb_set_configured.en
+280.0   usb_endpoint_stalled.direction
+280     usb_set_address.address
+280.0   usb_stall_ep.direction
+280     usb_flush_out.endpoint
+280.0   usb_unstall_ep.direction
+280     usb_rx_packet_size.endpoint
+280     usb_copy_desc_seg_to_ep.i
+280     usb_isr_tok_dne.@SCRATCH2
+280     usb_isr_tkn_setup_StandardInterface.@SCRATCH1
+281-282 usb_set_configured.addy
+281     usb_flush_out.tgl
+281     usb_endpoint_stalled.st
+281-282 usb_put_packet.ptr
+281     usb_copy_desc_seg_to_ep.c
+281     usb_rx_packet_size.@SCRATCH1
+281     usb_stall_ep.@SCRATCH1
+281     usb_unstall_ep.@SCRATCH1
+281     usb_isr_tok_dne.@SCRATCH3
+281     usb_isr_tkn_setup_StandardInterface.@SCRATCH2
+282     usb_request_send_response.len
+282     usb_flush_out.i
+282     usb_rx_packet_size.@SCRATCH2
+282     usb_stall_ep.@SCRATCH2
+282     usb_unstall_ep.@SCRATCH2
+282     usb_endpoint_stalled.@SCRATCH1
+282     usb_isr_tok_dne.@SCRATCH4
+282     usb_copy_desc_seg_to_ep.@SCRATCH1
+283     usb_set_configured.new_uep
+283-284 usb_flush_out.len
+283-284 usb_put_packet.len
+283     usb_endpoint_stalled.@SCRATCH2
+283     usb_copy_desc_seg_to_ep.@SCRATCH2
+284-285 usb_set_configured.len
+285     usb_put_packet.tgl
+285     usb_flush_out.@SCRATCH1
+286-287 usb_put_packet.buff_add
+286     usb_set_configured.i
+286     usb_flush_out.@SCRATCH2
+287     usb_disable_endpoints.i
+287     usb_set_configured.@SCRATCH1
+288     usb_disable_endpoint.en
+288     usb_flush_in.endpoint
+288     usb_put_packet.@SCRATCH1
+288     usb_set_configured.@SCRATCH2
+289-28A usb_flush_in.len
+289     usb_endpoint_is_valid.endpoint
+289     usb_put_packet.@SCRATCH2
+289     usb_disable_endpoint.@SCRATCH1
+28A.0   usb_endpoint_is_valid.direction
+28A     usb_disable_endpoint.@SCRATCH2
+28B     usb_flush_in.tgl
+28B     usb_endpoint_is_valid.@SCRATCH1
+28C     usb_flush_in.i
+28D     usb_tbe.en
+28D     usb_flush_in.@SCRATCH1
+28E     usb_tbe.@SCRATCH1
+28E     usb_flush_in.@SCRATCH2
+28F     usb_tbe.@SCRATCH2
 400-4AF g_USBRAM
 F66     UFRML
 F67     UFRMH
-F68     UIR
 F68.0   UIR_URST
+F68     UIR
 F68.1   UIR_UERR
 F68.2   UIR_ACTV
 F68.3   UIR_TRN
@@ -308,11 +309,11 @@ FB8     BAUDCON
 FBA     CCP2CON
 FBB     CCP_2
 FBB     CCP_2_LOW
-FBC     CCPR2
 FBC     CCP_2_HIGH
+FBC     CCPR2
 FBD     CCP1CON
-FBE     CCP_1_LOW
 FBE     CCP_1
+FBE     CCP_1_LOW
 FBF     CCPR1
 FBF     CCP_1_HIGH
 FC0     ADCON2
@@ -344,9 +345,9 @@ FDD     POSTDEC2
 FDE     POSTINC2
 FDF     INDF2
 FE0     BSR
+FE1-FE2 @READ_PACKED_MEMORY.P1
+FE1-FE2 @WRITE_PACKED_MEMORY.P2
 FE1     FSR1L
-FE1-FE2 @WRITE_PACKED_MEMORY.P1
-FE1-FE2 @READ_PACKED_MEMORY.P2
 FE2     FSR1H
 FE3     PLUSW1
 FE4     PREINC1
@@ -354,11 +355,11 @@ FE5     POSTDEC1
 FE6     POSTINC1
 FE7     INDF1
 FE8     WREG
+FE9-FEA @WRITE_PROGRAM_MEMORY.P1
 FE9     FSR0L
-FE9-FEA @READ_PROGRAM_MEMORY.P1
+FE9-FEA @WRITE_PACKED_MEMORY.P1
 FE9-FEA @READ_PACKED_MEMORY.P2
-FE9-FEA @WRITE_PACKED_MEMORY.P3
-FE9-FEA @WRITE_PROGRAM_MEMORY.P4
+FE9-FEA @READ_PROGRAM_MEMORY.P3
 FEA     FSR0H
 FEB     PLUSW0
 FEC     PREINC0
@@ -371,8 +372,8 @@ FF2     INTCON
 FF2.7   INT_GIE
 FF4     PROD
 FF5     TABLAT
-FF6-FF8 @READ_PROGRAM_MEMORY.P1
-FF6-FF8 @WRITE_PROGRAM_MEMORY.P2
+FF6-FF8 @WRITE_PROGRAM_MEMORY.P1
+FF6-FF8 @READ_PROGRAM_MEMORY.P2
 FF7     TBLPTR
 FF8     TBLPTRU
 FF9     PCL
@@ -393,10 +394,10 @@ ROM Allocation:
 01F8  USB_DEVICE_DESC
 021A  USB_STRING_DESC
 0B20  usb_tbe
-1AFE  usb_detach
-1B2A  usb_attach
-1B24  usb_init_cs
-1B4C  usb_task
+1B12  usb_detach
+1B3E  usb_attach
+1B38  usb_init_cs
+1B60  usb_task
 0B64  usb_flush_in
 0D56  usb_put_packet
 0A60  usb_flush_out
@@ -421,7 +422,7 @@ ROM Allocation:
 0976  usb_request_get_data
 0414  usb_request_stall
 0E4A  usb_isr_tok_dne
-1B7E  usb_enumerated
+1B92  usb_enumerated
 03A8  usb_token_reset
 02C4  usb_endpoint_is_valid
 0E18  usb_isr_tok_in_dne
@@ -444,7 +445,7 @@ ROM Allocation:
 109C  @I2C_WRITE_1
 11A6  @PUTCHAR_1_
 1642  guardar
-104C  @const1262
+104C  @const1263
 142C  @DIV88
 1458  @PRINTF_U_1237
 14D4  @PSTRINGCN_1237
@@ -461,32 +462,32 @@ ROM Allocation:
 1928  rpm
 1912  activar_tareas
 1864  desactivar_tareas
-1E7C  iniciar_perifericos
-1EDE  setup_devices
-1F36  MAIN
-025E  @const1297
-1B86  COM_init
-1BB0  AD_init_adc
+1E90  iniciar_perifericos
+1EF2  setup_devices
+1F4A  MAIN
+025E  @const1298
+1B9A  COM_init
+1BC4  AD_init_adc
 13DA  AD_leer_canal
-1C30  ds1307_init
-1D9A  ds1307_set_date_time
+1C44  ds1307_init
+1DAE  ds1307_set_date_time
 1212  ds1307_get_date
 12F6  ds1307_get_time
-1C08  ds1307_bin2bcd
+1C1C  ds1307_bin2bcd
 117C  ds1307_bcd2bin
-197C  timer3_isr
-1984  ccp1_isr
-1A28  ccp2_isr
-1BD2  CP_init_ccp
+1990  timer3_isr
+1998  ccp1_isr
+1A3C  ccp2_isr
+1BE6  CP_init_ccp
 187A  CP_activar_captura
 18E2  CP_desativar_captura
 1854  CP_ocupado
 18B4  CP_done
 18C6  CP_obtener_resultado
-1ACC  @const1367
-1AD4  @const1374
-1AEE  @const1383
-1F36  @cinit
+1AE0  @const1368
+1AE8  @const1375
+1B02  @const1384
+1F4A  @cinit
 0136  StrtoulGO
 0136  StrtolGO
 
@@ -541,109 +542,6 @@ Compiler Settings:
     Float,Double:   32,32
 
 Task Schedule:
-     20, ms  Tarea1
-     20, ms  leer_AD_REV
-    Sync to next 50, ms
-     20, ms  Tarea2
-     50, ms  rpm
-    Sync to next 50, ms
-      5, ms  proceso2
-     20, ms  Tarea3
-    Sync to next 50, ms
-     50, ms  reloj
-     20, ms  leer_AD_VEL
-    Sync to next 50, ms
-     20, ms  Tarea1
-     20, ms  leer_AD_REV
-    Sync to next 50, ms
-     20, ms  Tarea2
-    Sync to next 50, ms
-     20, ms  Tarea3
-    Sync to next 50, ms
-     20, ms  leer_AD_VEL
-    Sync to next 50, ms
-     20, ms  Tarea1
-     20, ms  leer_AD_REV
-    Sync to next 50, ms
-     20, ms  Tarea2
-     50, ms  rpm
-    Sync to next 50, ms
-     20, ms  Tarea3
-    Sync to next 50, ms
-     20, ms  leer_AD_VEL
-    Sync to next 50, ms
-      5, ms  proceso2
-     20, ms  Tarea1
-     20, ms  leer_AD_REV
-    Sync to next 50, ms
-     50, ms  reloj
-     20, ms  Tarea2
-    Sync to next 50, ms
-     20, ms  Tarea3
-    Sync to next 50, ms
-     20, ms  leer_AD_VEL
-    Sync to next 50, ms
-     20, ms  Tarea1
-     20, ms  leer_AD_REV
-    Sync to next 50, ms
-     20, ms  Tarea2
-     50, ms  rpm
-    Sync to next 50, ms
-     20, ms  Tarea3
-    Sync to next 50, ms
-     20, ms  leer_AD_VEL
-    Sync to next 50, ms
-     20, ms  Tarea1
-     20, ms  leer_AD_REV
-    Sync to next 50, ms
-     20, ms  Tarea2
-    Sync to next 50, ms
-      5, ms  proceso2
-     20, ms  Tarea3
-    Sync to next 50, ms
-     50, ms  reloj
-     20, ms  leer_AD_VEL
-    Sync to next 50, ms
-     20, ms  Tarea1
-     20, ms  leer_AD_REV
-    Sync to next 50, ms
-     20, ms  Tarea2
-     50, ms  rpm
-    Sync to next 50, ms
-     20, ms  Tarea3
-    Sync to next 50, ms
-     20, ms  leer_AD_VEL
-    Sync to next 50, ms
-     20, ms  Tarea1
-     20, ms  leer_AD_REV
-    Sync to next 50, ms
-     20, ms  Tarea2
-    Sync to next 50, ms
-     20, ms  Tarea3
-    Sync to next 50, ms
-     20, ms  leer_AD_VEL
-    Sync to next 50, ms
-      5, ms  proceso2
-     20, ms  Tarea1
-     20, ms  leer_AD_REV
-    Sync to next 50, ms
-     50, ms  reloj
-     20, ms  Tarea2
-     50, ms  rpm
-    Sync to next 50, ms
-     20, ms  Tarea3
-    Sync to next 50, ms
-     20, ms  leer_AD_VEL
-    Sync to next 50, ms
-     20, ms  Tarea1
-     20, ms  leer_AD_REV
-    Sync to next 50, ms
-     20, ms  Tarea2
-    Sync to next 50, ms
-     20, ms  Tarea3
-    Sync to next 50, ms
-     20, ms  leer_AD_VEL
-    Sync to next 50, ms
 
 Output Files:
     Errors:      Nucleo.err
