@@ -17,7 +17,7 @@
 
 #define LOG_LINE ("\n\r%X:%X:%X:%X:%X:%X:%X:%X:%LX:%LX")
 int1 salida = 0;
-int canal_ccp = 0;
+int canal_ccp = CCP_CANAL_1;
 int myerror = 0;
 int16 lectura = 0;
 char noLog[] = "\n\rno se puede guardar";
@@ -40,6 +40,7 @@ struct Log {
 #ifdef use_rtos
 void activar_tareas();
 void desactivar_tareas();
+int sensor_activo(int sensor);
 
 #ifdef MEMORIA_H
 void guardar(){
@@ -177,8 +178,14 @@ void reloj(){
 	void rpm(){
 		if(!CP_ocupado()){
 			desactivar_tareas();
-			canal_ccp = (canal_ccp == CCP_CANAL_1)? CCP_CANAL_2: CCP_CANAL_1;
-			CP_activar_captura(CCP_CANAL_1);
+			if(canal_ccp == CCP_CANAL_1){
+				canal_ccp = (sensor_activo(CCP_VEL))? CCP_CANAL_2 : CCP_CANAL_1;
+			}else	if(canal_ccp == CCP_CANAL_2){
+				canal_ccp = (sensor_activo(CCP_REV))? CCP_CANAL_1 : CCP_CANAL_2;
+			}
+			
+			//canal_ccp = (canal_ccp == CCP_CANAL_1)? CCP_CANAL_2 : CCP_CANAL_1;
+			CP_activar_captura(canal_ccp);
 		}
 		//rtos_await(Q_CCP == 2);                       
 		if(!CP_done()){
@@ -218,6 +225,16 @@ void desactivar_tareas(){
 	#endif	//ANALOGO_DIGITAL_H
 }
 
+int sensor_activo(int sensor){
+	if(sensor == CCP_REV){
+		return (0);
+	}else if(sensor == CCP_VEL){
+		return (1);
+	}else{
+		return (0);
+	}
+}
+
 #endif	//use_rtos
 
 //#include "test.c"	// comentar esto en la aplicacion final
@@ -246,7 +263,7 @@ void iniciar_perifericos(){
 	
 	#ifdef DS1307_H
 	ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
-   ds1307_set_date_time(0x0d, 0x01, 0x0d, 0x00, 0x0a, 0x2a, 0x00);
+   //ds1307_set_date_time(0x0d, 0x01, 0x0d, 0x00, 0x0a, 0x2a, 0x00);
 	#endif
 	
 	data.dia = data.mes = data.anio = 0;
@@ -319,7 +336,7 @@ void main(void) {
 
 /*======================= implementacion de tareas =======================*/
 #include "comunicacion.c"
-//#include "analogo_digital.c"
+#include "analogo_digital.c"
 #include "ds1307.c"
 #include "captura_frecuencia.c"
 #include "memoria.c"

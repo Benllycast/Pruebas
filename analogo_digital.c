@@ -1,5 +1,6 @@
 //#include "Nucleo.h"
 //#include "analogo_digital.h"
+#ifdef ANALOGO_DIGITAL_H
 
 #define ADC_TAD_MUL_4      0x10
 #define ADC_INPUT_PORT		0x2F
@@ -39,3 +40,5 @@ int AD_leer_canal(int canal, int16 *buffer){
 	delay_us(20);
 	return (0);
 }
+
+#endif	//ANALOGO_DIGITAL_H
