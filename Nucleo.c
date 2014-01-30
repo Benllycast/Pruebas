@@ -10,14 +10,18 @@
 #include "comunicacion.h"
 //#include "memoria.h"
 #include "ds1307.h"
-//#include "analogo_digital.h"
-#include "captura_frecuencia.h"
+#include "analogo_digital.h"
+//#include "captura_frecuencia.h"
 #include "utilidades.h"
 //#use rs232(baud=9600,parity=N,xmit=PIN_XMIT,rcv=PIN_RCV,bits=8)
 
 #define LOG_LINE ("\n\r%X:%X:%X:%X:%X:%X:%X:%X:%LX:%LX")
 int1 salida = 0;
-int canal_ccp = CCP_CANAL_1;
+
+#ifdef CAPTURA_FRECUENCIA_H
+	int canal_ccp = CCP_CANAL_1;
+#endif	//CAPTURA_FRECUENCIA_H
+
 int myerror = 0;
 int16 lectura = 0;
 char noLog[] = "\n\rno se puede guardar";
@@ -176,6 +180,9 @@ void reloj(){
 #ifdef CAPTURA_FRECUENCIA_H
 	#task (rate=300ms, max=50ms)
 	void rpm(){
+		// agregar una condicion para comprobar que esta tarea este abilitada para
+		// ejecutarse
+		
 		if(!CP_ocupado()){
 			desactivar_tareas();
 			if(canal_ccp == CCP_CANAL_1){
@@ -225,6 +232,7 @@ void desactivar_tareas(){
 	#endif	//ANALOGO_DIGITAL_H
 }
 
+#ifdef CAPTURA_FRECUENCIA_H
 int sensor_activo(int sensor){
 	if(sensor == CCP_REV){
 		return (1);
@@ -234,6 +242,7 @@ int sensor_activo(int sensor){
 		return (0);
 	}
 }
+#endif //CAPTURA_FRECUENCIA_H
 
 #endif	//use_rtos
 
@@ -247,9 +256,9 @@ void iniciar_perifericos(){
 	#endif
 	
 	#ifdef MEMORIA_H
-	//MEMORIA_reset();
-   //myerror = MEMORIA_init_hw();
-   //myerror = MEMORIA_init();
+	MEMORIA_reset();
+   myerror = MEMORIA_init_hw();
+   myerror = MEMORIA_init();
    //printf("\n\rmem E%d", myerror);
 	#endif
 	

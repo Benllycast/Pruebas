@@ -1,9 +1,8 @@
->>> Warning 203 "Nucleo.c" Line 72(1,1): Condition always TRUE
->>> Warning 207 "Nucleo.c" Line 316(1,1): Code has no effect
 >>> Warning 203 "G:\Project\pic\CCS\Pruebas\ds1307.c" Line 181(1,1): Condition always TRUE
->>> Warning 216 "Nucleo.c" Line 346(0,5): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
->>> Warning 202 "Nucleo.c" Line 22(15,22): Variable never used:   lectura
->>> Warning 202 "Nucleo.c" Line 24(6,14): Variable never used:   testfile
->>> Warning 202 "Nucleo.c" Line 25(6,16): Variable never used:   buffer_log
-      Memory usage:   ROM=26%      RAM=28% - 31%
-      0 Errors,  7 Warnings.
+>>> Warning 216 "Nucleo.c" Line 355(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
+>>> Warning 216 "Nucleo.c" Line 355(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_tbe)
+>>> Warning 216 "Nucleo.c" Line 355(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_flush_out_buffer)
+>>> Warning 202 "Nucleo.c" Line 28(6,14): Variable never used:   testfile
+>>> Warning 202 "Nucleo.c" Line 29(6,16): Variable never used:   buffer_log
+      Memory usage:   ROM=25%      RAM=30% - 39%
+      0 Errors,  6 Warnings.

@@ -3,9 +3,10 @@
 
 unsigned int indice = 0;
 int COM_init(){
+	usb_detach(); 
 	usb_cdc_init();
    usb_init_cs();
-   usb_task();
+   /*usb_task();
    if(usb_attached()){
       if(usb_enumerated()){
          return (USB_OK);
@@ -13,7 +14,8 @@ int COM_init(){
          return(USB_NO_ENUMERATED);
       }
    }
-   return (USB_NO_ATTACHED);
+   return (USB_NO_ATTACHED);*/
+   return COM_sense();
 }
 
 int8 COM_sense(){
@@ -24,7 +26,7 @@ int8 COM_sense(){
       }else{
          return(USB_NO_ENUMERATED);
       }
-   }   
+   }
    return(USB_NO_ATTACHED);
 }
 
