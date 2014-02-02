@@ -13,38 +13,13 @@
 #include "analogo_digital.h"
 //#include "captura_frecuencia.h"
 #include "utilidades.h"
+#include "configuracion.h"
 //#use rs232(baud=9600,parity=N,xmit=PIN_XMIT,rcv=PIN_RCV,bits=8)
-
-#define LOG_LINE ("\n\r%X:%X:%X:%X:%X:%X:%X:%X:%LX:%LX")
-int1 salida = 0;
-
-#ifdef CAPTURA_FRECUENCIA_H
-	int canal_ccp = CCP_CANAL_1;
-#endif	//CAPTURA_FRECUENCIA_H
-
-int myerror = 0;
-int16 lectura = 0;
-char noLog[] = "\n\rno se puede guardar";
-char testfile[] = "prueba";
-char buffer_log[39];
-//int32 resultado = 0;
-struct Log {
-	byte dia;
-	byte mes;
-	byte anio;
-	byte hor;
-	byte min;
-	byte seg;
-	int8 sensor;
-	int8 no_data;
-	int32 value;
-	int16 crc;
-} data;
 
 #ifdef use_rtos
 void activar_tareas();
 void desactivar_tareas();
-int sensor_activo(int sensor);
+
 
 #ifdef MEMORIA_H
 void guardar(){
@@ -74,17 +49,25 @@ void guardar(){
 #else
 void guardar(){
 	if(_debug_usb()){
-		#ifdef SIMULACION
-		printf("\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
-			data.dia, data.mes, data.anio,
-			data.hor, data.min, data.seg,
-			data.sensor, data.no_data, data.value);
-		#else
-		printf(usb_cdc_putc_fast,"\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
-			data.dia, data.mes, data.anio,
-			data.hor, data.min, data.seg,
-			data.sensor, data.no_data, data.value);
-		#endif
+		if(input(PIN_LOG) == LOG_ENABLE){
+			#ifdef SIMULACION
+			printf("\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
+				data.dia, data.mes, data.anio,
+				data.hor, data.min, data.seg,
+				data.sensor, data.no_data, data.value);
+			#else
+			printf(usb_cdc_putc_fast,"\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
+				data.dia, data.mes, data.anio,
+				data.hor, data.min, data.seg,
+				data.sensor, data.no_data, data.value);
+			#endif
+		} else {
+			#ifndef SIMULACION
+			if(_debug_usb()){printf(usb_cdc_putc_fast,noLog);}
+			#else
+			printf(nolog);
+			#endif
+		}
 	}
 }
 #endif	//MEMORIA_H
@@ -114,11 +97,6 @@ void testMemoria(){
 void reloj(){
 	ds1307_get_date(data.dia, data.mes, data.anio, DS_vic);
 	ds1307_get_time(data.hor, data.min, data.seg);
-	#ifndef SIMULACION
-	if(_debug_usb()){printf(usb_cdc_putc_fast,noLog);}
-	#else
-	printf(nolog);
-	#endif
 	//rtos_yield();
 }
 #endif	//DS1307_H
@@ -232,54 +210,9 @@ void desactivar_tareas(){
 	#endif	//ANALOGO_DIGITAL_H
 }
 
-#ifdef CAPTURA_FRECUENCIA_H
-int sensor_activo(int sensor){
-	if(sensor == CCP_REV){
-		return (1);
-	}else if(sensor == CCP_VEL){
-		return (1);
-	}else{
-		return (0);
-	}
-}
-#endif //CAPTURA_FRECUENCIA_H
-
 #endif	//use_rtos
 
 //#include "test.c"	// comentar esto en la aplicacion final
-
-void iniciar_perifericos(){
-	
-	#ifdef COMUNICACION_H
-	myerror = COM_init();
-	//printf("\n\rusb E%d", myerror);
-	#endif
-	
-	#ifdef MEMORIA_H
-	MEMORIA_reset();
-   myerror = MEMORIA_init_hw();
-   myerror = MEMORIA_init();
-   //printf("\n\rmem E%d", myerror);
-	#endif
-	
-	#ifdef ANALOGO_DIGITAL_H
-	myerror = AD_init_adc();
-	#endif
-	
-	#ifdef CAPTURA_FRECUENCIA_H
-	myerror = CP_init_ccp();
-	#endif
-	
-	#ifdef DS1307_H
-	ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
-   //ds1307_set_date_time(0x0d, 0x01, 0x0d, 0x00, 0x0a, 0x2a, 0x00);
-	#endif
-	
-	data.dia = data.mes = data.anio = 0;
-   data.hor = data.min = data.seg = 0;
-   data.value = data.sensor = data.no_data = 0;
-   
-}
 
 /*======================= configuracon de dispositivos =======================*/
 void setup_devices(){
@@ -323,7 +256,11 @@ void main(void) {
 	setup_devices();
 	#ifdef use_rtos
 	_debug_usb();
-   rtos_run(); //A partir de aquí comenzará la ejecución de las tareas
+	if(input(PIN_LOG) == LOG_ENABLE){
+		modo_configuracion();	// si esta el log activo entra en modo configuracion
+	}else{
+   	rtos_run(); //A partir de aquí comenzará la ejecución de las tareas
+	}
    #else
    while(1){
 		if(_debug_usb()){
@@ -350,4 +287,5 @@ void main(void) {
 #include "captura_frecuencia.c"
 #include "memoria.c"
 #include "utilidades.c"
+#include "configuracion.c"
 

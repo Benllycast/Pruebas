@@ -1,5 +1,7 @@
 //#include "Nucleo.h"
-#include "memoria.h"
+#ifdef MEMORIA_H
+
+//#include "memoria.h"
 #include "comunicacion.h"
 
 //borrar para quitar el debug de memoria
@@ -420,3 +422,4 @@ char MEMORIA_getc(void){
    #endif
    return(c);
 }
+#endif	// MEMORIA_H

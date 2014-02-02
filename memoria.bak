@@ -131,7 +131,7 @@ void MEMORIA_getinfo(){
 
 /*====================abrir archivo======================*/
 
-int MEMORIA_open(const char* filename, short modo){
+int MEMORIA_open(char* filename, short modo){
 
    if(!MEMORIA_OK) return(1);
 
