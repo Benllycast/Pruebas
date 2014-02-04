@@ -25,6 +25,7 @@ void iniciar_perifericos(){
 	#ifdef DS1307_H
 	ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
    //ds1307_set_date_time(0x0d, 0x01, 0x0d, 0x00, 0x0a, 0x2a, 0x00);
+   CONF_CANAL_ACTIVO = ds1307_read_nvram_byte(CONF_DIR_CANAl);
 	#endif
 	
 	data.dia = data.mes = data.anio = 0;
@@ -33,17 +34,22 @@ void iniciar_perifericos(){
    
 }
 
-#ifdef CAPTURA_FRECUENCIA_H
+
 int sensor_activo(int sensor){
-	if(sensor == CCP_REV){
-		return (1);
-	}else if(sensor == CCP_VEL){
-		return (1);
-	}else{
-		return (0);
+	switch(sensor){
+		case CCP_REV:
+			return (bit_test(CONF_CANAL_ACTIVO, CONF_CCP_REV_BIT));
+		case CCP_VEL:
+			return (bit_test(CONF_CANAL_ACTIVO, CONF_CCP_VEL_BIT));
+		case AD_VEL:
+			return (bit_test(CONF_CANAL_ACTIVO, CONF_AD_VEL_BIT));
+		case AD_REV:
+			return (bit_test(CONF_CANAL_ACTIVO, CONF_AD_REV_BIT));
+		default:
+			return (0);
 	}
 }
-#endif //CAPTURA_FRECUENCIA_H
+
 
 void modo_configuracion(){
 	printf( cout "\n\rmodo configuracion\n\r" );
@@ -73,7 +79,7 @@ void modo_configuracion(){
 				case CONF_CANAL:
 					putc(CONF_ACK);
 					data.no_data = cin();
-					ds1307_write_nvram_byte(CONF_ADD_CANAL, data.no_data);
+					ds1307_write_nvram_byte(CONF_DIR_CANAL, data.no_data);
 					printf( cout "\n\rCANAL: %u", data.no_data);
 					break;
 				default:

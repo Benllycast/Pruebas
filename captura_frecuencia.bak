@@ -4,6 +4,8 @@
    #include "registros.h"
 #endif
 //canales de lectura
+#define CCP_REV 5
+#define CCP_VEl 6
 #define CCP_CANAL_1 1
 #define CCP_CANAL_2 2
 
