@@ -46,8 +46,42 @@ int sensor_activo(int sensor){
 #endif //CAPTURA_FRECUENCIA_H
 
 void modo_configuracion(){
-	printf("modo configuracion\n\r");
-	
+	printf( cout "\n\rmodo configuracion\n\r" );
+   while(_debug_usb()){
+			while(!(data.sensor = cin()));	//cambiar con usb
+			switch(data.sensor){                    
+				case CONF_FECHA:
+					putc(CONF_ACK);
+					printf( cout "\n\rFECHA: %c", data.sensor);
+					data.dia = cin();
+					data.mes = cin();
+					data.anio = cin();
+					data.no_data = cin();
+					data.hor = cin();
+					data.min = cin();
+					data.seg = cin();
+					ds1307_set_date_time(data.dia, data.mes, data.anio, data.no_data,data.hor, data.min, data.seg);
+					printf( cout "\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
+								data.dia, data.mes, data.anio,
+								data.hor, data.min, data.seg,
+								data.sensor, data.no_data, data.value);
+					break;
+				case CONF_DATO:
+					putc(CONF_ACK);
+					printf( cout "\n\rDATO: %c", data.sensor);
+					break;
+				case CONF_CANAL:
+					putc(CONF_ACK);
+					data.no_data = cin();
+					ds1307_write_nvram_byte(CONF_ADD_CANAL, data.no_data);
+					printf( cout "\n\rCANAL: %u", data.no_data);
+					break;
+				default:
+					putc(CONF_NOACK);
+			}
+			if(data.sensor == CONF_SALIR) {printf( cout "\n\rDesconectar...");break;}
+	}
+	return;
 }
 
 #endif	//CONFIGURACION_H

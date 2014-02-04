@@ -63,7 +63,7 @@ void guardar(){
 			#endif
 		} else {
 			#ifndef SIMULACION
-			if(_debug_usb()){printf(usb_cdc_putc_fast,noLog);}
+			printf(usb_cdc_putc_fast,noLog);
 			#else
 			printf(nolog);
 			#endif

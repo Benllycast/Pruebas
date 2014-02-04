@@ -53,12 +53,16 @@ frecuencia de la CPU:24 Mhz; el FUSE CPIDIV3 para dividir los 96Mhz hasta 24MHz 
 /*============================ DEFINICIONES DE PINES =========================*/
 #define PIN_SDA	PIN_B0
 #define PIN_SCL	PIN_B1
+
+
+
 //#define PIN_XMIT	PIN_C6
 //#define PIN_RCV	PIN_C7
 
 #define PIN_XMIT	PIN_D0
 #define PIN_RCV	PIN_D1
 
+	
 #define PIN_LOG	PIN_D2
 
 #define SPI_SS		PIN_D7
