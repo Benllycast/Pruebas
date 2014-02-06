@@ -26,6 +26,7 @@ void iniciar_perifericos(){
 	ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
    //ds1307_set_date_time(0x0d, 0x01, 0x0d, 0x00, 0x0a, 0x2a, 0x00);
    CONF_CANAL_ACTIVO = ds1307_read_nvram_byte(CONF_DIR_CANAl);
+   //CONF_CANAL_ACTIVO = 0b00000000;
 	#endif
 	
 	data.dia = data.mes = data.anio = 0;

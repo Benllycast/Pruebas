@@ -11,7 +11,7 @@
 //#include "memoria.h"
 #include "ds1307.h"
 #include "analogo_digital.h"
-//#include "captura_frecuencia.h"
+#include "captura_frecuencia.h"
 #include "utilidades.h"
 #include "configuracion.h"
 //#use rs232(baud=9600,parity=N,xmit=PIN_XMIT,rcv=PIN_RCV,bits=8)
@@ -136,6 +136,7 @@ void reloj(){
 	
 	#task (rate=200ms, max=20ms)
 	void leer_AD_VEL(){
+		if(!sensor_activo(AD_VEL)){return;}
 		AD_leer_canal(AD_VEL,&lectura);
 		data.sensor = AD_VEL;
 		data.value = lectura;
@@ -146,6 +147,7 @@ void reloj(){
 	
 	#task (rate=200ms, max=20ms)
 	void leer_AD_REV(){
+		if(!sensor_activo(AD_REV)){return;}
 		AD_leer_canal(AD_REV,&lectura);
 		data.sensor = AD_REV;
 		data.value = lectura;
@@ -160,6 +162,7 @@ void reloj(){
 	void rpm(){
 		// agregar una condicion para comprobar que esta tarea este abilitada para
 		// ejecutarse
+		if(!(sensor_activo(CCP_VEL)||sensor_activo(CCP_REV))){return;}
 		
 		if(!CP_ocupado()){
 			desactivar_tareas();
@@ -174,7 +177,8 @@ void reloj(){
 		}
 		//rtos_await(Q_CCP == 2);                       
 		if(!CP_done()){
-			rtos_yield();
+			//rtos_yield();
+			return;
 		}  
 		data.value = CP_obtener_resultado();
 		CP_desativar_captura();
