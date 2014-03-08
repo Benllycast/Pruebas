@@ -18,8 +18,8 @@ AdditionalOptionString=
 [Opened Files]
 1=Nucleo.c
 2=Nucleo.h
-3=configuracion.h
-4=configuracion.c
+3=ds1307.h
+4=
 5=
 6=
 7=

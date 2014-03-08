@@ -1,4 +1,4 @@
-CCS PCH C Compiler, Version 4.105, 13255               06-Feb-14 11:42
+CCS PCH C Compiler, Version 4.105, 13255               08-Mar-14 12:48
 
                Filename: G:\Project\pic\CCS\Pruebas\Nucleo.lst
 
@@ -89,7 +89,7 @@ CCS PCH C Compiler, Version 4.105, 13255               06-Feb-14 11:42
 .................... #define SIMULACION 1	// comentar esto si se prueba en forma real 
 ....................  
 .................... /*====================fuses de configuracion del dispositivo==================*/ 
-.................... #fuses HSPLL,NOWDT,NOPROTECT,NOLVP,NODEBUG,USBDIV,PLL5,CPUDIV4,VREGEN, NOPBADEN 
+.................... #fuses HSPLL,NOWDT,NOPROTECT,NOLVP,NODEBUG,USBDIV,PLL5,CPUDIV4,VREGEN,NOPBADEN,CCP2C1 
 .................... /* 
 .................... #FUSES NOWDT                 	//No Watch Dog Timer 
 .................... #FUSES WDT128                	//Watch Dog Timer uses 1:128 Postscale 
@@ -11799,8 +11799,6 @@ CCS PCH C Compiler, Version 4.105, 13255               06-Feb-14 11:42
 .................... #ifndef ANALOGO_DIGITAL_H 
 .................... #define ANALOGO_DIGITAL_H 
 ....................  
-....................  
-....................  
 .................... int AD_init_adc(); 
 .................... int AD_leer_canal(unsigned int canal, int16 *buffer); 
 ....................  
@@ -14027,6 +14025,7 @@ CCS PCH C Compiler, Version 4.105, 13255               06-Feb-14 11:42
 .................... } 
 1CA0:  GOTO   1CAE (RETURN)
 ....................  
+.................... //de aqui en adelante hay que quitar estas funciones que no se utilizan 
 .................... int8 COM_send(char* buffer, unsigned int8 leng, unsigned short wait = 1){ 
 ....................    indice = 0; 
 ....................    if(!COM_READY) return(-1); 
