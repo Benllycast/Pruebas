@@ -11,7 +11,7 @@
 #define CONF_NOACK	0x15
 
 //direccion del byte de canales activos y bit de canales
-#define CONF_DIR_CANAl		0x08
+#define CONF_DIR_CANAL		0x08
 #define CONF_CCP_VEL_BIT	0
 #define CONF_CCP_REV_BIT	1
 #define CONF_CCP_BIT			2
@@ -25,7 +25,7 @@
 #define AD_VEL 	3
 #define AD_REV		4
 #define CCP_REV 	5
-#define CCP_VEl 	6
+#define CCP_VEL 	6
 
 // para el switch de log
 #define LOG_ENABLE	1
@@ -33,7 +33,7 @@
 #define LOG_LINE ("\n\r%X:%X:%X:%X:%X:%X:%X:%X:%LX:%LX")
 
 // definicion de pines de indicadores
-#define INDICADOR_AMARILLO	PIN_E0
+#define INDICADOR_POWER		PIN_E0
 #define INDICADOR_USB		PIN_E1
 #define INDICADOR_RUN		PIN_E2
 

@@ -1,4 +1,4 @@
-CCS PCH C Compiler, Version 4.105, 13255               08-Mar-14 12:48
+CCS PCH C Compiler, Version 4.105, 13255               20-Mar-14 16:30
 
                Filename: G:\Project\pic\CCS\Pruebas\Nucleo.lst
 
@@ -12620,7 +12620,7 @@ CCS PCH C Compiler, Version 4.105, 13255               08-Mar-14 12:48
 .................... #define CONF_NOACK	0x15 
 ....................  
 .................... //direccion del byte de canales activos y bit de canales 
-.................... #define CONF_DIR_CANAl		0x08 
+.................... #define CONF_DIR_CANAL		0x08 
 .................... #define CONF_CCP_VEL_BIT	0 
 .................... #define CONF_CCP_REV_BIT	1 
 .................... #define CONF_CCP_BIT			2 
@@ -12634,7 +12634,7 @@ CCS PCH C Compiler, Version 4.105, 13255               08-Mar-14 12:48
 .................... #define AD_VEL 	3 
 .................... #define AD_REV		4 
 .................... #define CCP_REV 	5 
-.................... #define CCP_VEl 	6 
+.................... #define CCP_VEL 	6 
 ....................  
 .................... // para el switch de log 
 .................... #define LOG_ENABLE	1 
@@ -12642,7 +12642,7 @@ CCS PCH C Compiler, Version 4.105, 13255               08-Mar-14 12:48
 .................... #define LOG_LINE ("\n\r%X:%X:%X:%X:%X:%X:%X:%X:%LX:%LX") 
 ....................  
 .................... // definicion de pines de indicadores 
-.................... #define INDICADOR_AMARILLO	PIN_E0 
+.................... #define INDICADOR_POWER		PIN_E0 
 .................... #define INDICADOR_USB		PIN_E1 
 .................... #define INDICADOR_RUN		PIN_E2 
 ....................  
@@ -13344,7 +13344,7 @@ CCS PCH C Compiler, Version 4.105, 13255               08-Mar-14 12:48
 ....................    output_bit(INDICADOR_USB, 0); 
 1FDA:  BCF    F8D.1
 1FDC:  BCF    F96.1
-....................    output_bit(INDICADOR_AMARILLO, 1); 
+....................    output_bit(INDICADOR_POWER, 1); 
 1FDE:  BSF    F8D.0
 1FE0:  BCF    F96.0
 ....................    output_bit(INDICADOR_RUN, 1); 
