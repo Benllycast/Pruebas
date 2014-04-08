@@ -17,9 +17,9 @@ AdditionalOptionString=
 0=0000 %S 0 0 796 451 3 0
 [Opened Files]
 1=Nucleo.c
-2=Nucleo.h
-3=configuracion.h
-4=configuracion.c
+2=configuracion.h
+3=configuracion.c
+4=
 5=
 6=
 7=
@@ -39,7 +39,7 @@ BuildTool=C-COMPILER
 AdditionalOptionString=
 BuildRequired=1
 [Directories]
-Include=I:\Archivos de programa\PICC\Devices;I:\Archivos de programa\PICC\Drivers;
+Include=I:\Archivos de programa\PICC\Devices;I:\Archivos de programa\PICC\Drivers;C:\Program Files\PICC\Devices;C:\Program Files\PICC\Drivers;
 Library=
 LinkerScript=
 [defines]
@@ -124,4 +124,5 @@ OptionString=
 AdditionalOptionString=
 [Units]
 Count=1
-1=Nucleo (main)
+1=Nucleo.c
+Link=0
