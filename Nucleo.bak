@@ -162,7 +162,7 @@ void reloj(){
 	void rpm(){
 		// agregar una condicion para comprobar que esta tarea este abilitada para
 		// ejecutarse
-		if(!(sensor_activo(CCP_VEL)||sensor_activo(CCP_REV))){rtos_disable(rpm);}
+		if(!(sensor_activo(CCP_VEL)||sensor_activo(CCP_REV))){return;}
 		
 		if(!CP_ocupado()){
 			desactivar_tareas();

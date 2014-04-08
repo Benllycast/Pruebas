@@ -6,8 +6,8 @@ int COM_init(){
 	usb_detach(); 
 	usb_cdc_init();
    usb_init_cs();
-   usb_task();
-   /*if(usb_attached()){
+   /*usb_task();
+   if(usb_attached()){
       if(usb_enumerated()){
          return (USB_OK);
       }else{

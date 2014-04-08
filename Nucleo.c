@@ -241,7 +241,7 @@ void setup_devices(){
    set_tris_c(CONFIG_PORT_C);		//configuracion para el modulo de memoria y CCP. mirar Nucleo.h
    set_tris_d(CONFIG_PORT_D);
    output_bit(INDICADOR_USB, 0);
-   output_bit(INDICADOR_AMARILLO, 1);
+   output_bit(INDICADOR_POWER, 1);
    output_bit(INDICADOR_RUN, 1);
    //output_low(SPI_SCL);
    //output_high(SPI_SS);

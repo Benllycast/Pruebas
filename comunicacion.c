@@ -30,6 +30,7 @@ int8 COM_sense(){
    return(USB_NO_ATTACHED);
 }
 
+//de aqui en adelante hay que quitar estas funciones que no se utilizan
 int8 COM_send(char* buffer, unsigned int8 leng, unsigned short wait = 1){
    indice = 0;
    if(!COM_READY) return(-1);
