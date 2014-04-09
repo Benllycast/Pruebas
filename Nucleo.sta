@@ -1,6 +1,6 @@
 
-ROM used: 10102 (31%)
-          10102 (31%) including unused fragments
+ROM used: 10644 (32%)
+          10644 (32%) including unused fragments
 
           1 Average locations per line
           4 Average locations per statement
@@ -30,20 +30,20 @@ Lines Stmts  %   Files
   808   237   9  C:\Program Files\PICC\Drivers\usb.c
  1281   320  13  C:\Program Files\PICC\Drivers\pic18_usb.c
    82   104   4  ds1307.h
-   10     0   0  analogo_digital.h
+    8     0   0  analogo_digital.h
    41     0   0  captura_frecuencia.h
   670     0   0  registros.h
    16   104   4  utilidades.h
    84     0   0  configuracion.h
-   61   138   5  comunicacion.c
+   62   138   5  comunicacion.c
    45   118   5  analogo_digital.c
   405   185   7  ds1307.c
   108   173   7  captura_frecuencia.c
   426   104   4  memoria.c
-   43   114   5  utilidades.c
-  103   153   6  configuracion.c
+   43   114   4  utilidades.c
+  120   168   7  configuracion.c
 ----- -----
- 9553  2521 Total
+ 9569  2536 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
@@ -93,7 +93,7 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     52   0   0   336  5.5  usb_isr_tok_setup_dne
 0    184   1   0  1454  8.3  usb_isr_tkn_setup_StandardDevice
 0    170   1   3   930  7.7  usb_isr_tkn_setup_StandardInterface
-0    106   1   0   753  5.8  usb_isr_tkn_setup_StandardEndpoint
+0    106   0   0   753  5.8  usb_isr_tkn_setup_StandardEndpoint
 0    200   1   1  1088  8.7  usb_Get_Descriptor
 0     14   0   0    76  1.8  usb_finish_set_address
 0    154   1   4   591  8.6  usb_copy_desc_seg_to_ep
@@ -103,7 +103,7 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     10   0   0    30  1.5  usb_isr_tok_in_cdc_data_dne
 0     36   0   0    86  2.1  usb_cdc_flush_out_buffer
 0     34   0   0   255  2.3  usb_cdc_init
-0    106   1   3             @I2C_READ_1
+0    106   0   3             @I2C_READ_1
 0    118   1   1             @I2C_WRITE_1
 0     70   0   1             @PUTCHAR_1_
 0     74   0   1             @GETCH_1_
@@ -111,7 +111,7 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     38   0   0             @const1262
 0     44   0   3             @DIV88
 0    124   1   2             @PRINTF_U_1231
-0     40   0   3             @PSTRINGCN_1231
+0     42   0   3             @PSTRINGCN_1231
 0    128   1  13             @DIV3232
 0    196   1  12             @PRINTF_L32U_1231
 0     38   0   2             @PSTRINGR_1231
@@ -126,7 +126,7 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     22   0   0   127  1.3  activar_tareas
 0     22   0   0   127  1.3  desactivar_tareas
 0     88   0   0   436  2.8  setup_devices
-0   1116   6   1   100  2.0  MAIN
+0   1116   5   1   100  2.0  MAIN
 0     42   0   0             @const1296
 0     16   0   0    48  1.6  COM_init
 0     36   0   0   124  2.7  COM_sense
@@ -136,7 +136,7 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0    226   1   8   480  2.6  ds1307_set_date_time
  Inline        5   389  2.9  ds1307_get_date
  Inline        4   321  2.8  ds1307_get_time
-0    162   1   2   176  2.1  ds1307_read_nvram_byte
+0    160   1   2   176  2.1  ds1307_read_nvram_byte
 0    100   0   2   106  1.6  ds1307_write_nvram_byte
 0     40   0   3   240  6.0  ds1307_bin2bcd
 0     42   0   3   157  4.4  ds1307_bcd2bin
@@ -151,20 +151,18 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     28   0   0    24  1.7  CP_obtener_resultado
 0     82   0   0   403  2.5  iniciar_perifericos
 0     72   0   1   287  4.1  sensor_activo
-0    316   2   0  1392  7.7  modo_configuracion
-0     12   0   0             @const1331
-0     12   0   0             @const1332
-0     18   0   0             @const1333
+0    882   4   0  2202  7.8  modo_configuracion
+0     18   0   0             @const1331
 0     36   0   2             @PSTRINGC_1231
 
 Program metrics:
     Functions               84
-    Statements              2521
-    Comments                4701
-    Volume (V)              56186
-    Difficilty (D)          322.1
-    Effort to implement (E) 18096077
-    Time to implement (T)   279 hours, 16 minutes
+    Statements              2536
+    Comments                4704
+    Volume (V)              57403
+    Difficilty (D)          323.0
+    Effort to implement (E) 18538790
+    Time to implement (T)   286 hours, 6 minutes
     Est Delivered Bugs (B)  23
     Cyclomatic Complexity   151
     Maintainability (MI)    40
@@ -174,7 +172,7 @@ Program metrics:
 00000-00002     4  0  
 00004-00006     4  0  
 00008-000B8   178  0  
-000BA-07FFE  9916  22666  
+000BA-07FFE  10458  22124  
 
 
 

@@ -36,7 +36,7 @@
 #define LOG_LINE ("\n\r%X:%X:%X:%X:%X:%X:%X:%X:%LX:%LX")
 
 // definicion de pines de indicadores
-#define INDICADOR_AMARILLO    PIN_E0
+#define INDICADOR_POWER    PIN_E0
 #define INDICADOR_USB        PIN_E1
 #define INDICADOR_RUN        PIN_E2
 

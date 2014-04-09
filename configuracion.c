@@ -76,6 +76,15 @@ void modo_configuracion(){
                     break;
                 case CONF_GET_FECHA:
                     putc(CONF_GET_FECHA);
+                    ds1307_get_date(data.dia, data.mes, data.anio, data.no_data);
+                    ds1307_get_time(data.hor, data.min, data.seg);
+                    putc(data.dia);
+                    putc(data.mes);
+                    putc(data.anio);
+                    putc(data.no_data);
+                    putc(data.hor);
+                    putc(data.min);
+                    putc(data.seg);
                     putc(CONF_ACK);
                     break;
                 case CONF_SET_DATO:
@@ -95,6 +104,8 @@ void modo_configuracion(){
                     break;
                 case CONF_GET_CANAL:
                     putc(CONF_GET_CANAL);
+                    data.no_data = ds1307_read_nvram_byte(CONF_DIR_CANAL);
+                    putc(data.no_data);
                     putc(CONF_ACK);
                     break;
                 default:

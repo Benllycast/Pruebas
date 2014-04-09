@@ -6,5 +6,5 @@
 >>> Warning 216 "Nucleo.c" Line 297(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
 >>> Warning 202 "D:\Proyecto\Pruebas\configuracion.h" Line 64(6,14): Variable never used:   testfile
 >>> Warning 202 "D:\Proyecto\Pruebas\configuracion.h" Line 65(6,16): Variable never used:   buffer_log
-      Memory usage:   ROM=31%      RAM=30% - 39%
+      Memory usage:   ROM=32%      RAM=30% - 39%
       0 Errors,  8 Warnings.
