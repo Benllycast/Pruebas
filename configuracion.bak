@@ -1,83 +1,125 @@
-#ifndef CONFIGURACION_H
-#define CONFIGURACION_H
+#ifdef CONFIGURACION_H
 
-// opciones de configuracion
-#define CONF_SALIR    '9'
-#define CONF_SET_FECHA  '1'
-#define CONF_GET_FECHA  '2'
-#define CONF_SET_CANAL  '3'
-#define CONF_GET_CANAL  '4'
-#define CONF_SET_DATO   '5'
-#define CONF_GET_DATO   '6'
+void iniciar_perifericos(){
+    
+    #ifdef COMUNICACION_H
+    myerror = COM_init();
+    //printf("\n\rusb E%d", myerror);
+    #endif
+    
+    #ifdef MEMORIA_H
+    MEMORIA_reset();
+   myerror = MEMORIA_init_hw();
+   myerror = MEMORIA_init();
+   //printf("\n\rmem E%d", myerror);
+    #endif
+    
+    #ifdef ANALOGO_DIGITAL_H
+    myerror = AD_init_adc();
+    #endif
+    
+    #ifdef CAPTURA_FRECUENCIA_H
+    myerror = CP_init_ccp();
+    #endif
+    
+    #ifdef DS1307_H
+    ds1307_init(DS1307_OUT_ON_DISABLED_HIHG | DS1307_OUT_ENABLED | DS1307_OUT_1_HZ);
+   //ds1307_set_date_time(0x0d, 0x01, 0x0d, 0x00, 0x0a, 0x2a, 0x00);
+   CONF_CANAL_ACTIVO = ds1307_read_nvram_byte(CONF_DIR_CANAl);
+   //CONF_CANAL_ACTIVO = 0b00000000;
+    #endif
+    
+    data.dia = data.mes = data.anio = 0;
+   data.hor = data.min = data.seg = 0;
+   data.value = data.sensor = data.no_data = 0;
+   
+}
 
-#define CONF_ACK        0x06
-#define CONF_NOACK    0x15
 
-//direccion del byte de canales activos y bit de canales
-#define CONF_DIR_CANAl        0x08
-#define CONF_CCP_VEL_BIT    0
-#define CONF_CCP_REV_BIT    1
-#define CONF_CCP_BIT            2
-#define CONF_AD_VEL_BIT        3
-#define CONF_AD_REV_BIT        4
+int sensor_activo(int sensor){
+    switch(sensor){
+        case CCP_REV:
+            return (bit_test(CONF_CANAL_ACTIVO, CONF_CCP_REV_BIT));
+        case CCP_VEL:
+            return (bit_test(CONF_CANAL_ACTIVO, CONF_CCP_VEL_BIT));
+        case AD_VEL:
+            return (bit_test(CONF_CANAL_ACTIVO, CONF_AD_VEL_BIT));
+        case AD_REV:
+            return (bit_test(CONF_CANAL_ACTIVO, CONF_AD_REV_BIT));
+        default:
+            return (0);
+    }
+}
 
-// numeracion de sensores
-#define ACC_x        0
-#define ACC_y        1
-#define ACC_z        2
-#define AD_VEL     3
-#define AD_REV        4
-#define CCP_REV     5
-#define CCP_VEl     6
 
-// para el switch de log
-#define LOG_ENABLE    1
-#define LOG_DISABLE    0
-#define LOG_LINE ("\n\r%X:%X:%X:%X:%X:%X:%X:%X:%LX:%LX")
+void modo_configuracion(){
+    //printf( cout "\n\rmodo configuracion\n\r" );
+   while(_debug_usb()){
+            while(!(data.sensor = cin()));    //cambiar con usb
+            switch(data.sensor){
+                case CONF_SET_FECHA:
+                    putc(CONF_SET_FECHA);
+                    //printf( cout "\n\rFECHA: %c", data.sensor);
+                    data.dia = cin();
+                    data.mes = cin();
+                    data.anio = cin();
+                    data.no_data = cin();
+                    data.hor = cin();
+                    data.min = cin();
+                    data.seg = cin();
+                    ds1307_set_date_time(data.dia, data.mes, data.anio, data.no_data,data.hor, data.min, data.seg);
+                    /*printf( cout "\n\r%u/%u/%u(%u:%u:%u) S:%u N:%u V:%Lu",
+                                data.dia, data.mes, data.anio,
+                                data.hor, data.min, data.seg,
+                                data.sensor, data.no_data, data.value);*/
+                    putc(CONF_ACK);
+                    break;
+                case CONF_GET_FECHA:
+                    putc(CONF_GET_FECHA);
+                    ds1307_get_date(data.dia, data.mes, data.anio, data.no_data);
+                    ds1307_get_time(data.hor, data.min, data.seg);
+                    putc(data.dia);
+                    putc(data.mes);
+                    putc(data.anio);
+                    putc(data.no_data);
+                    putc(data.hor);
+                    putc(data.min);
+                    putc(data.seg);
+                    putc(CONF_ACK);
+                    break;
+                case CONF_SET_DATO:
+                    putc(CONF_SET_DATO);
+                    data.sensor = cin(); //lee la direccion
+                    data.no_data = cin(); // lee el valor
+                    ds1307_write_nvram_byte(data.sensor, data.no_data);
+                    putc(CONF_ACK);
+                    break;
+                case CONF_GET_DATO:
+                    putc(CONF_GET_DATO);
+                    data.sensor = cin(); //lee la direccion
+                    data.no_data = ds1307_read_nvram_byte(data.sensor); //lee el valor de la ram
+                    putc(data.no_data);
+                    putc(CONF_ACK);
+                    break;
+                case CONF_SET_CANAL:
+                    putc(CONF_SET_CANAL);
+                    data.no_data = cin();
+                    ds1307_write_nvram_byte(CONF_DIR_CANAL, data.no_data);
+                    //printf( cout "\n\rCANAL: %u", data.no_data);
+                    putc(CONF_ACK);
+                    break;
+                case CONF_GET_CANAL:
+                    putc(CONF_GET_CANAL);
+                    data.no_data = ds1307_read_nvram_byte(CONF_DIR_CANAL);
+                    putc(data.no_data);
+                    putc(CONF_ACK);
+                    break;
+                default:
+                    putc(CONF_NOACK);
+            }
+            if(data.sensor == CONF_SALIR) {printf( cout "\n\rDesconectar...");break;}
+    }
+    return;
+}
 
-// definicion de pines de indicadores
-#define INDICADOR_POWER    PIN_E0
-#define INDICADOR_USB        PIN_E1
-#define INDICADOR_RUN        PIN_E2
-
-// esto es para debug
-#ifdef SIMULACION
-    #define cout    
-    #define cin        getc              
-#else
-    #define cout    usb_cdc_putc_fast,
-    #define cin        usb_cdc_getc
-    #define putc    usb_cdc_putc
-#endif
-
-// definciones utilizadas en el nucleo
-int1 salida = 0;
-byte CONF_CANAL_ACTIVO = 0;
-
-#ifdef CAPTURA_FRECUENCIA_H
-    int canal_ccp = CCP_CANAL_1;
-#endif    //CAPTURA_FRECUENCIA_H
-
-int myerror = 0;
-int16 lectura = 0;
-char noLog[] = "\n\rno se puede guardar";
-char testfile[] = "prueba";
-char buffer_log[39];
-//int32 resultado = 0;
-struct Log {
-    byte dia;
-    byte mes;
-    byte anio;
-    byte hor;
-    byte min;
-    byte seg;
-    int8 sensor;
-    int8 no_data;
-    int32 value;
-    int16 crc;
-} data;
-
-void iniciar_perifericos();
-int sensor_activo(int sensor);
-void modo_configuracion();
-#endif
+#endif    //CONFIGURACION_H
