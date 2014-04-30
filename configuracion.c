@@ -89,10 +89,16 @@ void modo_configuracion(){
                     break;
                 case CONF_SET_DATO:
                     putc(CONF_SET_DATO);
+                    data.sensor = cin(); //lee la direccion
+                    data.no_data = cin(); // lee el valor
+                    ds1307_write_nvram_byte(data.sensor, data.no_data);
                     putc(CONF_ACK);
                     break;
                 case CONF_GET_DATO:
                     putc(CONF_GET_DATO);
+                    data.sensor = cin(); //lee la direccion
+                    data.no_data = ds1307_read_nvram_byte(data.sensor); //lee el valor de la ram
+                    putc(data.no_data);
                     putc(CONF_ACK);
                     break;
                 case CONF_SET_CANAL:

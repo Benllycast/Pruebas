@@ -457,7 +457,7 @@ ROM Allocation:
 1A0A  activar_tareas
 195C  desactivar_tareas
 1FBA  setup_devices
-2538  MAIN
+2564  MAIN
 0246  @const1296
 1CCE  COM_init
 1CAA  COM_sense
@@ -465,8 +465,8 @@ ROM Allocation:
 13EE  AD_leer_canal
 1D5E  ds1307_init
 205C  ds1307_set_date_time
-2262  ds1307_get_date
-235C  ds1307_get_time
+2260  ds1307_get_date
+235A  ds1307_get_time
 1EC8  ds1307_read_nvram_byte
 213E  ds1307_write_nvram_byte
 1D36  ds1307_bin2bcd
@@ -482,10 +482,10 @@ ROM Allocation:
 19BE  CP_obtener_resultado
 1F68  iniciar_perifericos
 1880  sensor_activo
-21C6  modo_configuracion
+21C4  modo_configuracion
 1C10  @const1331
-21A2  @PSTRINGC_1231
-2538  @cinit
+21A0  @PSTRINGC_1231
+2564  @cinit
 0136  StrtoulGO
 0136  StrtolGO
 

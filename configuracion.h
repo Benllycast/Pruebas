@@ -27,8 +27,9 @@
 #define ACC_z        2
 #define AD_VEL     3
 #define AD_REV        4
-#define CCP_REV     5
-#define CCP_VEl     6
+#define CCP_VEl     5
+#define CCP_REV     6
+
 
 // para el switch de log
 #define LOG_ENABLE    1
