@@ -18,9 +18,9 @@ AdditionalOptionString=
 [Opened Files]
 1=Nucleo.c
 2=Nucleo.h
-3=
-4=
-5=
+3=configuracion.h
+4=memoria.h
+5=configuracion.c
 6=
 7=
 8=

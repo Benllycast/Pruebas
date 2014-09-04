@@ -8,9 +8,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "comunicacion.h"
-//#include "memoria.h"
+#include "memoria.h"
 #include "ds1307.h"
-//#include "analogo_digital.h"
+#include "analogo_digital.h"
 #include "captura_frecuencia.h"
 #include "utilidades.h"
 #include "configuracion.h"
@@ -77,8 +77,7 @@ void guardar(){
 */
 
 #task (rate=500ms, max=5ms)
-void proceso2()
-{   
+void proceso2(){   
    salida = (salida)? 0 : 1;
    if(salida) output_bit(INDICADOR_RUN, 1);
    else output_bit(INDICADOR_RUN, 0);
@@ -106,7 +105,7 @@ void reloj(){
 #endif   //DS1307_H
 
 #ifdef ANALOGO_DIGITAL_H
-   #task (rate=200ms, max=20ms)
+   #task (rate=300ms, max=20ms)
    void Tarea1()
    {
       AD_leer_canal(ACC_x,&lectura);
@@ -117,7 +116,7 @@ void reloj(){
       //rtos_yield();
    }
    
-   #task (rate=200ms, max=20ms)
+   #task (rate=300ms, max=20ms)
    void Tarea2(){
       AD_leer_canal(ACC_y,&lectura);
       data.sensor = ACC_y;
@@ -128,7 +127,7 @@ void reloj(){
    }
    
    
-   #task (rate=200ms, max=20ms)
+   #task (rate=300ms, max=20ms)
    void Tarea3(){
       AD_leer_canal(ACC_z,&lectura);
       data.sensor = ACC_z;
@@ -138,7 +137,7 @@ void reloj(){
       //rtos_yield();
    }
    
-   #task (rate=200ms, max=20ms)
+   #task (rate=450ms, max=20ms)
    void leer_AD_VEL(){
       if(!sensor_activo(AD_VEL)){return;}
       AD_leer_canal(AD_VEL,&lectura);
@@ -149,7 +148,7 @@ void reloj(){
       //rtos_yield();
    }
    
-   #task (rate=200ms, max=20ms)
+   #task (rate=450ms, max=20ms)
    void leer_AD_REV(){
       if(!sensor_activo(AD_REV)){return;}
       AD_leer_canal(AD_REV,&lectura);
@@ -162,7 +161,7 @@ void reloj(){
 #endif   //ANALOGO_DIGITAL_H
 
 #ifdef CAPTURA_FRECUENCIA_H
-   #task (rate=300ms, max=50ms)
+   #task (rate=850ms, max=50ms)
    void rpm(){
       // agregar una condicion para comprobar que esta tarea este abilitada para
       // ejecutarse

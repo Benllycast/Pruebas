@@ -1,13 +1,11 @@
->>> Warning 203 "Nucleo.c" Line 49(1,1): Condition always TRUE
->>> Warning 203 "Nucleo.c" Line 53(1,1): Condition always TRUE
->>> Warning 207 "Nucleo.c" Line 266(1,1): Code has no effect
+>>> Warning 225 "D:\Proyecto\Pruebas\configuracion.h" Line 51(17,33): Duplicate #define
+>>> Warning 201 "Nucleo.c" Line 36(1,1): Assignment inside relational expression
+>>> Warning 201 "Nucleo.c" Line 39(1,1): Assignment inside relational expression
 >>> Warning 203 "D:\Proyecto\Pruebas\ds1307.c" Line 181(1,1): Condition always TRUE
->>> Warning 203 "D:\Proyecto\Pruebas\configuracion.c" Line 57(1,1): Condition always TRUE
->>> Warning 201 "D:\Proyecto\Pruebas\configuracion.c" Line 58(1,1): Assignment inside relational expression
->>> Warning 216 "Nucleo.c" Line 301(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
->>> Warning 202 "D:\Proyecto\Pruebas\configuracion.h" Line 63(15,22): Variable never used:   lectura
->>> Warning 202 "D:\Proyecto\Pruebas\configuracion.h" Line 65(6,14): Variable never used:   testfile
->>> Warning 202 "Nucleo.c" Line 26(24,30): Variable never used:   nBytes
->>> Warning 202 "Nucleo.c" Line 26(38,46): Variable never used:   escritos
-      Memory usage:   ROM=29%      RAM=26% - 28%
-      0 Errors,  11 Warnings.
+>>> Warning 201 "D:\Proyecto\Pruebas\configuracion.c" Line 59(1,1): Assignment inside relational expression
+>>> Warning 216 "Nucleo.c" Line 300(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_tbe)
+>>> Warning 216 "Nucleo.c" Line 300(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_flush_out_buffer)
+>>> Warning 216 "Nucleo.c" Line 300(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
+>>> Warning 216 "Nucleo.c" Line 300(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_flush_out)
+      Memory usage:   ROM=39%      RAM=31% - 43%
+      0 Errors,  9 Warnings.
