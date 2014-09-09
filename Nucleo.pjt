@@ -18,8 +18,8 @@ AdditionalOptionString=
 [Opened Files]
 1=Nucleo.c
 2=Nucleo.h
-3=memoria.h
-4=
+3=
+4=Nucleo.h
 5=configuracion.c
 6=
 7=
@@ -124,4 +124,5 @@ OptionString=
 AdditionalOptionString=
 [Units]
 Count=1
-1=Nucleo (main)
+1=Nucleo.c
+Link=0
