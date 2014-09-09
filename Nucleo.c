@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "comunicacion.h"
-#include "memoria.h"
+//#include "memoria.h"
 #include "ds1307.h"
 #include "analogo_digital.h"
 #include "captura_frecuencia.h"
@@ -26,7 +26,7 @@ void guardar(){
    unsigned int nBytes = 0, escritos = 0;
    if(input(PIN_LOG) == LOG_ENABLE){
       sprintf(buffer_log,LOG_LINE,
-            data.dia, data.mes, data.anio,
+            DS_dia, DS_mes, DS_anio,
             data.hor, data.min, data.seg,
             data.sensor, data.no_data, data.value, data.crc
             );
@@ -98,8 +98,14 @@ void testMemoria(){
 #ifdef DS1307_H
 #task (rate=500ms, max=50ms)
 void reloj(){
-   ds1307_get_date(data.dia, data.mes, data.anio, DS_vic);
-   ds1307_get_time(data.hor, data.min, data.seg);
+   ds1307_get_date(DS_dia, DS_mes, DS_anio, DS_vic);
+   ds1307_get_time(DS_hor, DS_min, DS_seg);
+   data.dia = DS_dia;
+   data.mes = DS_mes;
+   data.anio = DS_anio;
+   data.hor = DS_hor;
+   data.min = DS_min;
+   data.seg = DS_seg;
    //rtos_yield();
 }
 #endif   //DS1307_H

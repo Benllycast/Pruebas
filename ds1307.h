@@ -69,13 +69,13 @@ char ds1307_read_nvram_byte(char addr);
 void ds1307_write_nvram_byte(char addr, char value);
 void ds1307_get_day_of_week(char* ptr);
 byte DS_vic = 0x00;
-/*
+
 byte DS_dia = 0x00;
 byte DS_mes = 0x00;
 byte DS_anio = 0x00;
 
 byte DS_hor = 0x00;
 byte DS_min = 0x00;
-byte DS_sec = 0x00;
-*/
+byte DS_seg = 0x00;
+
 #endif
