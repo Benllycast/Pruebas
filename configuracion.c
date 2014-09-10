@@ -55,6 +55,7 @@ int sensor_activo(int sensor){
 
 void modo_configuracion(){
     //printf( cout "\n\rmodo configuracion\n\r" );
+   while(!_debug_usb())continue;
    while(_debug_usb()){
             while(!(data.sensor = cin()));    //cambiar con usb
             switch(data.sensor){

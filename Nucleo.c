@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "comunicacion.h"
-//#include "memoria.h"
+#include "memoria.h"
 #include "ds1307.h"
 #include "analogo_digital.h"
 #include "captura_frecuencia.h"

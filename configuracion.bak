@@ -32,6 +32,7 @@ void iniciar_perifericos(){
    data.dia = data.mes = data.anio = 0;
    data.hor = data.min = data.seg = 0;
    data.value = data.sensor = data.no_data = 0;
+   data.crc = 0;
    
 }
 
